@@ -1,1 +1,1 @@
-Application en ligne pour la gestion des candidatures des étudiants de la faculté d'économie et gestion.pplication en ligne pour la gestion des candidatures des étudiants de la faculté d'économie et gestion.
+Application en ligne pour la gestion des candidatures des étudiants de la faculté d'économie et gestion.
