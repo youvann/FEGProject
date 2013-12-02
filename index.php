@@ -21,7 +21,7 @@
 			<div class="row">
         		<div class=".col-md-8">
 
-					<?php include('views/form1.html'); ?>
+					<?php include('views/form1.php'); ?>
 
 				</div>
 			</div>
