@@ -21,7 +21,8 @@
 			<div class="row">
         		<div class=".col-md-8">
 
-					<?php include('views/form1.php'); ?>
+					<div id="formation"><?php include('views/form.formation.php'); ?></div>
+					<div id="inscription"><?php include('views/form.inscription.php'); ?></div>
 
 				</div>
 			</div>

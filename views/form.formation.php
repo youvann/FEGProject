@@ -1,12 +1,18 @@
+<?php 
+/**
+ * Affiche le premier formulaire qui contient
+ * deux listes déroulantes : Formation précédente + formation souhaitée
+ */
+?>
+
 <div class="panel panel-primary">
 
     <div class="panel-heading">
-        <h3 class="panel-title">Inscription pour l'année scolaire 2013-2014</h3>
+        <h3 class="panel-title">Inscription pour l'année scolaire 2013-2014 : Etape 1 sur 2</h3>
     </div><!-- /panel-heading -->
 
     <div class="panel-body">
-
-    <form role="form" id="form_liste" action="controllers/form1.controller.php" method="post">
+    <form role="form" id="form_liste" action="controllers/form.formation.controller.php" method="post">
         <div class="form-group">
             
             <label for="liste1">Sélectionnez votre dernière formation effectuée</label> 
@@ -57,11 +63,9 @@
 
             <button type="submit" class="btn btn-primary">Valider</button>
             <div id="result_form1"></div>
-        </div>
+        </div><!-- /form-group -->
     </form>
-
-        </div><!-- /panel-body -->
-    </div><!-- /form-group -->
+    </div><!-- /panel-body -->
 </div><!-- /panel panel-primary -->
 
 
