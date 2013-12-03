@@ -8,13 +8,15 @@
 <div class="panel panel-primary">
 
     <div class="panel-heading">
-        <h3 class="panel-title">Inscription pour l'année scolaire 2013-2014 : Etape 1 sur 2</h3>
+        <h3 class="panel-title">Etape 1 sur 4 : Parcours de l'étudiant</h3>
     </div><!-- /panel-heading -->
 
     <div class="panel-body">
     <form role="form" id="form_liste" action="controllers/form.formation.controller.php" method="post">
-        <div class="form-group">
-            
+        <fieldset>
+        <legend><h2>Formation souhaitée</h2></legend>
+        
+        <div class="form-group">    
             <label for="liste1">Sélectionnez votre dernière formation effectuée</label> 
             <div class="row">
                 <div class="col-xs-2">
@@ -35,9 +37,9 @@
 
                 </div><!-- /col-xs-2 -->
             </div><!-- /row -->
+        </div><!-- /form-group -->
 
-            <br/>
-            
+        <div class="form-group">   
             <label for="liste2">Sélectionnez la formation souhaitée pour l'année scolaire 2014-2015</label> 
             <div class="row">
                 <div class="col-xs-2">
@@ -55,17 +57,19 @@
                             <option>M1 Aix Marseille Sciences Economiques parcours Magistere</option>
                         </optgroup>
                     </select>
-
+        
                 </div><!-- /col-xs-2 -->            
             </div><!-- /row -->
-            
-            <br/>
-
-            <button type="submit" class="btn btn-primary">Valider</button>
-            <div id="result_form1"></div>
         </div><!-- /form-group -->
+
+        <button type="submit" class="btn btn-primary">Suivant</button>
+
+        <div id="result_form1"></div>
+        </fieldset>
     </form>
     </div><!-- /panel-body -->
 </div><!-- /panel panel-primary -->
+
+
 
 
