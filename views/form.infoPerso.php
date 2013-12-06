@@ -104,15 +104,15 @@
                 <div class="row">
                     <div class="col-md-4">
                         <label for="homePhone">Téléphone fixe</label>
-                        <input type="tel" class="form-control" id="homePhone" name="homePhone" placeholder="Votre numéro" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$"/>
+                        <input type="tel" class="form-control" id="homePhone" name="homePhone" required placeholder="Votre numéro" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$"/>
                     </div>
                     <div class="col-md-4">
                         <label for="mobilePhone">Téléphone mobile</label>
-                        <input type="tel" class="form-control" id="mobilePhone" name="mobilePhone" placeholder="Votre numéro"/ pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
+                        <input type="tel" class="form-control" id="mobilePhone" name="mobilePhone" required placeholder="Votre numéro"/ pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
                     </div>
                     <div class="col-md-4">
                         <label for="postalCode">Adresse électronique</label>
-                        <input type="email" class="form-control" id="mail" name="mail" placeholder="Votre mail"/>
+                        <input type="email" class="form-control" id="mail" name="mail" placeholder="Votre mail" required/>
                     </div>
                 </div>
             </div>
