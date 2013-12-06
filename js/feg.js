@@ -9,7 +9,6 @@ $(document).ready(function() {
 				result.hide();
 				if (data.reponse === "ok") {
 					result.html('<br/> Formations bien sélectionnées : ' + data.liste1 + ' et ' + data.liste2);
-
 				} else {
 					result.html('<br/> Erreur : Veuillez resaisir les données');
 				}
@@ -19,4 +18,3 @@ $(document).ready(function() {
 		return false;
 	});
 });
-

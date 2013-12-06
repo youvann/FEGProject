@@ -6,6 +6,7 @@
         <title>FEGProject</title>
 		<link rel="stylesheet" href="./css/bootstrap.min.css" />
 		<link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="./css/feg.css" />
 		<script type="text/javascript" src="./js/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="./js/feg.js"></script>
@@ -14,19 +15,22 @@
     <body>
 		<div class="container">
 			<div class="jumbotron">
-				<h1>PHP FTW</h1>
+				<h1>Inscription pour l'année scolaire 2013-2014</h1>
 				<p class="text-muted">Bootstrap For Life</p>
-			</div>
+			</div><!-- jumbotron -->
 			
 			<div class="row">
         		<div class=".col-md-8">
 
-					<?php include('views/form1.html'); ?>
-
-				</div>
-			</div>
-	
-		</div>
+					<div id="formation"><?php include('views/form.formation.php'); ?></div>
+					<div id="infoPerso"><?php include('views/form.infoPerso.php'); ?></div>
+					<div id="choixSpe"><?php include('views/form.choixSpe.php'); ?></div>
+					<div id="cursAnt"><?php include('views/form.cursAnt.php'); ?></div>
+				
+				</div><!-- .col-md-8 -->
+			</div><!-- /row -->
+		
+		</div><!-- container -->
 
     </body>
 </html>
