@@ -7,7 +7,6 @@
 ob_start();
 ?>
 
-
 <fieldset>
 <legend><h2>Formation souhaitée</h2></legend>
 
@@ -67,6 +66,7 @@ ob_start();
 <?php 
     $title = "Etape 1 sur 4 : Parcours de l'étudiant"; 
     $path = "./controllers/form.formation.controller.php";
+    $id_form = "formFormation";
     require './views/form.template.php';
 ?>
 

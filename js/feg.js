@@ -1,10 +1,10 @@
 $(document).ready(function() {
-	$("form").submit(function() {
+	$("#formFormation").submit(function() {
 		$.ajax({
 			type: $(this).attr("method"),
 			url: $(this).attr("action"),
 			data: $(this).serialize(),
-			success: function() {
+			success: function(data) {
 				var result = $("#result_form1");
 				result.hide();
 				if (data.reponse === "ok") {

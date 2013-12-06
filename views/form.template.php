@@ -5,7 +5,7 @@
     </div><!-- /panel-heading -->
 
     <div class="panel-body">
-	    <form role="form" action="<?= $path; ?>" method="post">
+	    <form role="form" action="<?= $path; ?>" id="<?= $id_form; ?>"method="post">
             <?= $content; ?>
         </form>
     </div> <!-- panel-body -->
