@@ -26,11 +26,11 @@ ob_start();
         <div class="row">
             <div class="col-md-6">
                 <label for="lastName">Nom</label>
-                <input type="text" class="form-control required" id="lastName" name="lastName" placeholder="Votre nom" required/>
+                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Votre nom" data-validation="required" />
             </div>
             <div class="col-md-6">
                 <label for="firstName">Prénom</label>
-                <input type="text" class="form-control required" id="firstName" name="firstName" placeholder="Votre prenom" required/>
+                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Votre prenom" data-validation="required"/>
             </div>
         </div>
     </div>
@@ -39,15 +39,15 @@ ob_start();
         <div class="row">
             <div class="col-md-4">
                 <label for="birthDate">Date de naissance</label>
-                <input type="date" class="form-control required" id="birthDate" name="birthDate" required/>
+                <input type="date" class="form-control" id="birthDate" name="birthDate" />
             </div>
             <div class="col-md-4">
                 <label for="birthPlace">Lieu de naissance</label>
-                <input type="text" class="form-control required" id="birthPlace" name="birthPlace" placeholder="Votre lieu de naissance" required/>
+                <input type="text" class="form-control" id="birthPlace" name="birthPlace" placeholder="Votre lieu de naissance" />
             </div>
             <div class="col-md-4">
                 <label for="nationality">Nationalité</label>
-                <input type="text" class="form-control required" id="nationality" name="nationality" placeholder="Votre nationalité" required/>
+                <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Votre nationalité" />
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@ ob_start();
         <div class="row">
             <div class="col-md-8">
                 <label for="ineNum">N° INE (pour étudiants en France)</label>
-                <input type="text" class="form-control required" id="ineNum" name="ineNum" placeholder="Votre numéro INE" required/>
+                <input type="text" class="form-control" id="ineNum" name="ineNum" placeholder="Votre numéro INE" />
             </div>
         </div>
     </div>  
@@ -69,8 +69,8 @@ ob_start();
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">
-                <label for="adress required">Adresse</label>
-                <input type="text" class="form-control required" id="adress" name="adress" placeholder="Votre adresse" required/>
+                <label for="adress ">Adresse</label>
+                <input type="text" class="form-control" id="adress" name="adress" placeholder="Votre adresse" />
             </div>
             <div class="col-md-4">
                 <label for="adressBis">Complément d'adresse</label>
@@ -78,7 +78,7 @@ ob_start();
             </div>
             <div class="col-md-4">
                 <label for="postalCode">Code postal</label>
-                <input type="text" class="form-control required" id="postalCode" name="postalCode" placeholder="Votre code postal" required/>
+                <input type="text" class="form-control" id="postalCode" name="postalCode" placeholder="Votre code postal" />
             </div>
         </div>
     </div>
@@ -87,7 +87,7 @@ ob_start();
         <div class="row">
             <div class="col-md-8">
                 <label for="city">Ville</label>
-                <input type="text" class="form-control required" id="city" name="city" placeholder="Votre ville" required/>
+                <input type="text" class="form-control" id="city" name="city" placeholder="Votre ville" />
             </div>
         </div>    
     </div>
@@ -95,15 +95,15 @@ ob_start();
         <div class="row">
             <div class="col-md-4">
                 <label for="homePhone">Téléphone fixe</label>
-                <input type="tel" class="form-control" id="homePhone" name="homePhone" placeholder="Votre numéro" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$"/>
+                <input type="tel" class="form-control" id="homePhone" name="homePhone" placeholder="Votre numéro"/>
             </div>
             <div class="col-md-4">
                 <label for="mobilePhone">Téléphone mobile</label>
-                <input type="tel" class="form-control required" id="mobilePhone" name="mobilePhone" required placeholder="Votre numéro"/ pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
+                <input type="tel" class="form-control" id="mobilePhone" name="mobilePhone"  placeholder="Votre numéro"/>
             </div>
             <div class="col-md-4">
                 <label for="postalCode">Adresse électronique</label>
-                <input type="email" class="form-control required" id="mail" name="mail" placeholder="Votre mail" required/>
+                <input type="email" class="form-control" id="mail" name="mail" placeholder="Votre mail" data-validation="email"/>
             </div>
         </div>
     </div>
@@ -115,7 +115,7 @@ ob_start();
         <div class="row">
             <div class="col-md-8">
                 <label for="currentActivity">Activité actuelle</label>
-                <input type="text" class="form-control required" id="currentActivity" name="currentActivity" placeholder="étudiant, salarié, demandeur d'emploi, autre" required/>
+                <input type="text" class="form-control" id="currentActivity" name="currentActivity" placeholder="étudiant, salarié, demandeur d'emploi, autre" />
             </div>
         </div>
     </div>

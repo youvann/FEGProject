@@ -31,9 +31,7 @@
 	
 		<script type="text/javascript" src="./js/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="./js/jquery-validate/jquery.validate.min.js"></script>
-		<script type="text/javascript" src="./js/jquery-validate/additional-methods.min.js"></script>
-		<script type="text/javascript" src="./js/jquery-validate/messages_fr.js"></script>
+		<script type="text/javascript" src="./js/jquery-form-validator/jquery.form-validator.min.js"></script>
 		<script type="text/javascript" src="./js/feg.js"></script>
     </body>
 </html>
