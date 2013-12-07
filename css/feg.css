@@ -7,3 +7,18 @@
 /*.row{
 	margin-bottom: 15px;
 }*/
+/*.obligatory {color: red;}*/
+
+/*input:invalid{
+	border-color : #FF0000;
+}*/
+
+
+/*****************
+ ** Formulaires **
+ *****************/
+label.error{
+	color : red;
+	font-style: italic;
+	font-weight: normal;
+}

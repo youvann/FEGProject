@@ -1,4 +1,10 @@
 $(document).ready(function() {
+	
+	/*****************
+	 ** Formulaires **
+	 *****************/
+
+	// Formulaire formation 
 	$("#formFormation").submit(function() {
 		$.ajax({
 			type: $(this).attr("method"),
@@ -17,4 +23,28 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+
+	// Formulaire informations personnelles
+	$("#formInfoPerso").submit(function() {
+		$(".required").each(function(){
+			if ($(this).is(":invalid")) {
+				$(this).parent().addClass("has-error");
+			}
+			if ($(this).is(":valid")) {
+				$(this).parent().addClass("has-success");
+			}
+		});		
+	});
+
+	// Ajout d'une étoile rouge pour tous les champs obligatoires
+	$(".required").each(function(){
+		var span = $("<span />");
+		span.attr("class", "obligatory").text(" *");
+		span.appendTo($(this).prev());
+		// Etoile rouge
+		span.css("color", "red");
+	});
+
+	// Validations des formulaires
+	$("#formInfoPerso").validate();
 });

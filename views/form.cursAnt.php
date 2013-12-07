@@ -162,8 +162,10 @@ ob_start();
 <?php $content = ob_get_clean(); ?>
 
 <?php 
-    $title = "Etape 4 sur 4 : Candidature/Pré-inscription pour la formation ...";
-    $path ="#";
+    $title   = "Etape 4 sur 4 : Candidature/Pré-inscription pour la formation ...";
+    $path    = "#";
+    $id_form = "formCursuAnt";
+
     require './views/form.template.php';
 ?>
 

@@ -7,9 +7,6 @@
 		<link rel="stylesheet" href="./css/bootstrap.min.css" />
 		<link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
 		<link rel="stylesheet" href="./css/feg.css" />
-		<script type="text/javascript" src="./js/jquery-1.10.2.js"></script>
-		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="./js/feg.js"></script>
     </head>
 
     <body>
@@ -31,6 +28,12 @@
 			</div><!-- /row -->
 		
 		</div><!-- container -->
-
+	
+		<script type="text/javascript" src="./js/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="./js/jquery-validate/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="./js/jquery-validate/additional-methods.min.js"></script>
+		<script type="text/javascript" src="./js/jquery-validate/messages_fr.js"></script>
+		<script type="text/javascript" src="./js/feg.js"></script>
     </body>
 </html>
