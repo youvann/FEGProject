@@ -24,12 +24,14 @@
 }*/
 
 .valid{
-	background: url(../img/form-validator/icon-ok.png) no-repeat right center #e3ffe5;
+	background: url(../img/form-validator/icon-ok.png) no-repeat right center;
+	/*#e3ffe5*/
 	/*border-color: #96b796 !important;*/
 	/*color: #002f00;*/
 }
 .error{
-	background: url(../img/form-validator/icon-fail.png) no-repeat right center #ffebef;
+	background: url(../img/form-validator/icon-fail.png) no-repeat right center;
+	/*#ffebef*/
 }
 
 
