@@ -78,6 +78,7 @@ $(document).ready(function() {
         root: '/Applications/MAMP/htdocs/FEGProject/classes/',
         script : './js/jqueryFileTree/connectors/jqueryFileTree.php'
     }, function(file) { 
-        console.log('es');
+        // alert(file);
+        window.open(file.replace("Applications/MAMP/htdocs/", ""));
     });
 });
