@@ -71,4 +71,13 @@ $(document).ready(function() {
         // Etoile rouge
         span.css("color", "red");
     });
+
+    // Explorateur de fichiers
+    $('#explorateur').fileTree({
+        // root : ne pas oublier de mettre slash à la fin du chemin !
+        root: '/Applications/MAMP/htdocs/FEGProject/classes/',
+        script : './js/jqueryFileTree/connectors/jqueryFileTree.php'
+    }, function(file) { 
+        console.log('es');
+    });
 });
