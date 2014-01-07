@@ -34,4 +34,18 @@
 	/*#ffebef*/
 }
 
+/*CSS HTML2PDF*/
+table {
+	border-collapse: collapse;
+}
+td {
+	border: 1px solid black;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+img{
+	height: 80px;
+    width: 300px;
+}
+
 

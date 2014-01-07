@@ -75,7 +75,7 @@ $(document).ready(function() {
     // Explorateur de fichiers
     $('#explorateur').fileTree({
         // root : ne pas oublier de mettre slash à la fin du chemin !
-        root: '/Applications/MAMP/htdocs/FEGProject/classes/',
+        root: '/Applications/MAMP/htdocs/FEGProject/',
         script : './js/jqueryFileTree/connectors/jqueryFileTree.php'
     }, function(file) { 
         // alert(file);
