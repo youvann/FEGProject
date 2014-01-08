@@ -72,7 +72,7 @@ $(document).ready(function() {
         span.css("color", "red");
     });
 
-    // Explorateur de fichiers
+    /*/ Explorateur de fichiers
     $('#explorateur').fileTree({
         // root : ne pas oublier de mettre slash à la fin du chemin !
         root: '/Applications/MAMP/htdocs/FEGProject/',
@@ -80,5 +80,5 @@ $(document).ready(function() {
     }, function(file) { 
         // alert(file);
         window.open(file.replace("Applications/MAMP/htdocs/", ""));
-    });
+    });*/
 });

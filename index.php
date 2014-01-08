@@ -25,7 +25,6 @@
 							<div id="explorateur"></div>
 						</div>
 					</div>
-					
 					<div id="formation"><?php include('views/form.formation.php'); ?></div>
 					<div id="infoPerso"><?php include('views/form.infoPerso.php'); ?></div>
 					<div id="choixSpe"><?php include('views/form.choixSpe.php'); ?></div>
@@ -41,5 +40,15 @@
 		<script type="text/javascript" src="./js/jquery-form-validator/jquery.form-validator.min.js"></script>
 		<script type="text/javascript" src="./js/jqueryFileTree/jqueryFileTree.js"></script>
 		<script type="text/javascript" src="./js/feg.js"></script>
+		<script>
+			$('#explorateur').fileTree({
+		        // root : ne pas oublier de mettre slash à la fin du chemin !
+		        root : "<?php echo str_replace(DIRECTORY_SEPARATOR,'/',realpath(dirname(__FILE__))); ?>/",
+		        script : './js/jqueryFileTree/connectors/jqueryFileTree.php'
+		    }, function(file) { 
+		        // alert(file);
+		        window.open(file.replace("Applications/MAMP/htdocs/", ""));
+		    });
+		</script>
     </body>
 </html>
