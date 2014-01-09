@@ -23,6 +23,7 @@
         $html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(15, 10, 10, 15));
      	// $html2pdf->setModeDebug();
      	$html2pdf->pdf->addFont('verdana', '', '../../classes/html2pdf/_tcpdf_5.0.002/fonts/verdana.php');
+     	$html2pdf->pdf->addFont('verdanab', '', '../../classes/html2pdf/_tcpdf_5.0.002/fonts/verdanab.php');
         $html2pdf->setDefaultFont('verdana');
         $html2pdf->pdf->SetDisplayMode('fullpage');
         $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
