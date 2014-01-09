@@ -1,5 +1,5 @@
-<link type="text/css" href="./../css/bootstrap.css" rel="stylesheet" >
-<link type="text/css" href="./../css/feg.css" rel="stylesheet" >
+<link type="text/css" href="./../public/css/bootstrap.css" rel="stylesheet" >
+<link type="text/css" href="./../public/css/feg.css" rel="stylesheet" >
 <page backtop="30mm" backbottom="7mm" backleft="0mm" backright="10mm"> 
     <page_header> 
         <table class="t_header">
