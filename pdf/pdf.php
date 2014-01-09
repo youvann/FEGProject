@@ -1,9 +1,9 @@
 <?php
 /* 
- * Project: FEG Project
- * File: /pdf/pdf.php
- * Purpose: Génération du PDF L3 Gestion Parcours MIAGE
- * Author: 
+ * @Project: FEG Project
+ * @File: /pdf/pdf.php
+ * @Purpose: Génération du PDF L3 Gestion Parcours MIAGE
+ * @Author: 
  */
     header('Content-Type: text/html; charset=utf-8');
     require('../classes/fpdf17/fpdf.php');

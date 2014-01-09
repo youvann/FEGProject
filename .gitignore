@@ -1,5 +1,6 @@
 /nbproject/private/
-/classes/html2pdf/examples
+/classes/Pdf/html2pdf/examples
+/classes/Pdf/fpdf17
 
 # OS generated files #
 .DS_Store
