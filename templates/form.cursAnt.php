@@ -8,7 +8,7 @@ ob_start();
 ?>
 
 <fieldset>
-    <legend><h2>Cursus antérieur</h2></legend>
+    <legend>Cursus antérieur</legend>
 
     <h4>1. Cursus post-bac</h4>
     <div class="form-group">
@@ -166,6 +166,6 @@ ob_start();
     $path    = "#";
     $id_form = "formCursuAnt";
 
-    require './views/form.template.php';
+    require './templates/form.template.php';
 ?>
 

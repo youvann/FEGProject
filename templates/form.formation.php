@@ -13,7 +13,7 @@ ob_start();
 <div class="form-group">    
     <label for="liste1">Sélectionnez votre dernière formation effectuée</label> 
     <div class="row">
-        <div class="col-xs-2">
+        <div>
             
             <select class="form-control" name="liste1">
                 <optgroup label="Licence">
@@ -28,15 +28,14 @@ ob_start();
                     <option>M1 Aix Marseille Sciences Economiques parcours Magistere</option>
                 </optgroup>
             </select>
-
-        </div><!-- /col-xs-2 -->
+        </div>
     </div><!-- /row -->
 </div><!-- /form-group -->
 
 <div class="form-group">   
     <label for="liste2">Sélectionnez la formation souhaitée pour l'année scolaire 2014-2015</label> 
     <div class="row">
-        <div class="col-xs-2">
+        <div>
             
             <select class="form-control" name="liste2">
                  <optgroup label="Licence">
@@ -52,7 +51,7 @@ ob_start();
                 </optgroup>
             </select>
 
-        </div><!-- /col-xs-2 -->            
+        </div>
     </div><!-- /row -->
 </div><!-- /form-group -->
 
@@ -68,7 +67,7 @@ ob_start();
     $path    = "./controllers/form.formation.controller.php";
     $id_form = "formFormation";
     
-    require './views/form.template.php';
+    require './templates/form.template.php';
 ?>
 
 

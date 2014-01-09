@@ -64,12 +64,12 @@ ob_start();
 </fieldset>
 
 <fieldset>
-    <legend><h2>Coordonnées & contact</h2></legend>
+    <legend>Coordonnées & contact</legend>
 
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">
-                <label for="adress ">Adresse</label>
+                <label for="adress">Adresse</label>
                 <input type="text" class="form-control required" id="adress" name="adress" placeholder="Votre adresse" data-validation="required"/>
             </div>
             <div class="col-md-4">
@@ -130,6 +130,6 @@ ob_start();
     $path    = "#";
     $id_form = "formInfoPerso";
 
-    require './views/form.template.php'; 
+    require './templates/form.template.php'; 
 ?>
    

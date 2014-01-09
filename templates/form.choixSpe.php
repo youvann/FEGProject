@@ -7,13 +7,13 @@
 ob_start(); 
 ?>
 <fieldset>
-<legend><h2>Choix de la spécialité</h2></legend>
+<legend>Choix de la spécialité</legend>
 
     <div class="form-group">
 
         <label for="wish1">Sélectionnez votre voeu n°1</label> 
         <div class="row">
-            <div class="col-xs-6">
+            <div>
                 <select multiple class="form-control" name="wish1">
                     <optgroup label="Recherche">
                         <option>L1 AES</option>
@@ -136,7 +136,7 @@ ob_start();
     $path    = "#";
     $id_form = "formChoixSpe";
 
-    require './views/form.template.php';
+    require './templates/form.template.php';
 ?>      
 
 
