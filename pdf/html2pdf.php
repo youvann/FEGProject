@@ -10,9 +10,10 @@
  * isset($_GET['vuehtml']) is not mandatory
  * it allow to display the result in the HTML format
  */
+	var_dump('toto');
     require_once '../classes/Pdf/SkullPdf.class.php';
     $skull = new SkullPdf();
-    
+    var_dump($skull);
     // Header
     $skull->setPageHeaderText("DOSSIER DE CANDIDATURE<br />ANNÉE UNIVERSITAIRE 2013-2014<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
     $skull->setPageHeaderImgPath("./img/feg.png");
@@ -36,10 +37,10 @@
     echo $skull;
     $content = ob_get_clean(); 
 
-    // echo $skull;
+    echo $skull;
 
     // convert in PDF
-    require_once('../classes/pdf/html2pdf/html2pdf.class.php');
+    /*require_once('../classes/pdf/html2pdf/html2pdf.class.php');
     try
     {
         $html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
@@ -54,4 +55,4 @@
     catch(HTML2PDF_exception $e) {
         echo $e;
         exit;
-    }
+    }*/

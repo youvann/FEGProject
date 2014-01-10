@@ -17,7 +17,6 @@
 					
 					$json1 = '{"i123":"Meas","i234":"Kevin","i345":"Non","i456":"Fan de PHP","i567":["Oui","Oui","Non"],"i678":"Windows"}';
 					$json2 = '[{"i123":"Meas"},{"i234":"Kevin"},{"i345":"Non"},{"i456":"Fan de PHP"},{"i567":["Oui","Non","Non"]},{"i678":"Windows"}]';
-					var_dump((array)json_decode($json1), (array)json_decode(substr($json2,1,-1)));
 					
 					$structure = array(
 						array("i123", "Nom", "TextBox"),
@@ -29,7 +28,7 @@
 					
 					// Faire gaffe aux true et false entoures ou non de guillemets pour passer du php a json et inversement
 					$translator = new TranslatorJsonToHTML();
-					$translator->translate($json1, $structure);
+					echo $translator->translate($json2, $structure);
 					?>
 				</div><!-- col-md-8 -->
 			</div><!-- /row -->

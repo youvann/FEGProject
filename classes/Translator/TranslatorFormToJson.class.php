@@ -20,8 +20,6 @@ class TranslatorFormToJson extends Translator {
 					}
 					break;
 				case "CheckBoxGroup": {
-						// Si elem-4 existe
-						var_dump("elem-".($j+1));
 						if (array_key_exists("elem-".($j+1), $post)) {
 							$json[] = $this->checkBoxGroupPostToJson($structure[$i][0], $post[$keys[$j]], $structure[$i][3]);
 						} else {
