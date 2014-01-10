@@ -1,12 +1,12 @@
-<?php 
-/* 
+<?php
+/*
  * @Project: FEG Project
- * @File: /classes/Pdf/PageFooter.class.php
+ * @File: /classes/Pdf/PagePdfFooter.class.php
  * @Purpose: Footer du PDF
- * @Author: 
+ * @Author:
  */
 
-class PageFooter {
+class PagePdfFooter {
 	private $footerText;
 
 	public function __construct($footerText){
@@ -18,8 +18,8 @@ class PageFooter {
 	}
 
 	public function __toString (){
-		return ' <page_footer> 
-			        ' . $this->footerText . ' 
+		return ' <page_footer>
+			        ' . $this->footerText . '
 			    </page_footer> ';
 	}
 
