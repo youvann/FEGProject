@@ -37,21 +37,84 @@
 /*CSS HTML2PDF*/
 table {
 	border-collapse: collapse;
+
 }
+/*td {
+	border: 1px solid black;
+	padding-left: 3px;
+	padding-right: 3px;
+}*/
+.full_width_table{
+	width: 690px;
+	font-size : 18px;
+}
+.t_title .full_width_table{
+	width: 693px;
+	font-size : 18px;
+}
+
+.t_title2 .fifty_width_table{
+	width: 340px;
+}
+
 td {
 	border: 1px solid black;
 	padding-left: 3px;
 	padding-right: 3px;
 }
-img{
+
+.t_header img{
 	height: 80px;
     width: 300px;
 }
+
+.t_title img{
+	height: 85px;
+    width: 200;
+}
+
+.border-top-none{
+	border-top: none;
+}
+
+.border-right-none{
+	border-right: none;
+}
+
+.border-left-none{
+	border-left: none;
+}
+
 .bold{
 	font-family: verdanab;
 }
-/*h4{
-	font-family: arial;
+
+.titre1{
+	font-size: 40px;	
 }
-*/
+
+.titre2{
+	font-size: 30px;
+}
+
+.titre3{
+	font-size: 20px;
+}
+
+.titre4{
+	font-size: 18px;
+}
+page{
+	font-size: 13px;
+}
+.note{
+	font-size: 12px;
+}
+.titre_encadre {
+	padding: 3px;
+	border: 1px solid black;
+	width: 693px;
+	font-family: verdanab;
+ }
+
 
