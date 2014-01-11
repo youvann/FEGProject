@@ -19,16 +19,12 @@
     // $skeleton->setPageCssPath("path ....");
 
     // Page
-    $skeleton->setPagePdfTitle1("Institut supérieur en sciences de Gestion");
-    $skeleton->setPagePdfTitle2("Licence Gestion");
-    $skeleton->setPagePdfTitle3("L3 Gestion<br />Parcours MIAGE");
-    $skeleton->setPagePdfTitle4("Méthodes Informatiques Appliquées à la Gestion des Entreprises");
-
-    $skeleton->setPagePdfHolder1(" Titulaire d’un diplôme français - Date limite de dépôt du dossier le 7 Juin 2013");
-    $skeleton->setPagePdfHolder2(" Titulaire d’un diplôme de l'Union Européenne - Date limite de dépôt du dossier le 7 Juin 2013");
-    $skeleton->setPagePdfHolder3(" Titulaire d’un diplôme hors Union Européenne * - Date limite de dépôt du dossier le 7 Juin 2013");
+    $skeleton->setPagePdfTitle("Institut supérieur en sciences de Gestion", "Licence Gestion", "L3 Gestion<br />Parcours MIAGE", "Méthodes Informatiques Appliquées à la Gestion des Entreprises");
+    $skeleton->setPagePdfHolder(" Titulaire d’un diplôme français - Date limite de dépôt du dossier le 7 Juin 2013", " Titulaire d’un diplôme de l'Union Européenne - Date limite de dépôt du dossier le 7 Juin 2013", " Titulaire d’un diplôme hors Union Européenne * - Date limite de dépôt du dossier le 7 Juin 2013");
     $skeleton->setPagePdfNote("* Dossier à utiliser si vous résidez dans l'Espace européen, ou dans un pays où il n'existe pas d'espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.");
-
+    $skeleton->setPagePdfApplicant("Pierre", "Dupont", "01/01/2014", "Aix-en-Provence", "110000000Q", "4 rue Forbin 13100 Aix-en-Provence", "0442321423", "0674231232", "contact@feg.com", "étudiant");
+    $skeleton->setPagePdfPlanFormation("L3 Gestion parcours MIAGE - Méthodes informatiques Appliquées à la Gestion des Entreprises");
+    
     // Footer
     $skeleton->setPagePdfFooterText("Voici le pied de page");
 

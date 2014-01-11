@@ -13,8 +13,7 @@ ob_start();
 <div class="form-group">    
     <label for="liste1">Sélectionnez votre dernière formation effectuée</label> 
     <div class="row">
-        <div>
-            
+        <div class="col-md-12">
             <select class="form-control" name="liste1">
                 <optgroup label="Licence">
                     <option>L1 AES</option>
@@ -35,7 +34,7 @@ ob_start();
 <div class="form-group">   
     <label for="liste2">Sélectionnez la formation souhaitée pour l'année scolaire 2014-2015</label> 
     <div class="row">
-        <div>
+        <div class="col-md-12">
             
             <select class="form-control" name="liste2">
                  <optgroup label="Licence">

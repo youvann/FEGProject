@@ -21,7 +21,6 @@ require_once 'config/config.php';
 			</div><!-- jumbotron -->
 
 			<div class="row">
-				
 				<div class="col-md-8">
 					<div id="explorateur"></div>
 					<br>
@@ -44,9 +43,12 @@ require_once 'config/config.php';
 		        // root : ne pas oublier de mettre slash à la fin du chemin !
 		        root : "<?php echo str_replace(DIRECTORY_SEPARATOR,'/',realpath(dirname(__FILE__))); ?>/",
 		        script : './public/js/jqueryFileTree/connectors/jqueryFileTree.php'
-		    }, function(file) { 
+		    }, function(file) {
 		        // alert(file);
 		        window.open(file.replace("Applications/MAMP/htdocs/", ""));
+		    });
+		    $('.directory').dblclick(function(event) {
+		    	console.log(event);
 		    });
 		</script>
     </body>

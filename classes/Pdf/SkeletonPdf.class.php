@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * @Project: FEG Project
  * @File: /classes/Pdf/SkeletonPdf.class.php
  * @Purpose: Template du PDF
@@ -16,7 +16,7 @@ class SkeletonPdf {
     private $pagePdfFooter;
 
     public function __construct() {
-        $this->pagePdf       = new PagePdf ("30mm", "7mm", "0mm", "10mm", "./../public/css/feg.css");
+        $this->pagePdf       = new PagePdf ("./../public/css/feg.css", "30mm", "7mm", "0mm", "10mm");
         $this->pagePdfHeader = new PagePdfHeader();
         $this->pagePdfFooter = new PagePdfFooter();
     }
@@ -27,36 +27,24 @@ class SkeletonPdf {
         $this->pagePdf->setCssPath($cssPath);
     }
 
-    public function setpagePdfTitle1 ($title1){
-        $this->pagePdf->setTitle1($title1);
+    public function setPagePdfTitle ($title1, $title2, $title3, $title4){
+        $this->pagePdf->setTitle($title1, $title2, $title3,$title4);
     }
 
-    public function setpagePdfTitle2 ($title2){
-        $this->pagePdf->setTitle2($title2);
-    }
-
-    public function setpagePdfTitle3 ($title3){
-        $this->pagePdf->setTitle3($title3);
-    }
-
-    public function setpagePdfTitle4 ($title4){
-        $this->pagePdf->setTitle4($title4);
-    }
-
-    public function setpagePdfHolder1 ($holder1){
-        $this->pagePdf->setHolder1($holder1);
-    }
-
-    public function setpagePdfHolder2 ($holder2){
-        $this->pagePdf->setHolder2($holder2);
-    }
-
-    public function setpagePdfHolder3 ($holder3){
-        $this->pagePdf->setHolder3($holder3);
+    public function setPagePdfHolder ($holder1, $holder2, $holder3){
+        $this->pagePdf->setHolder($holder1, $holder2, $holder3);
     }
 
     public function setPagePdfNote($note){
         $this->pagePdf->setNote($note);
+    }
+
+    public function setPagePdfApplicant ($applicantName, $applicantFirstName, $applicantBirthDate, $applicantBirthPlace, $applicantIne, $applicantAdress, $applicantFixNumber, $applicantPortNumber, $applicantMail, $applicantActivity){
+        $this->pagePdf->setApplicant($applicantName, $applicantFirstName, $applicantBirthDate, $applicantBirthPlace, $applicantIne, $applicantAdress, $applicantFixNumber, $applicantPortNumber, $applicantMail, $applicantActivity);
+    }
+
+    public function setPagePdfPlanFormation ($formationName){
+        $this->pagePdf->setPlanFormation($formationName);
     }
 
     // Setters de pagePdfHeader
@@ -74,10 +62,10 @@ class SkeletonPdf {
 
     // toString
     public function __toString() {
-        return $this->pagePdf . $this->pagePdfHeader . $this->pagePdfFooter . "</page>";
+        return $this->pagePdf . $this->pagePdfHeader . $this->pagePdfFooter
+               . '</page><page pageset="old">' . $this->pagePdf->getPlanFormation() . '</page>';
     }
 }
 
 $pdf = new SkeletonPdf ();
 // echo $pdf;
-?>
