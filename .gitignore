@@ -1,7 +1,7 @@
 /nbproject/private/
 /classes/Pdf/html2pdf/examples
 /classes/Pdf/fpdf17
-.idea/*
+/.idea
 
 # OS generated files #
 .DS_Store

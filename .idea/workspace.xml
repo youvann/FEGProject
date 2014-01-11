@@ -2,27 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ab54cd3-3359-4a35-9760-6d05e4919e03" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/FEGProject.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/php.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/Pdf/PagePdf.class.php" afterPath="$PROJECT_DIR$/classes/Pdf/PagePdf.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/Pdf/SkeletonPdf.class.php" afterPath="$PROJECT_DIR$/classes/Pdf/SkeletonPdf.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/feg.css" afterPath="$PROJECT_DIR$/public/css/feg.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/form.choixSpe.php" afterPath="$PROJECT_DIR$/templates/form.choixSpe.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/form.cursAnt.php" afterPath="$PROJECT_DIR$/templates/form.cursAnt.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/form.formation.php" afterPath="$PROJECT_DIR$/templates/form.formation.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pdf/html2pdf.php" afterPath="$PROJECT_DIR$/pdf/html2pdf.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/jqueryFileTree/jqueryFileTree.js" afterPath="$PROJECT_DIR$/public/js/jqueryFileTree/jqueryFileTree.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pdf/views/template.php" afterPath="$PROJECT_DIR$/pdf/views/template.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FEGProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -68,7 +49,7 @@
       <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="7" selection-start="78" selection-end="78" vertical-scroll-proportion="0.06392045" vertical-offset="0" max-vertical-offset="704">
+            <state line="3" column="1" selection-start="72" selection-end="72" vertical-scroll-proportion="0.06392045" vertical-offset="0" max-vertical-offset="704">
               <folding />
             </state>
           </provider>
@@ -381,7 +362,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="7" selection-start="78" selection-end="78" vertical-scroll-proportion="0.06392045" vertical-offset="0" max-vertical-offset="704">
+        <state line="3" column="1" selection-start="72" selection-end="72" vertical-scroll-proportion="0.06392045" vertical-offset="0" max-vertical-offset="704">
           <folding />
         </state>
       </provider>
