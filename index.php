@@ -22,7 +22,6 @@ require_once 'config/config.php';
 			</div><!-- jumbotron -->
 
 			<div class="row">
-				
 				<div class="col-md-8">
 					<div id="explorateur"></div>
 					<br>
@@ -48,6 +47,9 @@ require_once 'config/config.php';
 		    }, function(file) {
 		        // alert(file);
 		        window.open(file.replace("Applications/MAMP/htdocs/", ""));
+		    });
+		    $('.directory').dblclick(function(event) {
+		    	console.log(event);
 		    });
 		</script>
     </body>

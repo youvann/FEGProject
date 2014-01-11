@@ -13,7 +13,7 @@ ob_start();
 
         <label for="wish1">Sélectionnez votre voeu n°1</label> 
         <div class="row">
-            <div>
+            <div class="col-md-6">
                 <select multiple class="form-control" name="wish1">
                     <optgroup label="Recherche">
                         <option>L1 AES</option>
@@ -27,7 +27,7 @@ ob_start();
                         <option>M1 Aix Marseille Sciences Economiques parcours Magistere</option>
                     </optgroup>
                 </select>
-            </div><!-- /col-xs-2 -->
+            </div><!-- /col-md-2 -->
         </div><!-- /row -->
 
         <div class="row">
@@ -51,7 +51,7 @@ ob_start();
 
         <label for="wish2">Sélectionnez votre voeu n°2</label> 
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-md-6">
                 <select multiple class="form-control" name="wish2">
                     <optgroup label="Recherche">
                         <option>L1 AES</option>
@@ -65,7 +65,7 @@ ob_start();
                         <option>M1 Aix Marseille Sciences Economiques parcours Magistere</option>
                     </optgroup>
                 </select>
-            </div><!-- /col-xs-2 -->
+            </div><!-- /col-md-2 -->
         </div><!-- /row -->
 
         <div class="row">
@@ -89,7 +89,7 @@ ob_start();
 
         <label for="wish3">Sélectionnez votre voeu n°3</label> 
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-md-6">
                 <select multiple class="form-control" name="wish3">
                     <optgroup label="Recherche">
                         <option>L1 AES</option>
@@ -103,7 +103,7 @@ ob_start();
                         <option>M1 Aix Marseille Sciences Economiques parcours Magistere</option>
                     </optgroup>
                 </select>
-            </div><!-- /col-xs-2 -->
+            </div><!-- /col-md-2 -->
         </div><!-- /row -->
 
         <div class="row">
@@ -134,7 +134,7 @@ ob_start();
 <?php
     $title   = "Etape 3 sur 4 : Candidature/Pré-inscription pour la formation ...";
     $path    = "#";
-    $id_form = "formChoixSpe";
+    $id_form = "formChoimdpe";
 
     require './templates/form.template.php';
 ?>      

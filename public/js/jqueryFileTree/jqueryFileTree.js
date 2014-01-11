@@ -31,7 +31,7 @@
 // For details, visit http://creativecommons.org/licenses/by/3.0/us/
 //
 if(jQuery) (function($){
-	
+
 	$.extend($.fn, {
 		fileTree: function(o, h) {
 			// Defaults
@@ -45,9 +45,9 @@ if(jQuery) (function($){
 			if( o.collapseEasing == undefined ) o.collapseEasing = null;
 			if( o.multiFolder == undefined ) o.multiFolder = true;
 			if( o.loadMessage == undefined ) o.loadMessage = 'Loading...';
-			
+
 			$(this).each( function() {
-				
+
 				function showTree(c, t) {
 					$(c).addClass('wait');
 					$(".jqueryFileTree.start").remove();
@@ -58,7 +58,6 @@ if(jQuery) (function($){
 						bindTree(c);
 					});
 				}
-				
 				function bindTree(t) {
 					$(t).find('LI A').bind(o.folderEvent, function() {
 						if( $(this).parent().hasClass('directory') ) {

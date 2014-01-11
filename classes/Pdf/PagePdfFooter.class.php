@@ -22,7 +22,5 @@ class PagePdfFooter {
 			        ' . $this->footerText . '
 			    </page_footer> ';
 	}
-
 }
-
 ?>

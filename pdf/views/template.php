@@ -1,18 +1,18 @@
 <link type="text/css" href="./../../public/css/bootstrap.css" rel="stylesheet" >
 <!-- <link type="text/css" href="./../public/css/feg.css" rel="stylesheet" > -->
-<page backtop="30mm" backbottom="7mm" backleft="0mm" backright="10mm"> 
-    <page_header> 
+<page backtop="30mm" backbottom="7mm" backleft="0mm" backright="10mm">
+    <page_header>
         <table class="t_header">
             <tr>
                 <td><img src="./img/feg.png" alt=""></td>
                 <td><h4 class="bold"><?php echo $enTete; ?></h4></td>
             </tr>
         </table>
-    </page_header> 
-    <page_footer> 
-        Page Footer 
-    </page_footer> 
-    
+    </page_header>
+    <page_footer>
+        Page Footer
+    </page_footer>
+
     <table class="t_title">
         <tr>
             <td colspan="2" class="full_width_table titre3 bold"><?php echo $titre1 ?></td>

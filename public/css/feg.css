@@ -49,12 +49,12 @@ table {
 	font-size : 18px;
 }
 .t_title .full_width_table{
-	width: 693px;
+	width: 690px;
 	font-size : 18px;
 }
 
-.t_title2 .fifty_width_table{
-	width: 340px;
+.fifty_width_table{
+	width: 339px;
 }
 
 td {
@@ -109,12 +109,32 @@ page{
 }
 .note{
 	font-size: 12px;
+        text-align: justify;
 }
 .titre_encadre {
 	padding: 3px;
 	border: 1px solid black;
-	width: 693px;
+	width: 701px;
 	font-family: verdanab;
- }
+	background-color: #F1F1F1;
+}
+
+#cadre_candidat{
+    padding: 5px;
+    border: 1px solid black;
+    width: 700px;
+}
+
+.localisation_parcours{
+    padding: 5px;
+    border: 1px solid black;
+    width: 190px;
+    font-family: verdanab;
+    align : right;
+}
+
+.planFormation{
+    width:490px;
+}
 
 
