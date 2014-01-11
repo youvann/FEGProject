@@ -1,12 +1,12 @@
-<?php 
-/* 
+<?php
+/*
  * @Project: FEG Project
- * @File: /classes/Pdf/Page.class.php
+ * @File: /classes/Pdf/PagePdf.class.php
  * @Purpose: Construit la page d'un document HTML qui va être transformé en PDF
- * @Author: 
+ * @Author:
  */
 
-class Page{
+class PagePdf{
 	private $backTop;
 	private $backBottom;
 	private $backLeft;
@@ -33,7 +33,7 @@ class Page{
 		$this->cssPath    = $cssPath;
 		$this->css = '<link type="text/css" href="' . $this->cssPath . '" rel="stylesheet" >';
 	}
-		
+
 	public function getBegin(){
 		echo '<page backtop="' . $this->backTop . '" backbottom="' . $this->backBottom . '" backleft="' . $this->backLeft . '" backright="' . $this->backRight . '"> ';
 	}
@@ -49,11 +49,11 @@ class Page{
 	public function setCssPath ($cssPath){
 		$this->cssPath = $cssPath;
 		$this->css = '<link type="text/css" href="' . $this->cssPath . '" rel="stylesheet" >';
-	}	
+	}
 
 	public function setTitle1 ($title1){
 		$this->title1 = $title1;
-	}	
+	}
 
 	public function setTitle2 ($title2){
 		$this->title2 = $title2;

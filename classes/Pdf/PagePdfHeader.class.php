@@ -1,12 +1,12 @@
-<?php 
-/* 
+<?php
+/*
  * @Project: FEG Project
- * @File: /classes/Pdf/PageHeader.class.php
+ * @File: /classes/Pdf/PagePdfHeader.class.php
  * @Purpose: Header du PDF
- * @Author: 
+ * @Author:
  */
 
-class PageHeader {
+class PagePdfHeader {
 	private $imgPath;
 	private $headerText;
 
