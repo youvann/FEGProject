@@ -11,11 +11,6 @@
  * it allow to display the result in the HTML format
  */
 
-	var_dump('toto');
-    require_once '../classes/Pdf/SkullPdf.class.php';
-    $skull = new SkullPdf();
-    var_dump($skull);
-
     require_once '../classes/Pdf/SkeletonPdf.class.php';
     $skeleton = new SkeletonPdf();
 
@@ -38,12 +33,6 @@
     echo $skeleton;
     $content = ob_get_clean();
 
-
-    echo $skull;
-
-    // convert in PDF
-    /*require_once('../classes/pdf/html2pdf/html2pdf.class.php');
-
     // echo $skeleton;
 
     // convert in PDF
@@ -62,4 +51,4 @@
     catch(HTML2PDF_exception $e) {
         echo $e;
         exit;
-    }*/
+    }
