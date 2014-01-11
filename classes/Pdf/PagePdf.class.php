@@ -6,7 +6,13 @@
  * @Author:
  */
 
+require_once 'PagePdfHeader.class.php';
+require_once 'PagePdfFooter.class.php';
+
 class PagePdf{
+    private $pagePdfHeader;
+    private $pagePdfFooter;
+
     private $backTop;
     private $backBottom;
     private $backLeft;
@@ -43,6 +49,9 @@ class PagePdf{
     private $formationName;
 
     public function __construct($cssPath, $backTop = "30mm", $backBottom = "7mm", $backLeft = "0mm", $backRight = "10mm") {
+        $this->pagePdfHeader = new PagePdfHeader();
+        $this->pagePdfFooter = new PagePdfFooter();
+
 		$this->backTop    = $backTop;
 		$this->backBottom = $backBottom;
 		$this->backLeft   = $backLeft;
@@ -51,13 +60,25 @@ class PagePdf{
 		$this->css        = '<link type="text/css" href="' . $this->cssPath . '" rel="stylesheet" >';
     }
 
+    public function setPagePdfHeaderImgPath ($imgPath){
+        $this->pagePdfHeader->setImgPath($imgPath);
+    }
+
+    public function setPagePdfHeaderText ($headerText){
+        $this->pagePdfHeader->setHeadertext($headerText);
+    }
+
+    public function setPagePdfFooterText ($footerText){
+        $this->pagePdfFooter->setFooterText($footerText);
+    }
+
     public function getBegin(){
         return '<page backtop="' . $this->backTop . '" backbottom="' . $this->backBottom . '" backleft="' . $this->backLeft . '" backright="' . $this->backRight . '"> ';
     }
 
-    // public function getEnd (){
-    // 	echo "</page> ";
-    // }
+    public function getEnd (){
+    	return "</page> ";
+    }
 
     public function getCssPath (){
         return $this->css;
@@ -177,6 +198,6 @@ class PagePdf{
     }
 
     public function __toString (){
-        return $this->getCssPath() . $this->getBegin() . $this->getFormationTitle() . $this->getDegreeHolder() . $this->getApplicant();
+        return $this->getCssPath() . $this->getBegin() . $this->pagePdfHeader . $this->pagePdfFooter .  $this->getFormationTitle() . $this->getDegreeHolder() . $this->getApplicant() . $this->getEnd();
     }
 }
