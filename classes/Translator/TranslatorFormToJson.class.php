@@ -19,12 +19,19 @@ class TranslatorFormToJson extends Translator {
 						}
 					}
 					break;
-				case "CheckBoxGroup": //$this->checkBoxGroupToForm();
+				case "CheckBoxGroup": {
+						if (array_key_exists("elem-".($j+1), $post)) {
+							$json[] = $this->checkBoxGroupPostToJson($structure[$i][0], $post[$keys[$j]], $structure[$i][3]);
+						} else {
+							$json[] = $this->checkBoxGroupPostToJsonNo($structure[$i][0], $structure[$i][3]);
+							--$j;
+						}
+					}
 					break;
 				case "RadioButtonGroup": $json[] = $this->radioButtonGroupPostToJson($structure[$i][0], $post[$keys[$j]]);
 					break;
 				default: echo '<div class="alert alert-danger">Il y a un problème dans le script ' . __FILE__ . '.<br />La variable du switch vaut <span class="label label-danger">' . $structure[$i][1] . '</span></div>';
-					break;	
+					break;
 			}
 			++$j;
 		}
@@ -40,11 +47,23 @@ class TranslatorFormToJson extends Translator {
 	}
 
 	public function checkBoxPostToJson($idInfo, $checked) {
-		return array($idInfo => ($checked) ? 'true' : 'false');
+		return array($idInfo => ($checked) ? 'Oui' : 'Non');
 	}
 
-	public function checkBoxGroupPostToJson($post) {
-		
+	public function checkBoxGroupPostToJson($idInfo, $post, $labels) {
+		$res = array();
+		for ($i = 0; $i < count($labels); ++$i) {
+			$res[] = in_array($labels[$i], $post) ? 'Oui' : 'Non';
+		}
+		return array($idInfo => $res);
+	}
+
+	public function checkBoxGroupPostToJsonNo($idInfo, $labels) {
+		$res = array();
+		for ($i = 0; $i < count($labels); ++$i) {
+			$res[] = 'Non';
+		}
+		return array($idInfo => $res);
 	}
 
 	public function radioButtonGroupPostToJson($idInfo, $post) {
