@@ -19,10 +19,10 @@ class TranslatorStructureToForm extends Translator {
 	 */
 	public function translate($structure) {
 		// Création du formulaire qui récoltera les informations
-		$form = new Form("POST", "testTranslatorStructureToForm.php");
+		$form = new Form("POST", "testTranslatorFormToJson.php");
 		// On explore la structure de l'ensemble des informations
 		for ($i = 0; $i < count($structure); ++$i) {
-			// On définit l'action à faire en fonction du type de l'inforamtion
+			// On définit l'action à faire en fonction du type de l'information
 			// courante.
 			switch ($structure[$i][2]) {
 				// Ajout dans le formulaire d'une zone de texte.
@@ -38,7 +38,7 @@ class TranslatorStructureToForm extends Translator {
 				case "CheckBoxGroup": $form->addFormElement($this->checkBoxGroupStructureToForm($i, $structure[$i][1], $structure[$i][3]));
 					break;
 				// Ajout dans le formulaire d'un groupe de boutons radio.
-				case "RadioButtonGroup": $form->addFormElement($this->radioButtonGroupStructureToForm($i, $structure[$i][1], $structure[$i][3]));;
+				case "RadioButtonGroup": $form->addFormElement($this->radioButtonGroupStructureToForm($i, $structure[$i][1], $structure[$i][3]));
 					break;
 				// A retirer pour la mise en production
 				default: echo '<div class="alert alert-danger">Il y a un problème dans le script ' . __FILE__ . '.<br />La variable du switch vaut <span class="label label-danger">' . $structure[$i][2] . '</span></div>';
