@@ -3,7 +3,7 @@
  * @Project: FEG Project
  * @File: /classes/Pdf/PagePdf.class.php
  * @Purpose: Construit la page d'un document HTML qui va être transformé en PDF
- * @Author:
+ * @Author: Kevin Meas
  */
 
 require_once 'PagePdfHeader.class.php';
@@ -45,8 +45,9 @@ class PagePdf{
     private $applicantActivity;
     private $noteActivity;
 
-    //
+    // Formatin envisagé
     private $formationName;
+    private $formationPlace;
 
     public function __construct($cssPath, $backTop = "30mm", $backBottom = "7mm", $backLeft = "0mm", $backRight = "10mm") {
         $this->pagePdfHeader = new PagePdfHeader();
@@ -72,11 +73,15 @@ class PagePdf{
         $this->pagePdfFooter->setFooterText($footerText);
     }
 
-    public function getBegin(){
+    public function getPageBegin(){
         return '<page backtop="' . $this->backTop . '" backbottom="' . $this->backBottom . '" backleft="' . $this->backLeft . '" backright="' . $this->backRight . '"> ';
     }
 
-    public function getEnd (){
+    public function getNewPage (){
+        return '<page pageset="old">';
+    }
+
+    public function getPageEnd (){
     	return "</page> ";
     }
 
@@ -177,27 +182,33 @@ class PagePdf{
                 </div>';
     }
     
-    public function setPlanFormation ($formationName){
+    public function setPlanFormation ($formationName, $formationPlace){
         $this->formationName = $formationName;
+        $this->formationPlace = $formationPlace;
     }
     
     public function getPlanFormation(){
         return '<div class="titre_encadre">FORMATION ENVISAGE</div><br>
-                <div class="localisation_parcours">Localisation des parcours</div>
                 <br>
                 <table class="t_planFormation">
+                    <tr>
+                        <td></td>
+                        <td class="bold" text-align="center">Localisation des parcours</td>
+                    </tr>
                     <tr>
                         <td class="planFormation bold" text-align="center">Parcours</td>
                         <td class="bold" text-align="center">Aix-en-Provence/Marseille</td>
                     </tr>
                     <tr>
                         <td class="planFormation" text-align="center">' . $this->formationName . '</td>
-                        <td text-align="center">Ville</td>
+                        <td text-align="center"> ' . $this->formationPlace . '</td>
                     </tr>
                 </table>';
     }
 
     public function __toString (){
-        return $this->getCssPath() . $this->getBegin() . $this->pagePdfHeader . $this->pagePdfFooter .  $this->getFormationTitle() . $this->getDegreeHolder() . $this->getApplicant() . $this->getEnd();
+        return $this->getCssPath() . $this->getPageBegin() . $this->pagePdfHeader . $this->pagePdfFooter .
+               $this->getFormationTitle() . $this->getDegreeHolder() . $this->getApplicant() . $this->getPageEnd() .
+               $this->getNewPage() . $this->getPlanFormation() . $this->getPageEnd();
     }
 }
