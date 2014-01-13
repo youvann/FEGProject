@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @Project: FEG Project
+ * @File: /classes/FormElement/RadioButton.class.php
+ * @Purpose: Cette classe représente un bouton radio HTML.
+ * @Author: Lionel Guissani
+ */
 class RadioButton extends FormElement {
 
 	private $id;

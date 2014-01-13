@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @Project: FEG Project
+ * @File: /classes/FormElement/CheckBox.class.php
+ * @Purpose: Cette classe représente une case à cocher HTML.
+ * @Author: Lionel Guissani
+ */
 class CheckBox extends FormElement {
 
 	private $id;

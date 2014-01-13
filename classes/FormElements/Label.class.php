@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @Project: FEG Project
+ * @File: /classes/FormElement/Label.class.php
+ * @Purpose: Cette classe représente 
+ * une libellé d'élément de formulaire HTML.
+ * @Author: Lionel Guissani
+ */
 class Label {
 	private $for;
 	private $label;

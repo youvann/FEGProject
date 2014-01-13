@@ -1,5 +1,13 @@
 <?php
 
+
+/**
+ * @Project: FEG Project
+ * @File: /classes/FormElement/CheckBoxGroup.class.php
+ * @Purpose: Cette classe représente un
+ * groupe de cases à cocher liste déroulante HTML.
+ * @Author: Lionel Guissani
+ */
 class CheckBoxGroup extends FormElement {
 
 	private $checkBoxes;
@@ -12,6 +20,10 @@ class CheckBoxGroup extends FormElement {
 		return $return . '</div>';
 	}
 
+	/**
+	 * Ajoute un objet RadioButton à la propriété $checkboxes..
+	 * @param CheckBox $checkBox Instance de la classe CheckBox.
+	 */
 	public function addCheckBox(CheckBox $checkBox) {
 		$this->checkBoxes[] = $checkBox;
 	}

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @Project: FEG Project
+ * @File: /classes/FormElement/TextBox.class.php
+ * @Purpose: Cette classe représente une zone de texte HTML.
+ * @Author: Lionel Guissani
+ */
 class TextBox extends FormElement {
 	private $id;
 	private $name;

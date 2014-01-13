@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @Project: FEG Project
+ * @File: /classes/FormElement/RadioButtonGroup.class.php
+ * @Purpose: Cette classe représente un groupe de boutons radio HTML.
+ * @Author: Lionel Guissani
+ */
 class RadioButtonGroup extends FormElement {
 
 	private $radioButtons;
@@ -17,6 +23,10 @@ class RadioButtonGroup extends FormElement {
 		return $return . '</div>';
 	}
 
+	/**
+	 * Ajoute un objet RadioButton à la propriété $radioButtons.
+	 * @param RadioButton $radioButton Instance de la classe radioButton.
+	 */
 	public function addRadioButton(RadioButton $radioButton) {
 		$this->radioButtons[] = $radioButton;
 	}

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @Project: FEG Project
+ * @File: /classes/FormElement/TextArea.class.php
+ * @Purpose: Cette classe représente une 
+ * zone de texte multiligne HTML.
+ * @Author: Lionel Guissani
+ */
 class TextArea extends FormElement {
 
 	private $id;
