@@ -18,83 +18,36 @@
 body {
     color: #666666;
     font-family: verdana;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    word-wrap: break-word;
     background: url("../img/layout/fond-amu.png") no-repeat 50% 0;
 }
 
-ul.menu {
-    border: none;
-    list-style: none;
-    text-align: left;
-
-}
-
-ul, menu, dir {
-    display: block;
-    list-style-type: disc;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-start: 40px;
-}
-
-#header{
-    clear: both;
-    width: auto;
-    height: 110px;
-    margin: 0 auto;
-    padding: 0px;
-    text-align: center;
-    background-color: #e4e4e4;
-    background: url(../img/layout/bandeau-amu.png) no-repeat;
-    border-radius: 10px 10px 0px 0px;
-}
-.container{
-    margin-top: 50px;
-    clear: both;
-    width: 980px;
-
-    padding: 0px;
-    background-color: #FAFAFA;
-    box-shadow: 1px 1px 12px #b8b8b8;
-    border-radius: 10px 10px 10px 10px;
-}
-
-.lien{
-    margin-top: 20px;
-    margin-left: 10px;
+.menu ul{
+    margin-top: 30px;
 }
 
 .menu{
     border-right: 1px solid #d5d5d5;
 }
 
-#titre1 {
-    background: url(http://www.univ-amu.fr/sites/www.univ-amu.fr/themes/www_amu_theme/images/fond-block-accueil.png) no-repeat scroll left #23bbea;
+#header{
+    height: 110px;
+    background: url(../img/layout/bandeau-amu.png) no-repeat;
+    border-radius: 10px 10px 0px 0px;
 }
-
-#titre2 {
-    background: url(http://www.univ-amu.fr/sites/www.univ-amu.fr/themes/www_amu_theme/images/fond-block-documents.png) no-repeat scroll left #eab223;
+.container{
+    margin-top: 50px;
+    width: 980px;
+    padding: 0px;
+    background-color: #FAFAFA;
+    box-shadow: 1px 1px 12px #b8b8b8;
+    border-radius: 10px 10px 10px 10px;
 }
 
 .titre_rubrique {
     font-weight: 300;
-    float: left;
-    clear: none;
-    display: inline;
-    width: auto;
     margin: 20px 0px 15px 20px;
-    padding: 0px;
-    text-align: left;
     font-family: Oswald;
     color: #0071b9;
-    font-size: 2.2em;
-    border-bottom: 1px solid #0071b9;
     line-height: 35px;
 }
 
