@@ -2,64 +2,23 @@
 
 {% block body %}
 
-<div id="tools">
-    <div class="outils">
-        <div class="region region-tools">
-            <div id="block-menu-menu-tools-menu" class="block block-menu">
-                <div class="content">
-                    <ul class="menu clearfix"><li class="first leaf dhtml-menu outils_element outils_element_intramu" id="dhtml_menu-1415"><a href="http://intramu.univ-amu.fr" class="">intrAMU</a></li>
-                        <li class="leaf dhtml-menu outils_element outils_element_clef" id="dhtml_menu-314"><a href="http://ent.univ-amu.fr" class="">Accès ENT</a></li>
-                        <li class="last leaf dhtml-menu outils_element outils_element_email" id="dhtml_menu-315"><a href="http://annuaire.univ-amu.fr" class="">Annuaire</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container">
 	<div id="header"></div>
 
-    <div id="content">
-        <div id="content_left">
-            <div class="region region-content-left">
-                <div id="block-system-main-menu" class="block block-system block-menu">
-                    <div class="block-header">Informations</div>
-                    <div class="content">
-                        <ul class="menu clearfix">
-                            <li class="first collapsed dhtml-menu collapsed start-collapsed" id="dhtml_menu-351"><a href="http://www.univ-amu.fr">Université</a>
-                                <ul class="menu clearfix">
-                                    <li class="leaf dhtml-menu-cloned-leaf"><a href="http://www.univ-amu.fr">Université</a></li>
-                                    <li class="first leaf dhtml-menu" id="dhtml_menu-358"><a href="/presentation">Présentation</a></li>
-                                    <li class="leaf dhtml-menu" id="dhtml_menu-365"><a href="/presidence">Présidence</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="block-views-bloc-documents-block" class="block block-views">
-                    <div class="block-header">Contact</div>
-                    <div class="content">
-                        <ul class="menu clearfix">
-                            <li class="first collapsed dhtml-menu collapsed start-collapsed" id="dhtml_menu-351"><a href="http://www.univ-amu.fr">Université</a>
-                                <ul class="menu clearfix">
-                                    <li class="leaf dhtml-menu-cloned-leaf"><a href="http://www.univ-amu.fr">Université</a></li>
-                                    <li class="first leaf dhtml-menu" id="dhtml_menu-358"><a href="/presentation">Présentation</a></li>
-                                    <li class="leaf dhtml-menu" id="dhtml_menu-365"><a href="/presidence">Présidence</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div><!-- content-left -->
-
-        <div id="content_right">
+    <div class="row">
+        <div class="col-md-2 menu">
+            <ul>
+                <li>Lien 1</li>
+                <li>Lien 2</li>
+                <li>Lien 3</li>
+                <li>Lien 4</li>
+            </ul>
+        </div>
+        <div class="col-md-10">
             <h2 class="titre_rubrique">{{ titre2 }}</h2>
             {% block rightContent %}{% endblock %}
         </div>
-
-    </div><!-- content -->
+    </div>
 
     <div id="footer">
         <div class="footer_mention">

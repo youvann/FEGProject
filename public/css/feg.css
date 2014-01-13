@@ -15,8 +15,6 @@
 /*****************
  ** Layout *******
  *****************/
-
-
 body {
     color: #666666;
     font-family: verdana;
@@ -27,25 +25,12 @@ body {
     word-wrap: break-word;
     background: url("../img/layout/fond-amu.png") no-repeat 50% 0;
 }
-#tools {
-    clear: both;
-    width: 980px;
-    height: 33px;
-    margin: 0px auto;
-    padding: 0px;
-    text-align: center;
-}
-
-#tools .outils {
-    width: 50%;
-    margin: 15px 0px 5px 300px;
-    padding: 0px;
-}
 
 ul.menu {
     border: none;
     list-style: none;
     text-align: left;
+
 }
 
 ul, menu, dir {
@@ -56,46 +41,6 @@ ul, menu, dir {
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
     -webkit-padding-start: 40px;
-}
-
-#tools .outils_element {
-    width: 150px;
-    height: 30px;
-    font-family: Oswald;
-    color: #22bbea;
-    font-size: 1.3em;
-    font-weight: 300;
-    border-right: 1px solid #999;
-    padding: 0px 15px 0px 0px;
-    margin: 0px 0px 0px 10px;
-    display: inline;
-    line-height: 20px;
-}
-
-#tools .outils_element_intramu a {
-    background: url(http://www.univ-amu.fr/sites/www.univ-amu.fr/themes/www_amu_theme/images/tools/intramu.png) no-repeat transparent right;
-    padding: 4px 28px 10px 0px;
-}
-
-
-#tools .outils_element_clef a {
-    background: url(http://www.univ-amu.fr/sites/www.univ-amu.fr/themes/www_amu_theme/images/tools/clef_27.png) no-repeat transparent right;
-    padding: 4px 28px 10px 0px;
-}
-
-#tools .outils_element_email a {
-    background: url(http://www.univ-amu.fr/sites/www.univ-amu.fr/themes/www_amu_theme/images/tools/email_27.png) no-repeat transparent right;
-    padding: 4px 28px 10px 0px;
-}
-
-a {
-    color: #0071b9;
-    text-decoration: none;
-}
-
-ul li.leaf {
-    list-style-image: url(http://www.univ-amu.fr/misc/menu-leaf.png);
-    list-style-type: square;
 }
 
 #header{
@@ -110,81 +55,30 @@ ul li.leaf {
     border-radius: 10px 10px 0px 0px;
 }
 .container{
+    margin-top: 50px;
     clear: both;
     width: 980px;
-    margin: 0px auto;
+
     padding: 0px;
-    text-align: center;
     background-color: #FAFAFA;
     box-shadow: 1px 1px 12px #b8b8b8;
     border-radius: 10px 10px 10px 10px;
 }
 
-#content_left {
-    float: left;
-    clear: none;
-    width: 270px;
-    height: 100%;
-    margin: 0px;
-    padding: 10px 0px 40px 0px;
-    text-align: left;
-    background-color: #f7f6f6;
+.lien{
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.menu{
     border-right: 1px solid #d5d5d5;
 }
 
-#block-system-main-menu .block-header {
+#titre1 {
     background: url(http://www.univ-amu.fr/sites/www.univ-amu.fr/themes/www_amu_theme/images/fond-block-accueil.png) no-repeat scroll left #23bbea;
 }
 
-#block-system-main-menu .block-header, #block-views-bloc-documents-block .block-header, #block-views-bloc-amutv-block .block-header, #block-views-bloc-presse-block .block-header {
-    text-align: right;
-    background-color: #23bbea;
-    color: #ffffff;
-    font-family: oswald;
-    font-size: 1.5em;
-    font-weight: 400;
-    margin-right: 20px;
-    padding-right: 12px;
-    padding-top: 4px;
-    height: auto;
-    letter-spacing: 0.05em;
-}
-
-#content_left {
-    text-align: left;
-}
-
-#content_left .menu {
-    width: 250px;
-    margin: 0px 0px 30px 0px;
-    text-align: left;
-    font-family: Verdana;
-    color: #333333;
-    font-size: 11px;
-    font-weight: normal;
-    line-height: 20px;
-}
-
-#content_left ul {
-    margin-left: 0;
-    padding-left: 20px;
-}
-
-#content_left ul li.collapsed {
-    list-style-image: url(http://www.univ-amu.fr/misc/menu-collapsed.png);
-    list-style-type: disc;
-}
-
-ul.menu li {
-    margin: 0 0 0 0.5em;
-}
-
-li.expanded, li.collapsed, li.leaf {
-    padding: 0.2em 0.5em 0 0;
-    margin: 0;
-}
-
-#block-views-bloc-documents-block .block-header {
+#titre2 {
     background: url(http://www.univ-amu.fr/sites/www.univ-amu.fr/themes/www_amu_theme/images/fond-block-documents.png) no-repeat scroll left #eab223;
 }
 
@@ -193,7 +87,7 @@ li.expanded, li.collapsed, li.leaf {
     float: left;
     clear: none;
     display: inline;
-    width: 660px;
+    width: auto;
     margin: 20px 0px 15px 20px;
     padding: 0px;
     text-align: left;
@@ -203,7 +97,6 @@ li.expanded, li.collapsed, li.leaf {
     border-bottom: 1px solid #0071b9;
     line-height: 35px;
 }
-
 
 #footer {
     clear: both;
