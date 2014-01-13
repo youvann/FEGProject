@@ -25,25 +25,12 @@ body {
     word-wrap: break-word;
     background: url("../img/layout/fond-amu.png") no-repeat 50% 0;
 }
-#tools {
-    clear: both;
-    width: 980px;
-    height: 33px;
-    margin: 0px auto;
-    padding: 0px;
-    text-align: center;
-}
-
-#tools .outils {
-    width: 50%;
-    margin: 15px 0px 5px 300px;
-    padding: 0px;
-}
 
 ul.menu {
     border: none;
     list-style: none;
     text-align: left;
+
 }
 
 ul, menu, dir {
@@ -54,36 +41,6 @@ ul, menu, dir {
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
     -webkit-padding-start: 40px;
-}
-
-#tools .outils_element {
-    width: 150px;
-    height: 30px;
-    font-family: Oswald;
-    color: #22bbea;
-    font-size: 1.3em;
-    font-weight: 300;
-    border-right: 1px solid #999;
-    padding: 0px 15px 0px 0px;
-    margin: 0px 0px 0px 10px;
-    display: inline;
-    line-height: 20px;
-}
-
-#tools .outils_element_intramu a {
-    background: url(http://www.univ-amu.fr/sites/www.univ-amu.fr/themes/www_amu_theme/images/tools/intramu.png) no-repeat transparent right;
-    padding: 4px 28px 10px 0px;
-}
-
-
-#tools .outils_element_clef a {
-    background: url(http://www.univ-amu.fr/sites/www.univ-amu.fr/themes/www_amu_theme/images/tools/clef_27.png) no-repeat transparent right;
-    padding: 4px 28px 10px 0px;
-}
-
-#tools .outils_element_email a {
-    background: url(http://www.univ-amu.fr/sites/www.univ-amu.fr/themes/www_amu_theme/images/tools/email_27.png) no-repeat transparent right;
-    padding: 4px 28px 10px 0px;
 }
 
 #header{
@@ -98,9 +55,10 @@ ul, menu, dir {
     border-radius: 10px 10px 0px 0px;
 }
 .container{
+    margin-top: 50px;
     clear: both;
     width: 980px;
-    margin: auto auto;
+
     padding: 0px;
     background-color: #FAFAFA;
     box-shadow: 1px 1px 12px #b8b8b8;
