@@ -9,11 +9,12 @@
 class PagePdfHeader {
 	private $imgPath;
 	private $headerText;
-
+        
+        /*
 	public function __construct($imgPath, $headerText){
 		$this->imgPath    = $imgPath;
 		$this->headerText = $headerText;
-	}
+	}*/
 
 	public function setImgPath ($imgPath){
 		$this->imgPath = $imgPath;

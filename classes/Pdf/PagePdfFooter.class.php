@@ -9,9 +9,11 @@
 class PagePdfFooter {
 	private $footerText;
 
-	public function __construct($footerText){
+	/*public function __construct($footerText){
 		$this->footerText = $footerText;
 	}
+         * 
+         */
 
 	public function setFooterText($footerText){
 		$this->footerText = $footerText;
