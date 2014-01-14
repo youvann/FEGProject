@@ -57,7 +57,7 @@ class PagePdf{
     private $country;
 
     public function __construct($cssPath, $backTop = "30mm", $backBottom = "7mm", $backLeft = "0mm", $backRight = "10mm") {
-        $this->pagePdfHeader = new PagePdfHeader($this->imgPath, $this->headerText);
+        $this->pagePdfHeader = new PagePdfHeader();
         $this->pagePdfFooter = new PagePdfFooter();
 
 		$this->backTop    = $backTop;
