@@ -1,0 +1,101 @@
+/*#firstName, label[for=firstName] {
+    margin-left: 35px;
+    margin-right: 5px;
+}*/
+
+/*Ajoute un espace en bas de chaque champ du formulaire*/
+/*.row{
+	margin-bottom: 15px;
+}*/
+/*.obligatory {color: red;}*/
+
+/*input:invalid{
+	border-color : #FF0000;
+}*/
+/*****************
+ ** Layout *******
+ *****************/
+body {
+    color: #666666;
+    font-family: verdana;
+    background: url("../img/layout/fond-amu.png") no-repeat 50% 0;
+}
+
+.menu ul{
+    margin-top: 30px;
+}
+
+.menu{
+    border-right: 1px solid #d5d5d5;
+}
+
+#header{
+    height: 110px;
+    background: url(../img/layout/bandeau-amu.png) no-repeat;
+    border-radius: 10px 10px 0px 0px;
+}
+.container{
+    margin-top: 50px;
+    width: 980px;
+    padding: 0px;
+    background-color: #FAFAFA;
+    box-shadow: 1px 1px 12px #b8b8b8;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.titre_rubrique {
+    font-weight: 300;
+    margin: 20px 0px 15px 20px;
+    font-family: Oswald;
+    color: #0071b9;
+    line-height: 35px;
+}
+
+#footer {
+    clear: both;
+    position: relative;
+    width: 980px;
+    height: 140px;
+    margin: 0 auto 0px;
+    padding: 0px;
+    text-align: center;
+    background-color: #f1f1f1;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.footer_mention {
+    clear: both;
+    position: absolute;
+    bottom: 0px;
+    width: 98%;
+    height: auto;
+    margin: 0% 1% 10px 1%;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 5px 5px 5px 5px;
+    font-family: verdana;
+    font-size: 10px;
+    color: #0071b9;
+}
+
+/*****************
+ ** Formulaires **
+ *****************/
+/*label.error{
+	color : red;
+	font-style: italic;
+	font-weight: normal;
+}*/
+
+.valid{
+	background: url(../img/form-validator/icon-ok.png) no-repeat right center;
+	/*#e3ffe5*/
+	/*border-color: #96b796 !important;*/
+	/*color: #002f00;*/
+}
+.error{
+	background: url(../img/form-validator/icon-fail.png) no-repeat right center;
+	/*#ffebef*/
+}
+

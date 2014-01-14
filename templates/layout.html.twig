@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+	<div id="header"></div>
+
+    <div class="row">
+        <div class="col-md-2 menu">
+            <ul>
+                <li>Lien 1</li>
+                <li>Lien 2</li>
+                <li>Lien 3</li>
+                <li>Lien 4</li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <h2 class="titre_rubrique">{{ titre2 }}</h2>
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="footer_mention">
+            © 2014 COHEN-GUISSANI-KARAGOZ-MEAS
+        </div>
+    </div>
+
+</div><!-- container -->
+
+{% endblock %}

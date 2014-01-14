@@ -26,7 +26,7 @@ class FileUpload {
 	//private static $_dossier = 'C:/wamp/www/supranova/img/';
 	private static $dossier = './img/';
 	private static $tailleMax = 8388608; // 8Mo (comme dans php.ini)
-	private static $extensions = array('.png', '.gif', '.jpg', '.jpeg');
+	private static $extensions = array('.png', '.gif', '.jpg', '.jpeg', 'zip', 'rar');
 
 	// reçoit en paramètre la variable $_FILES
 	public static function uploadFile($file) {
