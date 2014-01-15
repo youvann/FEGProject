@@ -1,0 +1,24 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-11">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ formTitle }}</h3>
+            </div><!-- /panel-heading -->
+
+            <div class="panel-body">
+                <form role="form" action="{{ pathAction }}" id="{{ idForm }}"method="post">
+
+                        {% block formContent %} {% endblock %}
+
+                </form>
+            </div> <!-- panel-body -->
+        </div><!-- panel panel-primary -->
+    </div>
+</div>
+
+
+{% endblock %}

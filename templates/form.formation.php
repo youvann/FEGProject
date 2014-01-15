@@ -61,11 +61,11 @@ ob_start();
 
 <?php $content = ob_get_clean(); ?>
 
-<?php 
-    $title   = "Etape 1 sur 4 : Parcours de l'étudiant"; 
+<?php
+    $title   = "Etape 1 sur 4 : Parcours de l'étudiant";
     $path    = "./controllers/form.formation.controller.php";
     $id_form = "formFormation";
-    
+
     require './templates/form.template.php';
 ?>
 

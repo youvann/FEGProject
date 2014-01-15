@@ -45,7 +45,7 @@ body {
 
 .titre_rubrique {
     font-weight: 300;
-    margin: 20px 0px 15px 20px;
+    margin-bottom: 20px;
     font-family: Oswald;
     color: #0071b9;
     line-height: 35px;

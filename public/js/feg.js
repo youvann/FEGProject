@@ -5,7 +5,7 @@ $(document).ready(function() {
      *****************/
 
     // Formulaire formation 
-    $("#formFormation").submit(function() {
+    $("#form-candidat-formation").submit(function() {
         $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("action"),
@@ -57,7 +57,7 @@ $(document).ready(function() {
     };
 
     $.validate({
-        form : "#formInfoPerso",
+        form : "#form-candidat-formation, #form-info-perso",
         language : myLanguageFR
         // borderColorOnError : '#FF0000'
         // addValidClassOnAll : true    

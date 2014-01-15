@@ -18,7 +18,6 @@ require_once 'config/config.php';
 			<div class="jumbotron">
 				<h1>Inscription pour l'année scolaire 2013-2014</h1>
 				<p class="text-muted">Bootstrap For Life</p>
-				<?php var_dump(str_replace(DIRECTORY_SEPARATOR,'/',realpath(dirname(__FILE__)))); ?>
 			</div><!-- jumbotron -->
 
 			<div class="row">
