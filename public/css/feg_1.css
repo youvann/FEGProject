@@ -1,0 +1,251 @@
+/*#firstName, label[for=firstName] {
+    margin-left: 35px;
+    margin-right: 5px;
+}*/
+
+/*Ajoute un espace en bas de chaque champ du formulaire*/
+/*.row{
+	margin-bottom: 15px;
+}*/
+/*.obligatory {color: red;}*/
+
+/*input:invalid{
+	border-color : #FF0000;
+}*/
+/*****************
+ ** Layout *******
+ *****************/
+body {
+    color: #666666;
+    font-family: verdana;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    word-wrap: break-word;
+    background: url("../img/layout/fond-amu.png") no-repeat 50% 0;
+}
+
+ul.menu {
+    border: none;
+    list-style: none;
+    text-align: left;
+
+}
+
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+#header{
+    clear: both;
+    width: auto;
+    height: 110px;
+    margin: 0 auto;
+    padding: 0px;
+    text-align: center;
+    background-color: #e4e4e4;
+    background: url(../img/layout/bandeau-amu.png) no-repeat;
+    border-radius: 10px 10px 0px 0px;
+}
+.container{
+    margin-top: 50px;
+    clear: both;
+    width: 980px;
+
+    padding: 0px;
+    background-color: #FAFAFA;
+    box-shadow: 1px 1px 12px #b8b8b8;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.lien{
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.menu{
+    border-right: 1px solid #d5d5d5;
+}
+
+#titre1 {
+    background: url(http://www.univ-amu.fr/sites/www.univ-amu.fr/themes/www_amu_theme/images/fond-block-accueil.png) no-repeat scroll left #23bbea;
+}
+
+#titre2 {
+    background: url(http://www.univ-amu.fr/sites/www.univ-amu.fr/themes/www_amu_theme/images/fond-block-documents.png) no-repeat scroll left #eab223;
+}
+
+.titre_rubrique {
+    font-weight: 300;
+    float: left;
+    clear: none;
+    display: inline;
+    width: auto;
+    margin: 20px 0px 15px 20px;
+    padding: 0px;
+    text-align: left;
+    font-family: Oswald;
+    color: #0071b9;
+    font-size: 2.2em;
+    border-bottom: 1px solid #0071b9;
+    line-height: 35px;
+}
+
+#footer {
+    clear: both;
+    position: relative;
+    width: 980px;
+    height: 140px;
+    margin: 0 auto 0px;
+    padding: 0px;
+    text-align: center;
+    background-color: #f1f1f1;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.footer_mention {
+    clear: both;
+    position: absolute;
+    bottom: 0px;
+    width: 98%;
+    height: auto;
+    margin: 0% 1% 10px 1%;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 5px 5px 5px 5px;
+    font-family: verdana;
+    font-size: 10px;
+    color: #0071b9;
+}
+
+/*****************
+ ** Formulaires **
+ *****************/
+/*label.error{
+	color : red;
+	font-style: italic;
+	font-weight: normal;
+}*/
+
+.valid{
+	background: url(../img/form-validator/icon-ok.png) no-repeat right center;
+	/*#e3ffe5*/
+	/*border-color: #96b796 !important;*/
+	/*color: #002f00;*/
+}
+.error{
+	background: url(../img/form-validator/icon-fail.png) no-repeat right center;
+	/*#ffebef*/
+}
+
+/*CSS HTML2PDF*/
+table {
+	border-collapse: collapse;
+
+}
+/*td {
+	border: 1px solid black;
+	padding-left: 3px;
+	padding-right: 3px;
+}*/
+.full_width_table{
+	width: 690px;
+	font-size : 18px;
+}
+.t_title .full_width_table{
+	width: 690px;
+	font-size : 18px;
+}
+
+.fifty_width_table{
+	width: 339px;
+}
+
+td {
+	border: 1px solid black;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.t_header img{
+	height: 80px;
+    width: 300px;
+}
+
+.t_title img{
+	height: 85px;
+    width: 200;
+}
+
+.border-top-none{
+	border-top: none;
+}
+
+.border-right-none{
+	border-right: none;
+}
+
+.border-left-none{
+	border-left: none;
+}
+
+.bold{
+	font-family: verdanab;
+}
+
+.titre1{
+	font-size: 40px;	
+}
+
+.titre2{
+	font-size: 30px;
+}
+
+.titre3{
+	font-size: 20px;
+}
+
+.titre4{
+	font-size: 18px;
+}
+page{
+	font-size: 13px;
+}
+.note{
+	font-size: 12px;
+        text-align: justify;
+}
+.titre_encadre {
+	padding: 3px;
+	border: 1px solid black;
+	width: 701px;
+	font-family: verdanab;
+	background-color: #F1F1F1;
+}
+
+#cadre_candidat{
+    padding: 5px;
+    border: 1px solid black;
+    width: 700px;
+}
+
+.localisation_parcours{
+    padding: 5px;
+    border: 1px solid black;
+    width: 190px;
+    font-family: verdanab;
+}
+
+.planFormation{
+    width:490px;
+}
+
+

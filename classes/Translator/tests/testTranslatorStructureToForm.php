@@ -45,15 +45,12 @@ FROM `information_supp`
 						++$i;
 						$structure[] = $array;
 					}
-
-
-
 					// Faire gaffe aux true et false entoures ou non de guillemets pour passer du php a json et inversement
 					$translator = new TranslatorStructureToForm();
 					echo $translator->translate($structure);
 					?>
 				</div><!-- col-md-12 -->
-			</div><!-- /row -->
+			</div><!-- row -->
 		</div><!-- container -->
 
 		<script type="text/javascript" src="../../../public/js/jquery-2.0.3.min.js"></script>

@@ -9,7 +9,7 @@
 require_once 'PagePdfHeader.class.php';
 require_once 'PagePdfFooter.class.php';
 
-class PagePdf{
+class PagePdf {
     private $pagePdfHeader;
     private $pagePdfFooter;
 
