@@ -49,6 +49,13 @@ class PagePdf {
     private $formationName;
     private $formationPlace;
 
+    // Cursus antérieur
+    private $serie;
+    private $yearAcquisition;
+    private $establishment;
+    private $departement;
+    private $country;
+
     public function __construct($cssPath, $backTop = "30mm", $backBottom = "7mm", $backLeft = "0mm", $backRight = "10mm") {
         $this->pagePdfHeader = new PagePdfHeader();
         $this->pagePdfFooter = new PagePdfFooter();
@@ -162,7 +169,7 @@ class PagePdf {
 					<input type="checkbox" value="monsieur"><span class="bold note">M.</span>
                 </form>
                 <br><br>
-                <div id="cadre_candidat">
+                <div class="cadre">
                 	<span class="bold">Nom :</span> ' . $this->applicantName . '<br><br>
                     <span class="bold">Prénom :</span> ' . $this->applicantFirstName . '<br><br>
                     <span class="bold">Date de naissance :</span> ' . $this->applicantBirthPlace . '<br><br>
@@ -192,7 +199,7 @@ class PagePdf {
                 <br>
                 <table class="t_planFormation">
                     <tr>
-                        <td></td>
+                        <td class="border-top-none border-left-none"></td>
                         <td class="bold" text-align="center">Localisation des parcours</td>
                     </tr>
                     <tr>
@@ -206,9 +213,49 @@ class PagePdf {
                 </table>';
     }
 
+    public function setBaccalaureat ($serie, $yearAcquisition, $establishment, $departement, $country){
+        $this->serie = $serie;
+        $this->yearAcquisition = $yearAcquisition;
+        $this->establishment = $establishment;
+        $this->departement = $departement;
+        $this->country = $country;
+    }
+
+    public function getPrevFormation (){
+        return '<br><br>
+                <div class="titre_encadre">CURSUS ANTÉRIEUR</div>
+                <br>
+                <div class="cadre">
+                    <div class="titre3 bold" text-align="center">BACCALAURÉAT</div><br>
+                    <span class="bold">Série : </span>' . $this->serie . '<br><br>
+                    <span class="bold">Année d\'obtention </span>: ' . $this->yearAcquisition . '<br><br>
+                    <span class="bold">Etablissement : </span>' . $this->establishment . ' <br><br>
+                    <span class="bold">Département : </span>' . $this->departement . ' <br><br>
+                    <span class="bold">Pays : </span>' . $this->country . '<br><br>
+                    <div class="titre3 bold" text-align="center">ENSEIGNEMENT SUPÉRIEUR</div><br>
+                    <div class="bold">Dernière inscription dans l\'enseignement supérieur : </div>
+                    <span>Année universitaire : .../...</span><br>
+                    <span>Formation suivie : </span><br><br>
+
+                    <table class="t_postBac">
+                        <tr>
+                            <td class="bold" colspan="4" text-align="center">Localisation des parcours</td>
+                        </tr>
+                        <tr>
+                            <th class="col3 center">Année</th>
+                            <th class="col5 center">Établissement</th>
+                            <th class="col5 center">Cursus suivi</th>
+                            <th class="col2 center">Validé</th>
+                        </tr>
+                    </table>
+
+                </div>
+                ';
+    }
+
     public function __toString (){
         return $this->getCssPath() . $this->getPageBegin() . $this->pagePdfHeader . $this->pagePdfFooter .
                $this->getFormationTitle() . $this->getDegreeHolder() . $this->getApplicant() . $this->getPageEnd() .
-               $this->getNewPage() . $this->getPlanFormation() . $this->getPageEnd();
+               $this->getNewPage() . $this->getPlanFormation() . $this->getPrevFormation() . $this->getPageEnd();
     }
 }
