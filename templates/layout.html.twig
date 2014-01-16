@@ -3,28 +3,49 @@
 {% block body %}
 
 <div class="container">
-	<div id="header"></div>
+	<div class="page-header">
 
+	</div>
     <div class="row">
-        <div class="col-md-2 menu">
-            <ul>
-                <li><a href="http://localhost/FEGProject/index.php?action=form-candidat-formation">Formation souhaitée</a></li>
-                <li><a href="http://localhost/FEGProject/index.php?action=form-info-perso">Info personnelles</a></li>
-                <li><a href="http://localhost/FEGProject/index.php?action=form-voeux">Choix spé</a></li>
-                <li><a href="http://localhost/FEGProject/index.php?action=form-post-bac">Post-bac</a></li>
-            </ul>
-        </div>
-        <div class="col-md-10">
-            <h2 class="titre_rubrique">{{ titre2 }}</h2>
-            {% block content %}{% endblock %}
-        </div>
-    </div>
 
-    <div id="footer">
-        <div class="footer_mention">
-            © 2014 COHEN-GUISSANI-KARAGOZ-MEAS
-        </div>
-    </div>
+        <div class="col-md-2">
+
+			<div class="panel panel-primary-bt">
+				<div class="panel-heading">Accueil</div>
+				<div class="panel-body">
+					<ul class="list-unstyled">
+						<li><a href="http://localhost/FEGProject/index.php?action=form-candidat-formation">Formation souhaitée</a></li>
+						<li><a href="http://localhost/FEGProject/index.php?action=form-info-perso">Info personnelles</a></li>
+						<li><a href="http://localhost/FEGProject/index.php?action=form-voeux">Choix spé</a></li>
+						<li><a href="http://localhost/FEGProject/index.php?action=form-post-bac">Post-bac</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="panel panel-primary-ja">
+				<div class="panel-heading">Accueil</div>
+				<div class="panel-body">
+					<ul class="list-unstyled">
+						<li>Lien 1</li>
+						<li>Lien 2</li>
+						<li>Lien 3</li>
+						<li>Lien 4</li>
+						<li>Lien 5</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+		<div id="content" class="col-md-10 well-feg">
+			<h2>{{ titre2 }}</h2>
+
+            {% block content %}{% endblock %}
+		</div>
+	</div>
+
+	<footer>
+		<p class="text-muted text-center">© 2014 COHEN-GUISSANI-KARAGOZ-MEAS</p>
+	</footer>
 
 </div><!-- container -->
 

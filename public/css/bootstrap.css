@@ -4828,6 +4828,53 @@ a.list-group-item.active:focus .list-group-item-text {
 .panel-primary > .panel-footer + .panel-collapse .panel-body {
   border-bottom-color: #428bca;
 }
+/* ============================== PANELS PERSO ============================== */
+/* Panel bleu foncé */
+.panel-primary-bf {
+  border-color: #0071b9;
+}
+.panel-primary-bf > .panel-heading {
+  color: #ffffff;
+  background-color: #0071b9;
+  border-color: #0071b9;
+}
+.panel-primary-bf > .panel-heading + .panel-collapse .panel-body {
+  border-top-color: #0071b9;
+}
+.panel-primary-bf > .panel-footer + .panel-collapse .panel-body {
+  border-bottom-color: #0071b9;
+}
+/* Panel bleu turquoise */
+.panel-primary-bt {
+  border-color: #22bbea;
+}
+.panel-primary-bt > .panel-heading {
+  color: #ffffff;
+  background-color: #22bbea;
+  border-color: #22bbea;
+}
+.panel-primary-bt > .panel-heading + .panel-collapse .panel-body {
+  border-top-color: #22bbea;
+}
+.panel-primary-bt > .panel-footer + .panel-collapse .panel-body {
+  border-bottom-color: #22bbea;
+}
+/* Panel bleu jaune */
+.panel-primary-ja {
+  border-color: #fbba00;
+}
+.panel-primary-ja > .panel-heading {
+  color: #ffffff;
+  background-color: #fbba00;
+  border-color: #fbba00;
+}
+.panel-primary-ja > .panel-heading + .panel-collapse .panel-body {
+  border-top-color: #fbba00;
+}
+.panel-primary-ja > .panel-footer + .panel-collapse .panel-body {
+  border-bottom-color: #fbba00;
+}
+/* ============================== PANELS PERSO ============================== */
 .panel-success {
   border-color: #d6e9c6;
 }
@@ -4906,6 +4953,34 @@ a.list-group-item.active:focus .list-group-item-text {
   padding: 9px;
   border-radius: 3px;
 }
+
+/* =============================== WELL PERSO =============================== */
+
+.well-feg {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #e7e7e7;
+  border: 1px solid #cdcdcd;
+  border-radius: 0px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.well-feg blockquote {
+  border-color: #ddd;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+.well-feg-lg {
+  padding: 24px;
+  border-radius: 6px;
+}
+.well-feg-sm {
+  padding: 9px;
+  border-radius: 3px;
+}
+
+/* =============================== WELL PERSO =============================== */
+
 .close {
   float: right;
   font-size: 21px;

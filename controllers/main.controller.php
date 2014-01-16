@@ -12,7 +12,7 @@ if (!isset($_GET['action'])) {
 	$action = $_GET['action'];
 }
 
-/* / autorisations
+/*/ autorisations
   $pageAction = array("ordonner", "ajouter", "ajout", "modifier", "modification", "suppression");
 
   if (in_array($action, $pageAction) && !$utilisateur->isConnected()) {
