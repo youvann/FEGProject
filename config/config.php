@@ -5,6 +5,8 @@
 require_once './classes/FormElements/loader.php';
 require_once './classes/Translator/loader.php';
 
+// entities loader
+require_once './Entities/loader.php';
 
 include_once('Twig/lib/Twig/Autoloader.php');
 Twig_Autoloader::register();
