@@ -1,0 +1,22 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+<form action="index.php" method="POST">
+
+	<div class="form-group">
+		<label for="id">Id</label>
+		<input class="form-control" type="text" id="id" name="id" value="{{ pieceAJoindreGenerale.id }}" />
+	</div>
+	<div class="form-group">
+		<label for="libel_piece">Libellé</label>
+		<input class="form-control" type="text" id="libel_piece" name="libel_piece" value="{{ pieceAJoindreGenerale.libelPiece }}" />
+	</div>
+	<input class="btn btn-primary" type="submit" value="Enregistrer" />
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

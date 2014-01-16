@@ -1,0 +1,32 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+<table class="table table-hover table-bordered table-striped">
+	<tr>
+		<th>Mention</th>
+		<th>Etape</th>
+		<th>Code Diplôme</th>
+		<th>Code Etape</th>
+		<th>Code VET</th>
+		<th>Responsable</th>
+		<th>Ville</th>
+		<th>Faculté</th>
+		<th>Langue Pdf</th>
+	</tr>
+	{% for formation in formations %}
+	<tr>
+		<td>{{ formation.mention }}</td>
+		<td>{{ formation.etape }}</td>
+		<td>{{ formation.codeDiplome }}</td>
+		<td>{{ formation.codeEtape }}</td>
+		<td>{{ formation.codeVet }}</td>
+		<td>{{ formation.responsable }}</td>
+		<td>{{ formation.ville }}</td>
+		<td>{{ formation.faculte }}</td>
+		<td>{{ formation.languePdf }}</td>
+	</tr>
+	{% endfor %}
+</table>
+
+{% endblock %}
