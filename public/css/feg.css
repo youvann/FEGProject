@@ -1,11 +1,12 @@
 body {
-
+    font-family: verdana;
     background: url("../img/layout/fond-amu.png") no-repeat 50% 0;
 }
 
 .page-header{
-    background: url(../img/layout/bandeau-amu-lg.png) no-repeat;
-	height: 110px;
+    height: 110px;
+    background: url(../img/layout/bandeau-amu.png) no-repeat;
+    border-radius: 10px 10px 0px 0px;
 }
 /*
     color: #666666;
@@ -21,14 +22,8 @@ body {
     border-right: 1px solid #d5d5d5;
 }
 
-#header{
-    height: 110px;
-    background: url(../img/layout/bandeau-amu.png) no-repeat;
-    border-radius: 10px 10px 0px 0px;
-}
 .container{
     margin-top: 50px;
-    width: 980px;
     padding: 0px;
     background-color: #FAFAFA;
     box-shadow: 1px 1px 12px #b8b8b8;

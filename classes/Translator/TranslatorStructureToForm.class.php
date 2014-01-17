@@ -14,7 +14,7 @@ class TranslatorStructureToForm extends Translator {
 	 * @param array $structure Le tableau php contenant les
 	 * informations supplémentaires demandées par une formation.
 	 * @return \Form Instance de la classe Form contenant les éléments
-	 * de formulaires correspondant aux informations supplémentaires 
+	 * de formulaire correspondant aux informations supplémentaires
 	 * demandées par la formation.
 	 */
 	public function translate($structure) {

@@ -32,7 +32,7 @@
 			</div>
         </div>
         <div id="content" class="col-md-10 well-feg">
-            <h2>{{ titre2 }}</h2>
+            <h2 class="titre_rubrique">{{ titre2 }}</h2>
             {% block content %}{% endblock %}
         </div>
     </div>
@@ -43,8 +43,4 @@
 
 </div><!-- container -->
 
-{% endblock %}
-
-{% block scripts %}
-{{ parent() }}
 {% endblock %}

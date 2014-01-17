@@ -24,11 +24,6 @@ require_once 'config/config.php';
 				<div class="col-md-8">
 					<div id="explorateur"></div>
 					<br>
-					<div id="formation"><?php include('./templates/form.formation.php'); ?></div>
-					<div id="infoPerso"><?php include('./templates/form.infoPerso.php'); ?></div>
-					<div id="choixSpe"><?php include('./templates/form.choixSpe.php'); ?></div>
-					<div id="cursAnt"><?php include('./templates/form.cursAnt.php'); ?></div>
-
 				</div><!-- .col-md-8 -->
 			</div><!-- /row -->
 		</div><!-- container -->

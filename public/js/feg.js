@@ -1,11 +1,10 @@
 $(document).ready(function() {
-    
     /*****************
      ** Formulaires **
      *****************/
 
     // Formulaire formation 
-    $("#form-candidat-formation").submit(function() {
+    $("#formCandidatFormation").submit(function() {
         $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("action"),
@@ -22,6 +21,15 @@ $(document).ready(function() {
             }
         });
         return false;
+    });
+
+    // Ajout d'une étoile rouge pour tous les champs obligatoires
+    $(".required").each(function(){
+        var span = $("<span />");
+        span.attr("class", "obligatory").text(" *");
+        span.appendTo($(this).prev());
+        // Etoile rouge
+        span.css("color", "red");
     });
 
     var myLanguageFR = {
@@ -57,20 +65,13 @@ $(document).ready(function() {
     };
 
     $.validate({
-        form : "#form-candidat-formation, #form-info-perso",
+        form : "#formInfoPerso, #formPostBac, #formCandidatFormation",
         language : myLanguageFR
         // borderColorOnError : '#FF0000'
         // addValidClassOnAll : true    
     });
 
-    // Ajout d'une étoile rouge pour tous les champs obligatoires
-    $(".required").each(function(){
-        var span = $("<span />");
-        span.attr("class", "obligatory").text(" *");
-        span.appendTo($(this).prev());
-        // Etoile rouge
-        span.css("color", "red");
-    });
+
 
     /*/ Explorateur de fichiers
     $('#explorateur').fileTree({
