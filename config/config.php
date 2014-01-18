@@ -9,7 +9,7 @@ require_once './classes/Translator/loader.php';
 $dbname = 'test';
 $host = 'localhost';
 $user = 'root';
-$password = '';
+$password = 'root';
 
 static $conn = null;
 

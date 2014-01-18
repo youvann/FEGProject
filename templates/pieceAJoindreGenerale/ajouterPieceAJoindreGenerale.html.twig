@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<form action="index.php" method="POST">
+    <form action="index.php?uc=pieceAJoindreGenerale&action=ajout" method="POST">
 
-	<div class="form-group">
-		<label for="libel_piece">Libellé</label>
-		<input class="form-control" type="text" id="libel_piece" name="libel_piece" />
-	</div>
-	<input class="btn btn-primary" type="submit" value="Enregistrer" />
-</form>
+        <div class="form-group">
+            <label for="libel_piece">Libellé</label>
+            <input class="form-control" type="text" id="libel_piece" name="libel_piece" />
+        </div>
+        <input class="btn btn-primary" type="submit" value="Enregistrer" />
+    </form>
 
 {% endblock %}
 

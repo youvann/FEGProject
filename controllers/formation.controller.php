@@ -2,7 +2,7 @@
 
 /**
  * @Project: FEG Project
- * @File: /controllers/main.controller.php
+ * @File: /controllers/formation.controller.php
  * @Purpose:
  * @Author:
  */
@@ -24,10 +24,10 @@ switch ($action) {
 			$formations = array();
 			$formations[] = new Formation("Licence Informatique", "L3 Parcours Méthodes Informatiques Appliquées à la Gestion des Entreprises (MIAGE)", "3SIN", "BIN303", "111", "Nicola Olivetti", "Aix-en-Provence", "FEG", "fr");
 			$formations[] = new Formation("Licence Gestion", "L3 Parcours Méthodes Informatiques Appliquées à la Gestion des Entreprises (MIAGE)", "3BGE", "BGE303", "111", "Pierre-Yves Rolland", "Aix-en-Provence", "FEG", "fr");
-			echo $twig->render('formation/grilleFormation.html.twig', array('formations' => $formations));
+			echo $twig->render('formation/grilleFormation.html.twig', array('formations' => $formations, "titre2" => "Liste des formations"));
 		} break;
 	case "ajouter": {
-			echo $twig->render('formation/ajouterFormation.html.twig', array());
+			echo $twig->render('formation/ajouterFormation.html.twig', array('titre2' => 'Ajouter une formation'));
 		} break;
 	case "ajout": {
 			$formationManager->insert(new Formation($_POST['mention'], $_POST['etape'], $_POST['code_diplome'], $_POST['code_etape'], $_POST['code_vet'], $_POST['responsable'], $_POST['ville'], $_POST['faculte'], $_POST['langue_pdf']));
