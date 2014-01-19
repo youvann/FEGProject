@@ -81,6 +81,10 @@ class PagePdf{
     private $weeklyProportion;
     private $foreignLanguage;
     private $otherElements;
+    
+    //Fiche Commission pédagogique
+    //private $commission;
+    
 
 
     public function __construct($cssPath, $backTop = "30mm", $backBottom = "7mm", $backLeft = "0mm", $backRight = "10mm") {
@@ -419,11 +423,10 @@ class PagePdf{
     public function getFicheCommissionPeda(){
         return '<div class="titre_encadre">FICHE COMMISSION PEDAGOGIQUE</div><br/>
                 <div class="text_align">Commission pédagogique du :………………………………………</div><br/>
-                <div>Nom et Prénom du candidat :<br/>
-                …………………………………………………………………………………………………………………………………………………………</div>
-                <br/><div>Demande l’autorisation de s’inscrire en :</div><br/>
-                <div>Dernier diplôme obtenu :  ………………………………………………………………………………………………</div><br/>
-                <div>Date et lieu :  ………………………………………………………………………………………………………………</div><br/><br/>
+                <div>Nom et Prénom du candidat : '.$this->applicantName.' '.$this->applicantFirstName.'</div>
+                <br/><div>Demande l’autorisation de s’inscrire en :<br/>'.$this->formationName.'</div><br/>
+                <div>Dernier diplôme obtenu : </div><br/>
+                <div>Date et lieu : le '. date("d/m/Y") .' à </div><br/><br/>
                 <img src="./img/cadre.png" alt="cadre_administration"/>';
     }
 
