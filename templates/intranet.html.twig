@@ -3,9 +3,7 @@
 {% block body %}
 
 <div class="container">
-	<div class="page-header">
 
-	</div>
     <div class="row">
         <div class="col-md-2">
 			<div class="panel panel-primary-bt">
@@ -20,26 +18,48 @@
 				</div>
 			</div>
 			<div class="panel panel-primary-ja">
-				<div class="panel-heading">Accueil</div>
+				<div class="panel-heading">Pièces à joindre spé</div>
 				<div class="panel-body">
 					<ul class="list-unstyled">
-						<li>Lien 1</li>
-						<li>Lien 2</li>
-						<li>Lien 3</li>
-						<li>Lien 4</li>
+                        <li><a href="index.php?uc=pieceAJoindre&action=grille">Liste des pièces à joindre</a></li>
+                        <li><a href="index.php?uc=pieceAJoindre&action=ajouter">Ajouter</a></li>
 					</ul>
 				</div>
 			</div>
+
+            <div class="panel panel-primary-ja">
+                <div class="panel-heading">Pièces à joindre générales</div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <li><a href="index.php?uc=pieceAJoindreGenerale&action=grille">Liste des pièces à joindre</a></li>
+                        <li><a href="index.php?uc=pieceAJoindreGenerale&action=ajouter">Ajouter</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel panel-danger">
+                <div class="panel-heading">Informations supplémentaires</div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        <li><a href="index.php?uc=informationSupp&action=grille">Liste des pièces supplémentaires</a></li>
+                        <li><a href="index.php?uc=informationSupp&action=ajouter">Ajouter</a></li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
         <div id="content" class="col-md-10 well-feg">
+            <!--<header></header>-->
+
             <h2 class="titre_rubrique">{{ titre2 }}</h2>
             {% block content %}{% endblock %}
+
+            <footer>
+                <p class="text-muted text-center">© 2014 FEG PROJECT | MADE BY COHEN-GUISSANI-KARAGOZ-MEAS | WE <3 BOOTSTRAP</p>
+            </footer>
+
         </div>
     </div>
-
-    <footer>
-        <p class="text-muted text-center">© 2014 COHEN-GUISSANI-KARAGOZ-MEAS</p>
-    </footer>
 
 </div><!-- container -->
 
