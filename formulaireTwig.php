@@ -32,6 +32,11 @@ switch ($action) {
             "titre2" => "Choix de la spécialité"
         ));
     } break;
+    case "pieceAJoindre": {
+        echo $twig->render('formulaire/pieceAJoindre.html.twig', array(
+            "titre2" => "Pièce à joindre"
+        ));
+    } break;
     default: break;
 }
 

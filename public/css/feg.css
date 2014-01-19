@@ -55,7 +55,7 @@ header {
     color: #0071b9;
 }
 
-p{
+p, label{
     text-align: justify;
 }
 
