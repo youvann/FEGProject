@@ -23,9 +23,10 @@
     $pagePdf->setNote("* Dossier à utiliser si vous résidez dans l'Espace européen, ou dans un pays où il n'existe pas d'espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.");
     $pagePdf->setApplicant("Dupont", "Pierre", "01/01/2014", "Aix-en-Provence", "110000000Q", "4 rue Forbin 13100 Aix-en-Provence", "0442321423", "0674231232", "contact@feg.com", "étudiant");
     $pagePdf->setPlanFormation("L3 Gestion parcours MIAGE - Méthodes informatiques Appliquées à la Gestion des Entreprises", "Aix-en-Provence");
-    $pagePdf->setBaccalaureat("Scientifique", "2010", "Lycée Pierre Paul Jack", "Réunion", "France");
+    $pagePdf->setPrevFormation("Scientifique", "2010", "Lycée Pierre Paul Jack", "Réunion", "France", "Lycée 1", "Lycée 2", "Lycée 3", "Lycée 4", "Lycée 5", "cursus 1", "cursus 2", "cursus 3", "cursus 4", "cursus 5", "oui", "non", "oui", "non", "non", "2012/2013", "2011/2012", "2010/2011", "2009/2010", "2008/2007");
+    $pagePdf->setExperiencePro('checked', 'checked', 'checked', 12, 35, "Anglais bon niveau (lu, écrit et parlé)", "Pas d'autres éléments appuyant ma candidature");
     // Rajouter code ici 
-    // $pagePdf->LeNomdelaméthode("param1", "param2");
+    
     ob_start();
     echo $pagePdf;
     $content = ob_get_clean();
