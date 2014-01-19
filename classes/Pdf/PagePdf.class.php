@@ -82,8 +82,7 @@ class PagePdf{
     private $foreignLanguage;
     private $otherElements;
     
-    //Fiche Commission pédagogique
-    //private $commission;
+
     
 
 
