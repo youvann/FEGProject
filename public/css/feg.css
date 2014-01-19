@@ -3,28 +3,17 @@ body {
     background: url("../img/layout/fond-amu.png") no-repeat 50% 0;
 }
 
-.page-header{
+header {
     height: 110px;
     background: url(../img/layout/bandeau-amu.png) no-repeat;
     border-radius: 10px 10px 0px 0px;
 }
-/*
-    color: #666666;
-    font-family: verdana;
-    background: url("../img/layout/fond-amu.png") no-repeat 50% 0;
-}*/
-
-.menu ul{
-    margin-top: 30px;
-}
-
-.menu{
-    border-right: 1px solid #d5d5d5;
-}
 
 .container{
     margin-top: 50px;
-    padding: 0px;
+}
+
+#content, .panel{
     background-color: #FAFAFA;
     box-shadow: 1px 1px 12px #b8b8b8;
     border-radius: 10px 10px 10px 10px;
@@ -76,12 +65,12 @@ body {
 }*/
 
 .valid{
-	background: url(../img/form-validator/icon-ok.png) no-repeat right center;
-	/*#e3ffe5*/
-	/*border-color: #96b796 !important;*/
-	/*color: #002f00;*/
+    background: url(../img/form-validator/icon-ok.png) no-repeat right center;
+    /*#e3ffe5*/
+    /*border-color: #96b796 !important;*/
+    /*color: #002f00;*/
 }
 .error{
-	background: url(../img/form-validator/icon-fail.png) no-repeat right center;
-	/*#ffebef*/
+    background: url(../img/form-validator/icon-fail.png) no-repeat right center;
+    /*#ffebef*/
 }
