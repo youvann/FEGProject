@@ -45,7 +45,7 @@ class PagePdf{
     private $applicantActivity;
     private $noteActivity;
 
-    // Formatin envisagé
+    // Formation envisagé
     private $formationName;
     private $formationPlace;
 
@@ -55,6 +55,33 @@ class PagePdf{
     private $establishment;
     private $departement;
     private $country;
+    
+    private $establishment1;
+    private $establishment2;
+    private $establishment3;
+    private $establishment4;
+    private $establishment5;
+    private $cursus1;
+    private $cursus2;
+    private $cursus3;
+    private $cursus4;
+    private $cursus5;
+    private $validate1;
+    private $validate2;
+    private $validate3;
+    private $validate4;
+    private $validate5;
+    
+    //Expérience professionnelle
+    private $job;
+    private $stage;
+    private $emploi;
+    
+    private $contractDurateMonths;
+    private $weeklyProportion; 
+    private $foreignLanguage;
+    private $otherElements;
+    
 
     public function __construct($cssPath, $backTop = "30mm", $backBottom = "7mm", $backLeft = "0mm", $backRight = "10mm") {
         $this->pagePdfHeader = new PagePdfHeader();
@@ -213,13 +240,38 @@ class PagePdf{
                 </table>';
     }
 
-    public function setBaccalaureat ($serie, $yearAcquisition, $establishment, $departement, $country){
+    public function setPrevFormation ($serie, $yearAcquisition, $establishment, $departement, $country, $establishment1, $establishment2, $establishment3, $establishment4, $establishment5, $cursus1, $cursus2, $cursus3, $cursus4, $cursus5, $validate1, $validate2, $validate3, $validate4, $validate5, $annee1, $annee2, $annee3, $annee4, $annee5){
         $this->serie = $serie;
         $this->yearAcquisition = $yearAcquisition;
         $this->establishment = $establishment;
         $this->departement = $departement;
         $this->country = $country;
+        
+        $this->establishment1=$establishment1;
+        $this->establishment2=$establishment2;
+        $this->establishment3=$establishment3;
+        $this->establishment4=$establishment4;
+        $this->establishment5=$establishment5;
+        $this->cursus1=$cursus1;
+        $this->cursus2=$cursus2;
+        $this->cursus3=$cursus3;
+        $this->cursus4=$cursus4;
+        $this->cursus5=$cursus5;
+        $this->validate1=$validate1;
+        $this->validate2=$validate2;
+        $this->validate3=$validate3;
+        $this->validate4=$validate4;
+        $this->validate5=$validate5;
+        $this->annee1=$annee1;
+        $this->annee2=$annee2;
+        $this->annee3=$annee3;
+        $this->annee4=$annee4;
+        $this->annee5=$annee5;
     }
+    
+    
+
+
 
     public function getPrevFormation (){
         return '<br><br>
@@ -247,15 +299,147 @@ class PagePdf{
                             <th class="col5 center">Cursus suivi</th>
                             <th class="col2 center">Validé</th>
                         </tr>
+                        <tr>
+                            <td text-align="center">'.$this->annee1.'</td>
+                            <td text-align="center">'.$this->establishment1.'</td>
+                            <td text-align="center">'.$this->cursus1.'</td>
+                            <td text-align="center">'.$this->validate1.'</td>
+                        </tr>
+                        <tr>
+                            <td text-align="center">'.$this->annee2.'</td>
+                            <td text-align="center">'.$this->establishment2.'</td>
+                            <td text-align="center">'.$this->cursus2.'</td>
+                            <td text-align="center">'.$this->validate2.'</td>
+                        </tr>
+                        <tr>
+                            <td text-align="center">'.$this->annee3.'</td>
+                            <td text-align="center">'.$this->establishment3.'</td>
+                            <td text-align="center">'.$this->cursus3.'</td>
+                            <td text-align="center">'.$this->validate3.'</td>
+                        </tr>
+                        <tr>
+                            <td text-align="center">'.$this->annee4.'</td>
+                            <td text-align="center">'.$this->establishment4.'</td>
+                            <td text-align="center">'.$this->cursus4.'</td>
+                            <td text-align="center">'.$this->validate4.'</td>
+                        </tr>
+                        <tr>
+                            <td text-align="center">'.$this->annee4.'</td>
+                            <td text-align="center">'.$this->establishment5.'</td>
+                            <td text-align="center">'.$this->cursus5.'</td>
+                            <td text-align="center">'.$this->validate5.'</td>
+                        </tr>
+
                     </table>
 
                 </div>
                 ';
     }
+    
+    
+    
+    public function setExperiencePro ($job, $stage, $emploi, $contractDurateMonths, $weeklyProportion, $foreignLanguage, $otherElements){
+        $this->job = $job;
+        $this->stage = $stage;
+        $this->emploi = $emploi;
+        $this->contractDurateMonths = $contractDurateMonths;
+        $this->weeklyProportion = $weeklyProportion;
+        $this->foreignLanguage = $foreignLanguage;
+        $this->otherElements = $otherElements;
+    }
+    
+    
+    public function getExperiencePro (){
+        return '<br><br>
+        <div class="bold_underline">Expérience professionnelle (emplois, stages):</div><br/>
+        <form action="">
+                    <input type="checkbox" value="job">Jobs étudiants<br>
+                    <input type="checkbox" value="stage">Stages dans le cadre de vos études : fournir les attestations de stage<br>
+                    <input type="checkbox" value="emploi">Emploi occupé à temps partiel ou à temps plein (hors statut d’étudiant salarié)<br>
+                </form>
+        <br/><span>Durée cumulée du ou des contrats (en mois) :</span>'.$this->contractDurateMonths.'<br/>
+        <span>Quotité hebdomadaire (en heures) : </span>'.$this->weeklyProportion.'<br/><br/>
+        <div class="bold_underline">Langues étrangères (lu, écrit, parlé) :</div>'.$this->foreignLanguage.'<br/><br/>
+        <div class="bold_underline">Autres éléments appuyant votre candidature :</div>'.$this->otherElements.'<br/>
+        ';
+        }
+        
+     public function getFin (){
+        return '<br><br>
+                <div class="titre_encadre">PIECES A JOINDRE</div><br/>
+                <div class="underline">POUR LES TITULAIRES DE DIPLOMES DE L’UNION EUROPEENNE</div>
+                <ul>
+                <li class="bold">Curriculum-vitae détaillé et lettre de motivation manuscrite.</li>
+                <li>Relevé de notes du Baccalauréat ou équivalent (copie) et de toutes les années de formation suivies après le baccalauréat, si nécessaire traduits en français par un traducteur assermenté.</li>
+                <li>Attestations des diplômes obtenus (Baccalauréat, DEUG, DUT, BTS... ) si nécessaire traduits en français par un traducteur assermenté.</li>
+                <li>Eventuellement, pour les étudiants en D.U.T, avis pédagogique du professeur responsable.
+                <br/><br/>Pour les étudiants de classes préparatoires : avis pour équivalence du conseil de classe, photocopies de leur admissibilité aux écoles de commerce, le cas échéant.
+                </li>
+                <li>Pour les candidats ressortissants de l’union européenne (sauf bac français) : programme détaillé des enseignements suivis en dernière année d’études secondaires visé par le chef d’établissement (document traduit en français).</li>
+                <li>Copie de la carte nationale d’identité ou du passeport.</li>
+                <li>Une bonne connaissance de la langue française est exigée (TCF et TEF niveau 4 minimum requis, DELF B2, DALF C1), pour les ressortissants non-francophones. Fournir les résultats du test d’évaluation.</li>
+                </ul>
+                
+                <br><br>
+                <div class="underline">POUR LES TITULAIRES DE DIPLOMES HORS UNION EUROPEENNE ET HORS DISPOSITIF CAMPUS-FRANCE</div>
+                <ul>
+                <li class="bold">Curriculum-vitae détaillé et lettre de motivation manuscrite.</li>
+                <li>Traduction en français des diplômes étrangers et des relevés de notes, obligatoirement authentifiée par le Conseiller Culturel de l’Ambassade de France du pays d’origine ou par tout traducteur assermenté sous peine de rejet du dossier.</li>
+                <li>Relevé de notes du diplôme de fin d’études secondaires et de toutes les années de formation suivies après ce diplôme, traduits en français par un traducteur assermenté.</li>
+                <li>Dans le cas où le diplôme est en cours d’obtention, fournir les relevés de notes obtenues dans l’année.</li>
+                <li>Programme des enseignements suivis antérieurement.</li>
+                <li>Un extrait d’acte de naissance avec sa traduction en français.</li>
+                <li>Une bonne connaissance de la langue française est exigée (TCF et TEF niveau 4 minimum requis, DELF B2, DALF C1), pour les ressortissants non-francophones. Fournir les résultats du test d’évaluation.</li>
+                </ul>
+                
+                <div class="titre_encadre">DEPOT OU ENVOI DU DOSSIER</div><br/>
+                <div class="bold">Nous recommandons aux candidats l’utilisation de la formule « courrier suivi » pour l’envoi du dossier à nos services. Le respect des dates limites mentionnées en page 1 est impératif, le cachet de la Poste faisant foi.<br/><br/>
+                Adressez le dossier à :</div>
+                <div class="addressFac">IUP MIAGE<br/>
+                FACULTE D’ECONOMIE et de GESTION<br/>
+                15-19 Allée Claude Forbin<br/>
+                13627 Aix-en-Provence Cedex 1</div>
+                
+                <br/><br/><div class="italic_underline">Jours et Horaires d’ouverture au public :</div><br/>
+                <span>Du lundi au vendredi, de 9h à 12h30 et de 14h à 16h.</span><br/><br/>
+                <div class="italic_underline">Contacts :</div>
+                <div class="center">Nathalie DI MARTINO <br/>
+                     Bureau 2.15.B <br/>
+                     Tel : 04 42 21 68 88 <br/>
+                     Email : miage.aix@univ-cezanne.fr <br/>
+                </div><br/>
+                
+                <div class="titre_encadre">Modalités de Candidature</div>
+                <div>La procédure de candidature en L3 Gestion parcours MIAGE se fait en deux étapes :
+                <ol><li>Examen du dossier, à l’issue duquel l’admissibilité du candidat est évaluée.</li>
+                    <li>Entretien + tests d’aptitudes, à l’issue desquels l’admission est déclarée ou rejetée.</li>
+                </ol>
+                Lors de l’examen des dossiers, la commission de recrutement prend une décision d’admissibilité. Tous les candidats admissibles reçoivent une convocation pour un entretien et un test d’aptitude qui ont lieu la même demi-journée. Les tests porteront sur des notions de base en <span class="bold">Logique, Algorithmique, Compréhension de Texte, Expression Française et Anglais</span>. 
+                La date exacte de ces entretiens sera précisée avec la convocation.<br/><br/>
+                Après ces entretiens, la commission de recrutement prend une décision d’admission ou de rejet de la candidature. Selon le nombre de places disponibles et la qualité des dossiers, les candidatures sont placées sur une liste principale ou sur une liste d’attente. Tous les candidats sont prévenus par courrier et par e-mail, de l’avis rendu par la commission y compris en ce qui concerne la liste d’affectation (principale ou liste d’attente).
+                <br/><br/>
+                <span class="bold_underline">Remarques :</span>
+                <ul><li>Votre dossier de candidature doit comprendre l’intégralité des 6 pages de ce dossier et les pièces supplémentaire décrites en page 4.</li>
+                    <li>Joindre au dossier une enveloppe timbrée à votre adresse pour communication des résultats d’admissibilité et/ou d’admission.</li>
+                </ul>                
+                </div><br/>
+                
+                <div class="titre_encadre">FICHE COMMISSION PEDAGOGIQUE</div><br/>
+                <div class="text_align">Commission pédagogique du :………………………………………</div><br/>
+                <div>Nom et Prénom du candidat :<br/>
+                …………………………………………………………………………………………………………………………………………………………</div>
+                <br/><div>Demande l’autorisation de s’inscrire en :</div><br/>
+                <div>Dernier diplôme obtenu :  ………………………………………………………………………………………………</div><br/>
+                <div>Date et lieu :  ………………………………………………………………………………………………………………</div><br/><br/>
+                <img src="./img/cadre.png" alt="cadre_administration"/>
+        
+    ';}
+    
 
     public function __toString (){
         return $this->getCssPath() . $this->getPageBegin() . $this->pagePdfHeader . $this->pagePdfFooter .
                $this->getFormationTitle() . $this->getDegreeHolder() . $this->getApplicant() . $this->getPageEnd() .
-               $this->getNewPage() . $this->getPlanFormation() . $this->getPrevFormation() . $this->getPageEnd();
+               $this->getNewPage() . $this->getPlanFormation() . $this->getPrevFormation() . $this->getExperiencePro() . 
+               $this->getPageEnd() . $this->getFin();
     }
 }
