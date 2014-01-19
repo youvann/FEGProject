@@ -13,7 +13,7 @@ header {
     margin-top: 50px;
 }
 
-#content, .panel{
+#content{
     background-color: #FAFAFA;
     box-shadow: 1px 1px 12px #b8b8b8;
     border-radius: 10px 10px 10px 10px;
@@ -53,6 +53,10 @@ header {
     font-family: verdana;
     font-size: 10px;
     color: #0071b9;
+}
+
+p{
+    text-align: justify;
 }
 
 /*****************

@@ -13,8 +13,27 @@
                     <form role="form" action="#" id="formPostBac" method="post">
                         <fieldset>
                             <legend>Cursus antérieur</legend>
+                            <h4>1. Dernière inscription dans l'enseignement supérieur</h4>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label for="">Année universitaire</label>
+                                        <input type="text" class="form-control" id="anne{{ i }}" name="anne{{ i }}" placeholder="Ex : 2013/2014 " />
+                                    </div>
+                                </div>
+                            </div>
 
-                            <h4>1. Cursus post-bac</h4>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label for="">Formation suivie</label>
+                                        <input type="text" class="form-control" id="anne{{ i }}" name="anne{{ i }}" placeholder="Ex : 2013/2014 " />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br>
+                            <h4>2. Cursus post-bac</h4>
                             <div class="form-group">
                                 {% for i in 1..5 %}
                                     <div class="row">
@@ -37,11 +56,12 @@
                                     </div>
                                 {% endfor %}
                             </div>
-
-                            <br />
-                            <h4>2. Expérience professionnelle (emplois, stages)</h4>
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <h4>3. Expérience professionnelle (emplois, stages)</h4>
                             <div class="form-group">
-                                {% for i in 1..3 %}
+                                {% for i in 0..2 %}
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label for="periode{{ i }}">Période</label>
@@ -62,8 +82,36 @@
                                     </div>
                                 {% endfor %}
                             </div>
-                            <input type="submit" class="btn btn-primary">
                         </fieldset>
+
+                        <fieldset>
+                            <legend>Autres</legend>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-10">
+
+                                        <label for="langue_etrangere">Langues étrangères (lu, écrit, parlé)</label>
+                                        <input type="text" class="form-control" id="langue_etrangere" name="langue_etrangere" placeholder="Anglais (lu, écrit, parlé), espagnol (lu, écrit) ..."/>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-10">
+
+                                        <label for="langue_etrangere">Autres éléments appuyant votre candidature</label>
+                                        <textarea class="form-control" id="langue_etrangere" name="langue_etrangere"></textarea>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <input type="submit" class="btn btn-primary">
                     </form>
                 </div> <!-- panel-body -->
             </div><!-- panel panel-primary -->

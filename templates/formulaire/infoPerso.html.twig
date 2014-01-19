@@ -10,12 +10,17 @@
 
                 <div class="panel-body">
                     <form role="form" action="#" id="formInfoPerso" method="post">
+
+                        <div class="radio"><label><input type="radio" name="titulaire"><b>Titulaire d'un diplôme français - Date de limite dépôt du dossier le {{ limitDate }}</b></label></div>
+                        <div class="radio"><label><input type="radio" name="titulaire"><b>Titulaire d'un diplôme de l'Union Européenne - Date de limite dépôt du dossier le {{ limitDate }}</b></label></div>
+                        <div class="radio"><label><input type="radio" name="titulaire"><b>Titulaire d'un diplôme hors Union Européenne * - Date de limite dépôt du dossier le {{ limitDate }}</b></label></div>
+                        <p class=""><i>* Dossier à utiliser si vous résidez dans l’Espace européen, ou dans un pays où il n’existe pas d’espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.</i></p>
                         <fieldset>
-                            <legend>Informations personnelles</legend>
+                            <legend>Candidat</legend>
 
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="sexe" id="femme" value="femme" checked>
+                                    <input type="radio" name="sexe" id="femme" value="femme">
                                     Madame
                                 </label>
                             </div>
@@ -117,15 +122,16 @@
                             <legend>Autres</legend>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         <label for="activite_actuelle">Activité actuelle</label>
                                         <input type="text" class="form-control required" id="activite_actuelle" name="activite_actuelle" placeholder="étudiant, salarié, demandeur d'emploi, autre" data-validation="required" />
+                                        <br>
+                                        <p><i>* Vous êtes salarié, vous souhaitez bénéficier d'un congé individuel de formation (CIF, DIF) ou d'une période professionnalisation, vous êtes demandeur d'emploi, bénéficiaire du RSA, vous souhaitez effectuer une procédure de VAE ou de VAP, vous avez cessé vos études depuis au moins 2 ans, vous avez suivi un cursus de formation en alternance, vous avez plus de 28 ans : Contactez rapidement le secrétariat de la formation afin que votre dossier et les possibilités de financement vous concernant soient examinés au plus tôt.</i></p>
                                     </div>
                                 </div>
                             </div>
                         </fieldset>
                         <input type="submit" class="btn btn-primary">
-
                     </form>
                 </div> <!-- panel-body -->
             </div><!-- panel panel-primary -->
