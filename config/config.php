@@ -25,14 +25,20 @@ $conn->query("SET CHARACTER SET utf8");
 require_once './Entities/loader.php';
 
 // Instanciations des Managers
-$candidatManager = new CandidatManager($conn);
-$cursusEtudiantManager = new CursusEtudiantManager($conn);
-$dependanceManager = new DependanceManager($conn);
+$choixManager = new ChoixManager($conn);
+$cursusManager = new CursusManager($conn);
+$documentManager = new DocumentManager($conn);
+$documentSpecifiqueManager = new DocumentSpecifiqueManager($conn);
+$dossierManager = new DossierManager($conn);
+$etudiantManager = new EtudiantManager($conn);
+$experienceManager = new ExperienceManager($conn);
+$faireManager = new FaireManager($conn);
 $formationManager = new FormationManager($conn);
-$informationSuppManager = new InformationSuppManager($conn);
-$pieceAJoindreGeneraleManager = new PieceAJoindreGeneraleManager($conn);
-$pieceAJoindreManager = new PieceAJoindreManager($conn);
-$typeChampsInformationsManager = new TypeChampsInformationsManager($conn);
+$informationManager = new InformationManager($conn);
+$seDeroulerManager = new SeDeroulerManager($conn);
+$typeManager = new TypeManager($conn);
+$villeManager = new VilleManager($conn);
+$voeuManager = new VoeuManager($conn);
 
 include_once('Twig/lib/Twig/Autoloader.php');
 Twig_Autoloader::register();
