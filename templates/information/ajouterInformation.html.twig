@@ -1,0 +1,35 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+    <form action="index.php?uc=information&action=ajout" method="POST">
+
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input class="form-control" type="text" id="id" name="id" />
+        </div>
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input class="form-control" type="text" id="nom" name="nom" />
+        </div>
+
+        <div class="form-group">
+            <label for="libelle">Libellé</label>
+            <input class="form-control" type="text" id="libelle" name="libelle" />
+        </div>
+        <div class="form-group">
+            <label for="explications">Explications</label>
+            <input class="form-control" type="text" id="explications" name="explications" />
+        </div>
+        <div class="form-group">
+            <label for="ordre">Ordre</label>
+            <input class="form-control" type="text" id="ordre" name="ordre" />
+        </div>
+        <input class="btn btn-primary" type="submit" value="Enregistrer" />
+    </form>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

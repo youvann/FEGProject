@@ -4,22 +4,23 @@
 
     <table class="table table-hover table-bordered table-striped">
         <tr>
-            <th>Code étape</th>
-            <th>Code VET</th>
             <th>ID</th>
-            <th>Libellé information</th>
-            <th>Requis</th>
-            <th>Id Type élément</th>
+            <th>Nom</th>
+            <th>ID</th>
+            <th>Code</th>
+            <th>Libellé</th>
+            <th>Explications</th>
+            <th>Ordre</th>
             <th>Options</th>
         </tr>
-        {% for informationSupp in informationsSupp %}
+        {% for information in informations %}
             <tr>
-                <td>{{ informationSupp.codeEtape }}</td>
-                <td>{{ informationSupp.codeVet }}</td>
-                <td>{{ informationSupp.id }}</td>
-                <td>{{ informationSupp.libelInformation }}</td>
-                <td>{{ informationSupp.requis }}</td>
-                <td>{{ informationSupp.idTypeElement }}</td>
+                <td>{{ information.id }}</td>
+                <td>{{ information.nom }}</td>
+                <td>{{ information.code }}</td>
+                <td>{{ information.libelle }}</td>
+                <td>{{ information.explications }}</td>
+                <td>{{ information.ordre }}</td>
                 <td><div class="btn-group">
                         <button type="button" class="btn btn-success">Consulter</button>
                         <button type="button" class="btn btn-primary">Modifier</button>

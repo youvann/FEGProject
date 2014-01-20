@@ -2,36 +2,18 @@
 
 {% block content %}
 
-<form action="" method="POST">	
-	<input type="hidden" id="code_etape" name="code_etape" value="{{ formation.codeetape }}" />
-	<input type="hidden" id="code_vet" name="code_vet" value="{{ formation.codevet }}" />
+<form action="" method="POST">
+	<div class="form-group">
+		<label for="code">Code</label>
+		<input class="form-control" type="text" id="code" name="code" value="{{ formation.code }}" />
+	</div>
 	<div class="form-group">
 		<label for="mention">Mention</label>
 		<input class="form-control" type="text" id="mention" name="mention" value="{{ formation.mention }}" />
 	</div>
 	<div class="form-group">
-		<label for="etape">Etape</label>
-		<input class="form-control" type="text" id="etape" name="etape" value="{{ formation.mention }}" />
-	</div>
-	<div class="form-group">
-		<label for="code_diplome">Code diplôme</label>
-		<input class="form-control" type="text" id="code_diplome" name="code_diplome" value="{{ formation.codeDiplome }}" />
-	</div>
-	<div class="form-group">
-		<label for="responsable">Responsable</label>
-		<input class="form-control" type="text" id="responsable" name="responsable" value="{{ formation.responsable }}" />
-	</div>
-	<div class="form-group">
-		<label for="ville">Ville</label>
-		<input class="form-control" type="text" id="ville" name="ville" value="{{ formation.ville }}" />
-	</div>
-	<div class="form-group">
-		<label for="faculte">Faculté</label>
-		<input class="form-control" type="text" id="faculte" name="faculte" value="{{ formation.faculte }}" />
-	</div>
-	<div class="form-group">
-		<label for="langue_pdf">Langue du PDF</label>
-		<input class="form-control" type="text" id="langue_pdf" name="langue_pdf" value="{{ formation.mention }}" />
+		<label for="ouverte">Ouverte</label>
+		<input class="form-control" type="text" id="ouverte" name="ouverte" value="{{ formation.ouverte }}" />
 	</div>
 	<input class="btn btn-primary" type="submit" value="Enregistrer" />
 </form>

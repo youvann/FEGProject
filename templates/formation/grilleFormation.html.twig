@@ -4,27 +4,20 @@
 
 <table class="table table-hover table-bordered table-striped">
 	<tr>
+		<th>Code</th>
 		<th>Mention</th>
-		<th>Etape</th>
-		<th>Responsable</th>
-		<th>Ville</th>
-		<th>Faculté</th>
-		<th>Langue Pdf</th>
+		<th>Ouverte</th>
 		<th>Options</th>
 	</tr>
 	{% for formation in formations %}
 	<tr>
+		<td>{{ formation.code }}</td>
 		<td>{{ formation.mention }}</td>
-		<td>{{ formation.etape }}</td>
-		<td>{{ formation.responsable }}</td>
-		<td>{{ formation.ville }}</td>
-		<td>{{ formation.faculte }}</td>
-		<td>{{ formation.languePdf }}</td>
-		<td>
-			<div class="btn-group">
-				<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-check"></span></button>
-				<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></button>
-				<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+		<td>{{ formation.ouverte }}</td>
+		<td><div class="btn-group">
+                        <button type="button" class="btn btn-success">Consulter</button>
+				<button type="button" class="btn btn-primary">Modifier</button>
+				<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Supprimer</button>
 			</div>
 		</td>
 	</tr>
