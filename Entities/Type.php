@@ -1,29 +1,27 @@
 <?php
 
 class Type {
-	private $id;
+	private $nom;
 	private $libelle;
 	
-	function __construct($id, $libelle) {
-		$this->id = $id;
+	function __construct($nom, $libelle) {
+		$this->nom = $nom;
 		$this->libelle = $libelle;
 	}
 
-	public function getId() {
-		return $this->id;
+	public function getNom() {
+		return $this->nom;
 	}
 
 	public function getLibelle() {
 		return $this->libelle;
 	}
 
-	public function setId($id) {
-		$this->id = $id;
+	public function setNom($nom) {
+		$this->nom = $nom;
 	}
 
 	public function setLibelle($libelle) {
 		$this->libelle = $libelle;
 	}
-
-
 }

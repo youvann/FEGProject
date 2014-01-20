@@ -17,6 +17,15 @@ class VilleManager {
 		return new Choix($rs['CODE_VET'], $rs['NOM']);
 	}
 	
+	public function findAll() {
+		$villes = array();
+		$rs = $this->db->query("SELECT * FROM `VILLE`;")->fetchAll;
+		foreach ($rs as $ville) {
+			$villes[] = new Ville($ville['CODE_VET'], $ville['NOM']);
+		}
+		return $villes;
+	}
+	
 	public function insert(Ville $ville) {
 		return $this->db->prepare("INSERT INTO `VILLE` (`CODE_VET`, `NOM`) VALUES (?, ?);")
 				->execute(array($ville->getCodeVet(), $ville->getNom()));

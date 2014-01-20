@@ -1,6 +1,6 @@
 <?php
 
-class DocumentSpecifique {
+class Document {
 	private $id;
 	private $nom;
 	

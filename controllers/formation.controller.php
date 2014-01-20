@@ -20,17 +20,19 @@ if (!isset($_GET['action'])) {
   } */
 
 switch ($action) {
+	case "consulter": {		
+        $formation = $formationManager->find($_GET['code']);
+        echo $twig->render('formation/consulterFormation.html.twig', array('formation' => $formation));
+    } break;
     case "grille": {
-        $formations = array();
-        $formations[] = new Formation("0001 (code)", "L3 informatique (mention)", "oui (ouverte)");
-        $formations[] = new Formation("0002 (code)", "L3 Gestion (mention)", "non (ouverte)");
-        echo $twig->render('formation/grilleFormation.html.twig', array('formations' => $formations, "titre2" => "Liste des formations"));
+        $formations = $formationManager->findAll();
+        echo $twig->render('formation/grilleFormation.html.twig', array('formations' => $formations));
     } break;
     case "ajouter": {
         echo $twig->render('formation/ajouterFormation.html.twig', array('titre2' => 'Ajouter une formation'));
     } break;
     case "ajout": {
-        $formationManager->insert(new Formation($_POST['mention'], $_POST['etape'], $_POST['code_diplome'], $_POST['code_etape'], $_POST['code_vet'], $_POST['responsable'], $_POST['ville'], $_POST['faculte'], $_POST['langue_pdf']));
+        $formationManager->insert(new Formation($_POST['code'], $_POST['mention'], $_POST['ouverte']));
         header('location:index.php?uc=formation&action=grille');
     } break;
     case "modifier": {

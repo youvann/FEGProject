@@ -2,32 +2,31 @@
 
 {% block content %}
 
-<h2 class="titre_rubrique">Liste des informations</h2>
+<h2 class="titre_rubrique">Liste des voeux</h2>
 
-<a href="index.php?uc=information&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
-	<span class="glyphicon glyphicon-plus-sign"></span> Ajouter une information
+<a href="index.php?uc=voeu&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
+	<span class="glyphicon glyphicon-plus-sign"></span> Ajouter un voeu
 </a>
 
-{% if informations is not empty %}
+{% if voeux is not empty %}
 
 <table style="margin-top: 1em;" class="table table-hover table-bordered table-striped">
 	<tr>
-		<th>Libellé</th>
-		<th>Explications</th>
-		<th>Type</th>
-		<th>Ordre</th>
+		<th>Etape</th>
+		<th>Responsable</th>
 		<th>Options</th>
 	</tr>
-        {% for information in informations %}
+        {% for voeu in voeux %}
 	<tr>
-		<td>{{ information.libelle }}</td>
-		<td>{{ information.explications }}</td>
-		<td>{{ information.nom }}</td>
-		<td>{{ information.ordre }}</td>
+		<td>{{ voeu.etape }}</td>
+		<td>{{ voeu.responsable }}</td>
 		<td>
 			<div class="btn-group">
 				<a type="button" class="btn btn-info">
 					<span class="glyphicon glyphicon-check"></span> Consulter
+				</a>
+				<a type="button" class="btn btn-warning">
+					<span class="glyphicon glyphicon-check"></span> Modifier
 				</a>
 				<a type="button" class="btn btn-danger">
 					<span class="glyphicon glyphicon-trash"></span> Supprimer

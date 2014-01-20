@@ -16,13 +16,14 @@ class InformationManager {
 	public function find($id) {
 		$rs = $this->db->prepare("SELECT * FROM `INFORMATION` WHERE `ID` = ?;")
 						->execute(array($id))->fetch();
-		return new InformationSupp($rs['CODE_ETAPE'], $rs['CODE_VET'], $rs['ID'], $rs['LIBEL_INFORMATION'], $rs['REQUIS'], $rs['ID_TYPE_ELEMENT']);
+		return new InformationSupp($rs['ID'], $rs['NOM'], $rs['ID'], $rs['LIBEL_INFORMATION'], $rs['REQUIS'], $rs['ID_TYPE_ELEMENT']);
 	}
 
 	public function findAllByFormation($codeFormation) {
 		$informations = array();
-		$rs = $this->db->prepare("SELECT * FROM `INFORMATION` WHERE `CODE` = ?;")
-						->execute(array($codeFormation))->fetchAll();
+		$q = $this->db->prepare("SELECT * FROM `INFORMATION` WHERE `CODE` = ?;");
+		$q->execute(array($codeFormation));
+		$rs = $q->fetchAll();
 		foreach ($rs as $information) {
 			$informations[] = new Information($information['ID'], $information['NOM'], $information['CODE'], $information['LIBELLE'], $information['EXPLICATIONS'], $information['ORDRE']);
 		}
@@ -30,7 +31,7 @@ class InformationManager {
 	}
 
 	public function insert(Information $information) {
-		return $this->db->prepare("INSERT INTO `information` (`NOM`, `CODE`, `LIBELLE`, `EXPLICATIONS`, `ORDRE`) VALUES (?, ?, ?, ?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `information` (`NOM`, `CODE`, `LIBELLE`, `EXPLICATIONS`, `ORDRE`) VALUES (?, ?, ?, ?, ?);")
 						->execute(array(
 							$information->getNom(),
 							$information->getCode(),

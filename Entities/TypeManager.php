@@ -12,16 +12,17 @@ private $db;
 	}
 
 	public function find($id) {
-		$rs = $this->db->prepare("SELECT * FROM `TYPE` WHERE `ID` = ?;")
-						->execute(array($id))->fetch();
-		return new Type($rs['ID'], $rs['NOM']);
+		$q = $this->db->prepare("SELECT * FROM `TYPE` WHERE `ID` = ?;");
+		$q->execute(array($id));
+		$rs = $q->fetch();
+		return new Type($rs['NOM'], $rs['LIBELLE']);
 	}
 
 	public function findAll() {
 		$types = array();
 		$rs = $this->db->query("SELECT * FROM `TYPE`;")->fetchAll();
 		foreach ($rs as $type) {
-			$types[] = new Type($type['ID'], $type['NOM']);
+			$types[] = new Type($type['NOM'], $type['LIBELLE']);
 		}
 		return $types;
 	}

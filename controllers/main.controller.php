@@ -20,17 +20,20 @@ if (!isset($_GET['uc'])) {
   } */
 
 switch ($uc) {
-    case "formation": {
-        require_once './controllers/formation.controller.php';
-    } break;
-    case "pieceAJoindre": {
-        require_once './controllers/pieceAJoindre.controller.php';
-    } break;
-    case "pieceAJoindreGenerale": {
-        require_once './controllers/pieceAJoindreGenerale.controller.php';
-    } break;
-    case "information": {
-        require_once './controllers/information.controller.php';
-    } break;
-    default: break;
+	case "formation": {
+			require_once './controllers/formation.controller.php';
+		} break;
+	case "documentSpecifique": {
+			require_once './controllers/documentSpecifique.controller.php';
+		} break;
+	case "document": {
+			require_once './controllers/document.controller.php';
+		} break;
+	case "information": {
+			require_once './controllers/information.controller.php';
+		} break;
+	case "voeu": {
+			require_once './controllers/voeu.controller.php';
+		} break;
+	default: break;
 }

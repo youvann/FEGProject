@@ -19,10 +19,11 @@ class DocumentSpecifiqueManager {
 		return new DocumentSpecifique($rs['ID'], $rs['CODE'], $rs['NOM'], $rs['URL']);
 	}
 
-	public function findAllByFormation($codeFormation) {
+	public function findAllByFormation($code) {
 		$documentsSpecifiques = array();
-		$rs = $this->db->prepare("SELECT * FROM `DOCUMENT_SPECIFIQUE` WHERE `CODE` = ?;")
-						->execute(array($codeFormation))->fetchAll();
+		$q = $this->db->prepare("SELECT * FROM `DOCUMENT_SPECIFIQUE` WHERE `CODE` = ?;");
+		$q->execute(array($code));
+		$rs = $q->fetchAll();
 		foreach ($rs as $documentSpecifique) {
 			$documentsSpecifiques[] = new DocumentSpecifique($documentSpecifique['ID'], $documentSpecifique['CODE'], $documentSpecifique['NOM'], $documentSpecifique['URL']);
 		}

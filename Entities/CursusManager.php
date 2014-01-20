@@ -1,6 +1,6 @@
 <?php
 
-class CursusEtudiantManager {
+class CursusManager {
 
 	private $db;
 

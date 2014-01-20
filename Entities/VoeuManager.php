@@ -28,10 +28,11 @@ class VoeuManager {
 	
 	public function findAllByFormation($codeFormation) {
 		$voeux = array();
-		$rs = $this->db->prepare("SELECT * FROM `VOEU` WHERE `CODE` = ?;")
-				->execute(array($codeFormation))->fetchAll();
+		$q = $this->db->prepare("SELECT * FROM `VOEU` WHERE `CODE` = ?;");
+		$q->execute(array($codeFormation));
+		$rs = $q->fetchAll();
 		foreach ($rs as $voeu) {
-			$voeux[] = new Choix($voeu['ID'], $voeu['INFORMATION'], $voeu['TEXTE']);
+			$voeux[] = new Voeu($voeu['CODE_ETAPE'], $voeu['CODE'], $voeu['ETAPE'], $voeu['RESPONSABLE']);
 		}
 		return $voeux;
 	}

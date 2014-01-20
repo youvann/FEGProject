@@ -1,7 +1,7 @@
 <?php
 
 // CHECK
-class DocumentSpecifiqueManager {
+class DocumentManager {
 
 	private $db;
 

@@ -1,7 +1,7 @@
 <?php
 
 // Manque insert
-class CandidatManager {
+class DossierManager {
 
 	private $db;
 

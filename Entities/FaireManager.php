@@ -12,7 +12,7 @@ class FaireManager {
 		$this->db = $db;
 	}
 
-	public function find();
+	//public function find();
 
 	public function insert(Faire $faire) {
 		return $this->db->prepare("INSERT INTO `FAIRE` (`CODE_ETAPE`, `INE`, `CODE_FORMATION`, `ORDRE`) VALUES (?, ?, ?, ?);")

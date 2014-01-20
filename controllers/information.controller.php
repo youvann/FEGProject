@@ -21,24 +21,23 @@ if (!isset($_GET['action'])) {
 
 switch ($action) {
     case "grille": {
-        $informations = array();
-        $informations[] = new Information("01", "nom1", "code1", "libelle1", "explications1", "ordre1");
-        $informations[] = new Information("02", "nom2", "code2", "libelle2", "explications2", "ordre2");
-        echo $twig->render('information/grilleInformation.html.twig', array('informations' => $informations, "titre2" => "Liste des informations"));
+		$informations = $informationManager->findAllByFormation($_GET['code']);
+        echo $twig->render('information/grilleInformation.html.twig', array('informations' => $informations, 'code' => $_GET['code']));
     } break;
     case "ajouter": {
-        echo $twig->render('information/ajouterInformation.html.twig', array('titre2' => 'Ajouter une information'));
+		$types = $typeManager->findAll();
+        echo $twig->render('information/ajouterInformation.html.twig', array('types' => $types, 'code' => $_GET['code']));
     } break;
     case "ajout": {
-        $informationManager->insert(new Information($_POST["id"], $_POST["nom"], $_POST["id"], $_POST["code"], $_POST["libelle"], $_POST["explications"], $_POST["ordre"]));
-        header('location:index.php?uc=information&action=grille');
+        $informationManager->insert(new Information(0, $_POST["nom"], $_POST["code"], $_POST["libelle"], $_POST["explications"], 0));
+        header('location:index.php?uc=information&action=grille&code='.$_POST['code']);
     } break;
     case "modifier": {
         $information = $informationManager->find($_GET['id']);
         echo $twig->render('information/modifierInformation.html.twig', array('information' => $information));
     } break;
     case "modification": {
-        $information = new Information($_POST["id"], $_POST["nom"], $_POST["id"], $_POST["code"], $_POST["libelle"], $_POST["explications"], $_POST["ordre"]));
+        //$information = new Information($_POST["id"], $_POST["nom"], $_POST["id"], $_POST["code"], $_POST["libelle"], $_POST["explications"], $_POST["ordre"]));
         $informationManager->update($information);
         header('location:index.php?uc=information&action=grille');
     } break;

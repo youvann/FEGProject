@@ -13,8 +13,9 @@ class FormationManager {
 	}
 
 	public function find($code) {
-		$rs = $this->db->prepare("SELECT * FROM `FORMATION` WHERE `CODE` = ?;")
-						->execute(array($code))->fetch();
+		$q = $this->db->prepare("SELECT * FROM `FORMATION` WHERE `CODE` = ?;");
+		$q->execute(array($code));
+		$rs = $q->fetch();
 		return new Formation($rs['CODE'], $rs['MENTION'], $rs['OUVERTE']);
 	}
 
@@ -28,7 +29,7 @@ class FormationManager {
 	}
 
 	public function insert(Formation $formation) {
-		return $this->db->prepare("insert into formation (`CODE_DIPLOME`, `MENTION`, `OUVERTE`) VALUES (?, ?, ?);")
+		return $this->db->prepare("insert into formation (`CODE`, `MENTION`, `OUVERTE`) VALUES (?, ?, ?);")
 						->execute(array(
 							$formation->getCode(),
 							$formation->getMention(),
@@ -37,7 +38,7 @@ class FormationManager {
 	}
 
 	public function update(Formation $formation) {
-		return $this->db->prepare("UPDATE `FORMATION` SET `CODE_DIPLOME` = ?, `MENTION` = ?, `OUVERTE` = ? WHERE `CODE` = ?;")
+		return $this->db->prepare("UPDATE `FORMATION` SET `CODE` = ?, `MENTION` = ?, `OUVERTE` = ? WHERE `CODE` = ?;")
 						->execute(array(
 							$formation->getMention(),
 							$formation->getOuverte(),
