@@ -6,10 +6,10 @@ require_once './classes/FormElements/loader.php';
 require_once './classes/Translator/loader.php';
 
 // Connexion PDO
-$dbname = 'test';
+$dbname = 'fegtest1';
 $host = 'localhost';
 $user = 'root';
-$password = 'root';
+$password = '';
 
 static $conn = null;
 

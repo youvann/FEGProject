@@ -2,38 +2,66 @@
 
 {% block body %}
 
-    <div class="container">
+<div class="container">
 
-        <div class="row">
-            <div class="col-md-2">
-                <div class="panel panel-primary-bt">
-                    <div class="panel-heading">Formations</div>
-                    <div class="panel-body">
-                        <ul class="list-unstyled">
-                            <li><a href="http://localhost/FEGProject/formulaireTwig.php?action=formCandidat">Formation souhaitée</a></li>
-                            <li><a href="http://localhost/FEGProject/formulaireTwig.php?action=infoPerso">Info personnelles</a></li>
-                            <li><a href="http://localhost/FEGProject/formulaireTwig.php?action=choixSpe">Choix spé</a></li>
-                            <li><a href="http://localhost/FEGProject/formulaireTwig.php?action=postBac">Post-bac</a></li>
-                            <li><a href="http://localhost/FEGProject/formulaireTwig.php?action=pieceAJoindre">Pièce à joindre</a></li>
-                        </ul>
-                    </div>
-                </div>
+	<div class="row">
+		<div class="col-md-2">
+			<div class="panel panel-primary-bt">
+				<div class="panel-heading">Formations</div>
+				<!--<div class="panel-body">
+					<ul class="list-unstyled">
+						<li><a href="http://localhost/FEGProject/formulaireTwig.php?action=formCandidat">Formation souhaitée</a></li>
+						<li><a href="http://localhost/FEGProject/formulaireTwig.php?action=infoPerso">Info personnelles</a></li>
+						<li><a href="http://localhost/FEGProject/formulaireTwig.php?action=choixSpe">Choix spé</a></li>
+						<li><a href="http://localhost/FEGProject/formulaireTwig.php?action=postBac">Post-bac</a></li>
+						<li><a href="http://localhost/FEGProject/formulaireTwig.php?action=pieceAJoindre">Pièce à joindre</a></li>
+					</ul>
+				</div>-->
+				<table class="table">
+					<tr>
+						<td>
+							<a href="http://localhost/FEGProject/formulaireTwig.php?action=formCandidat">Formation souhaitée</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="http://localhost/FEGProject/formulaireTwig.php?action=infoPerso">Info personnelles</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="http://localhost/FEGProject/formulaireTwig.php?action=choixSpe">Choix spé</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="http://localhost/FEGProject/formulaireTwig.php?action=postBac">Post-bac</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<a href="http://localhost/FEGProject/formulaireTwig.php?action=pieceAJoindre">Pièce à joindre</a>
+						</td>
+					</tr>
+					</tr>
+				</table>
+			</div>
 
-            </div>
-            <div id="content" class="col-md-10 well-feg">
-                <!--<header></header>-->
+		</div>
+		<div id="content" class="col-md-10 well-feg">
+			<!--<header></header>-->
 
-                <h2 class="titre_rubrique">{{ titre2 }}</h2>
+			<h2 class="titre_rubrique">{{ titre2 }}</h2>
                 {% block content %}{% endblock %}
 
-                <footer>
-                    <p class="text-muted text-center">© 2014 FEG PROJECT | MADE BY COHEN-GUISSANI-KARAGOZ-MEAS | WE <3 BOOTSTRAP</p>
-                </footer>
+			<footer>
+				<p class="text-muted text-center">© 2014 FEG PROJECT | MADE BY COHEN-GUISSANI-KARAGOZ-MEAS | WE <3 BOOTSTRAP</p>
+			</footer>
 
-            </div>
-        </div>
+		</div>
+	</div>
 
-    </div><!-- container -->
+</div><!-- container -->
 
 {% endblock %}
 
