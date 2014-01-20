@@ -88,6 +88,7 @@ $(document).ready(function() {
         }
     });
 
+    /*
     var myLanguageFR = {
         errorTitle : 'Form submission failed!',
         requiredFields : 'Ce champ est obligatoire.',
@@ -126,6 +127,7 @@ $(document).ready(function() {
         // borderColorOnError : '#FF0000'
         // addValidClassOnAll : true    
     });
+    */
 
 
 
