@@ -14,8 +14,9 @@ class DocumentSpecifiqueManager {
 	}
 
 	public function find($id) {
-		$rs = $this->db->prepare("SELECT * FROM `DOCUMENT_SPECIFIQUE` WHERE `ID` = ?;")
-						->execute(array($id))->fetch();
+		$q = $this->db->prepare("SELECT * FROM `DOCUMENT_SPECIFIQUE` WHERE `ID` = ?;");
+		$q->execute(array($id));
+		$rs = $q->fetch();
 		return new DocumentSpecifique($rs['ID'], $rs['CODE'], $rs['NOM'], $rs['URL']);
 	}
 
@@ -51,9 +52,7 @@ class DocumentSpecifiqueManager {
 
 	public function delete(DocumentSpecifique $documentSpecifique) {
 		return $this->db->prepare("DELETE FROM `DOCUMENT_SPECIFIQUE` WHERE `ID` = ?;")
-						->execute(array(
-							$documentSpecifique->getId()
-		));
+						->execute(array($documentSpecifique->getId()));
 	}
 
 }

@@ -14,12 +14,12 @@ class VilleManager {
 	public function find($codeVet) {
 		$rs = $this->db->prepare("SELECT * FROM `VILLE` WHERE `CODE_VET` = ?;")
 						->execute(array($codeVet))->fetch();
-		return new Choix($rs['CODE_VET'], $rs['NOM']);
+		return new Ville($rs['CODE_VET'], $rs['NOM']);
 	}
 	
 	public function findAll() {
 		$villes = array();
-		$rs = $this->db->query("SELECT * FROM `VILLE`;")->fetchAll;
+		$rs = $this->db->query("SELECT * FROM `VILLE`;")->fetchAll();
 		foreach ($rs as $ville) {
 			$villes[] = new Ville($ville['CODE_VET'], $ville['NOM']);
 		}

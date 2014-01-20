@@ -38,13 +38,13 @@ class VoeuManager {
 	}
 
 	public function insert(Voeu $voeu) {
-		return $this->db->prepare("INSERT INTO `VOEU` (`CODE_ETAPE`, `CODE`, `ETAPE`, `RESPONSABLE`) VALUES ?, ?, ?, ?);")
-						->execute(array($voeu->getCode(), $voeu->getCodeEtape(), $voeu->getEtape(), $voeu->getResponsable()));
+		return $this->db->prepare("INSERT INTO `VOEU` (`CODE_ETAPE`, `CODE`, `ETAPE`, `RESPONSABLE`) VALUES (?, ?, ?, ?);")
+						->execute(array($voeu->getCodeEtape(), $voeu->getCode(), $voeu->getEtape(), $voeu->getResponsable()));
 	}
 
 	public function update(Voeu $voeu) {
 		return $this->db->prepare("UPDATE `VOEU` SET `CODE` = ?, `ETAPE` = ?, `RESPONSABLE` = ? WHERE `CODE_ETAPE` = ?;")
-						->execute(array($voeu->getCodeEtape(), $voeu->getEtape(), $voeu->getResponsable(), $voeu->getCode()));
+						->execute(array($voeu->getCode(), $voeu->getEtape(), $voeu->getResponsable(), $voeu->getCodeEtape()));
 	}
 	
 	public function delete(Voeu $voeu) {

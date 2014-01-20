@@ -32,19 +32,18 @@ switch ($action) {
         header('location:index.php?uc=documentSpecifique&action=grille&code='.$_POST['code']);
     } break;
     case "modifier": {
-        //$pieceAJoindre = $pieceAJoindreManager->find($_POST['libel_piece'], $_GET['code_etape'], $_GET['code_vet']);
-        //$pieceAJoindre = new PieceAJoindre("Lettre de motivation", "BGE303", "111");
-        //echo $twig->render('pieceAJoindre/modifierPieceAJoindre.html.twig', array('pieceAJoindre' => $pieceAJoindre, "titre2" => 'Modifier la pièce'));
+        $documentSpecifique = $documentSpecifiqueManager->find($_GET['id']);
+        echo $twig->render('documentSpecifique/modifierDocumentSpecifique.html.twig', array('documentSpecifique' => $documentSpecifique, "code" => $_GET['code']));
     } break;
     case "modification": {
-        //$pieceAJoindre = new PieceAJoindreManager($_POST['libel_piece'], $_POST['code_etape'],  $_POST['code_vet']);
-        //$pieceAJoindreManager->update($pieceAJoindre);
-        header('location:index.php?uc=pieceAJoindre&action=grille');
+        $documentSpecifique = new $documentSpecifique($_POST['id'], $_POST['code'], $_POST['nom'], $_POST['url']);
+        $documentSpecifiqueManager->update($documentSpecifique);
+        header('location:index.php?uc=documentSpecifique&action=grille&code='.$_POST['code']);
     } break;
     case "suppression": {
-        //$pieceAJoindre = $pieceAJoindreManager->find($_POST['libel_piece'], $_GET['code_etape'], $_GET['code_vet']);
-        //$pieceAJoindreManager->delete($pieceAJoindre);
-        header('location:index.php?uc=pieceAJoindre&action=grille');
+        $documentSpecifique = $documentSpecifiqueManager->find($_GET['id']);
+		$documentSpecifiqueManager->delete($documentSpecifique);
+        header('location:index.php?uc=documentSpecifique&action=grille&code='.$_GET['code']);
     } break;
     default: break;
 }

@@ -26,10 +26,10 @@
 		<td>{{ information.ordre }}</td>
 		<td>
 			<div class="btn-group">
-				<a type="button" class="btn btn-info">
+				<a href="index.php?uc=information&action=consulter&id={{ information.id }}&code={{ code }}" type="button" class="btn btn-info">
 					<span class="glyphicon glyphicon-check"></span> Consulter
 				</a>
-				<a type="button" class="btn btn-danger">
+				<a href="index.php?uc=information&action=suppression&id={{ information.id }}&code={{ code }}" type="button" class="btn btn-danger">
 					<span class="glyphicon glyphicon-trash"></span> Supprimer
 				</a>
 			</div>
