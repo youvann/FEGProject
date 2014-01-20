@@ -63,8 +63,8 @@ $(document).ready(function() {
             var input = $("<input />");
             input.attr("type", "text")
                  .attr("class", "form-control")
-                 .attr("id", "tb3")
-                 .attr("name", "tb3")
+                 .attr("id", "tb" + numOrder())
+                 .attr("name", "tb" + numOrder())
                 .hide().appendTo(lastInput).fadeIn("normal");
         }else{
             error.html("<br>Vous ne pouvez pas insérez plus de 10 champs.").fadeIn("normal");
