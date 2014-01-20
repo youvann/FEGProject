@@ -30,6 +30,7 @@
     </div>
 
     <script type="text/javascript" src="./public/js/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="./public/js/jquery-form-validator/jquery.form-validator.min.js"></script>
     <script type="text/javascript" src="./public/js/feg.js"></script>
 </body>
 </html>
