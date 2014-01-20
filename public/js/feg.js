@@ -32,6 +32,62 @@ $(document).ready(function() {
         span.css("color", "red");
     });
 
+    // Ajout/Suppression d'une textbox
+    var error  = $("#error");
+    var add    = $("#add");
+    var remove = $("#remove");
+
+    // Cache le message d'erreur par défaut
+    error.hide();
+
+    function numOrder (){
+        // Compte le nombre de input compris dans balise #textbox
+        var cpt = $('#textbox-group > input').length;
+        return parseInt(cpt + 1);
+    }
+
+    // Récupère le dernier input
+    var lastInput = $("#textbox-group").last();
+
+    add.click(function() {
+        if (numOrder() > 2){
+            error.hide();
+        }
+        if (numOrder() <= 10){
+            var label = $("<label />");
+            label.attr("for", "tb" + numOrder())
+                 .attr("for", "tb" + numOrder())
+                 .html("Choix "    + numOrder())
+                 .hide().appendTo(lastInput).fadeIn("normal");
+
+            var input = $("<input />");
+            input.attr("type", "text")
+                 .attr("class", "form-control")
+                 .attr("id", "tb3")
+                 .attr("name", "tb3")
+                .hide().appendTo(lastInput).fadeIn("normal");
+        }else{
+            error.html("<br>Vous ne pouvez pas insérez plus de 10 champs.").fadeIn("normal");
+        }
+    });
+
+    remove.click(function(){
+        if (numOrder() <= 11){
+            error.hide();
+        }
+        if(numOrder() > 3){
+            $('#textbox-group input:last').fadeOut("normal", function(){
+                $(this).remove();
+            });
+            $('#textbox-group label:last').fadeOut("normal", function(){
+                $(this).remove();
+            });
+
+        }else{
+            error.html("<br>Vous ne pouvez pas avoir moins de deux champs.").fadeIn("normal");
+        }
+    });
+
     var myLanguageFR = {
         errorTitle : 'Form submission failed!',
         requiredFields : 'Ce champ est obligatoire.',
