@@ -50,9 +50,6 @@ $(document).ready(function() {
     var lastInput = $("#textbox-group").last();
 
     add.click(function() {
-        if (numOrder() > 2){
-            error.hide();
-        }
         if (numOrder() <= 10){
             var label = $("<label />");
             label.attr("for", "tb" + numOrder())
@@ -64,17 +61,17 @@ $(document).ready(function() {
             input.attr("type", "text")
                  .attr("class", "form-control")
                  .attr("id", "tb" + numOrder())
-                 .attr("name", "tb" + numOrder())
+                 .attr("name", "tb[]")
                 .hide().appendTo(lastInput).fadeIn("normal");
         }else{
             error.html("<br>Vous ne pouvez pas insérez plus de 10 champs.").fadeIn("normal");
+            setTimeout(function(){
+                error.fadeOut("slow");
+            }, 5000);
         }
     });
 
     remove.click(function(){
-        if (numOrder() <= 11){
-            error.hide();
-        }
         if(numOrder() > 3){
             $('#textbox-group input:last').fadeOut("normal", function(){
                 $(this).remove();
@@ -85,6 +82,9 @@ $(document).ready(function() {
 
         }else{
             error.html("<br>Vous ne pouvez pas avoir moins de deux champs.").fadeIn("normal");
+            setTimeout(function(){
+                error.fadeOut("slow");
+            }, 5000);
         }
     });
 

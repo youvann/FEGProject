@@ -21,11 +21,11 @@
         <br>
         <div id="textbox-group">
             <label for="tb1">Choix 1</label>
-            <input type="text" class="form-control" id="tb1" name="tb1"/>
+            <input type="text" class="form-control" id="tb1" name="tb[]"/>
             <label for="tb2">Choix 2</label>
-            <input type="text" class="form-control" id="tb2" name="tb2"/>
+            <input type="text" class="form-control" id="tb2" name="tb[]"/>
         </div>
-        <div id="error"></div>
+        <div id="error" class="text-warning"></div>
 
     </div>
 
