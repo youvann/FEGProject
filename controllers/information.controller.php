@@ -7,9 +7,9 @@
  * @Author:
  */
 if (!isset($_GET['action'])) {
-    $action = "grille";
+	$action = "grille";
 } else {
-    $action = $_GET['action'];
+	$action = $_GET['action'];
 }
 
 /* autorisations
@@ -20,31 +20,26 @@ if (!isset($_GET['action'])) {
   } */
 
 switch ($action) {
-    case "grille": {
-		$informations = $informationManager->findAllByFormation($_GET['code']);
-        echo $twig->render('information/grilleInformation.html.twig', array('informations' => $informations, 'code' => $_GET['code']));
-    } break;
-    case "ajouter": {
-		$types = $typeManager->findAll();
-        echo $twig->render('information/ajouterInformation.html.twig', array('types' => $types, 'code' => $_GET['code']));
-    } break;
-    case "ajout": {
-        $informationManager->insert(new Information(0, $_POST["nom"], $_POST["code"], $_POST["libelle"], $_POST["explications"], 0));
-        header('location:index.php?uc=information&action=grille&code='.$_POST['code']);
-    } break;
-    case "modifier": {
-        $information = $informationManager->find($_GET['id']);
-        echo $twig->render('information/modifierInformation.html.twig', array('information' => $information));
-    } break;
-    case "modification": {
-        //$information = new Information($_POST["id"], $_POST["nom"], $_POST["id"], $_POST["code"], $_POST["libelle"], $_POST["explications"], $_POST["ordre"]));
-        $informationManager->update($information);
-        header('location:index.php?uc=information&action=grille');
-    } break;
-    case "suppression": {
-        $information = $informationManager->find($_GET['id']);
-        $informationManager->delete($information);
-        header('location:index.php?uc=information&action=grille');
-    } break;
-    default: break;
+	case "grille": {
+			$informations = $informationManager->findAllByFormation($_GET['code']);
+			echo $twig->render('information/grilleInformation.html.twig', array('informations' => $informations, 'code' => $_GET['code']));
+		} break;
+	case "ajouter": {
+			$types = $typeManager->findAll();
+			echo $twig->render('information/ajouterInformation.html.twig', array('types' => $types, 'code' => $_GET['code']));
+		} break;
+	case "ajout": {
+			$informationManager->insert(new Information(0, $_POST["nom"], $_POST["code"], $_POST["libelle"], $_POST["explications"], 0));
+			if($_POST["nom"] === 'CheckBoxGroup' && $_POST["nom"] === 'RadioButtonGroup') {
+				header('location:index.php?uc=choix&action=ajouter&information='.$lastInsertId.'&code=' . $_POST['code']);
+			} else {
+				header('location:index.php?uc=information&action=grille&code=' . $_POST['code']);
+			}
+		} break;
+	case "suppression": {
+			$information = $informationManager->find($_GET['id']);
+			$informationManager->delete($information);
+			header('location:index.php?uc=information&action=grille');
+		} break;
+	default: break;
 }
