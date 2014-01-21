@@ -1,0 +1,43 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+<h2 class="titre_rubrique">Documents requis par la formation</h2>
+
+<a href="index.php?uc=documentSpecifique&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
+	<span class="glyphicon glyphicon-plus-sign"></span> Ajouter un document à joindre
+</a>
+
+{% if documentsSpecifiques is not empty %}
+
+<table style="margin-top: 1em;" class="table table-hover table-bordered table-striped">
+	<tr>
+		<th>Nom</th>
+		<th>Url</th>
+		<th>Options</th>
+	</tr>
+        {% for documentSpecifique in documentsSpecifiques %}
+	<tr>
+		<td>{{ documentSpecifique.nom }}</td>
+		<td>{{ documentSpecifique.url }}</td>
+		<td>
+			<div class="btn-group">
+				<a href="index.php?uc=documentSpecifique&action=modifier&id={{ documentSpecifique.id }}&code={{ code }}" type="button" class="btn btn-warning">
+					<span class="glyphicon glyphicon-edit"></span> Modifier
+				</a>
+				<a href="index.php?uc=documentSpecifique&action=suppression&id={{ documentSpecifique.id }}&code={{ code }}" type="button" class="btn btn-danger">
+					<span class="glyphicon glyphicon-trash"></span> Supprimer
+				</a>
+			</div>
+		</td>
+	</tr>
+        {% endfor %}
+</table>
+
+{% endif %}
+<hr />
+<a href="index.php?uc=formation&action=consulter&code={{ code }}"  class="btn btn-primary">
+	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+</a>
+
+{% endblock %}
