@@ -8,6 +8,7 @@
 
 class PagePdfHeader {
 	private $imgPath;
+        private $imgPath2;
 	private $headerText;
         
         /*
@@ -16,9 +17,11 @@ class PagePdfHeader {
 		$this->headerText = $headerText;
 	}*/
 
-	public function setImgPath ($imgPath){
+	public function setImgPath ($imgPath, $imgPath2){
 		$this->imgPath = $imgPath;
+                $this->imgPath2 = $imgPath2;
 	}
+        
 
 	public function setHeadertext ($headerText){
 		$this->headerText = $headerText;
@@ -26,12 +29,9 @@ class PagePdfHeader {
 
 	public function __toString (){
 		return '<page_header> 
-			        <table class="t_header">
-			            <tr>
-			                <td><img src="' . $this->imgPath . '" alt="image"></td>
-			                <td class="bold titre4">' . $this->headerText .'</td>
-			            </tr>
-			        </table>
+			        <span class="t_header"><img src="' . $this->imgPath . '" alt="image"></span>
+                                <span class="t_header text_align" ><img src="' . $this->imgPath2 . '" alt="image"></span>
+			        
 			    </page_header> ';
 	}
 
