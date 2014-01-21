@@ -88,6 +88,46 @@ $(document).ready(function() {
         }
     });
 
+    // Ajout/Supression d'un champ d'upload
+    var buttonAddUpload = $(".buttonAddUpload");
+    var buttonRemoveUpload = $(".buttonRemoveUpload");
+    var messageError  = $(".messageError");
+
+    messageError.hide();
+
+    buttonAddUpload.click(function(){
+        var newInput= $("<input />");
+        var lastInput = $(this).parent().prev();
+        var formGroup = $("<div />");
+        var cpt = $(this).parent().prev().children().length;
+        //Obtention de la position courante
+        var rowPosition = $(this).parent().prev().children().children("input")[0].getAttribute("id");
+        //Suppression du dernier caractère
+        rowPosition = rowPosition.replace(/(\s+)?.$/, '')
+
+        if(cpt < 10){
+            formGroup.attr("class", "form-group");
+            formGroup.prepend(
+                newInput.attr("id", rowPosition + parseInt(cpt + 1))
+                    .attr("name", "file[]")
+                    .attr("type", "file")
+            ).hide().appendTo(lastInput).fadeIn("normal");
+        }else{
+            $('#myModaAdd').modal('show');
+        }
+    });
+
+    buttonRemoveUpload.click(function(){
+        cpt = $(this).parent().prev().children().length;
+        if(cpt > 1){
+            $(this).parent().prev().children(".form-group:last").fadeOut("fast", function(){
+                $(this).remove();
+            });
+        }else{
+            $('#myModaDel').modal('show');
+        }
+    });
+
     /*
     var myLanguageFR = {
         errorTitle : 'Form submission failed!',

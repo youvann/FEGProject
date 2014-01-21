@@ -1,6 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+    <h2 class="titre_rubrique">Informations personnelles</h2>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -119,6 +120,39 @@
                         </fieldset>
 
                         <fieldset>
+                            <legend>Baccalauréat</legend>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="serie">Série</label>
+                                        <input type="text" class="form-control required" id="serie" name="serie" placeholder="Votre série"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="anne_obtention">Année d'obtention</label>
+                                        <input type="text" class="form-control required" id="anne_obtention" name="anne_obtention"  placeholder="Votre année d'obtention" data-validation="custom" data-validation-regexp="(^(06|07)[0-9]{8}$)" data-validation-error-msg="Veuillez entrer un numéro valide"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="etablissement">Etablissement</label>
+                                        <input type="email" class="form-control required" id="etablissement" name="etablissement" placeholder="Votre établissement" data-validation="email"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="departement">Département</label>
+                                        <input type="text" class="form-control required" id="departement" name="departement" placeholder="Votre département"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="pays">Pays</label>
+                                        <input type="text" class="form-control required" id="pays" name="pays" placeholder="Votre pays"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
                             <legend>Autres</legend>
                             <div class="form-group">
                                 <div class="row">
@@ -131,6 +165,7 @@
                                 </div>
                             </div>
                         </fieldset>
+
                         <input type="submit" class="btn btn-primary">
                     </form>
                 </div> <!-- panel-body -->

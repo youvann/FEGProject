@@ -14,30 +14,34 @@ class DocumentManager {
 	}
 
 	public function find($id) {
+
 		$q = $this->db->prepare("SELECT * FROM `DOCUMENT` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
-		return new Document($rs['ID'], $rs['NOM']);
+		return new Document($rs['ID'], $rs['NOM'], $rs['MULTIPLE']);
 	}
 
 	public function findAll() {
 		$documents = array();
 		$rs = $this->db->query("SELECT * FROM `DOCUMENT`;")->fetchAll();
 		foreach ($rs as $document) {
-			$documents[] = new Document($document['ID'], $document['NOM']);
+			$documents[] = new Document($document['ID'], $document['NOM'], $document['MULTIPLE']);
 		}
 		return $documents;
 	}
 
 	public function insert(Document $document) {
-		return $this->db->prepare("INSERT INTO `DOCUMENT` (`NOM`) VALUES (?);")
-						->execute(array($document->getNom()));
+		return $this->db->prepare("INSERT INTO `DOCUMENT` (`NOM`, `MULTIPLE`) VALUES (?, ?);")
+						->execute(array($document->getNom(), 1));
 	}
 
 	public function update(Document $document) {
-		return $this->db->prepare("UPDATE `DOCUMENT` SET `NOM` = ? WHERE `ID` = ?;")
+
+
+		return $this->db->prepare("UPDATE `DOCUMENT` SET `NOM` = ?, `MULTIPLE` = ? WHERE `ID` = ?;")
 						->execute(array(
 							$document->getNom(),
+							$document->getMultiple(),
 							$document->getId()
 		));
 	}
