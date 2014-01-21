@@ -14,7 +14,7 @@ $password = '';
 static $conn = null;
 
 try {
-	$conn = new PDO('mysql:dbname=' . $dbname . ';host=' . $host, $user, $password);
+	$conn = new PDO('mysql:dbname=' . $dbname . ';host=' . $host, $user, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
 } catch (PDOException $e) {
 	echo 'Connexion échouée : ' . $e->getMessage();
 }
@@ -45,3 +45,4 @@ Twig_Autoloader::register();
 
 $loader = new Twig_Loader_Filesystem('templates'); // Dossier contenant les templates
 $twig = new Twig_Environment($loader, array('cache' => false));
+$twig->addGlobal('get', $_GET);

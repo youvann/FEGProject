@@ -2,6 +2,14 @@
 
 {% block content %}
 
+<ol class="breadcrumb">
+	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
+	<li><a href="index.php?uc=information&action=grille&code={{ code }}">Liste des documents à joindre</a></li>
+	<li class="active">Ajouter un document à joindre</li>
+</ol>
+
 <h2 class="titre_rubrique">Ajouter un document à joindre</h2>
 
 <form action="index.php?uc=documentSpecifique&action=ajout" method="POST">

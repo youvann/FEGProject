@@ -29,7 +29,7 @@ switch ($action) {
         echo $twig->render('formation/grilleFormation.html.twig', array('formations' => $formations));
     } break;
     case "ajouter": {
-        echo $twig->render('formation/ajouterFormation.html.twig', array('titre2' => 'Ajouter une formation'));
+        echo $twig->render('formation/ajouterFormation.html.twig');
     } break;
     case "ajout": {
         $formationManager->insert(new Formation($_POST['code'], $_POST['mention'], $_POST['ouverte']));

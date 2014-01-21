@@ -2,6 +2,13 @@
 
 {% block content %}
 
+<ol class="breadcrumb">
+	<li><a href="index.php?uc=intranet&action">Accueil</a></li>
+	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche ormation</a></li>
+	<li class="active">Liste des documents spécifiques</li>
+</ol>
+
 <h2 class="titre_rubrique">Documents requis par la formation</h2>
 
 <a href="index.php?uc=documentSpecifique&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">

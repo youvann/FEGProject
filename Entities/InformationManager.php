@@ -14,9 +14,10 @@ class InformationManager {
 	}
 
 	public function find($id) {
-		$rs = $this->db->prepare("SELECT * FROM `INFORMATION` WHERE `ID` = ?;")
-						->execute(array($id))->fetch();
-		return new InformationSupp($rs['ID'], $rs['NOM'], $rs['ID'], $rs['LIBEL_INFORMATION'], $rs['REQUIS'], $rs['ID_TYPE_ELEMENT']);
+		$q = $this->db->prepare("SELECT * FROM `INFORMATION` WHERE `ID` = ?;");
+		$q->execute(array($id));
+		$rs = $q->fetch();
+		return new Information($rs['ID'], $rs['NOM'], $rs['ID'], $rs['LIBEL_INFORMATION'], $rs['REQUIS'], $rs['ID_TYPE_ELEMENT']);
 	}
 
 	public function findAllByFormation($codeFormation) {
@@ -56,6 +57,11 @@ class InformationManager {
 	public function delete(Information $information) {
 		return $this->db->prepare("DELETE FROM `INFORMATION` WHERE `ID` = ?;")
 						->execute(array($information->getId()));
+	}
+
+	public function maxId() {
+		$rs = $this->db->query("SELECT MAX(`ID`) as ID FROM `INFORMATION`;")->fetch();
+		return $rs['ID'];
 	}
 
 }

@@ -32,6 +32,9 @@ switch ($uc) {
 	case "information": {
 			require_once './controllers/information.controller.php';
 		} break;
+	case "intranet": {
+			require_once './controllers/intranet.controller.php';
+		} break;
 	case "voeu": {
 			require_once './controllers/voeu.controller.php';
 		} break;

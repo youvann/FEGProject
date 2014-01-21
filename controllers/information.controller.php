@@ -30,16 +30,18 @@ switch ($action) {
 		} break;
 	case "ajout": {
 			$informationManager->insert(new Information(0, $_POST["nom"], $_POST["code"], $_POST["libelle"], $_POST["explications"], 0));
-			if($_POST["nom"] === 'CheckBoxGroup' && $_POST["nom"] === 'RadioButtonGroup') {
-				header('location:index.php?uc=choix&action=ajouter&information='.$lastInsertId.'&code=' . $_POST['code']);
-			} else {
-				header('location:index.php?uc=information&action=grille&code=' . $_POST['code']);
+			if ($_POST["nom"] === 'RadioButtonGroup' || $_POST["nom"] === 'CheckBoxGroup') {
+				$lastInsertId = $informationManager->maxId();
+				foreach ($_POST['tb'] as $tb) {
+					$choixManager->insert(new Choix(0, $lastInsertId, $tb));
+				}
 			}
+			header('location:index.php?uc=information&action=grille&code=' . $_POST['code']);
 		} break;
 	case "suppression": {
 			$information = $informationManager->find($_GET['id']);
 			$informationManager->delete($information);
-			header('location:index.php?uc=information&action=grille');
+			header('location:index.php?uc=information&action=grille&code=' . $_GET['code']);
 		} break;
 	default: break;
 }

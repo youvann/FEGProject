@@ -2,31 +2,87 @@
 
 {% block content %}
 
+<ol class="breadcrumb">
+	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Formation</a></li>
+	<li><a href="index.php?uc=information&action=grille&code={{ code }}">Liste des informations</a></li>
+	<li class="active">Ajouter une information</li>
+</ol>
+
 <h2 class="titre_rubrique">Ajouter une information</h2>
 
-    <form action="index.php?uc=information&action=ajout" method="POST">
-		<input type="hidden" id="code" name="code" value="{{ code }}" />
-        <div class="form-group">
-            <label for="nom">Type</label>
-            <select class="form-control" id="nom" name="nom">
+<form action="index.php?uc=information&action=ajout" method="POST">
+	<input type="hidden" id="code" name="code" value="{{ code }}" />
+	<div class="form-group">
+		<label for="nom">Type</label>
+		<select class="form-control" id="nom" name="nom">
 				{% for type in types %}
-				<option value="{{ type.nom }}">{{ type.libelle }}</option>
+			<option value="{{ type.nom }}">{{ type.libelle }}</option>
 				{% endfor %}
-			</select>
-        </div>
-        <div class="form-group">
-            <label for="libelle">Libellé</label>
-            <input class="form-control" type="text" id="libelle" name="libelle" />
-        </div>
-        <div class="form-group">
-            <label for="explications">Explications</label>
-            <input class="form-control" type="text" id="explications" name="explications" />
-        </div>
-        <input class="btn btn-primary" type="submit" value="Enregistrer" />
-    </form>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="libelle">Libellé</label>
+		<input class="form-control" type="text" id="libelle" name="libelle" />
+	</div>
+	<div class="form-group">
+		<label for="explications">Explications</label>
+		<input class="form-control" type="text" id="explications" name="explications" />
+	</div>
 
+	<div id="choix">
+		<h3 class="titre_rubrique">Choix possibles</h3>
+		<br />
+		<div class="btn-toolbar" role="toolbar">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary" id="add">
+					<span class="glyphicon glyphicon-plus-sign"></span> Ajouter
+				</button>
+				<button type="button" class="btn btn-danger" id="remove">
+					<span class="glyphicon glyphicon-minus-sign"></span> Supprimer
+				</button>
+			</div>
+		</div>
+		<br />
+		<div id="textbox-group">
+			<label for="tb1">Choix 1</label>
+			<input type="text" class="form-control" id="tb1" name="tb[]"/>
+			<label for="tb2">Choix 2</label>
+			<input type="text" class="form-control" id="tb2" name="tb[]"/>
+		</div>
+		<div id="error" class="alert alert-warning"></div>
+	</div>
+	<button style="margin-top: 1em;" class="btn btn-primary" type="submit">
+		<span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer
+	</button>
+</form>
+
+<hr />
+
+<a href="index.php?uc=information&action=grille&code={{ code }}"  class="btn btn-primary">
+	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+</a>
 {% endblock %}
 
 {% block scripts %}
+{{ parent() }}
+<script type="text/javascript">
+	$(function() {
+		$(document).ready(function() {
+			$("#choix").hide();
+		});
 
+		$("#nom").change(function() {
+			if ($(this).val() === 'RadioButtonGroup' || $(this).val() === 'CheckBoxGroup') {
+				$("#choix").show();
+			} else {
+				$("#choix").hide();
+				$("#textbox-group > input").each(function() {
+					$(this).empty();
+				});
+			}
+		});
+	});
+</script>
 {% endblock %}

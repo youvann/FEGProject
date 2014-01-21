@@ -14,14 +14,15 @@ class DocumentManager {
 	}
 
 	public function find($id) {
-		$rs = $this->db->prepare("SELECT * FROM `DOCUMENT` WHERE `ID` = ?;")
-						->execute(array($id))->fetch();
+		$q = $this->db->prepare("SELECT * FROM `DOCUMENT` WHERE `ID` = ?;");
+		$q->execute(array($id));
+		$rs = $q->fetch();
 		return new Document($rs['ID'], $rs['NOM']);
 	}
 
 	public function findAll() {
 		$documents = array();
-		$rs = $this->db->query("SELECT * FROM `DOCUMENT;")->fetchAll();
+		$rs = $this->db->query("SELECT * FROM `DOCUMENT`;")->fetchAll();
 		foreach ($rs as $document) {
 			$documents[] = new Document($document['ID'], $document['NOM']);
 		}
@@ -34,7 +35,7 @@ class DocumentManager {
 	}
 
 	public function update(Document $document) {
-		return $this->db->prepare("UPDATE `DOCUMENT` `NOM` = ? WHERE `ID` = ?;")
+		return $this->db->prepare("UPDATE `DOCUMENT` SET `NOM` = ? WHERE `ID` = ?;")
 						->execute(array(
 							$document->getNom(),
 							$document->getId()
@@ -42,10 +43,8 @@ class DocumentManager {
 	}
 
 	public function delete(Document $document) {
-		return $this->db->prepare("DELETE FROM `DOCUMENT_SPECIFIQUE` WHERE `ID` = ?;")
-						->execute(array(
-							$document->getId()
-		));
+		return $this->db->prepare("DELETE FROM `DOCUMENT` WHERE `ID` = ?;")
+						->execute(array($document->getId()));
 	}
 
 }
