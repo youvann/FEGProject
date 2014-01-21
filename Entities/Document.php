@@ -3,10 +3,12 @@
 class Document {
 	private $id;
 	private $nom;
+    private $multiple;
 	
-	function __construct($id, $nom) {
+	function __construct($id, $nom, $multiple) {
 		$this->id = $id;
 		$this->nom = $nom;
+        $this->multiple = $multiple;
 	}
 
 	public function getId() {
@@ -17,6 +19,10 @@ class Document {
 		return $this->nom;
 	}
 
+    public function getMultiple(){
+        return $this->multiple;
+    }
+
 	public function setId($id) {
 		$this->id = $id;
 	}
@@ -24,5 +30,9 @@ class Document {
 	public function setNom($nom) {
 		$this->nom = $nom;
 	}
+
+    public function setMultiple ($multiple){
+        $this->multiple = $multiple;
+    }
 
 }

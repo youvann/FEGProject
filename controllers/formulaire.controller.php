@@ -1,6 +1,10 @@
 <?php
-
-require_once 'config/config.php';
+/**
+ * @Project: FEG Project
+ * @File: /controllers/formulaire.controller.php
+ * @Purpose: Contrôleur qui se charge d'afficher les différentes vues des formulaires d'inscription
+ * @Author: 
+ */
 
 if (!isset($_GET['action'])) {
     $action = "formCandidat";
@@ -13,28 +17,33 @@ $limitDate = "7 juin 2014";
 switch ($action) {
     case "formCandidat": {
         echo $twig->render('formulaire/formCandidat.html.twig', array(
-            "titre2" => "Formation souhaitée"
         ));
     } break;
     case "infoPerso": {
         echo $twig->render('formulaire/infoPerso.html.twig', array(
-            "titre2" => "Informations pesonnelles",
             "limitDate" => $limitDate
         ));
     } break;
     case "postBac": {
         echo $twig->render('formulaire/postBac.html.twig', array(
-            "titre2" => "Informations post-bac"
         ));
     } break;
     case "choixSpe": {
         echo $twig->render('formulaire/choixSpe.html.twig', array(
-            "titre2" => "Choix de la spécialité"
+
         ));
     } break;
-    case "pieceAJoindre": {
-        echo $twig->render('formulaire/pieceAJoindre.html.twig', array(
-            "titre2" => "Pièce à joindre"
+    case "document": {
+        $documents = $documentManager->findAll();
+        echo $twig->render('formulaire/document.html.twig', array(
+            "documents" => $documents
+        ));
+    } break;
+    case "documentSpecifique": {
+        $documentsSpecifique = $documentSpecifiqueManager->findAll();
+        //$documentsSpecifiques = $documentSpecifiqueManager->findAll();
+        echo $twig->render('formulaire/documentSpecifique.html.twig', array(
+            "documentsSpecifique" => $documentsSpecifique
         ));
     } break;
     default: break;

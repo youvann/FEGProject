@@ -7,9 +7,9 @@
  * @Author:
  */
 if (!isset($_GET['uc'])) {
-	$uc = "formation";
+    $uc = "formation";
 } else {
-	$uc = $_GET['uc'];
+    $uc = $_GET['uc'];
 }
 
 /* / autorisations
@@ -20,20 +20,23 @@ if (!isset($_GET['uc'])) {
   } */
 
 switch ($uc) {
-	case "formation": {
-			require_once './controllers/formation.controller.php';
-		} break;
-	case "documentSpecifique": {
-			require_once './controllers/documentSpecifique.controller.php';
-		} break;
-	case "document": {
-			require_once './controllers/document.controller.php';
-		} break;
-	case "information": {
-			require_once './controllers/information.controller.php';
-		} break;
-	case "voeu": {
-			require_once './controllers/voeu.controller.php';
-		} break;
-	default: break;
+    case "formation": {
+        require_once './controllers/formation.controller.php';
+    } break;
+    case "documentSpecifique": {
+        require_once './controllers/documentSpecifique.controller.php';
+    } break;
+    case "document": {
+        require_once './controllers/document.controller.php';
+    } break;
+    case "information": {
+        require_once './controllers/information.controller.php';
+    } break;
+    case "voeu": {
+        require_once './controllers/voeu.controller.php';
+    } break;
+    case "formulaire": {
+        require_once './controllers/formulaire.controller.php';
+    } break;
+    default: break;
 }

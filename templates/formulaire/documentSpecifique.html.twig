@@ -1,0 +1,38 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h2 class="titre_rubrique">Documents à joindre spécifique</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Etape 5/5 : </h3>
+                </div><!-- /panel-heading -->
+
+                <div class="panel-body">
+                    <form role="form" action="#" id="formPieceAJoindre" method="post" enctype="multipart/form-data" target="uploadFrame">
+
+                        <fieldset>
+                            <legend>Pour les titulaires de diplômes de l'union européenne</legend>
+
+                            {% for documentSpecifique in documentsSpecifique %}
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="uploadFile">{{ documentSpecifique.nom }}</label>
+                                            <input id="" name="" type="file" />
+                                        </div>
+                                    </div><!-- /row -->
+                                </div><!-- /form-group -->
+                            {% endfor %}
+                        </fieldset>
+
+                        <input type="submit" value="Upload" class="btn btn-primary"/>
+
+                    </form>
+                </div> <!-- panel-body -->
+            </div><!-- panel panel-primary -->
+        </div>
+    </div>
+
+{% endblock %}

@@ -9,7 +9,7 @@ require_once './classes/Translator/loader.php';
 $dbname = 'fegtest1';
 $host = 'localhost';
 $user = 'root';
-$password = '';
+$password = 'root';
 
 static $conn = null;
 
