@@ -13,10 +13,10 @@
 <h2 class="titre_rubrique">Ajouter une information</h2>
 
 <form action="index.php?uc=information&action=ajout" method="POST">
-	<input type="hidden" id="code" name="code" value="{{ code }}" />
+	<input type="hidden" id="code_formation" name="code_formation" value="{{ code }}" />
 	<div class="form-group">
-		<label for="nom">Type</label>
-		<select class="form-control" id="nom" name="nom">
+		<label for="type">Type</label>
+		<select class="form-control" id="type" name="type">
 				{% for type in types %}
 			<option value="{{ type.nom }}">{{ type.libelle }}</option>
 				{% endfor %}

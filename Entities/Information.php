@@ -2,16 +2,16 @@
 
 class Information {
 	private $id;
-	private $nom; // TextBox
-	private $code;
+	private $type;
+	private $codeFormation;
 	private $libelle;
 	private $explications;
 	private $ordre;
 	
-	function __construct($id, $nom, $code, $libelle, $explications, $ordre) {
+	function __construct($id, $type, $codeFormation, $libelle, $explications, $ordre) {
 		$this->id = $id;
-		$this->nom = $nom;
-		$this->code = $code;
+		$this->type = $type;
+		$this->codeFormation = $codeFormation;
 		$this->libelle = $libelle;
 		$this->explications = $explications;
 		$this->ordre = $ordre;
@@ -21,12 +21,12 @@ class Information {
 		return $this->id;
 	}
 
-	public function getNom() {
-		return $this->nom;
+	public function getType() {
+		return $this->type;
 	}
 
-	public function getCode() {
-		return $this->code;
+	public function getCodeFormation() {
+		return $this->codeFormation;
 	}
 
 	public function getLibelle() {
@@ -45,12 +45,12 @@ class Information {
 		$this->id = $id;
 	}
 
-	public function setNom($nom) {
-		$this->nom = $nom;
+	public function setType($type) {
+		$this->type = $type;
 	}
 
-	public function setCode($code) {
-		$this->code = $code;
+	public function setCode($codeFormation) {
+		$this->codeFormation = $codeFormation;
 	}
 
 	public function setLibelle($libelle) {

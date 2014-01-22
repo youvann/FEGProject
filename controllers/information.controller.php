@@ -34,14 +34,14 @@ switch ($action) {
 			echo $twig->render('information/ajouterInformation.html.twig', array('types' => $types, 'code' => $_GET['code']));
 		} break;
 	case "ajout": {
-			$informationManager->insert(new Information(0, $_POST["nom"], $_POST["code"], $_POST["libelle"], $_POST["explications"], 0));
-			if ($_POST["nom"] === 'RadioButtonGroup' || $_POST["nom"] === 'CheckBoxGroup') {
+			var_dump($_POST, $informationManager->insert(new Information(0, $_POST["type"], $_POST["code_formation"], $_POST["libelle"], $_POST["explications"], 0)));
+			if ($_POST["type"] === 'RadioButtonGroup' || $_POST["type"] === 'CheckBoxGroup') {
 				$lastInsertId = $informationManager->maxId();
 				foreach ($_POST['tb'] as $tb) {
 					$choixManager->insert(new Choix(0, $lastInsertId, $tb));
 				}
 			}
-			header('location:index.php?uc=information&action=grille&code=' . $_POST['code']);
+			header('location:index.php?uc=information&action=grille&code=' . $_POST['code_formation']);
 		} break;
 	case "suppression": {
 			$information = $informationManager->find($_GET['id']);

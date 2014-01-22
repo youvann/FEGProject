@@ -2,13 +2,13 @@
 
 class Voeu {
 	private $codeEtape;
-	private $code;
+	private $codeFormation;
 	private $etape;
 	private $responsable;
 	
-	function __construct($codeEtape, $code, $etape, $responsable) {
+	function __construct($codeEtape, $codeFormation, $etape, $responsable) {
 		$this->codeEtape = $codeEtape;
-		$this->code = $code;
+		$this->codeFormation = $codeFormation;
 		$this->etape = $etape;
 		$this->responsable = $responsable;
 	}
@@ -17,8 +17,8 @@ class Voeu {
 		return $this->codeEtape;
 	}
 
-	public function getCode() {
-		return $this->code;
+	public function getCodeFormation() {
+		return $this->codeFormation;
 	}
 
 	public function getEtape() {
@@ -33,8 +33,8 @@ class Voeu {
 		$this->codeEtape = $codeEtape;
 	}
 
-	public function setCode($code) {
-		$this->code = $code;
+	public function setCodeFormation($codeFormation) {
+		$this->code = $codeFormation;
 	}
 
 	public function setEtape($etape) {

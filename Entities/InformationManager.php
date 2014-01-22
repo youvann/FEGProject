@@ -17,25 +17,25 @@ class InformationManager {
 		$q = $this->db->prepare("SELECT * FROM `INFORMATION` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
-		return new Information($rs['ID'], $rs['NOM'], $rs['CODE'], $rs['LIBELLE'], $rs['EXPLICATIONS'], $rs['ORDRE']);
+		return new Information($rs['ID'], $rs['TYPE'], $rs['CODE_FORMATION'], $rs['LIBELLE'], $rs['EXPLICATIONS'], $rs['ORDRE']);
 	}
 
 	public function findAllByFormation($codeFormation) {
 		$informations = array();
-		$q = $this->db->prepare("SELECT * FROM `INFORMATION` WHERE `CODE` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `INFORMATION` WHERE `CODE_FORMATION` = ?;");
 		$q->execute(array($codeFormation));
 		$rs = $q->fetchAll();
 		foreach ($rs as $information) {
-			$informations[] = new Information($information['ID'], $information['NOM'], $information['CODE'], $information['LIBELLE'], $information['EXPLICATIONS'], $information['ORDRE']);
+			$informations[] = new Information($information['ID'], $information['TYPE'], $information['CODE_FORMATION'], $information['LIBELLE'], $information['EXPLICATIONS'], $information['ORDRE']);
 		}
 		return $informations;
 	}
 
 	public function insert(Information $information) {
-		return $this->db->prepare("INSERT INTO `information` (`NOM`, `CODE`, `LIBELLE`, `EXPLICATIONS`, `ORDRE`) VALUES (?, ?, ?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `information` (`TYPE`, `CODE_FORMATION`, `LIBELLE`, `EXPLICATIONS`, `ORDRE`) VALUES (?, ?, ?, ?, ?);")
 						->execute(array(
-							$information->getNom(),
-							$information->getCode(),
+							$information->getType(),
+							$information->getCodeFormation(),
 							$information->getLibelle(),
 							$information->getExplications(),
 							$information->getOrdre()
@@ -43,10 +43,10 @@ class InformationManager {
 	}
 
 	public function update(Information $information) {
-		return $this->db->prepare("UPDATE `information` SET `NOM` = ?, `CODE` = ?, `LIBELLE` = ?, `EXPLICATIONS` = ?, `ORDRE` = ? WHERE `ID` = ?;")
+		return $this->db->prepare("UPDATE `information` SET `TYPE` = ?, `CODE_FORMATION` = ?, `LIBELLE` = ?, `EXPLICATIONS` = ?, `ORDRE` = ? WHERE `ID` = ?;")
 						->execute(array(
-							$information->getNom(),
-							$information->getCode(),
+							$information->getType(),
+							$information->getCodeFormation(),
 							$information->getLibelle(),
 							$information->getExplications(),
 							$information->getOrdre(),
