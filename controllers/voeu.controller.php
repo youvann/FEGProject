@@ -38,7 +38,7 @@ switch ($action) {
 			foreach ($_POST['villes'] as $ville) {
 				$seDeroulerManager->insert(new SeDerouler($ville, $_POST['code_etape']));
 			}
-			header('location:index.php?uc=voeu&action=grille&code=' . $_POST['code']);
+			header('location:index.php?uc=voeu&action=grille&code=' . $_POST['code_formation']);
 		} break;
 	/* case "modifier": {
 	  $formation = $formationManager->find($_GET['code']);

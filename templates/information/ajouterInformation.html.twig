@@ -18,7 +18,7 @@
 		<label for="type">Type</label>
 		<select class="form-control" id="type" name="type">
 				{% for type in types %}
-			<option value="{{ type.nom }}">{{ type.libelle }}</option>
+			<option value="{{ type.id }}">{{ type.libelle }}</option>
 				{% endfor %}
 		</select>
 	</div>
@@ -73,7 +73,7 @@
 			$("#choix").hide();
 		});
 
-		$("#nom").change(function() {
+		$("#type").change(function() {
 			if ($(this).val() === 'RadioButtonGroup' || $(this).val() === 'CheckBoxGroup') {
 				$("#choix").show();
 			} else {

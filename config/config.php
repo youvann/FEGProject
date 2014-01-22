@@ -5,6 +5,12 @@
 require_once './classes/FormElements/loader.php';
 require_once './classes/Translator/loader.php';
 
+$translatorFormToJson = new TranslatorFormToJson();
+$translatorJsonToHTML = new TranslatorJsonToHTML();
+$translatorResultsetToStructure = new TranslatorResulsetToStructure();
+$translatorStructureToForm = new TranslatorStructureToForm();
+
+
 // Connexion PDO
 $dbname = 'fegtest1';
 $host = 'localhost';

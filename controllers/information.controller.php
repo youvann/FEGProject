@@ -21,7 +21,8 @@ if (!isset($_GET['action'])) {
 
 switch ($action) {
 	case "grille": {
-			$informations = $informationManager->findAllByFormation($_GET['code']);
+			$formation = $formationManager->find($_GET['code']);
+			$informations = $informationManager->findAllByFormation($formation);
 			echo $twig->render('information/grilleInformation.html.twig', array('informations' => $informations, 'code' => $_GET['code']));
 		} break;
 	case "consulter": {
@@ -34,7 +35,7 @@ switch ($action) {
 			echo $twig->render('information/ajouterInformation.html.twig', array('types' => $types, 'code' => $_GET['code']));
 		} break;
 	case "ajout": {
-			var_dump($_POST, $informationManager->insert(new Information(0, $_POST["type"], $_POST["code_formation"], $_POST["libelle"], $_POST["explications"], 0)));
+			$informationManager->insert(new Information(0, $_POST["type"], $_POST["code_formation"], $_POST["libelle"], $_POST["explications"], 0));
 			if ($_POST["type"] === 'RadioButtonGroup' || $_POST["type"] === 'CheckBoxGroup') {
 				$lastInsertId = $informationManager->maxId();
 				foreach ($_POST['tb'] as $tb) {

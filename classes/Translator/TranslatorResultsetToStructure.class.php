@@ -15,29 +15,30 @@ class TranslatorResulsetToStructure {
 	 * @param PDOStatement $resultset
 	 * @return array Structure des informations supplémentaires
 	 */
-	public function translate(PDOStatement $resultset) {
-		$structure = array();
+	public function translate($rs) {
+		$structureTest = array();
 
 		$i = 0;
-		while ($i < count($resultset)) {
+		while ($i < count($rs)) {
 			$array = array();
-			$array[] = $resultset[$i]['idInfo'];
-			$array[] = $resultset[$i]['libelleInfo'];
-			$array[] = $resultset[$i]['typeInfo'];
-			if ($resultset[$i]['typeInfo'] == 'CheckBoxGroup' || $rs[$i]['typeInfo'] == 'RadioButtonGroup') {
+			$array[] = $rs[$i]['idInfo'];
+			$array[] = $rs[$i]['libelleInfo'];
+			$array[] = $rs[$i]['typeInfo'];
+			if ($rs[$i]['typeInfo'] == 'CheckBoxGroup' || $rs[$i]['typeInfo'] == 'RadioButtonGroup') {
 				$idInfo = $rs[$i]['idInfo'];
 				$libellesInfo = array();
-				while ($i < count($resultset) && $resultset[$i]['idInfo'] === $idInfo) {
-					$libellesInfo[] = $resultset[$i]['libellesInfo'];
+				while ($i < count($rs) && $rs[$i]['idInfo'] === $idInfo) {
+					$libellesInfo[] = $rs[$i]['libellesInfo'];
 					++$i;
 				}
 				$array[] = $libellesInfo;
 				$i = $i - 1;
 			}
 			++$i;
-			$structure[] = $array;
+			$structureTest[] = $array;
 		}
-		return $structure;
+
+		return $structureTest;
 	}
 
 }

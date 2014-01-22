@@ -20,10 +20,10 @@ class InformationManager {
 		return new Information($rs['ID'], $rs['TYPE'], $rs['CODE_FORMATION'], $rs['LIBELLE'], $rs['EXPLICATIONS'], $rs['ORDRE']);
 	}
 
-	public function findAllByFormation($codeFormation) {
+	public function findAllByFormation(Formation $formation) {
 		$informations = array();
 		$q = $this->db->prepare("SELECT * FROM `INFORMATION` WHERE `CODE_FORMATION` = ?;");
-		$q->execute(array($codeFormation));
+		$q->execute(array($formation->getCodeFormation()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $information) {
 			$informations[] = new Information($information['ID'], $information['TYPE'], $information['CODE_FORMATION'], $information['LIBELLE'], $information['EXPLICATIONS'], $information['ORDRE']);
@@ -62,6 +62,17 @@ class InformationManager {
 	public function maxId() {
 		$rs = $this->db->query("SELECT MAX(`ID`) as ID FROM `INFORMATION`;")->fetch();
 		return $rs['ID'];
+	}
+
+	public function getResultset(Formation $formation) {
+		$q = $this->db->prepare('SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
+			FROM `information` 
+			INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
+			LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
+			WHERE `information`.`code_formation` = ?
+			ORDER BY `information`.`id`, `information`.`ordre`;');
+		$q->execute(array($formation->getCodeFormation()));
+		return $q->fetchAll();
 	}
 
 }

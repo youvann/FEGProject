@@ -34,8 +34,8 @@ switch ($action) {
         echo $twig->render('formation/ajouterFormation.html.twig', array('facultes' => $facultes, 'langues' => $langues));
     } break;
     case "ajout": {
-		var_dump($_POST, $formationManager->insert(new Formation($_POST['code_formation'], $_POST['mention'], $_POST['ouverte'], $_POST['faculte'], $_POST['langue'])));
-        //header('location:index.php?uc=formation&action=grille');
+		$formationManager->insert(new Formation($_POST['code_formation'], $_POST['mention'], $_POST['ouverte'], $_POST['faculte'], $_POST['langue']));
+        header('location:index.php?uc=formation&action=grille');
     } break;
     case "modifier": {
         $formation = $formationManager->find($_GET['code']);
