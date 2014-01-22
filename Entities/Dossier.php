@@ -25,11 +25,10 @@ class Dossier {
 	private $paysBac;
 	private $activite;
 	private $titulaire;
-	private $emploi;
 	private $informations;
 	private $dateDossier;
 
-	function __construct($ine, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $emploi, $informations, $dateDossier) {
+	function __construct($ine, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $informations, $dateDossier) {
 		$this->ine = $ine;
 		$this->codeFormation = $codeFormation;
 		$this->autre = $autre;
@@ -53,7 +52,6 @@ class Dossier {
 		$this->paysBac = $paysBac;
 		$this->activite = $activite;
 		$this->titulaire = $titulaire;
-		$this->emploi = $emploi;
 		$this->informations = $informations;
 		$this->dateDossier = $dateDossier;
 	}
@@ -148,10 +146,6 @@ class Dossier {
 
 	public function getTitulaire() {
 		return $this->titulaire;
-	}
-
-	public function getEmploi() {
-		return $this->emploi;
 	}
 
 	public function getInformations() {
@@ -252,10 +246,6 @@ class Dossier {
 
 	public function setTitulaire($titulaire) {
 		$this->titulaire = $titulaire;
-	}
-
-	public function setEmploi($emploi) {
-		$this->emploi = $emploi;
 	}
 
 	public function setInformations($informations) {

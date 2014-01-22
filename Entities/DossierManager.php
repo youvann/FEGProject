@@ -34,7 +34,32 @@ class DossierManager {
 	public function insert(Dossier $dossier) {
 		return $this->db->prepare("INSERT INTO `DOSSIER` (`INE`, `CODE_FORMATION`, `AUTRE`, `NOM`, `PRENOM`, `ADRESSE`, `COMPLEMENT`, `CODE_POSTAL`, `VILLE`, `DATE_NAISSANCE`, `LIEU_NAISSANCE`, `FIXE`, `PORTABLE`, `MAIL`, `LANGUES`, `NATIONALITE`, `SERIE_BAC`, `ANNEE_BAC`, `ETABLISSEMENT_BAC`, `DEPARTEMENT_BAC`, `PAYS_BAC`, `ACTIVITE`, `TITULAIRE`, `EMPLOI`, `INFORMATIONS`, `DATE_DOSSIER`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);")
 						->execute(
-								$dossier->getIne(), $dossier->getCodeFormation(), $dossier->getAutre(), $dossier->getNom(), $dossier->getPrenom(), $dossier->getAdresse(), $dossier->getComplement(), $dossier->getCode_postal(), $dossier->getVille(), $dossier->getDateNaissance(), $dossier->getLieuNaissance(), $dossier->getFixe(), $dossier->getPortable(), $dossier->getMail(), $dossier->getLangues(), $dossier->getNationalite(), $dossier->getSerieBac(), $dossier->getAnneeBac(), $dossier->getEtablissementBac(), $dossier->getDepartementBac(), $dossier->getPaysBac(), $dossier->getActivite(), $dossier->getTitulaire(), $dossier->getEmploi(), $dossier->getInformations(), $dossier->getDateDossier()
+								$dossier->getIne(), 
+								$dossier->getCodeFormation(), 
+								$dossier->getAutre(), 
+								$dossier->getNom(), 
+								$dossier->getPrenom(), 
+								$dossier->getAdresse(), 
+								$dossier->getComplement(), 
+								$dossier->getCodePostal(), 
+								$dossier->getVille(), 
+								$dossier->getDateNaissance(), 
+								$dossier->getLieuNaissance(), 
+								$dossier->getFixe(), 
+								$dossier->getPortable(), 
+								$dossier->getMail(), 
+								$dossier->getLangues(), 
+								$dossier->getNationalite(), 
+								$dossier->getSerieBac(), 
+								$dossier->getAnneeBac(), 
+								$dossier->getEtablissementBac(), 
+								$dossier->getDepartementBac(), 
+								$dossier->getPaysBac(), 
+								$dossier->getActivite(), 
+								$dossier->getTitulaire(), 
+								$dossier->getEmploi(), 
+								$dossier->getInformations(), 
+								$dossier->getDateDossier()
 		);
 	}
 
@@ -46,7 +71,7 @@ class DossierManager {
 							$dossier->getPrenom(),
 							$dossier->getAdresse(),
 							$dossier->getComplement(),
-							$dossier->getCode_postal(),
+							$dossier->getCodePostal(),
 							$dossier->getVille(),
 							$dossier->getDateNaissance(),
 							$dossier->getLieuNaissance(),
@@ -62,7 +87,6 @@ class DossierManager {
 							$dossier->getPaysBac(),
 							$dossier->getActivite(),
 							$dossier->getTitulaire(),
-							$dossier->getEmploi(),
 							$dossier->getInformations(),
 							$dossier->getDateDossier(),
 							$dossier->getIne(),

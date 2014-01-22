@@ -26,5 +26,8 @@ switch ($action) {
 	case "carte": {
 			echo $twig->render('intranet/carte.html.twig');
 		} break;
+	case "explorateur": {
+			echo $twig->render('intranet/explorateur.html.twig');
+		} break;
 	default: break;
 }
