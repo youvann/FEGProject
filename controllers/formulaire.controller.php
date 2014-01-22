@@ -15,40 +15,39 @@ if (!isset($_GET['action'])) {
 $limitDate = "7 juin 2014";
 
 switch ($action) {
-	case "formCandidat": {
-			echo $twig->render('formulaire/formCandidat.html.twig', array(
+	case "choixFormation": {
+			echo $twig->render('formulaire/choixFormation.html.twig', array(
 			));
 		} break;
-	case "infoPerso": {
-			echo $twig->render('formulaire/infoPerso.html.twig', array(
+	case "informationsPersonnelles": {
+			echo $twig->render('formulaire/informationsPersonnelles.html.twig', array(
 				"limitDate" => $limitDate
 			));
 		} break;
-	case "postBac": {
-			echo $twig->render('formulaire/postBac.html.twig', array(
+	case "postBacExperiences": {
+			echo $twig->render('formulaire/postBacExperiences.html.twig', array(
 			));
 		} break;
-	case "choixSpe": {
-			echo $twig->render('formulaire/choixSpe.html.twig', array(
+	case "choixVoeux": {
+			echo $twig->render('formulaire/choixVoeux.html.twig', array(
 			));
 		} break;
-	case "documentGeneral": {
+	case "documentsGeneraux": {
 			$documentsGeneraux = $documentGeneralManager->findAll();
-			echo $twig->render('formulaire/documentGeneral.html.twig', array(
+			echo $twig->render('formulaire/documentsGeneraux.html.twig', array(
 				"documentsGeneraux" => $documentsGeneraux
 			));
 		} break;
 	case "informationsSpecifiques": {
 			$formationTest = $formationManager->find('3BAS');
-			//$informations = $informationManager->findAllByFormation($formationTest);
 			$structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationTest));
 			$form = $translatorStructureToForm->translate($structure);
 			$formHTML = $form->getHTML();
 			echo $twig->render('formulaire/informationsSpecifiques.html.twig', array('form' => $formHTML));
 		} break;
-	case "documentSpecifique": {
+	case "documentsSpecifiques": {
 			$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("BTM");
-			echo $twig->render('formulaire/documentSpecifique.html.twig', array(
+			echo $twig->render('formulaire/documentsSpecifiques.html.twig', array(
 				"documentsSpecifique" => $documentsSpecifiques
 			));
 		} break;
