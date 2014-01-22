@@ -32,12 +32,10 @@ class DocumentManager {
 
 	public function insert(Document $document) {
 		return $this->db->prepare("INSERT INTO `DOCUMENT` (`NOM`, `MULTIPLE`) VALUES (?, ?);")
-						->execute(array($document->getNom(), 1));
+						->execute(array($document->getNom(), $document->getMultiple()));
 	}
 
 	public function update(Document $document) {
-
-
 		return $this->db->prepare("UPDATE `DOCUMENT` SET `NOM` = ?, `MULTIPLE` = ? WHERE `ID` = ?;")
 						->execute(array(
 							$document->getNom(),

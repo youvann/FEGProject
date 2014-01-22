@@ -17,7 +17,7 @@ class DocumentSpecifiqueManager {
 		$q = $this->db->prepare("SELECT * FROM `DOCUMENT_SPECIFIQUE` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
-		return new DocumentSpecifique($rs['ID'], $rs['CODE'], $rs['NOM'], $rs['URL']);
+		return new DocumentSpecifique($rs['ID'], $rs['CODE'], $rs['NOM'], $rs['URL'], $rs['MULTIPLE']);
 	}
 
 	public function findAllByFormation($code) {
@@ -26,27 +26,29 @@ class DocumentSpecifiqueManager {
 		$q->execute(array($code));
 		$rs = $q->fetchAll();
 		foreach ($rs as $documentSpecifique) {
-			$documentsSpecifiques[] = new DocumentSpecifique($documentSpecifique['ID'], $documentSpecifique['CODE'], $documentSpecifique['NOM'], $documentSpecifique['URL']);
+			$documentsSpecifiques[] = new DocumentSpecifique($documentSpecifique['ID'], $documentSpecifique['CODE'], $documentSpecifique['NOM'], $documentSpecifique['URL'],$documentSpecifique['MULTIPLE']);
 		}
 		return $documentsSpecifiques;
 	}
 
 	public function insert(DocumentSpecifique $documentSpecifique) {
-		return $this->db->prepare("INSERT INTO `DOCUMENT_SPECIFIQUE` (`CODE`, `NOM`, `URL`) VALUES (?, ?, ?);")
-						->execute(array(
-							$documentSpecifique->getCode(),
-							$documentSpecifique->getNom(),
-							$documentSpecifique->getUrl()
-		));
-	}
-
-	public function update(DocumentSpecifique $documentSpecifique) {
-		return $this->db->prepare("UPDATE `DOCUMENT_SPECIFIQUE` SET `CODE` = ?, `NOM` = ?, `URL` = ? WHERE `ID` = ?;")
+		return $this->db->prepare("INSERT INTO `DOCUMENT_SPECIFIQUE` (`CODE`, `NOM`, `URL`, `MULTIPLE`) VALUES (?, ?, ?, ?);")
 						->execute(array(
 							$documentSpecifique->getCode(),
 							$documentSpecifique->getNom(),
 							$documentSpecifique->getUrl(),
-							$documentSpecifique->getId()
+                            $documentSpecifique->getMultiple()
+		));
+	}
+
+	public function update(DocumentSpecifique $documentSpecifique) {
+		return $this->db->prepare("UPDATE `DOCUMENT_SPECIFIQUE` SET `CODE` = ?, `NOM` = ?, `URL` = ?, `MULTIPLE` = ? WHERE `ID` = ?;")
+						->execute(array(
+							$documentSpecifique->getCode(),
+							$documentSpecifique->getNom(),
+							$documentSpecifique->getUrl(),
+							$documentSpecifique->getId(),
+                            $documentSpecifique->getMultiple()
 		));
 	}
 
