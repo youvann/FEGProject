@@ -17,7 +17,7 @@ class InformationManager {
 		$q = $this->db->prepare("SELECT * FROM `INFORMATION` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
-		return new Information($rs['ID'], $rs['NOM'], $rs['ID'], $rs['LIBEL_INFORMATION'], $rs['REQUIS'], $rs['ID_TYPE_ELEMENT']);
+		return new Information($rs['ID'], $rs['NOM'], $rs['CODE'], $rs['LIBELLE'], $rs['EXPLICATIONS'], $rs['ORDRE']);
 	}
 
 	public function findAllByFormation($codeFormation) {

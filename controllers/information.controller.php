@@ -24,6 +24,11 @@ switch ($action) {
 			$informations = $informationManager->findAllByFormation($_GET['code']);
 			echo $twig->render('information/grilleInformation.html.twig', array('informations' => $informations, 'code' => $_GET['code']));
 		} break;
+	case "consulter": {
+			$information = $informationManager->find($_GET['id']);
+			$choix = $choixManager->findAllByInformation($information);
+			echo $twig->render('information/consulterInformation.html.twig', array('information' => $information, 'choix' => $choix, 'code' => $_GET['code']));
+		} break;
 	case "ajouter": {
 			$types = $typeManager->findAll();
 			echo $twig->render('information/ajouterInformation.html.twig', array('types' => $types, 'code' => $_GET['code']));

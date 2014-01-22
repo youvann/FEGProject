@@ -26,6 +26,17 @@ class ChoixManager {
 		}
 		return $lesChoix;
 	}
+	
+	public function findAllByInformation(Information $information) {
+		$lesChoix = array();
+		$q = $this->db->prepare("SELECT * FROM `CHOIX` WHERE `INFORMATION` = ?;");
+		$q->execute(array($information->getId()));
+		$rs = $q->fetchAll();
+		foreach ($rs as $unChoix) {
+			$lesChoix[] = new Choix($unChoix['ID'], $unChoix['INFORMATION'], $unChoix['TEXTE']);
+		}
+		return $lesChoix;
+	}
 
 	public function insert(Choix $choix) {
 		return $this->db->prepare("INSERT INTO `choix` (`INFORMATION`, `TEXTE`) VALUES (?, ?);")
