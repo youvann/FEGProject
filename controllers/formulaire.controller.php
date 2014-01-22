@@ -40,8 +40,7 @@ switch ($action) {
         ));
     } break;
     case "documentSpecifique": {
-        $documentsSpecifique = $documentSpecifiqueManager->findAll();
-        //$documentsSpecifiques = $documentSpecifiqueManager->findAll();
+        $documentsSpecifique = $documentSpecifiqueManager->findAllByFormation("BTM");
         echo $twig->render('formulaire/documentSpecifique.html.twig', array(
             "documentsSpecifique" => $documentsSpecifique
         ));

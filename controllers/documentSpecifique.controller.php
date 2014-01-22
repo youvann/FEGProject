@@ -28,7 +28,7 @@ switch ($action) {
         echo $twig->render('documentSpecifique/ajouterDocumentSpecifique.html.twig', array('code' => $_GET['code']));
     } break;
     case "ajout": {
-        $documentSpecifiqueManager->insert(new DocumentSpecifique(0, $_POST['code'], $_POST['nom'], $_POST['url']));
+        $documentSpecifiqueManager->insert(new DocumentSpecifique(0, $_POST['code'], $_POST['nom'], $_POST['url'], $_POST['multiple']));
         header('location:index.php?uc=documentSpecifique&action=grille&code='.$_POST['code']);
     } break;
     case "modifier": {
@@ -36,7 +36,7 @@ switch ($action) {
         echo $twig->render('documentSpecifique/modifierDocumentSpecifique.html.twig', array('documentSpecifique' => $documentSpecifique, "code" => $_GET['code']));
     } break;
     case "modification": {
-        $documentSpecifique = new $documentSpecifique($_POST['id'], $_POST['code'], $_POST['nom'], $_POST['url']);
+        $documentSpecifique = new $documentSpecifique($_POST['id'], $_POST['code'], $_POST['nom'], $_POST['url'], $_POST['multiple']);
         $documentSpecifiqueManager->update($documentSpecifique);
         header('location:index.php?uc=documentSpecifique&action=grille&code='.$_POST['code']);
     } break;

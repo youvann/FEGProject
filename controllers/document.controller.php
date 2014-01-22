@@ -32,7 +32,7 @@ switch ($action) {
         echo $twig->render('document/ajouterDocument.html.twig');
     } break;
     case "ajout": {
-        $documentManager->insert(new Document(0, $_POST['nom']));
+        $documentManager->insert(new Document(0, $_POST['nom'], $_POST['multiple']));
         header('location:index.php?uc=document&action=grille');
     } break;
     case "modifier": {
@@ -40,7 +40,7 @@ switch ($action) {
         echo $twig->render('document/modifierDocument.html.twig', array('document' => $document));
     } break;
     case "modification": {
-        $document = new Document($_POST['id'], $_POST['nom']);
+        $document = new Document($_POST['id'], $_POST['nom'], $_POST['multiple']);
         $documentManager->update($document);
         header('location:index.php?uc=document&action=grille');
     } break;
