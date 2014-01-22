@@ -63,17 +63,17 @@
                                     <th>Options</th>
                                 </tr>
 
-                                {% for document in documents %}
+                                {% for documentGeneral in documentsGeneraux %}
                                     <tr>
                                         <td>
                                             <div class="form-group">
-                                                <label for="uploadRow{{ loop.index }}-1">{{ document.nom }}</label>
+                                                <label for="uploadRow{{ loop.index }}-1">{{ documentGeneral.nom }}</label>
                                                 <input id="uploadRow{{ loop.index }}-1" name="file[]" type="file" class="a"/>
 
                                             </div>
                                         </td>
                                         <td>
-                                            {% if (document.multiple) == 0 %}
+                                            {% if (documentGeneral.multiple) == 1 %}
                                                 <button type="button" class="btn btn-primary buttonAddUpload" id=""><span class="glyphicon glyphicon-plus-sign"></span></button>
                                                 <button type="button" class="btn btn-danger buttonRemoveUpload" id=""><span class="glyphicon glyphicon-minus-sign"></span></button>
                                             {% endif %}
