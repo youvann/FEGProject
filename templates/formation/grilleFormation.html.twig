@@ -12,7 +12,11 @@
 <a href="index.php?uc=formation&action=ajouter" class="btn btn-lg btn-primary">
 	<span class="glyphicon glyphicon-plus-sign"></span> Ajouter une formation
 </a>
+
+{% if formations is not empty %}
+
 <hr />
+
 <table class="table table-hover table-bordered table-striped">
 	<tr>
 		<th>Code</th>
@@ -41,5 +45,7 @@
 	</tr>
 	{% endfor %}
 </table>
+
+{% endif %}
 
 {% endblock %}

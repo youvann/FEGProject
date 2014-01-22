@@ -1,6 +1,6 @@
 <?php
 
-class Document {
+class DocumentGeneral {
 	private $id;
 	private $nom;
     private $multiple;

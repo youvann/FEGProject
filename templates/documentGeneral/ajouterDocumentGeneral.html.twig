@@ -4,21 +4,30 @@
 
 <ol class="breadcrumb">
 	<li><a href="index.php?uc=intranet&action">Accueil</a></li>
-	<li><a href="index.php?uc=document&action=grille">Liste des documents</a></li>
+	<li><a href="index.php?uc=documentGeneral&action=grille">Liste des documents</a></li>
 	<li class="active">Ajouter un document général</li>
 </ol>
 
 <h2 class="titre_rubrique">Ajouter un document général</h2>
 
-<form action="index.php?uc=document&action=ajout" method="POST">
+<form action="index.php?uc=documentGeneral&action=ajout" method="POST">
 
 	<div class="form-group">
 		<label for="nom">Nom</label>
 		<input class="form-control" type="text" id="nom" name="nom" />
 	</div>
     <div class="form-group">
-        <label for="multiple">Multiple</label>
-        <input class="form-control" type="text" id="multiple" name="multiple" />
+        <label>Multiple</label>
+        <div class="radio">
+			<label>
+				<input type="radio" id="multiple_oui" name="multiple" value="1" checked /> Oui
+			</label>
+		</div>
+		<div class="radio">
+			<label>
+				<input type="radio" id="multiple_non" name="multiple" value="0" /> Non
+			</label>
+		</div>
     </div>
 
 
@@ -29,7 +38,7 @@
 
 <hr/>
 
-<a href="index.php?uc=formation&action=grille" class="btn btn-primary">
+<a href="index.php?uc=documentGeneral&action=grille"  class="btn btn-primary">
 	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
 </a>
 

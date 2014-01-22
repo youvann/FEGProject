@@ -4,7 +4,7 @@ class Dossier {
 
 	private $ine;
 	private $codeFormation;
-	private $code;
+	private $autre;
 	private $nom;
 	private $prenom;
 	private $adresse;
@@ -18,15 +18,21 @@ class Dossier {
 	private $mail;
 	private $langues;
 	private $nationalite;
+	private $serieBac;
+	private $anneeBac;
+	private $etablissementBac;
+	private $departementBac;
+	private $paysBac;
 	private $activite;
 	private $titulaire;
+	private $emploi;
 	private $informations;
 	private $dateDossier;
 
-	function __construct($ine, $codeFormation, $code, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $activite, $titulaire, $informations, $dateDossier) {
+	function __construct($ine, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $emploi, $informations, $dateDossier) {
 		$this->ine = $ine;
 		$this->codeFormation = $codeFormation;
-		$this->code = $code;
+		$this->autre = $autre;
 		$this->nom = $nom;
 		$this->prenom = $prenom;
 		$this->adresse = $adresse;
@@ -40,8 +46,14 @@ class Dossier {
 		$this->mail = $mail;
 		$this->langues = $langues;
 		$this->nationalite = $nationalite;
+		$this->serieBac = $serieBac;
+		$this->anneeBac = $anneeBac;
+		$this->etablissementBac = $etablissementBac;
+		$this->departementBac = $departementBac;
+		$this->paysBac = $paysBac;
 		$this->activite = $activite;
 		$this->titulaire = $titulaire;
+		$this->emploi = $emploi;
 		$this->informations = $informations;
 		$this->dateDossier = $dateDossier;
 	}
@@ -54,8 +66,8 @@ class Dossier {
 		return $this->codeFormation;
 	}
 
-	public function getCode() {
-		return $this->code;
+	public function getAutre() {
+		return $this->autre;
 	}
 
 	public function getNom() {
@@ -110,12 +122,36 @@ class Dossier {
 		return $this->nationalite;
 	}
 
+	public function getSerieBac() {
+		return $this->serieBac;
+	}
+
+	public function getAnneeBac() {
+		return $this->anneeBac;
+	}
+
+	public function getEtablissementBac() {
+		return $this->etablissementBac;
+	}
+
+	public function getDepartementBac() {
+		return $this->departementBac;
+	}
+
+	public function getPaysBac() {
+		return $this->paysBac;
+	}
+
 	public function getActivite() {
 		return $this->activite;
 	}
 
 	public function getTitulaire() {
 		return $this->titulaire;
+	}
+
+	public function getEmploi() {
+		return $this->emploi;
 	}
 
 	public function getInformations() {
@@ -134,8 +170,8 @@ class Dossier {
 		$this->codeFormation = $codeFormation;
 	}
 
-	public function setCode($code) {
-		$this->code = $code;
+	public function setAutre($autre) {
+		$this->autre = $autre;
 	}
 
 	public function setNom($nom) {
@@ -190,12 +226,36 @@ class Dossier {
 		$this->nationalite = $nationalite;
 	}
 
+	public function setSerieBac($serieBac) {
+		$this->serieBac = $serieBac;
+	}
+
+	public function setAnneeBac($anneeBac) {
+		$this->anneeBac = $anneeBac;
+	}
+
+	public function setEtablissementBac($etablissementBac) {
+		$this->etablissementBac = $etablissementBac;
+	}
+
+	public function setDepartementBac($departementBac) {
+		$this->departementBac = $departementBac;
+	}
+
+	public function setPaysBac($paysBac) {
+		$this->paysBac = $paysBac;
+	}
+
 	public function setActivite($activite) {
 		$this->activite = $activite;
 	}
 
 	public function setTitulaire($titulaire) {
 		$this->titulaire = $titulaire;
+	}
+
+	public function setEmploi($emploi) {
+		$this->emploi = $emploi;
 	}
 
 	public function setInformations($informations) {
@@ -205,4 +265,6 @@ class Dossier {
 	public function setDateDossier($dateDossier) {
 		$this->dateDossier = $dateDossier;
 	}
+
+
 }

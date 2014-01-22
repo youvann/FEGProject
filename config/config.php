@@ -9,8 +9,10 @@ require_once './classes/Translator/loader.php';
 $dbname = 'fegtest1';
 $host = 'localhost';
 $user = 'root';
-$password = 'root';
-
+$password = '';
+if (__DIR__ !== 'C:\wamp\www\FEGProject\config') {
+	$password = 'root';
+}
 static $conn = null;
 
 try {
@@ -27,7 +29,7 @@ require_once './Entities/loader.php';
 // Instanciations des Managers
 $choixManager = new ChoixManager($conn);
 $cursusManager = new CursusManager($conn);
-$documentManager = new DocumentManager($conn);
+$documentGeneralManager = new DocumentGeneralManager($conn);
 $documentSpecifiqueManager = new DocumentSpecifiqueManager($conn);
 $dossierManager = new DossierManager($conn);
 $etudiantManager = new EtudiantManager($conn);

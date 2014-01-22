@@ -23,11 +23,11 @@ switch ($uc) {
 	case "formation": {
 			require_once './controllers/formation.controller.php';
 		} break;
+	case "documentGeneral": {
+			require_once './controllers/documentGeneral.controller.php';
+		} break;
 	case "documentSpecifique": {
 			require_once './controllers/documentSpecifique.controller.php';
-		} break;
-	case "document": {
-			require_once './controllers/document.controller.php';
 		} break;
 	case "information": {
 			require_once './controllers/information.controller.php';
