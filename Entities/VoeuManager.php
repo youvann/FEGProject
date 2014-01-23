@@ -21,15 +21,15 @@ class VoeuManager {
 		$voeux = array();
 		$rs = $this->db->query("SELECT * FROM `VOEU`;")->fetchAll();
 		foreach ($rs as $voeu) {
-			$voeux[] = Voeu($rs['CODE_ETAPE'], $rs['CODE_FORMATION'], $rs['ETAPE'], $rs['RESPONSABLE']);
+			$voeux[] = Voeu($voeu['CODE_ETAPE'], $voeu['CODE_FORMATION'], $voeu['ETAPE'], $voeu['RESPONSABLE']);
 		}
 		return $voeux;
 	}
 	
-	public function findAllByFormation($codeFormation) {
+	public function findAllByFormation(Formation $formation) {
 		$voeux = array();
 		$q = $this->db->prepare("SELECT * FROM `VOEU` WHERE `CODE_FORMATION` = ?;");
-		$q->execute(array($codeFormation));
+		$q->execute(array($formation->getCodeFormation()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $voeu) {
 			$voeux[] = new Voeu($voeu['CODE_ETAPE'], $voeu['CODE_FORMATION'], $voeu['ETAPE'], $voeu['RESPONSABLE']);
@@ -50,5 +50,17 @@ class VoeuManager {
 	public function delete(Voeu $voeu) {
 		return $this->db->prepare("DELETE FROM `VOEU` WHERE `CODE_ETAPE` = ?;")
 						->execute(array($voeu->getCodeEtape()));
+	}
+	
+	public function getVilles(Voeu $voeu) {
+		$villes = array();
+		$q = $this->db->prepare("SELECT * FROM `VILLE` INNER JOIN `SE_DEROULER` ON `VILLE`.`CODE_VET` = `SE_DEROULER`.`CODE_VET` WHERE `SE_DEROULER`.`CODE_ETAPE` = ?;");
+		$q->execute(array($voeu->getCodeEtape()));
+		$rs = $q->fetchAll();
+		foreach ($rs as $ville) {
+			$villes[] = new Ville($ville['CODE_VET'], $ville['NOM']);
+		}
+		return $villes;
+		
 	}
 }

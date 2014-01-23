@@ -17,10 +17,10 @@ class FaireManager {
 	public function insert(Faire $faire) {
 		return $this->db->prepare("INSERT INTO `FAIRE` (`CODE_ETAPE`, `INE`, `CODE_FORMATION`, `ORDRE`) VALUES (?, ?, ?, ?);")
 						->execute(array(
-							$faire->CodeEtape(),
-							$faire->Ine(),
-							$faire->CodeFormation(),
-							$faire->Ordre()
+							$faire->getCodeEtape(),
+							$faire->getIne(),
+							$faire->getCodeFormation(),
+							$faire->getOrdre()
 		));
 	}
 
