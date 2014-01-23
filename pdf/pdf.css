@@ -34,7 +34,7 @@ td, th {
 
 .t_title img{
     height: 85px;
-    width: 200;
+    width: 200px;
 }
 
 .border-top-none{
@@ -83,6 +83,8 @@ page{
     background-color: #F1F1F1;
 }
 
+
+
 .cadre{
     padding: 5px;
     border: 1px solid black;
@@ -114,4 +116,64 @@ page{
 
 .t_postBac .col5{
     width: 240px;
+}
+
+
+.t_postBac2 .col3{
+    width: 100px;
+}
+
+.t_postBac2 .col4{
+    width: 130px;
+}
+
+.t_postBac2 .col6{
+    width: 130px;
+}
+.t_postBac2 .col7{
+    width: 140px;
+}
+
+
+.bold_underline{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+.italic_underline{
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.italic{
+    font-style: italic;
+}
+
+.addressFac{
+    padding: 5px;
+    border: 1px solid black;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+
+}
+
+.text_align{
+
+    text-align: right;
+}
+
+.alinea{
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+.cadreDate{
+    padding: 5px;
+    border: 1px solid black;
+    width: 120px;
 }
