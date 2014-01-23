@@ -19,43 +19,16 @@ switch ($action) {
 			echo $twig->render('formulaire/choixFormation.html.twig', array(
 			));
 		} break;
+	case "traiterChoixFormation": {
+			$derniere = $_POST['derniere'];
+			$souhaitee = $_POST['souhaitee'];
+
+			echo $twig->render('formulaire/informationsGenerales.html.twig', array(
+				"limitDate" => $limitDate
+			));
+		} break;
 	case "informationsGenerales": {
 			echo $twig->render('formulaire/informationsGenerales.html.twig');
-		} break;
-	case "postBacExperiences": {
-			echo $twig->render('formulaire/postBacExperiences.html.twig', array(
-			));
-		} break;
-	case "choixVoeux": {
-			$formation = $formationManager->find('3BAS');
-			$voeux = $voeuManager->findAllByFormation($formation);
-			foreach ($voeux as $voeu) {
-				$voeu->setVilles($voeuManager->getVilles($voeu));
-			}
-			$nbVoeux = count($voeux);
-			echo $twig->render('formulaire/choixVoeux.html.twig', array(
-				'voeux' => $voeux,
-				'nbVoeux' => $nbVoeux
-			));
-		} break;
-	case "documentsGeneraux": {
-			$documentsGeneraux = $documentGeneralManager->findAll();
-			echo $twig->render('formulaire/documentsGeneraux.html.twig', array(
-				"documentsGeneraux" => $documentsGeneraux
-			));
-		} break;
-	case "informationsSpecifiques": {
-			$formationTest = $formationManager->find('3BAS');
-			$structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationTest));
-			$form = $translatorStructureToForm->translate($structure);
-			$formHTML = $form->getHTML();
-			echo $twig->render('formulaire/informationsSpecifiques.html.twig', array('form' => $formHTML));
-		} break;
-	case "documentsSpecifiques": {
-			$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("3BAS");
-			echo $twig->render('formulaire/documentsSpecifiques.html.twig', array(
-				"documentsSpecifique" => $documentsSpecifiques
-			));
 		} break;
 	case "traiterInfoPerso": {
 			$nom = $_POST["nom"];
@@ -83,7 +56,6 @@ switch ($action) {
 			$langues = $_POST["langues"];
 			$autresElements = $_POST["autres_elements"];
 
-
 			$dossier = new Dossier($ine, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $autresElements, NULL, NULL);
 			if (!$etudiantManager->ifExists(new Etudiant($ine, 1))) {
 				$etudiantManager->insert(new Etudiant($ine, 1));
@@ -95,6 +67,10 @@ switch ($action) {
 			}
 			$dossierManager->insert($dossier);
 			header('location:index.php?uc=formulaire&action=postBacExperiences');
+		} break;
+	case "postBacExperiences": {
+			echo $twig->render('formulaire/postBacExperiences.html.twig', array(
+			));
 		} break;
 	case "traiterPostBacExperiences": {
 			$cursusManager->insert(new Cursus(0, 'g11625159', '3BAS', $_POST['anneeDebutCursus_1'], $_POST['anneeFinCursus_1'], $_POST['cursus_1'], $_POST['etablissement_1'], $_POST['valide_1']));
@@ -108,34 +84,66 @@ switch ($action) {
 			$experienceManager->insert(new Experience(0, 'g11625159', '3BAS', $_POST['moisDebut_3'], $_POST['anneeDebut_3'], $_POST['moisFin_3'], $_POST['anneeFin_3'], $_POST['entreprise_3'], $_POST['fonction_3']));
 			header('location:index.php?uc=formulaire&action=choixVoeux');
 		} break;
-	case "traiterChoixFormation": {
-			$derniere = $_POST['derniere'];
-			$souhaitee = $_POST['souhaitee'];
-
-			echo $twig->render('formulaire/informationsGenerales.html.twig', array(
-				"limitDate" => $limitDate
+	case "choixVoeux": {
+			$formation = $formationManager->find('3BAS');
+			$voeux = $voeuManager->findAllByFormation($formation);
+			foreach ($voeux as $voeu) {
+				$voeu->setVilles($voeuManager->getVilles($voeu));
+			}
+			$nbVoeux = count($voeux);
+			echo $twig->render('formulaire/choixVoeux.html.twig', array(
+				'voeux' => $voeux,
+				'nbVoeux' => $nbVoeux
 			));
 		} break;
-	case "traiterInformationsSpecifiques": {
-			$structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find('3BAS')));
-			$json = $translatorFormToJson->translate($structure, $_POST);
-			$dossier = $dossierManager->findOneByFormation('g11625159', '3BAS');
-			$dossier->setInformations($json);
-			$dossierManager->update($dossier);
-			header('location:index.php?uc=formulaire&action=documentsGeneraux');
-		} break;
 	case "traiteChoixVoeux": {
-			var_dump($_POST['voeu']);
 			$i = 1;
 			foreach ($_POST['voeu'] as $codeEtape) {
 				$faireManager->insert(new Faire($codeEtape, 'g11625159', '3BAS', $i));
 				++$i;
 			}
+			header('location:index.php?uc=formulaire&action=informationsSpecifiques');
+		} break;
+	case "informationsSpecifiques": {
+			$formationTest = $formationManager->find('3BAS');
+			$structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationTest));
+			$form = $translatorStructureToForm->translate($structure);
+			$formHTML = $form->getHTML();
+			echo $twig->render('formulaire/informationsSpecifiques.html.twig', array('form' => $formHTML));
+		} break;
+	case "traiterInformationsSpecifiques": {
+			$structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find('3BAS')));
+			$json = $translatorFormToJson->translate($structure, $_POST);
+			$dossier = $dossierManager->find('g11625159', '3BAS');
+			$dossier->setInformations($json);
 			header('location:index.php?uc=formulaire&action=documentsGeneraux');
 		} break;
-		case "traiteDocumentsSpecifiques": {
+
+	case "documentsGeneraux": {
+			$documentsGeneraux = $documentGeneralManager->findAll();
+			echo $twig->render('formulaire/documentsGeneraux.html.twig', array(
+				"documentsGeneraux" => $documentsGeneraux
+			));
+		} break;
+	case "traiteDocumentsGeneraux": {
 			var_dump($_FILES['file']);
 			//header('location:index.php?uc=formulaire&action=documentsGeneraux');
+		} break;
+	case "documentsSpecifiques": {
+			$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("3BAS");
+			echo $twig->render('formulaire/documentsSpecifiques.html.twig', array(
+				"documentsSpecifique" => $documentsSpecifiques
+			));
+		} break;
+
+
+	case "traiteDocumentsSpecifiques": {
+			var_dump($_FILES['file']);
+			//header('location:index.php?uc=formulaire&action=documentsGeneraux');
+		} break;
+	case "testRessources": {
+			$xml = simplexml_load_file('./ressources/ressources.xml');
+			var_dump($xml);
 		} break;
 	default: break;
 }

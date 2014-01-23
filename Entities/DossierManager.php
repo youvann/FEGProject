@@ -13,7 +13,7 @@ class DossierManager {
 		$this->db = $db;
 	}
 
-	public function findOneByFormation($ine, $codeFormation) {
+	public function find($ine, $codeFormation) {
 		$q = $this->db->prepare("SELECT * FROM `DOSSIER` WHERE `INE` = ? AND `CODE_FORMATION` = ?;");
 		$q->execute(array($ine, $codeFormation));
 		$rs = $q->fetch();
@@ -32,12 +32,8 @@ class DossierManager {
 	}
 
 	public function insert(Dossier $dossier) {
-		return $this->db->prepare("INSERT INTO `DOSSIER` (`INE`, `CODE_FORMATION`, `AUTRE`, `NOM`, `PRENOM`, `ADRESSE`, `COMPLEMENT`, 
-`CODE_POSTAL`, `VILLE`, `DATE_NAISSANCE`, `LIEU_NAISSANCE`, `FIXE`, `PORTABLE`, `MAIL`, `LANGUES`, `NATIONALITE`, 
-`SERIE_BAC`, `ANNEE_BAC`, `ETABLISSEMENT_BAC`, `DEPARTEMENT_BAC`, `PAYS_BAC`, `ACTIVITE`, `TITULAIRE`, 
-`AUTRES_ELEMENTS`, `INFORMATIONS`, `DATE_DOSSIER`) VALUES 
-(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now());")
-						->execute(array(
+		return $this->db->prepare("INSERT INTO `DOSSIER` (`INE`, `CODE_FORMATION`, `AUTRE`, `NOM`, `PRENOM`, `ADRESSE`, `COMPLEMENT`, `CODE_POSTAL`, `VILLE`, `DATE_NAISSANCE`, `LIEU_NAISSANCE`, `FIXE`, `PORTABLE`, `MAIL`, `LANGUES`, `NATIONALITE`, `SERIE_BAC`, `ANNEE_BAC`, `ETABLISSEMENT_BAC`, `DEPARTEMENT_BAC`, `PAYS_BAC`, `ACTIVITE`, `TITULAIRE`, `AUTRES_ELEMENTS`, `INFORMATIONS`, `DATE_DOSSIER`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now());")
+				->execute(array(
 							$dossier->getIne(),
 							$dossier->getCodeFormation(),
 							$dossier->getAutre(),
