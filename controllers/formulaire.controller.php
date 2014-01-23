@@ -7,7 +7,7 @@
  * @Author: 
  */
 if (!isset($_GET['action'])) {
-	$action = "formCandidat";
+	$action = "choixFormation";
 } else {
 	$action = $_GET['action'];
 }
@@ -145,7 +145,7 @@ switch ($action) {
 			$derniere = $_POST['derniere'];
 			$souhaitee = $_POST['souhaitee'];
 
-			echo $twig->render('formulaire/informationsPersonnelles.html.twig', array(
+			echo $twig->render('formulaire/informationsGenerales.html.twig', array(
 				"limitDate" => $limitDate
 			));
 		} break;

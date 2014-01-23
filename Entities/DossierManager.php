@@ -17,7 +17,7 @@ class DossierManager {
 		$q = $this->db->prepare("SELECT * FROM `DOSSIER` WHERE `INE` = ? AND `CODE_FORMATION` = ?;");
 		$q->execute(array($ine, $codeFormation));
 		$rs = $q->fetch();
-		return new Dossier($rs['INE'], $rs['CODE_FORMATION'], $rs['AUTRE'], $rs['NOM'], $rs['PRENOM'], $rs['ADRESSE'], $rs['COMPLEMENT'], $rs['CODE_POSTAL'], $rs['VILLE'], $rs['DATE_NAISSANCE'], $rs['LIEU_NAISSANCE'], $rs['FIXE'], $rs['PORTABLE'], $rs['MAIL'], $rs['LANGUES'], $rs['NATIONALITE'], $rs['SERIEBAC'], $rs['ANNEE_BAC'], $rs['ETABLISSEMENT_BAC'], $rs['DEPARTEMENT_BAC'], $rs['PAYS_BAC'], $rs['ACTIVITE'], $rs['TITULAIRE'], $rs['EMPLOI'], $rs['INFORMATIONS'], $rs['DATE_DOSSIER']);
+		return new Dossier($rs['INE'], $rs['CODE_FORMATION'], $rs['AUTRE'], $rs['NOM'], $rs['PRENOM'], $rs['ADRESSE'], $rs['COMPLEMENT'], $rs['CODE_POSTAL'], $rs['VILLE'], $rs['DATE_NAISSANCE'], $rs['LIEU_NAISSANCE'], $rs['FIXE'], $rs['PORTABLE'], $rs['MAIL'], $rs['LANGUES'], $rs['NATIONALITE'], $rs['SERIE_BAC'], $rs['ANNEE_BAC'], $rs['ETABLISSEMENT_BAC'], $rs['DEPARTEMENT_BAC'], $rs['PAYS_BAC'], $rs['ACTIVITE'], $rs['TITULAIRE'], $rs['AUTRES_ELEMENTS'], $rs['INFORMATIONS'], $rs['DATE_DOSSIER']);
 	}
 
 	public function findAllByFormation($codeFormation) {

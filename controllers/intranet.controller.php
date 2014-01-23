@@ -30,7 +30,9 @@ switch ($action) {
 			echo $twig->render('intranet/explorateur.html.twig', array('directory' => str_replace(DIRECTORY_SEPARATOR,'/',realpath(dirname(__FILE__))).'/'));
 		} break;
     case "generationPdfCandidature": {
-        //$dossier = $dossierManager->find('ine', "codeformation");
+        $dossier = $dossierManager->findOneByFormation('1104015475', '3BAS');
+
+        var_dump($dossier);
         //$experience = $experienceManager->findAll();
 
         require_once './classes/Pdf/PagePdf.class.php';
@@ -62,6 +64,7 @@ switch ($action) {
         $content = ob_get_clean();
 
         // convert in PDF
+                                         /*
         require_once './classes/Pdf/html2pdf/html2pdf.class.php';
         try{
             $html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
@@ -77,6 +80,7 @@ switch ($action) {
             echo $e;
             exit;
         }
+        */
     } break;
 	default: break;
 }

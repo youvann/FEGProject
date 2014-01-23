@@ -30,32 +30,32 @@ class Dossier {
 	private $dateDossier;
 
 	function __construct($ine, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $autresElements, $informations, $dateDossier) {
-		$this->ine = $ine;
-		$this->codeFormation = $codeFormation;
-		$this->autre = $autre;
-		$this->nom = $nom;
-		$this->prenom = $prenom;
-		$this->adresse = $adresse;
-		$this->complement = $complement;
-		$this->codePostal = $codePostal;
-		$this->ville = $ville;
-		$this->dateNaissance = $dateNaissance;
-		$this->lieuNaissance = $lieuNaissance;
-		$this->fixe = $fixe;
-		$this->portable = $portable;
-		$this->mail = $mail;
-		$this->langues = $langues;
-		$this->nationalite = $nationalite;
-		$this->serieBac = $serieBac;
-		$this->anneeBac = $anneeBac;
+		$this->ine              = $ine;
+		$this->codeFormation    = $codeFormation;
+		$this->autre            = $autre;
+		$this->nom              = $nom;
+		$this->prenom           = $prenom;
+		$this->adresse          = $adresse;
+		$this->complement       = $complement;
+		$this->codePostal       = $codePostal;
+		$this->ville            = $ville;
+		$this->dateNaissance    = $dateNaissance;
+		$this->lieuNaissance    = $lieuNaissance;
+		$this->fixe             = $fixe;
+		$this->portable         = $portable;
+		$this->mail             = $mail;
+		$this->langues          = $langues;
+		$this->nationalite      = $nationalite;
+		$this->serieBac         = $serieBac;
+		$this->anneeBac         = $anneeBac;
 		$this->etablissementBac = $etablissementBac;
-		$this->departementBac = $departementBac;
-		$this->paysBac = $paysBac;
-		$this->activite = $activite;
-		$this->titulaire = $titulaire;
-		$this->autresElements = $autresElements;
-		$this->informations = $informations;
-		$this->dateDossier = $dateDossier;
+		$this->departementBac   = $departementBac;
+		$this->paysBac          = $paysBac;
+		$this->activite         = $activite;
+		$this->titulaire        = $titulaire;
+		$this->autresElements   = $autresElements;
+		$this->informations     = $informations;
+		$this->dateDossier      = $dateDossier;
 	}
 
 	public function getIne() {
