@@ -6,7 +6,7 @@
 	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
 	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
 	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
-	<li><a href="index.php?uc=information&action=grille&code={{ code }}">Liste des documents à joindre</a></li>
+	<li><a href="index.php?uc=documentSpecifique&action=grille&code={{ code }}">Liste des documents à joindre</a></li>
 	<li class="active">Ajouter un document à joindre</li>
 </ol>
 
@@ -26,12 +26,12 @@
         <label>Multiple</label>
         <div class="radio">
 			<label>
-				<input type="radio" id="multiple_oui" name="multiple" value="1" checked /> Oui
+				<input type="radio" id="multiple_oui" name="multiple" value="1" /> Oui
 			</label>
 		</div>
 		<div class="radio">
 			<label>
-				<input type="radio" id="multiple_non" name="multiple" value="0" /> Non
+				<input type="radio" id="multiple_non" name="multiple" value="0" checked /> Non
 			</label>
 		</div>
     </div>
@@ -42,7 +42,7 @@
 
 <hr />
 
-<a href="index.php?uc=voeu&action=grille&code={{ code }}"  class="btn btn-primary">
+<a href="index.php?uc=documentSpecifique&action=grille&code={{ code }}"  class="btn btn-primary">
 	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
 </a>
 {% endblock %}

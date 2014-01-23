@@ -23,7 +23,7 @@ class ExperienceManager {
 	}
 
 	public function insert(Experience $experience) {
-		return $this->db->prepare("INSERT INTO `EXPERIENCE` (`INE`, `CODE_FORMATION`, `MOIS_DEBUT`, `ANNEE_DEBUT`, `MOIS_FIN`, `ANNEE_FIN`, `ENTREPRISE`, `FONCTION`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `EXPERIENCE` (`INE`, `CODE_FORMATION`, `MOIS_DEBUT`, `ANNEE_DEBUT`, `MOIS_FIN`, `ANNEE_FIN`, `ENTREPRISE`, `FONCTION`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);")
 						->execute(array(
 							$experience->getIne(),
 							$experience->getCodeFormation(),

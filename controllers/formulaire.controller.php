@@ -52,13 +52,12 @@ switch ($action) {
 			echo $twig->render('formulaire/informationsSpecifiques.html.twig', array('form' => $formHTML));
 		} break;
 	case "documentsSpecifiques": {
-			$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("BTM");
+			$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("3BAS");
 			echo $twig->render('formulaire/documentsSpecifiques.html.twig', array(
 				"documentsSpecifique" => $documentsSpecifiques
 			));
 		} break;
 	case "traiterInfoPerso": {
-
 			$nom = $_POST["nom"];
 			$prenom = $_POST["prenom"];
 			$codeFormation = '3BAS';
@@ -98,54 +97,16 @@ switch ($action) {
 			header('location:index.php?uc=formulaire&action=postBacExperiences');
 		} break;
 	case "traiterPostBacExperiences": {
-			var_dump($_POST);
+			$cursusManager->insert(new Cursus(0, 'g11625159', '3BAS', $_POST['anneeDebutCursus_1'], $_POST['anneeFinCursus_1'], $_POST['cursus_1'], $_POST['etablissement_1'], $_POST['valide_1']));
+			$cursusManager->insert(new Cursus(0, 'g11625159', '3BAS', $_POST['anneeDebutCursus_2'], $_POST['anneeFinCursus_2'], $_POST['cursus_2'], $_POST['etablissement_2'], $_POST['valide_2']));
+			$cursusManager->insert(new Cursus(0, 'g11625159', '3BAS', $_POST['anneeDebutCursus_3'], $_POST['anneeFinCursus_3'], $_POST['cursus_3'], $_POST['etablissement_3'], $_POST['valide_3']));
+			$cursusManager->insert(new Cursus(0, 'g11625159', '3BAS', $_POST['anneeDebutCursus_4'], $_POST['anneeFinCursus_4'], $_POST['cursus_4'], $_POST['etablissement_4'], $_POST['valide_4']));
+			$cursusManager->insert(new Cursus(0, 'g11625159', '3BAS', $_POST['anneeDebutCursus_5'], $_POST['anneeFinCursus_5'], $_POST['cursus_5'], $_POST['etablissement_5'], $_POST['valide_5']));
 
-			$anneeDebut_1 = $_POST['anneeDebut-1'];
-			$anneeFin_1 = $_POST['anneeFin-1'];
-			$etablissement_1 = $_POST['etablissement-1'];
-			$cursus_1 = $_POST['cursus-1'];
-			$valide_1 = $_POST['valide-1'];
-			$anneeDebut_2 = $_POST['anneeDebut-2'];
-			$anneeFin_2 = $_POST['anneeFin-2'];
-			$etablissement_2 = $_POST['etablissement-2'];
-			$cursus_2 = $_POST['cursus-2'];
-			$valide_2 = $_POST['valide-2'];
-			$anneeDebut_3 = $_POST['anneeDebut-3'];
-			$anneeFin_3 = $_POST['anneeFin-3'];
-			$etablissement_3 = $_POST['etablissement-3'];
-			$cursus_3 = $_POST['cursus-3'];
-			$valide_3 = $_POST['valide-3'];
-			$anneeDebut_4 = $_POST['anneeDebut-4'];
-			$anneeFin_4 = $_POST['anneeFin-4'];
-			$etablissement_4 = $_POST['etablissement-4'];
-			$cursus_4 = $_POST['cursus-4'];
-			$valide_4 = $_POST['valide-4'];
-			$anneeDebut_5 = $_POST['anneeDebut-5'];
-			$anneeFin_5 = $_POST['anneeFin-5'];
-			$etablissement_5 = $_POST['etablissement-5'];
-			$cursus_5 = $_POST['cursus-5'];
-			$valide_5 = $_POST['valide-5'];
-			$periode_1 = $_POST['periode-1'];
-			$entreprise_1 = $_POST['entreprise-1'];
-			$emploi_1 = $_POST['emploi-1'];
-			$duree_1 = $_POST['duree-1'];
-			$periode_2 = $_POST['periode-2'];
-			$entreprise_2 = $_POST['entreprise-2'];
-			$emploi_2 = $_POST['emploi-2'];
-			$duree_2 = $_POST['duree-2'];
-			$periode_3 = $_POST['periode-3'];
-			$entreprise_3 = $_POST['entreprise-3'];
-			$emploi_3 = $_POST['emploi-3'];
-			$duree_3 = $_POST['duree-3'];
-
-			$cursusManager->insert(new Cursus(0, 'g11625159', '3BAS', $anneeDebut_1, $anneeFin_1, $cursus_1, $etablissement_1, $valide_1));
-			$cursusManager->insert(new Cursus(0, 'g11625159', '3BAS', $anneeDebut_2, $anneeFin_2, $cursus_2, $etablissement_2, $valide_2));
-			$cursusManager->insert(new Cursus(0, 'g11625159', '3BAS', $anneeDebut_3, $anneeFin_3, $cursus_3, $etablissement_3, $valide_3));
-			$cursusManager->insert(new Cursus(0, 'g11625159', '3BAS', $anneeDebut_4, $anneeFin_4, $cursus_4, $etablissement_4, $valide_4));
-			$cursusManager->insert(new Cursus(0, 'g11625159', '3BAS', $anneeDebut_5, $anneeFin_5, $cursus_5, $etablissement_5, $valide_5));
-			
-			$experienceManager->insert(new Experience($id, $ine, $codeFormation, $moisDebut, $anneeDebut, $moisFin, $anneeFin, $entreprise, $fonction));
-//header('location:index.php?uc=formulaire&action=choixVoeux');
+			$experienceManager->insert(new Experience(0, 'g11625159', '3BAS', $_POST['moisDebut_1'], $_POST['anneeDebut_1'], $_POST['moisFin_1'], $_POST['anneeFin_1'], $_POST['entreprise_1'], $_POST['fonction_1']));
+			$experienceManager->insert(new Experience(0, 'g11625159', '3BAS', $_POST['moisDebut_2'], $_POST['anneeDebut_2'], $_POST['moisFin_2'], $_POST['anneeFin_2'], $_POST['entreprise_2'], $_POST['fonction_2']));
+			$experienceManager->insert(new Experience(0, 'g11625159', '3BAS', $_POST['moisDebut_3'], $_POST['anneeDebut_3'], $_POST['moisFin_3'], $_POST['anneeFin_3'], $_POST['entreprise_3'], $_POST['fonction_3']));
+			header('location:index.php?uc=formulaire&action=choixVoeux');
 		} break;
 	case "traiterChoixFormation": {
 			$derniere = $_POST['derniere'];
@@ -170,6 +131,11 @@ switch ($action) {
 				$faireManager->insert(new Faire($codeEtape, 'g11625159', '3BAS', $i));
 				++$i;
 			}
+			header('location:index.php?uc=formulaire&action=documentsGeneraux');
+		} break;
+		case "traiteDocumentsSpecifiques": {
+			var_dump($_FILES['file']);
+			//header('location:index.php?uc=formulaire&action=documentsGeneraux');
 		} break;
 	default: break;
 }
