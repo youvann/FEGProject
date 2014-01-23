@@ -12,10 +12,10 @@ class CursusManager {
 		$this->db = $db;
 	}
 
-	public function findAllByEtudiant($ine, $codeFormation) {
+	public function findAllByDossier(Dossier $dossier) {
 
 		$rs = $this->db->prepare("SELECT * FROM `CURSUS` WHERE `CURSUS`.`INE` = ? AND `CURSUS`.`CODE_FORMATION` = ?;")
-						->execute(array($ine, $codeFormation))->fetchAll();
+						->execute(array($dossier->getIne(), $dossier->getCodeFormation()))->fetchAll();
 		return new CursusEtudiant($rs['ID'], $rs['INE'], $rs['CODE_FORMATION'], $rs['ANNEE_DEBUT'], $rs['ANNEE_FIN'], $rs['ETABLISSEMENT'], $rs['VALIDE']);
 	}
 

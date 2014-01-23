@@ -12,10 +12,10 @@ class ExperienceManager {
 		$this->db = $db;
 	}
 
-	public function findAllByEtudiantAndFormation($ine, $codeFormation) {
+	public function findAllByDossier(Dossier $dossier) {
 		$lesCursus = array();
 		$rs = $this->db->prepare("SELECT * FROM `EXPERIENCE` WHERE `INE` = ? AND `CODE_FORMATION` = ?;")
-				->execute(array($ine, $codeFormation));
+				->execute(array($dossier->getIne(), $dossier->getCodeFormation()));
 		foreach ($rs as $cursus) {
 			$lesCursus[] = new Cursus($cursus['ID'], $cursus['INE'], $cursus['CODE_FORMATION'], $cursus['MOIS_DEBUT'], $cursus['ANNEE_DEBUT'], $cursus['MOIS_FIN'], $cursus['ANNEE_FIN'], $cursus['ENTREPRISE'], $cursus['FONCTION']);
 		}
