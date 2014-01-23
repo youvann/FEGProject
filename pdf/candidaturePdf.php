@@ -27,7 +27,9 @@ $pagePdf->setPrevFormation("Scientifique", "2010", "Lycée Pierre Paul Jack", "R
 $pagePdf->setExperiencePro('checked', 'checked', 'checked', 12, 35, "Anglais bon niveau (lu, écrit et parlé)", "Pas d'autres éléments appuyant ma candidature");
 
 $documentsGeneraux = array("CV", "Lettre de motivation", "Passeport/Carte d'identité","Diplômes", "Photo");
+$documentsSpecifiques = array("Livret de famille", "Lettre essai", "llo/Carte d'identité","sss", "aaa");
 $pagePdf->setDocumentsGeneraux($documentsGeneraux);
+$pagePdf->setDocumentsSpecifiques($documentsSpecifiques);
 // Rajouter code ici
 
 ob_start();

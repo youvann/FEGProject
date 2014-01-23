@@ -84,6 +84,9 @@ class PagePdf{
     // Documents généraux
     private $documentsGeneraux = array();
 
+    // Documents spécifiques
+    private $documentsSpecifiques = array ();
+
     public function __construct($cssPath, $backTop = "30mm", $backBottom = "7mm", $backLeft = "0mm", $backRight = "10mm") {
         $this->pagePdfHeader = new PagePdfHeader();
         $this->pagePdfFooter = new PagePdfFooter();
@@ -156,7 +159,7 @@ class PagePdf{
                     </tr>
                     <tr>
                         <td class="fifty_width_table border-top-none border-right-none titre2 bold" text-align="center">' . $this->title3 . '</td>
-                        <td class="fifty_width_table border-top-none titre2 bold"><img src="./img/miage.png" alt=""></td>
+                        <td class="fifty_width_table border-top-none titre2 bold"><img src="./pdf/img/miage.png" alt=""></td>
                     </tr>
                     <tr>
                         <td class="titre4 bold" colspan="2">' . $this->title4 . '</td>
@@ -354,6 +357,14 @@ class PagePdf{
         ';
     }
 
+    public function setInformationsSpecifiques (){
+
+    }
+
+    public function getInformationsSpecifiques (){
+        return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES</div><br/><br/>';
+    }
+
     public function setDocumentsGeneraux ($documentsGeneraux){
         $this->documentsGeneraux = $documentsGeneraux;
     }
@@ -370,6 +381,24 @@ class PagePdf{
     public function getDocumentsGeneraux (){
         return '<div class="titre_encadre">PIECES A JOINDRE GENERALES</div><br/>'
                 . $this->printDocumentsGeneraux();
+    }
+
+    public function setDocumentsSpecifiques($documentsSpecifiques){
+        $this->documentsSpecifiques = $documentsSpecifiques;
+    }
+
+    public function printDocumentsSpecifiques (){
+        $doc = '<ul>';
+        foreach($this->documentsSpecifiques as $documentSpecifique){
+            $doc .= '<li>' . $documentSpecifique . '<br><br></li>';
+        }
+        $doc .= '</ul>';
+        return $doc;
+    }
+
+    public function getDocumentsSpecifiques (){
+        return '<div class="titre_encadre">PIECES A JOINDRE SPECIFIQUES</div><br/>'
+                . $this->printDocumentsSpecifiques();
     }
 
     public function getDossierModalite (){
@@ -415,14 +444,16 @@ class PagePdf{
                 <br/><div>Demande l’autorisation de s’inscrire en :<br/>' . $this->formationName . '</div><br/>
                 <div>Dernier diplôme obtenu : </div><br/>
                 <div>Date et lieu : le ' . date("d/m/Y") . ' à </div><br/><br/>
-                <img src="./img/cadre.png" alt="cadre_administration"/>';
+                <img src="./pdf/img/cadre.png" alt="cadre_administration"/>';
     }
 
     public function __toString (){
         return $this->getCssPath() .
         $this->getPageBegin() . $this->pagePdfHeader . $this->pagePdfFooter . $this->getFormationTitle() . $this->getDegreeHolder() . $this->getApplicant() . $this->getPageEnd() .
         $this->getNewPage() . $this->getPlanFormation() . $this->getPrevFormation() . $this->getExperiencePro() . $this->getPageEnd() .
+        $this->getNewPage() . $this->getInformationsSpecifiques() . $this->getPageEnd() .
         $this->getNewPage() . $this->getDocumentsGeneraux() . $this->getPageEnd() .
+        $this->getNewPage() . $this->getDocumentsSpecifiques() . $this->getPageEnd() .
         $this->getNewPage() . $this->getDossierModalite() . $this->getPageEnd() .
         $this->getNewPage() . $this->getFicheCommissionPeda() . $this->getPageEnd();
     }
