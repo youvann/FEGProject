@@ -25,10 +25,11 @@ class Dossier {
 	private $paysBac;
 	private $activite;
 	private $titulaire;
+	private $autresElements;
 	private $informations;
 	private $dateDossier;
 
-	function __construct($ine, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $informations, $dateDossier) {
+	function __construct($ine, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $autresElements, $informations, $dateDossier) {
 		$this->ine = $ine;
 		$this->codeFormation = $codeFormation;
 		$this->autre = $autre;
@@ -52,6 +53,7 @@ class Dossier {
 		$this->paysBac = $paysBac;
 		$this->activite = $activite;
 		$this->titulaire = $titulaire;
+		$this->autresElements = $autresElements;
 		$this->informations = $informations;
 		$this->dateDossier = $dateDossier;
 	}
@@ -146,6 +148,10 @@ class Dossier {
 
 	public function getTitulaire() {
 		return $this->titulaire;
+	}
+
+	public function getAutresElements() {
+		return $this->autresElements;
 	}
 
 	public function getInformations() {
@@ -248,6 +254,10 @@ class Dossier {
 		$this->titulaire = $titulaire;
 	}
 
+	public function setAutresElements($autresElements) {
+		$this->autresElements = $autresElements;
+	}
+
 	public function setInformations($informations) {
 		$this->informations = $informations;
 	}
@@ -255,6 +265,4 @@ class Dossier {
 	public function setDateDossier($dateDossier) {
 		$this->dateDossier = $dateDossier;
 	}
-
-
 }

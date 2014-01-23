@@ -12,15 +12,23 @@ class FaireManager {
 		$this->db = $db;
 	}
 
-	//public function find();
+	public function findAllByDossier(Dossier $dossier) {
+		$faires = array();
+		$rs = $this->db->prepare("SELECT * FROM `FAIRE` WHERE `INE` = ? AND `CODE_FORMATION` = ?;")
+				->execute(array($dossier->getIne(), $dossier->getCodeFormation()));
+		foreach ($rs as $faire) {
+			$faires[] = new Faire($faire['CODE_ETAPE'], $faire['INE'], $faire['CODE_FORMATION'], $faire['ORDRE']);
+		}
+		return $faires;
+	}
 
 	public function insert(Faire $faire) {
 		return $this->db->prepare("INSERT INTO `FAIRE` (`CODE_ETAPE`, `INE`, `CODE_FORMATION`, `ORDRE`) VALUES (?, ?, ?, ?);")
 						->execute(array(
-							$faire->CodeEtape(),
-							$faire->Ine(),
-							$faire->CodeFormation(),
-							$faire->Ordre()
+							$faire->getCodeEtape(),
+							$faire->getIne(),
+							$faire->getCodeFormation(),
+							$faire->getOrdre()
 		));
 	}
 

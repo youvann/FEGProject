@@ -27,7 +27,7 @@ switch ($action) {
 			echo $twig->render('intranet/carte.html.twig');
 		} break;
 	case "explorateur": {
-			echo $twig->render('intranet/explorateur.html.twig');
+			echo $twig->render('intranet/explorateur.html.twig', array('directory' => str_replace(DIRECTORY_SEPARATOR,'/',realpath(dirname(__FILE__))).'/'));
 		} break;
     case "generationPdfCandidature": {
         //$dossier = $dossierManager->find('ine', "codeformation");

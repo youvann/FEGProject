@@ -25,7 +25,8 @@ switch ($action) {
 			//echo $twig->render('formation/consulterFormation.html.twig', array('formation' => $formation));
 		} break;
 	case "grille": {
-			$voeux = $voeuManager->findAllByFormation($_GET['code']);
+			$formation = $formationManager->find($_GET['code']);
+			$voeux = $voeuManager->findAllByFormation($formation);
 			echo $twig->render('voeu/grilleVoeu.html.twig', array('voeux' => $voeux, 'code' => $_GET['code']));
 		} break;
 	case "ajouter": {

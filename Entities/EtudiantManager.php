@@ -12,8 +12,9 @@ class EtudiantManager {
 	}
 	
 	public function find($ine) {
-		$rs = $this->db->prepare("SELECT * FROM `ETUDIANT` WHERE `INE` = ?;")
-						->execute(array($ine))->fetch();
+		$q = $this->db->prepare("SELECT * FROM `ETUDIANT` WHERE `INE` = ?;");
+		$q->execute(array($ine));
+		$rs = $q->fetch();
 		return new Etudiant($rs['INE'], $rs['NOMBRE_DEPOTS']);
 	}
 
@@ -27,7 +28,7 @@ class EtudiantManager {
 	}
 	
 	public function insert(Etudiant $etudiant) {
-		return $this->db->prepare("INSERT INTO `ETUDIANT` (`INE`, `NOMBRE_DEPOT`) VALUES (?, ?);")
+		return $this->db->prepare("INSERT INTO `ETUDIANT` (`INE`, `NOMBRE_DEPOTS`) VALUES (?, ?);")
 						->execute(array(
 							$etudiant->getIne(),
 							$etudiant->getNombreDepots()
@@ -35,7 +36,7 @@ class EtudiantManager {
 	}
 	
 	public function update(Etudiant $etudiant) {
-		return $this->db->prepare("UPDATE `ETUDIANT` SET `NOMBRE_DEPOT` = ? WHERE `ID` = ?);")
+		return $this->db->prepare("UPDATE `ETUDIANT` SET `NOMBRE_DEPOTS` = ? WHERE `INE` = ?;")
 						->execute(array(
 							$etudiant->getNombreDepots(),
 							$etudiant->getIne()
@@ -43,7 +44,14 @@ class EtudiantManager {
 	}
 	
 	public function delete(Etudiant $etudiant) {
-		return $this->db->prepare("DELETE FROM `ETUDIANT` WHERE `ID` = ?);")
+		return $this->db->prepare("DELETE FROM `ETUDIANT` WHERE `INE` = ?);")
 						->execute(array($etudiant->getIne()));
+	}
+	
+	public function ifExists(Etudiant $etudiant) {
+		$q = $this->db->prepare("SELECT if(count(*) = 1, TRUE, FALSE) as ifExists FROM `ETUDIANT` WHERE `INE` = ?;");
+		$q->execute(array($etudiant->getIne()));
+		$rs = $q->fetch();
+		return (bool)$rs['ifExists'];
 	}
 }
