@@ -7,15 +7,17 @@ class Cursus {
 	private $codeFormation;
 	private $anneeDebut;
 	private $anneeFin;
+	private $cursus;
 	private $etablissement;
 	private $valide;
 
-	function __construct($id, $ine, $codeFormation, $anneeDebut, $anneeFin, $etablissement, $valide) {
+	function __construct($id, $ine, $codeFormation, $anneeDebut, $anneeFin, $cursus, $etablissement, $valide) {
 		$this->id = $id;
 		$this->ine = $ine;
 		$this->codeFormation = $codeFormation;
 		$this->anneeDebut = $anneeDebut;
 		$this->anneeFin = $anneeFin;
+		$this->cursus = $cursus;
 		$this->etablissement = $etablissement;
 		$this->valide = $valide;
 	}
@@ -38,6 +40,10 @@ class Cursus {
 
 	public function getAnneeFin() {
 		return $this->anneeFin;
+	}
+	
+	public function getCursus() {
+		return $this->cursus;
 	}
 
 	public function getEtablissement() {
@@ -66,6 +72,10 @@ class Cursus {
 
 	public function setAnneeFin($anneeFin) {
 		$this->anneeFin = $anneeFin;
+	}
+	
+	public function setCursus($cursus) {
+		$this->cursus = $cursus;
 	}
 
 	public function setEtablissement($etablissement) {
