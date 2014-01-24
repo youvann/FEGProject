@@ -13,10 +13,15 @@ class CursusManager {
 	}
 
 	public function findAllByDossier(Dossier $dossier) {
+        $lesCursus = array();
+		$q = $this->db->prepare("SELECT * FROM `CURSUS` WHERE `CURSUS`.`INE` = ? AND `CURSUS`.`CODE_FORMATION` = ?;");
+        $q->execute(array($dossier->getIne(), $dossier->getCodeFormation()));
+        $rs = $q->fetchAll();
 
-		$rs = $this->db->prepare("SELECT * FROM `CURSUS` WHERE `CURSUS`.`INE` = ? AND `CURSUS`.`CODE_FORMATION` = ?;")
-						->execute(array($dossier->getIne(), $dossier->getCodeFormation()))->fetchAll();
-		return new CursusEtudiant($rs['ID'], $rs['INE'], $rs['CODE_FORMATION'], $rs['ANNEE_DEBUT'], $rs['ANNEE_FIN'], $rs['ETABLISSEMENT'], $rs['VALIDE']);
+        foreach($rs as $cursus){
+            $lesCursus[] = new Cursus($cursus['ID'], $cursus['INE'], $cursus['CODE_FORMATION'], $cursus['ANNEE_DEBUT'], $cursus['ANNEE_FIN'], $cursus['CURSUS'], $cursus['ETABLISSEMENT'], $cursus['VALIDE']);
+        }
+        return $lesCursus;
 	}
 
 	public function insert(Cursus $cursus) {

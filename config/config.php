@@ -49,6 +49,7 @@ $seDeroulerManager = new SeDeroulerManager($conn);
 $typeManager = new TypeManager($conn);
 $villeManager = new VilleManager($conn);
 $voeuManager = new VoeuManager($conn);
+$titulaireManager = new TitulaireManager($conn);
 
 include_once('Twig/lib/Twig/Autoloader.php');
 Twig_Autoloader::register();
