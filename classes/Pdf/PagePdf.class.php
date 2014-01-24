@@ -23,13 +23,12 @@ class PagePdf{
     // Titre
     private $title1;
     private $title2;
-    private $title3;
-    private $title4;
 
     // Titulaire
     private $holder1;
     private $holder2;
     private $holder3;
+    private $checkboxHolder;
     private $note;
 
     //Candidat
@@ -46,8 +45,8 @@ class PagePdf{
     private $noteActivity;
 
     // Formation envisagé
-    private $formationName;
-    private $formationPlace;
+    private $etapes = array();
+    private $villesPossibles = array ();
 
     // Cursus antérieur
     private $serie;
@@ -55,29 +54,12 @@ class PagePdf{
     private $establishment;
     private $departement;
     private $country;
-
-    private $establishment1;
-    private $establishment2;
-    private $establishment3;
-    private $establishment4;
-    private $establishment5;
-    private $cursus1;
-    private $cursus2;
-    private $cursus3;
-    private $cursus4;
-    private $cursus5;
-    private $validate1;
-    private $validate2;
-    private $validate3;
-    private $validate4;
-    private $validate5;
+    private $cursusPostBac = array ();
 
     //Expérience professionnelle
-    private $job;
-    private $stage;
-    private $emploi;
-    private $contractDurateMonths;
-    private $weeklyProportion;
+    private $proExperience;
+
+    // Langues et autres éléments
     private $foreignLanguage;
     private $otherElements;
 
@@ -132,17 +114,16 @@ class PagePdf{
         $this->css     = '<link type="text/css" href="' . $this->cssPath . '" rel="stylesheet" >';
     }
 
-    public function setTitle ($title1, $title2, $title3, $title4){
+    public function setTitle ($title1, $title2){
         $this->title1 = $title1;
         $this->title2 = $title2;
-        $this->title3 = $title3;
-        $this->title4 = $title4;
     }
 
-    public function setHolder ($holder1, $holder2, $holder3){
+    public function setHolder ($holder1, $holder2, $holder3, $checkboxHolder){
         $this->holder1 = $holder1;
         $this->holder2 = $holder2;
         $this->holder3 = $holder3;
+        $this->checkboxHolder = $checkboxHolder;
     }
 
     public function setNote ($note){
@@ -150,30 +131,39 @@ class PagePdf{
     }
 
     public function getFormationTitle(){
+        // <td class="fifty_width_table border-left-none border-top-none titre2 bold"><img src="./pdf/img/miage.png" alt=""></td>
         return '<table class="t_title">
                     <tr>
                         <td colspan="2" class="full_width_table titre3 bold">' . $this->title1 . '</td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="full_width_table titre1 bold">' . $this->title2 . '</td>
+                        <td class="fifty_width_table titre1 bold">' . $this->title2 . '</td>
                     </tr>
-                    <tr>
-                        <td class="fifty_width_table border-top-none border-right-none titre2 bold" text-align="center">' . $this->title3 . '</td>
-                        <td class="fifty_width_table border-top-none titre2 bold"><img src="./pdf/img/miage.png" alt=""></td>
-                    </tr>
-                    <tr>
-                        <td class="titre4 bold" colspan="2">' . $this->title4 . '</td>
-                    </tr>
+
                 </table>';
     }
 
+    public function numHolder($num){
+        switch($num){
+            case 1 : {
+                return $this->holder1;
+            }break;
+            case 2 : {
+                return $this->holder2;
+            }break;
+            case 3 : {
+                return $this->holder3;
+            }break;
+            default: break;
+        }
+    }
+
     public function getDegreeHolder(){
-        return '<br><form action="">
-                    <input type="checkbox" value="titulaire1"><span class="bold note">' . $this->holder1 . '</span><br>
-                    <input type="checkbox" value="titulaire2"><span class="bold note">' . $this->holder2 . '</span><br>
-                    <input type="checkbox" value="titulaire3"><span class="bold note">' . $this->holder3 . '</span><br>
-                </form>
-                <p class="note">' . $this->note . '</p>';
+        $checkbox = '<br/><span class="bold note">' . $this->numHolder($this->checkboxHolder) . '</span><br/><br/>';
+        if($this->checkboxHolder == 3){
+            $checkbox .= '<p class="note">' . $this->note . '</p>';
+        }
+        return $checkbox;
     }
 
     public function setApplicant($applicantName, $applicantFirstName, $applicantBirthDate,
@@ -214,19 +204,20 @@ class PagePdf{
                     <span class="bold">Tel Portable :</span> ' . $this->applicantPortNumber . '<br><br>
                     <span class="bold">Adresse électronique :</span> ' . $this->applicantMail . '<br><br>
                     <span class="bold">Activité actuelle* (étudiant, salarié, demandeur d\'emploi, autre) :</span> ' . $this->applicantActivity . '<br><br>
-                </div>
-                <div class="note">
-                    *Vous êtes salarié, vous souhaitez bénéficier d\'un congé individuel de formation (CIF, DIF) ou d\'une période professionnalisation, vous êtes demandeur d\'emploi, bénéficiaire du RSA, vous souhaitez effectuer une procédure de VAE ou de VAP, vous avez cessé vos études depuis au moins 2 ans, vous avez suivi un cursus de formation en alternance, vous avez plus de 28 ans : Contactez rapidement le secrétariat de la formation afin que votre dossier et les possibilités de financement vous concernant soient examinés au plus tôt.
                 </div>';
     }
 
-    public function setPlanFormation ($formationName, $formationPlace){
-        $this->formationName = $formationName;
-        $this->formationPlace = $formationPlace;
+    public function setPlanFormation ($etapes, $villesPossibles){
+        $this->etapes          = $etapes;
+        $this->villesPossibles = $villesPossibles;
+    }
+
+    public function printPlanFormation (){
+
     }
 
     public function getPlanFormation(){
-        return '<div class="titre_encadre">FORMATION ENVISAGE</div><br>
+        return '<br/><div class="titre_encadre">FORMATION ENVISAGE</div><br>
                 <br>
                 <table class="t_planFormation">
                     <tr>
@@ -238,43 +229,38 @@ class PagePdf{
                         <td class="bold" text-align="center">Aix-en-Provence/Marseille</td>
                     </tr>
                     <tr>
-                        <td class="planFormation" text-align="center">' . $this->formationName . '</td>
-                        <td text-align="center"> ' . $this->formationPlace . '</td>
+
                     </tr>
                 </table>';
     }
 
-    public function setPrevFormation ($serie, $yearAcquisition, $establishment, $departement, $country, $establishment1, $establishment2, $establishment3, $establishment4, $establishment5, $cursus1, $cursus2, $cursus3, $cursus4, $cursus5, $validate1, $validate2, $validate3, $validate4, $validate5, $annee1, $annee2, $annee3, $annee4, $annee5){
+    // <td class="planFormation" text-align="center">' . $this->formationName . '</td>
+    // <td text-align="center"> ' . $this->formationPlace . '</td>
+
+    public function setPrevFormation ($serie, $yearAcquisition, $establishment, $departement, $country, $cursusPostBac){
         $this->serie           = $serie;
         $this->yearAcquisition = $yearAcquisition;
         $this->establishment   = $establishment;
         $this->departement     = $departement;
         $this->country         = $country;
-        $this->establishment1  = $establishment1;
-        $this->establishment2  = $establishment2;
-        $this->establishment3  = $establishment3;
-        $this->establishment4  = $establishment4;
-        $this->establishment5  = $establishment5;
-        $this->cursus1         = $cursus1;
-        $this->cursus2         = $cursus2;
-        $this->cursus3         = $cursus3;
-        $this->cursus4         = $cursus4;
-        $this->cursus5         = $cursus5;
-        $this->validate1       = $validate1;
-        $this->validate2       = $validate2;
-        $this->validate3       = $validate3;
-        $this->validate4       = $validate4;
-        $this->validate5       = $validate5;
-        $this->annee1          = $annee1;
-        $this->annee2          = $annee2;
-        $this->annee3          = $annee3;
-        $this->annee4          = $annee4;
-        $this->annee5          = $annee5;
+        $this->cursusPostBac   = $cursusPostBac;
     }
 
+    public function printPostBac (){
+        $postBac = '';
+        foreach($this->cursusPostBac as $cpb){
+            $postBac .= '<tr>
+                <td text-align="center">' . $cpb->getAnneeDebut() . '-' . $cpb->getAnneeFin() . '</td>
+                <td text-align="center">' . $cpb->getEtablissement() . '</td>
+                <td text-align="center">' . $cpb->getCursus() . '</td>
+                <td text-align="center">' . $cpb->getValide() . '</td>
+            </tr>';
+        }
+        return $postBac;
+    }
 
     public function getPrevFormation (){
-        return '<br><br>
+        return '
                 <div class="titre_encadre">CURSUS ANTÉRIEUR</div><br>
                 <div class="cadre">
                     <div class="titre3 bold" text-align="center">BACCALAURÉAT</div><br>
@@ -290,70 +276,61 @@ class PagePdf{
 
                     <table class="t_postBac">
                         <tr>
-                            <td class="bold" colspan="4" text-align="center">Localisation des parcours</td>
+                            <td class="bold" colspan="4" text-align="center">Cursus Post-Bac</td>
                         </tr>
                         <tr>
                             <th class="col3 center">Année</th>
                             <th class="col5 center">Établissement</th>
                             <th class="col5 center">Cursus suivi</th>
                             <th class="col2 center">Validé</th>
-                        </tr>
-                        <tr>
-                            <td text-align="center">'.$this->annee1.'</td>
-                            <td text-align="center">'.$this->establishment1.'</td>
-                            <td text-align="center">'.$this->cursus1.'</td>
-                            <td text-align="center">'.$this->validate1.'</td>
-                        </tr>
-                        <tr>
-                            <td text-align="center">'.$this->annee2.'</td>
-                            <td text-align="center">'.$this->establishment2.'</td>
-                            <td text-align="center">'.$this->cursus2.'</td>
-                            <td text-align="center">'.$this->validate2.'</td>
-                        </tr>
-                        <tr>
-                            <td text-align="center">'.$this->annee3.'</td>
-                            <td text-align="center">'.$this->establishment3.'</td>
-                            <td text-align="center">'.$this->cursus3.'</td>
-                            <td text-align="center">'.$this->validate3.'</td>
-                        </tr>
-                        <tr>
-                            <td text-align="center">'.$this->annee4.'</td>
-                            <td text-align="center">'.$this->establishment4.'</td>
-                            <td text-align="center">'.$this->cursus4.'</td>
-                            <td text-align="center">'.$this->validate4.'</td>
-                        </tr>
-                        <tr>
-                            <td text-align="center">'.$this->annee5.'</td>
-                            <td text-align="center">'.$this->establishment5.'</td>
-                            <td text-align="center">'.$this->cursus5.'</td>
-                            <td text-align="center">'.$this->validate5.'</td>
-                        </tr>
-                    </table>
+                        </tr>'
+                        . $this->printPostBac() .
+                    '</table>
                 </div>';
     }
 
-    public function setExperiencePro ($job, $stage, $emploi, $contractDurateMonths, $weeklyProportion, $foreignLanguage, $otherElements){
-        $this->job                  = $job;
-        $this->stage                = $stage;
-        $this->emploi               = $emploi;
-        $this->contractDurateMonths = $contractDurateMonths;
-        $this->weeklyProportion     = $weeklyProportion;
+    public function setProExperience ($proExperience){
+        $this->proExperience = $proExperience;
+    }
+
+    public function printProExperience (){
+        $proExperience = '';
+        foreach ($this->proExperience as $proExp){
+            $proExperience .= '<tr>
+                <td text-align="center">' . $proExp->getMoisDebut() . '-' . $proExp->getAnneeDebut() . '</td>
+                <td text-align="center">' . $proExp->getMoisFin() . '-' . $proExp->getAnneeFin() . '</td>
+                <td text-align="center">' . $proExp->getEntreprise() . '</td>
+                <td text-align="center">' . $proExp->getFonction() . '</td>
+            </tr>';
+        }
+        return $proExperience;
+    }
+
+    public function getProExperience (){
+        return '<br/><div class="bold_underline">Expérience professionnelle (emplois, stages, jobs étdudiants):</div><br/>
+                <table class="t_postBac">
+                     <tr>
+                        <td class="bold" colspan="4" text-align="center">Cursus Post-Bac</td>
+                    </tr>
+                    <tr>
+                        <th class="col3 center">Date début</th>
+                        <th class="col3 center">Date fin</th>
+                        <th class="col4 center">Entreprise</th>
+                        <th class="col6 center">Fonction</th>
+                    </tr> '.
+                    $this->printProExperience()
+                . '</table>';
+    }
+
+    public function setOther ($foreignLanguage, $otherElements){
         $this->foreignLanguage      = $foreignLanguage;
         $this->otherElements        = $otherElements;
     }
 
-    public function getExperiencePro (){
-        return '<br><br>
-        <div class="bold_underline">Expérience professionnelle (emplois, stages):</div><br/>
-        <form action="">
-            <input type="checkbox" value="job">Jobs étudiants<br>
-            <input type="checkbox" value="stage">Stages dans le cadre de vos études : fournir les attestations de stage<br>
-            <input type="checkbox" value="emploi">Emploi occupé à temps partiel ou à temps plein (hors statut d’étudiant salarié)<br>
-        </form><br/>
-        <span>Durée cumulée du ou des contrats (en mois) :</span>'.$this->contractDurateMonths.'<br/>
-        <span>Quotité hebdomadaire (en heures) : </span>'.$this->weeklyProportion.'<br/><br/>
-        <div class="bold_underline">Langues étrangères (lu, écrit, parlé) :</div><br/>'.$this->foreignLanguage.'<br/><br/>
-        <div class="bold_underline">Autres éléments appuyant votre candidature :</div><br/>'.$this->otherElements.'<br/>
+    public function getOther (){
+        return '<br/>
+        <div class="bold_underline">Langues étrangères (lu, écrit, parlé) :</div><br/>' . $this->foreignLanguage . '<br/><br/>
+        <div class="bold_underline">Autres éléments appuyant votre candidature :</div><br/>' . $this->otherElements . '<br/>
         ';
     }
 
@@ -372,7 +349,7 @@ class PagePdf{
     public function printDocumentsGeneraux (){
         $doc = '<ul>';
         foreach($this->documentsGeneraux as $documentGeneral){
-            $doc .= '<li>' . $documentGeneral . '<br><br></li>';
+            $doc .= '<li>' . $documentGeneral->getNom() . '<br><br></li>';
         }
         $doc .= '</ul>';
         return $doc;
@@ -390,7 +367,7 @@ class PagePdf{
     public function printDocumentsSpecifiques (){
         $doc = '<ul>';
         foreach($this->documentsSpecifiques as $documentSpecifique){
-            $doc .= '<li>' . $documentSpecifique . '<br><br></li>';
+            $doc .= '<li>' . $documentSpecifique->getNom() . '<br><br></li>';
         }
         $doc .= '</ul>';
         return $doc;
@@ -441,7 +418,7 @@ class PagePdf{
         return '<div class="titre_encadre">FICHE COMMISSION PEDAGOGIQUE</div><br/>
                 <div class="text_align">Commission pédagogique du :………………………………………</div><br/>
                 <div>Nom et Prénom du candidat : ' . $this->applicantName . ' ' . $this->applicantFirstName . '</div>
-                <br/><div>Demande l’autorisation de s’inscrire en :<br/>' . $this->formationName . '</div><br/>
+                <br/><div>Demande l’autorisation de s’inscrire en :<br/></div><br/>
                 <div>Dernier diplôme obtenu : </div><br/>
                 <div>Date et lieu : le ' . date("d/m/Y") . ' à </div><br/><br/>
                 <img src="./pdf/img/cadre.png" alt="cadre_administration"/>';
@@ -449,12 +426,13 @@ class PagePdf{
 
     public function __toString (){
         return $this->getCssPath() .
-        $this->getPageBegin() . $this->pagePdfHeader . $this->pagePdfFooter . $this->getFormationTitle() . $this->getDegreeHolder() . $this->getApplicant() . $this->getPageEnd() .
-        $this->getNewPage() . $this->getPlanFormation() . $this->getPrevFormation() . $this->getExperiencePro() . $this->getPageEnd() .
+        $this->getPageBegin() . $this->pagePdfHeader . $this->pagePdfFooter . $this->getFormationTitle() . $this->getDegreeHolder() . $this->getApplicant() . $this->getPlanFormation() . $this->getPageEnd() .
+        $this->getNewPage() . $this->getPrevFormation() . $this->getProExperience() . $this->getOther() . $this->getPageEnd() .
+        //$this->getNewPage() . $this->getOther() . $this->getPageEnd() .
         $this->getNewPage() . $this->getInformationsSpecifiques() . $this->getPageEnd() .
-        $this->getNewPage() . $this->getDocumentsGeneraux() . $this->getPageEnd() .
-        $this->getNewPage() . $this->getDocumentsSpecifiques() . $this->getPageEnd() .
-        $this->getNewPage() . $this->getDossierModalite() . $this->getPageEnd() .
+       // $this->getNewPage() . $this->getDocumentsGeneraux() . $this->getPageEnd() .
+        //$this->getNewPage() . $this->getDocumentsSpecifiques() . $this->getPageEnd() .
+        //$this->getNewPage() . $this->getDossierModalite() . $this->getPageEnd() .
         $this->getNewPage() . $this->getFicheCommissionPeda() . $this->getPageEnd();
     }
 }

@@ -114,8 +114,16 @@ page{
     width: 100px;
 }
 
+.t_postBac .col4{
+    width: 180px;
+}
+
 .t_postBac .col5{
     width: 240px;
+}
+
+.t_postBac .col6{
+    width: 270px;
 }
 
 
@@ -133,7 +141,6 @@ page{
 .t_postBac2 .col7{
     width: 140px;
 }
-
 
 .bold_underline{
     text-decoration: underline;

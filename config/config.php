@@ -13,8 +13,10 @@ require_once './classes/Translator/loader.php';
 require_once './model/PDO.php';
 // entities loader
 require_once './Entities/loader.php';
+
 // Chargement des ressources francais/anglais
 $ressources = xml2array(simplexml_load_file('./ressources/ressources_1.xml'));
+
 
 include_once('Twig/lib/Twig/Autoloader.php');
 Twig_Autoloader::register();

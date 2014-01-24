@@ -14,8 +14,10 @@ class FaireManager {
 
 	public function findAllByDossier(Dossier $dossier) {
 		$faires = array();
-		$rs = $this->db->prepare("SELECT * FROM `FAIRE` WHERE `INE` = ? AND `CODE_FORMATION` = ?;")
-				->execute(array($dossier->getIne(), $dossier->getCodeFormation()));
+		$q = $this->db->prepare("SELECT * FROM `FAIRE` WHERE `INE` = ? AND `CODE_FORMATION` = ? ORDER BY `ORDRE`;");
+        $q->execute(array($dossier->getIne(), $dossier->getCodeFormation()));
+        $rs = $q->fetchAll();
+
 		foreach ($rs as $faire) {
 			$faires[] = new Faire($faire['CODE_ETAPE'], $faire['INE'], $faire['CODE_FORMATION'], $faire['ORDRE']);
 		}
