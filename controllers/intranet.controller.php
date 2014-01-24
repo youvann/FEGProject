@@ -31,7 +31,7 @@ switch ($action) {
     } break;
     case "generationPdfCandidature": {
         $formation            = $formationManager->find("3BAS");
-        $dossier              = $dossierManager->find('1104015475', '3BAS');
+        $dossier              = $dossierManager->find('g11625159', '3BAS');
         $titulaire            = $titulaireManager->findAll();
         $cursus               = $cursusManager->findAllByDossier($dossier);
         $experiences          = $experienceManager->findAllByDossier($dossier);
