@@ -13,13 +13,14 @@ class ExperienceManager {
 	}
 
 	public function findAllByDossier(Dossier $dossier) {
-		$lesCursus = array();
-		$rs = $this->db->prepare("SELECT * FROM `EXPERIENCE` WHERE `INE` = ? AND `CODE_FORMATION` = ?;")
-				->execute(array($dossier->getIne(), $dossier->getCodeFormation()));
-		foreach ($rs as $cursus) {
-			$lesCursus[] = new Cursus($cursus['ID'], $cursus['INE'], $cursus['CODE_FORMATION'], $cursus['MOIS_DEBUT'], $cursus['ANNEE_DEBUT'], $cursus['MOIS_FIN'], $cursus['ANNEE_FIN'], $cursus['ENTREPRISE'], $cursus['FONCTION']);
+		$lesExperiences = array();
+		$q = $this->db->prepare("SELECT * FROM `EXPERIENCE` WHERE `INE` = ? AND `CODE_FORMATION` = ?;");
+        $q->execute(array($dossier->getIne(), $dossier->getCodeFormation()));
+        $rs = $q->fetchAll();
+		foreach ($rs as $experience) {
+			$lesExperiences[] = new Experience($experience['ID'], $experience['INE'], $experience['CODE_FORMATION'], $experience['MOIS_DEBUT'], $experience['ANNEE_DEBUT'], $experience['MOIS_FIN'], $experience['ANNEE_FIN'], $experience['ENTREPRISE'], $experience['FONCTION']);
 		}
-		return $lesCursus;
+		return $lesExperiences;
 	}
 
 	public function insert(Experience $experience) {

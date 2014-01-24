@@ -45,8 +45,8 @@ class PagePdf{
     private $noteActivity;
 
     // Formation envisagé
-    private $formationName;
-    private $formationPlace;
+    private $etapes = array();
+    private $villesPossibles = array ();
 
     // Cursus antérieur
     private $serie;
@@ -131,13 +131,13 @@ class PagePdf{
     }
 
     public function getFormationTitle(){
+        // <td class="fifty_width_table border-left-none border-top-none titre2 bold"><img src="./pdf/img/miage.png" alt=""></td>
         return '<table class="t_title">
                     <tr>
                         <td colspan="2" class="full_width_table titre3 bold">' . $this->title1 . '</td>
                     </tr>
                     <tr>
-                        <td class="fifty_width_table titre1 bold border-right-none">' . $this->title2 . '</td>
-                        <td class="fifty_width_table border-left-none border-top-none titre2 bold"><img src="./pdf/img/miage.png" alt=""></td>
+                        <td class="fifty_width_table titre1 bold">' . $this->title2 . '</td>
                     </tr>
 
                 </table>';
@@ -204,19 +204,20 @@ class PagePdf{
                     <span class="bold">Tel Portable :</span> ' . $this->applicantPortNumber . '<br><br>
                     <span class="bold">Adresse électronique :</span> ' . $this->applicantMail . '<br><br>
                     <span class="bold">Activité actuelle* (étudiant, salarié, demandeur d\'emploi, autre) :</span> ' . $this->applicantActivity . '<br><br>
-                </div>
-                <div class="note">
-                    *Vous êtes salarié, vous souhaitez bénéficier d\'un congé individuel de formation (CIF, DIF) ou d\'une période professionnalisation, vous êtes demandeur d\'emploi, bénéficiaire du RSA, vous souhaitez effectuer une procédure de VAE ou de VAP, vous avez cessé vos études depuis au moins 2 ans, vous avez suivi un cursus de formation en alternance, vous avez plus de 28 ans : Contactez rapidement le secrétariat de la formation afin que votre dossier et les possibilités de financement vous concernant soient examinés au plus tôt.
                 </div>';
     }
 
-    public function setPlanFormation ($formationName, $formationPlace){
-        $this->formationName = $formationName;
-        $this->formationPlace = $formationPlace;
+    public function setPlanFormation ($etapes, $villesPossibles){
+        $this->etapes          = $etapes;
+        $this->villesPossibles = $villesPossibles;
+    }
+
+    public function printPlanFormation (){
+
     }
 
     public function getPlanFormation(){
-        return '<br/><br/><div class="titre_encadre">FORMATION ENVISAGE</div><br>
+        return '<br/><div class="titre_encadre">FORMATION ENVISAGE</div><br>
                 <br>
                 <table class="t_planFormation">
                     <tr>
@@ -228,11 +229,13 @@ class PagePdf{
                         <td class="bold" text-align="center">Aix-en-Provence/Marseille</td>
                     </tr>
                     <tr>
-                        <td class="planFormation" text-align="center">' . $this->formationName . '</td>
-                        <td text-align="center"> ' . $this->formationPlace . '</td>
+
                     </tr>
                 </table>';
     }
+
+    // <td class="planFormation" text-align="center">' . $this->formationName . '</td>
+    // <td text-align="center"> ' . $this->formationPlace . '</td>
 
     public function setPrevFormation ($serie, $yearAcquisition, $establishment, $departement, $country, $cursusPostBac){
         $this->serie           = $serie;
@@ -294,8 +297,8 @@ class PagePdf{
         $proExperience = '';
         foreach ($this->proExperience as $proExp){
             $proExperience .= '<tr>
-                <td text-align="center">' . $proExp->getMoisDebut() . ' ' . $proExp->getAnneeDebut() . '</td>
-                <td text-align="center">' . $proExp->getMoisFin() . ' ' . $proExp->getAnneeFin() . '</td>
+                <td text-align="center">' . $proExp->getMoisDebut() . '-' . $proExp->getAnneeDebut() . '</td>
+                <td text-align="center">' . $proExp->getMoisFin() . '-' . $proExp->getAnneeFin() . '</td>
                 <td text-align="center">' . $proExp->getEntreprise() . '</td>
                 <td text-align="center">' . $proExp->getFonction() . '</td>
             </tr>';
@@ -325,9 +328,9 @@ class PagePdf{
     }
 
     public function getOther (){
-        return '
-        <div class="bold_underline">Langues étrangères (lu, écrit, parlé) :</div><br/>'.$this->foreignLanguage.'<br/><br/>
-        <div class="bold_underline">Autres éléments appuyant votre candidature :</div><br/>'.$this->otherElements.'<br/>
+        return '<br/>
+        <div class="bold_underline">Langues étrangères (lu, écrit, parlé) :</div><br/>' . $this->foreignLanguage . '<br/><br/>
+        <div class="bold_underline">Autres éléments appuyant votre candidature :</div><br/>' . $this->otherElements . '<br/>
         ';
     }
 
@@ -415,7 +418,7 @@ class PagePdf{
         return '<div class="titre_encadre">FICHE COMMISSION PEDAGOGIQUE</div><br/>
                 <div class="text_align">Commission pédagogique du :………………………………………</div><br/>
                 <div>Nom et Prénom du candidat : ' . $this->applicantName . ' ' . $this->applicantFirstName . '</div>
-                <br/><div>Demande l’autorisation de s’inscrire en :<br/>' . $this->formationName . '</div><br/>
+                <br/><div>Demande l’autorisation de s’inscrire en :<br/></div><br/>
                 <div>Dernier diplôme obtenu : </div><br/>
                 <div>Date et lieu : le ' . date("d/m/Y") . ' à </div><br/><br/>
                 <img src="./pdf/img/cadre.png" alt="cadre_administration"/>';
@@ -424,8 +427,8 @@ class PagePdf{
     public function __toString (){
         return $this->getCssPath() .
         $this->getPageBegin() . $this->pagePdfHeader . $this->pagePdfFooter . $this->getFormationTitle() . $this->getDegreeHolder() . $this->getApplicant() . $this->getPlanFormation() . $this->getPageEnd() .
-        $this->getNewPage() . $this->getPrevFormation() . $this->getProExperience() . $this->getPageEnd() .
-        $this->getNewPage() . $this->getOther() . $this->getPageEnd() .
+        $this->getNewPage() . $this->getPrevFormation() . $this->getProExperience() . $this->getOther() . $this->getPageEnd() .
+        //$this->getNewPage() . $this->getOther() . $this->getPageEnd() .
         $this->getNewPage() . $this->getInformationsSpecifiques() . $this->getPageEnd() .
        // $this->getNewPage() . $this->getDocumentsGeneraux() . $this->getPageEnd() .
         //$this->getNewPage() . $this->getDocumentsSpecifiques() . $this->getPageEnd() .

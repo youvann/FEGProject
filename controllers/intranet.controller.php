@@ -7,9 +7,9 @@
  * @Author:
  */
 if (!isset($_GET['action'])) {
-	$action = "accueil";
+    $action = "accueil";
 } else {
-	$action = $_GET['action'];
+    $action = $_GET['action'];
 }
 
 /* autorisations
@@ -20,36 +20,48 @@ if (!isset($_GET['action'])) {
   } */
 
 switch ($action) {
-	case "accueil": {
-			echo $twig->render('intranet/accueil.html.twig');
-		} break;
-	case "carte": {
-			echo $twig->render('intranet/carte.html.twig');
-		} break;
-	case "explorateur": {
-			echo $twig->render('intranet/explorateur.html.twig', array('directory' => str_replace(DIRECTORY_SEPARATOR,'/',realpath(dirname(__FILE__))).'/'));
-		} break;
+    case "accueil": {
+        echo $twig->render('intranet/accueil.html.twig');
+    } break;
+    case "carte": {
+        echo $twig->render('intranet/carte.html.twig');
+    } break;
+    case "explorateur": {
+        echo $twig->render('intranet/explorateur.html.twig', array('directory' => str_replace(DIRECTORY_SEPARATOR,'/',realpath(dirname(__FILE__))).'/'));
+    } break;
     case "generationPdfCandidature": {
         $formation            = $formationManager->find("3BAS");
-        $voeu                 = $voeuManager->findAllByFormation($formation);
         $dossier              = $dossierManager->find('1104015475', '3BAS');
         $titulaire            = $titulaireManager->findAll();
         $cursus               = $cursusManager->findAllByDossier($dossier);
+        $experiences          = $experienceManager->findAllByDossier($dossier);
+        // Récupère le code étape, le numéro INE, le code formation, et l'ordre des voeux
+        $faires                = $faireManager->findAllByDossier($dossier);
 
-        $documentsGeneraux    = $documentGeneralManager->findAll();
-        $documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("3BAS");
+        //$documentsGeneraux    = $documentGeneralManager->findAll();
+        //$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("3BAS");
 
-        //$cursus = array();
-        //$cursus [] = new Cursus("1", "1104015475", "3BAS", "2010", "2011", "informatique", "IUT INFO", "0");
-        //$cursus [] = new Cursus("2", "1104015475", "3BAS", "2012", "2013", "informatique", "IUT INFO", "0");
-        //$cursus [] = new Cursus("3", "1104015475", "3BAS", "2013", "2014", "informatique", "IUP MIAGE", "0");
+        $etapes          = array ();
+        $villesPossibles = array ();
 
-        //$experiences = $experienceManager->findAllByDossier($dossier);
-        $experiences = array();
-        $experiences [] = new Experience("1","1104015475", "3BAS", "Avril", "2013", "Juin", "2014", "Sportstec", "Développeur PHP");
-        $experiences [] = new Experience("2","1104015475", "3BAS", "Avril", "2010", "Juin", "2010", "Carrefour", "Vendeur");
+        foreach($faires as $faire){
+            $voeu = $voeuManager->find($faire->getCodeEtape());
+            $lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
 
-        //var_dump($cursus);
+            $etapes[$faire->getOrdre()] = $voeu->getEtape();
+
+            //echo $voeu->getEtape() . ' ' . $faire->getOrdre();
+            foreach($lesSeDerouler as $unSeDerouler){
+                $ville = $villeManager->find($unSeDerouler->getCodeVet());
+                // echo ' - ' . $ville->getNom();
+            }
+            // echo '<br>';
+            $villesPossibles[] = $ville->getNom();
+        }
+        // Supprime les doublons des villes
+        $villesPossibles = array_unique($villesPossibles);
+        //var_dump($etapes);
+        //var_dump($villesPossibles);
 
         require_once './classes/Pdf/PagePdf.class.php';
         $pagePdf = new PagePdf("./pdf/pdf.css", "30mm", "7mm", "0mm", "10mm");
@@ -64,17 +76,18 @@ switch ($action) {
         // Corps du pdf
         $pagePdf->setTitle("Institut supérieur en sciences de Gestion", $formation->getMention());
         $pagePdf->setHolder(' ' . $titulaire[0]->getLibelle(), ' ' . $titulaire[1]->getLibelle(), ' ' . $titulaire[2]->getLibelle(), $dossier->getTitulaire());
-        $pagePdf->setNote("* Dossier à utiliser si vous résidez dans l'Espace européen, ou dans un pays où il n'existe pas d'espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.");
+        //$pagePdf->setNote("* Dossier à utiliser si vous résidez dans l'Espace européen, ou dans un pays où il n'existe pas d'espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.");
         $pagePdf->setApplicant($dossier->getNom(), $dossier->getPrenom(), $dossier->getLieuNaissance(), $dossier->getDateNaissance(), $dossier->getIne(), $dossier->getAdresse() . ' ' . $dossier->getComplement() . ' ' . $dossier->getCodePostal(), $dossier->getFixe(), $dossier->getPortable(), $dossier->getMail(), $dossier->getActivite());
-        $pagePdf->setPlanFormation("L3 Gestion parcours MIAGE - Méthodes informatiques Appliquées à la Gestion des Entreprises", "Aix-en-Provence");
+        $pagePdf->setPlanFormation($etapes, $villesPossibles);
+
         $pagePdf->setPrevFormation($dossier->getSerieBac(), $dossier->getAnneeBac() , $dossier->getEtablissementBac(), $dossier->getDepartementBac(), $dossier->getPaysBac(), $cursus);
         $pagePdf->setProExperience($experiences);
-        $pagePdf->setOther("Anglais bon niveau (lu, écrit et parlé)", "Pas d'autres éléments appuyant ma candidature");
+        $pagePdf->setOther($dossier->getLangues(), $dossier->getAutresElements());
 
         // $documentsGeneraux    = array("CV", "Lettre de motivation", "Passeport/Carte d'identité","Diplômes", "Photo");
         // $documentsSpecifiques = array("Livret de famille", "Lettre essai", "llo/Carte d'identité","sss", "aaa");
-        $pagePdf->setDocumentsGeneraux($documentsGeneraux);
-        $pagePdf->setDocumentsSpecifiques($documentsSpecifiques);
+        //$pagePdf->setDocumentsGeneraux($documentsGeneraux);
+        //$pagePdf->setDocumentsSpecifiques($documentsSpecifiques);
 
         ob_start();
         echo $pagePdf;
@@ -99,5 +112,5 @@ switch ($action) {
         }
 
     } break;
-	default: break;
+    default: break;
 }
