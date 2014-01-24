@@ -1,16 +1,17 @@
 <?php
 
-// PDO
-$dbname = 'test';
+// Connexion PDO
+$dbname = 'fegtest1';
 $host = 'localhost';
 $user = 'root';
 $password = '';
-
-
+if (__DIR__ !== 'C:\wamp\www\FEGProject\model') {
+	$password = 'root';
+}
 static $conn = null;
 
 try {
-	$conn = new PDO('mysql:dbname=' . $dbname . ';host=' . $host, $user, $password);
+	$conn = new PDO('mysql:dbname=' . $dbname . ';host=' . $host, $user, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
 } catch (PDOException $e) {
 	echo 'Connexion échouée : ' . $e->getMessage();
 }

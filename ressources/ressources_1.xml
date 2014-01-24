@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ressources>
+	<votreparcours>
+		<fr>Votre parcours</fr>
+		<en>Your course</en>
+		<comment>Cette ressource se trouve sur le formulaire de la formation souhaitée</comment>
+		<uc>formulaire</uc>
+		<action>choixFormation</action>
+	</votreparcours>
+	<formationsouhaitee>
+		<fr>Formation souhaitée</fr>
+		<en>Desired training</en>
+		<comment>Cette ressource se trouve sur le formulaire de la formation souhaitée dans la ressource votreparcours</comment>
+		<uc>formulaire</uc>
+		<action>choixFormation</action>
+	</formationsouhaitee>
+	<derniereformationeffectuee>
+		<fr>Sélectionnez votre dernière formation effectuée</fr>
+		<en>Select your last training conducted</en>
+		<comment>Cette ressource se trouve sur le formulaire de la formation souhaitée dans la ressource formationsouhaitee</comment>
+		<uc>formulaire</uc>
+		<action>choixFormation</action>
+	</derniereformationeffectuee>
+	<formationsouhaiteeannee>
+		<fr>Sélectionnez la formation souhaitée pour l'année scolaire 2014-2015</fr>
+		<en>Select the desired school year 2014-2015 training</en>
+		<comment>Cette ressource se trouve sur le formulaire de la formation souhaitée dans la ressource formationsouhaitee</comment>
+		<uc>formulaire</uc>
+		<action>choixFormation</action>
+	</formationsouhaiteeannee>
+	<informationpersonnelle>
+		<fr>Informations personnelles</fr>
+		<en>Personal Information</en>
+		<comment>Cette ressource se trouve sur le formulaire des informations personnelles</comment>
+		<uc>formulaire</uc>
+		<action>informationsPersonnelles</action>
+	</informationpersonnelle>
+	<candidat>
+		<fr>Candidat</fr>
+		<en>Candidate</en>
+		<comment>Cette ressource se trouve sur le formulaire des informations personnelles dans la ressource informationpersonnelle</comment>
+		<uc>formulaire</uc>
+		<action>informationsPersonnelles</action>
+	</candidat>
+	<nom>
+		<fr>Nom</fr>
+		<en>Name</en>
+		<comment>Cette ressource se trouve sur le formulaire des informations personnelles dans la ressource candidat</comment>
+		<uc>formulaire</uc>
+		<action>informationsPersonnelles</action>
+	</nom>
+	<prenom>
+		<fr>Prénom</fr>
+		<en>First name</en>
+		<comment>Cette ressource se trouve sur le formulaire des informations personnelles dans la ressource candidat</comment>
+		<uc>formulaire</uc>
+		<action>informationsPersonnelles</action>
+	</prenom>
+	<datenaissance>
+		<fr>Date de naissance</fr>
+		<en>Date of birth</en>
+		<comment>Cette ressource se trouve sur le formulaire des informations personnelles dans la ressource candidat</comment>
+		<uc>formulaire</uc>
+		<action>informationsPersonnelles</action>
+	</datenaissance>
+	<lieunaissance>
+		<fr>Lieu de naissance</fr>
+		<en>Place of birth</en>
+		<comment>Cette ressource se trouve sur le formulaire des informations personnelles dans la ressource candidat</comment>
+		<uc>formulaire</uc>
+		<action>informationsPersonnelles</action>
+	</lieunaissance>
+	<nationalite>
+		<fr>Nationalité</fr>
+		<en>Nationality</en>
+		<comment>Cette ressource se trouve sur le formulaire des informations personnelles dans la ressource candidat</comment>
+		<uc>formulaire</uc>
+		<action>informationsPersonnelles</action>
+	</nationalite>
+	<ine>
+		<fr>N° INE (pour étudiants en France)</fr>
+		<en>No. INE (for students in France)</en>
+		<comment>Cette ressource se trouve sur le formulaire des informations personnelles dans la ressource candidat</comment>
+		<uc>formulaire</uc>
+		<action>informationsPersonnelles</action>
+	</ine>	
+</ressources>

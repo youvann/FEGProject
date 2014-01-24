@@ -1,54 +1,20 @@
 <?php
 
-// main classes loader
+// Droits utilisateurs
+require_once './config/rights.php';
 
+// fonctions
+require_once './lib/functions.php';
+
+// main classes loader
 require_once './classes/FormElements/loader.php';
 require_once './classes/Translator/loader.php';
-
-$translatorFormToJson = new TranslatorFormToJson();
-$translatorJsonToHTML = new TranslatorJsonToHTML();
-$translatorResultsetToStructure = new TranslatorResulsetToStructure();
-$translatorStructureToForm = new TranslatorStructureToForm();
-
-
 // Connexion PDO
-$dbname = 'fegtest1';
-$host = 'localhost';
-$user = 'root';
-$password = '';
-if (__DIR__ !== 'C:\wamp\www\FEGProject\config') {
-	$password = 'root';
-}
-static $conn = null;
-
-try {
-	$conn = new PDO('mysql:dbname=' . $dbname . ';host=' . $host, $user, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
-} catch (PDOException $e) {
-	echo 'Connexion échouée : ' . $e->getMessage();
-}
-
-$conn->query("SET CHARACTER SET utf8");
-
+require_once './model/PDO.php';
 // entities loader
 require_once './Entities/loader.php';
-
-// Instanciations des Managers
-$choixManager = new ChoixManager($conn);
-$cursusManager = new CursusManager($conn);
-$documentGeneralManager = new DocumentGeneralManager($conn);
-$documentSpecifiqueManager = new DocumentSpecifiqueManager($conn);
-$dossierManager = new DossierManager($conn);
-$etudiantManager = new EtudiantManager($conn);
-$experienceManager = new ExperienceManager($conn);
-$faculteManager = new FaculteManager($conn);
-$faireManager = new FaireManager($conn);
-$formationManager = new FormationManager($conn);
-$langueManager = new LangueManager($conn);
-$informationManager = new InformationManager($conn);
-$seDeroulerManager = new SeDeroulerManager($conn);
-$typeManager = new TypeManager($conn);
-$villeManager = new VilleManager($conn);
-$voeuManager = new VoeuManager($conn);
+// Chargement des ressources francais/anglais
+$ressources = xml2array(simplexml_load_file('./ressources/ressources_1.xml'));
 
 include_once('Twig/lib/Twig/Autoloader.php');
 Twig_Autoloader::register();

@@ -34,3 +34,22 @@ require_once(__DIR__ . '/Ville.php');
 require_once(__DIR__ . '/VilleManager.php');
 require_once(__DIR__ . '/Voeu.php');
 require_once(__DIR__ . '/VoeuManager.php');
+
+// Instanciations des Managers
+$choixManager = new ChoixManager($conn);
+$cursusManager = new CursusManager($conn);
+$documentGeneralManager = new DocumentGeneralManager($conn);
+$documentSpecifiqueManager = new DocumentSpecifiqueManager($conn);
+$dossierManager = new DossierManager($conn);
+$etudiantManager = new EtudiantManager($conn);
+$experienceManager = new ExperienceManager($conn);
+$faculteManager = new FaculteManager($conn);
+$faireManager = new FaireManager($conn);
+$formationManager = new FormationManager($conn);
+$langueManager = new LangueManager($conn);
+$informationManager = new InformationManager($conn);
+$seDeroulerManager = new SeDeroulerManager($conn);
+$titulaireManager = new TitulaireManager($conn);
+$typeManager = new TypeManager($conn);
+$villeManager = new VilleManager($conn);
+$voeuManager = new VoeuManager($conn);

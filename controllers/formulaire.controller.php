@@ -135,17 +135,9 @@ switch ($action) {
 				"documentsSpecifique" => $documentsSpecifiques
 			));
 		} break;
-
-
 	case "traiteDocumentsSpecifiques": {
 			var_dump($_FILES['file']);
 			//header('location:index.php?uc=formulaire&action=documentsGeneraux');
-		} break;
-	case "testRessources": {
-			simplexml_load_file('ressources.xml');
-			//var_dump(simplexml_load_file('./ressources/ressources.xml'));
-			//$xml = simplexml_load_file('./ressources/ressources.xml');
-			//var_dump($xml);
 		} break;
 	default: break;
 }

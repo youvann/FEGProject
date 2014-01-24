@@ -26,7 +26,7 @@ class DossierManager {
 		$q->execute(array($codeFormation));
 		$rs = $rs = $q->fetchAll();
 		foreach ($rs as $dossier) {
-			$dossiers[] = new Dossier($dossier['INE'], $dossier['CODE_FORMATION'], $dossier['AUTRE'], $dossier['NOM'], $dossier['PRENOM'], $dossier['ADRESSE'], $dossier['COMPLEMENT'], $dossier['CODE_POSTAL'], $dossier['VILLE'], $dossier['DATE_NAISSANCE'], $dossier['LIEU_NAISSANCE'], $dossier['FIXE'], $dossier['PORTABLE'], $dossier['MAIL'], $dossier['LANGUES'], $dossier['NATIONALITE'], $dossier['SERIEBAC'], $dossier['ANNEE_BAC'], $dossier['ETABLISSEMENT_BAC'], $dossier['DEPARTEMENT_BAC'], $dossier['PAYS_BAC'], $dossier['ACTIVITE'], $dossier['TITULAIRE'], $dossier['EMPLOI'], $dossier['INFORMATIONS'], $dossier['DATE_DOSSIER']);
+			$dossiers[] = new Dossier($dossier['INE'], $dossier['CODE_FORMATION'], $dossier['AUTRE'], $dossier['NOM'], $dossier['PRENOM'], $dossier['ADRESSE'], $dossier['COMPLEMENT'], $dossier['CODE_POSTAL'], $dossier['VILLE'], $dossier['DATE_NAISSANCE'], $dossier['LIEU_NAISSANCE'], $dossier['FIXE'], $dossier['PORTABLE'], $dossier['MAIL'], $dossier['LANGUES'], $dossier['NATIONALITE'], $dossier['SERIE_BAC'], $dossier['ANNEE_BAC'], $dossier['ETABLISSEMENT_BAC'], $dossier['DEPARTEMENT_BAC'], $dossier['PAYS_BAC'], $dossier['ACTIVITE'], $dossier['TITULAIRE'], $dossier['AUTRES_ELEMENTS'], $dossier['INFORMATIONS'], $dossier['DATE_DOSSIER']);
 		}
 		return $dossiers;
 	}

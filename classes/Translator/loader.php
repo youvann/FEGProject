@@ -7,3 +7,8 @@ require_once(__DIR__ . '/TranslatorFormToJson.class.php');
 require_once(__DIR__ . '/TranslatorJsonToHTML.class.php');
 require_once(__DIR__ . '/TranslatorResultsetToStructure.class.php');
 require_once(__DIR__ . '/TranslatorStructureToForm.class.php');
+
+$translatorFormToJson = new TranslatorFormToJson();
+$translatorJsonToHTML = new TranslatorJsonToHTML();
+$translatorResultsetToStructure = new TranslatorResulsetToStructure();
+$translatorStructureToForm = new TranslatorStructureToForm();
