@@ -30,13 +30,16 @@ switch ($action) {
         echo $twig->render('intranet/explorateur.html.twig', array('directory' => str_replace(DIRECTORY_SEPARATOR,'/',realpath(dirname(__FILE__))).'/'));
     } break;
     case "generationPdfCandidature": {
+        // Code Formation, Mention, ouverte, faculte, langue
         $formation            = $formationManager->find("3BAS");
+        // Dossier de l'étudiant ($ine, $codeFormation, $autre, $nom, $prenom, $adresse ...)
         $dossier              = $dossierManager->find('g11625159', '3BAS');
+        // Id, Libelle
         $titulaire            = $titulaireManager->findAll();
         $cursus               = $cursusManager->findAllByDossier($dossier);
         $experiences          = $experienceManager->findAllByDossier($dossier);
         // Récupère le code étape, le numéro INE, le code formation, et l'ordre des voeux
-        $faires                = $faireManager->findAllByDossier($dossier);
+        $faires               = $faireManager->findAllByDossier($dossier);
 
         //$documentsGeneraux    = $documentGeneralManager->findAll();
         //$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("3BAS");
@@ -62,6 +65,16 @@ switch ($action) {
         $villesPossibles = array_unique($villesPossibles);
         //var_dump($etapes);
         //var_dump($villesPossibles);
+
+        ///var_dump($conn);
+        $rs = $conn->query('SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
+                            FROM `information`
+                             INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
+                             LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
+                             ORDER BY `information`.`ordre`;')->fetchAll();
+
+        $structure = $translatorResultsetToStructure->translate($rs);
+        echo $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
 
         require_once './classes/Pdf/PagePdf.class.php';
         $pagePdf = new PagePdf("./pdf/pdf.css", "30mm", "7mm", "0mm", "10mm");
@@ -94,7 +107,7 @@ switch ($action) {
         $content = ob_get_clean();
 
         // convert in PDF
-
+        /*
         require_once './classes/Pdf/html2pdf/html2pdf.class.php';
         try{
             $html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
@@ -109,7 +122,7 @@ switch ($action) {
         catch(HTML2PDF_exception $e) {
             echo $e;
             exit;
-        }
+        }*/
 
     } break;
     default: break;
