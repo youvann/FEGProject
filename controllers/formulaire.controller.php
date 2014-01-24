@@ -142,8 +142,10 @@ switch ($action) {
 			//header('location:index.php?uc=formulaire&action=documentsGeneraux');
 		} break;
 	case "testRessources": {
-			$xml = simplexml_load_file('./ressources/ressources.xml');
-			var_dump($xml);
+			simplexml_load_file('ressources.xml');
+			//var_dump(simplexml_load_file('./ressources/ressources.xml'));
+			//$xml = simplexml_load_file('./ressources/ressources.xml');
+			//var_dump($xml);
 		} break;
 	default: break;
 }

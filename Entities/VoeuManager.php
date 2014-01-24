@@ -12,9 +12,10 @@ class VoeuManager {
 	}
 
 	public function find($codeEtape) {
-		$rs = $this->db->prepare("SELECT * FROM `VOEU` WHERE `CODE_ETAPE` = ?;")
-						->execute(array($codeEtape))->fetch();
-		return new Choix($rs['CODE_ETAPE'], $rs['CODE'], $rs['ETAPE'], $rs['RESPONSABLE']);
+		$q = $this->db->prepare("SELECT * FROM `VOEU` WHERE `CODE_ETAPE` = ?;");
+		$q->execute(array($codeEtape));
+		$rs = $q->fetch();
+		return new Voeu($rs['CODE_ETAPE'], $rs['CODE_FORMATION'], $rs['ETAPE'], $rs['RESPONSABLE']);
 	}
 
 	public function findAll() {

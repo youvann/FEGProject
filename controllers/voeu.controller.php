@@ -21,8 +21,9 @@ if (!isset($_GET['action'])) {
 
 switch ($action) {
 	case "consulter": {
-			//$formation = $formationManager->find($_GET['code']);
-			//echo $twig->render('formation/consulterFormation.html.twig', array('formation' => $formation));
+			$voeu = $voeuManager->find($_GET['codeetape']);
+			$voeu->setVilles($voeuManager->getVilles($voeu));
+			echo $twig->render('voeu/consulterVoeu.html.twig', array('voeu' => $voeu, 'code' => $_GET['code']));
 		} break;
 	case "grille": {
 			$formation = $formationManager->find($_GET['code']);
@@ -41,15 +42,29 @@ switch ($action) {
 			}
 			header('location:index.php?uc=voeu&action=grille&code=' . $_POST['code_formation']);
 		} break;
-	/* case "modifier": {
-	  $formation = $formationManager->find($_GET['code']);
-	  echo $twig->render('formation/modifierFormation.html.twig', array('formation' => $formation));
-	  } break;
-	  case "modification": {
-	  $formation = new Formation($_POST['code'], $_POST['mention'], $_POST['ouverte']);
-	  $formationManager->update($formation);
-	  header('location:index.php?uc=formation&action=grille');
-	  } break; */
+	case "modifier": {
+			$voeu = $voeuManager->find($_GET['codeetape']);
+			$voeu->setVilles($voeuManager->getVilles($voeu));
+			$lesVilles = $villeManager->findAll();
+			echo $twig->render('voeu/modifierVoeu.html.twig', array('voeu' => $voeu, 'lesvilles' => $lesVilles, 'code' => $_GET['code']));
+		} break;
+	case "modification": {
+			$voeu = $voeuManager->find($_POST['code_etape']);
+			$voeu->setEtape($_POST['etape']);
+			$voeu->setResponsable($_POST['responsable']);
+			
+			//$voeuManager->update($voeu);
+			$lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
+			
+			foreach ($lesSeDerouler as $unSeDerouler) {
+				$seDeroulerManager->delete($unSeDerouler);
+			}
+			
+			foreach ($_POST['villes'] as $ville) {
+				$seDeroulerManager->insert(new SeDerouler($ville, $voeu->getCodeEtape()));
+			}
+			header('location:index.php?uc=voeu&action=consulter&codeetape='.$_POST['code_etape'].'&code=' . $_POST['code_formation']);
+		} break;
 	case "suppression": {
 			$voeu = $voeuManager->find($_GET['codeEtape']);
 			$voeuManager->delete($voeu);

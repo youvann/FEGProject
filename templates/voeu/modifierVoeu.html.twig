@@ -12,27 +12,30 @@
 
 <h2 class="titre_rubrique">Ajouter un voeu</h2>
 
-<form action="index.php?uc=voeu&action=ajout" method="POST">
+<form action="index.php?uc=voeu&action=modification" method="POST">
 	<input type="hidden" id="code" name="code" value="{{ code }}" />
-	<div class="form-group">
-		<label for="code_etape">Code étape</label>
-		<input class="form-control" type="text" id="code_etape" name="code_etape" />
-	</div>
+	<input type="hidden" id="code_etape" name="code_etape" value="{{ voeu.codeetape }}" />
 	<div class="form-group">
 		<label for="etape">Etape</label>
-		<input class="form-control" type="text" id="etape" name="etape" />
+		<input class="form-control" type="text" id="etape" name="etape" value="{{ voeu.etape }}" />
 	</div>
 	<div class="form-group">
 		<label for="responsable">Responsable</label>
-		<input class="form-control" type="text" id="responsable" name="responsable" />
+		<input class="form-control" type="text" id="responsable" name="responsable" value="{{ voeu.responsable }}" />
 	</div>
 	<div class="form-group">
 		<label>Ville(s)</label>
-		{% if villes is not empty %}
-			{% for ville in villes %}
+		{% if lesvilles is not empty %}
+			{% for uneville in lesvilles %}
 				<div class="checkbox">
-					<label for="ville-{{ ville.codevet }}">
-						<input type="checkbox" id="ville-{{ ville.codevet }}" name="villes[]" value="{{ ville.codevet }}" /> {{ ville.nom }}
+					<label for="ville-{{ uneville.codevet }}">
+						<input type="checkbox" id="ville-{{ uneville.codevet }}" name="villes[]" value="{{ uneville.codevet }}" 
+						
+						{% for ville in voeu.villes %}
+						{% if uneville.codevet == ville.codevet %}checked{% endif %} 
+						{% endfor %}
+						
+						/> {{ uneville.nom }}
 					</label>
 				</div>
 			{% endfor %}

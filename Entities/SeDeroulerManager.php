@@ -20,6 +20,17 @@ class SeDeroulerManager {
 		}
 		return $lesSeDerouler;
 	}
+	
+	public function findAllByVoeu(Voeu $voeu) {
+		$lesSeDerouler = array();
+		$q = $this->db->prepare("SELECT * FROM `SE_DEROULER` WHERE `CODE_ETAPE` = ?;");
+		$q->execute(array($voeu->getCodeEtape()));
+		$rs = $q->fetchAll();
+		foreach ($rs as $unSeDerouler) {
+			$lesSeDerouler[] = new SeDerouler($unSeDerouler['CODE_VET'], $unSeDerouler['CODE_ETAPE']);
+		}
+		return $lesSeDerouler;
+	}
 
 	public function insert(SeDerouler $SeDerouler) {
 		return $this->db->prepare("INSERT INTO `SE_DEROULER` (`CODE_VET`, `CODE_ETAPE`) VALUES (?, ?);")
