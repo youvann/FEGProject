@@ -43,6 +43,7 @@ class PagePdf{
     private $applicantMail;
     private $applicantActivity;
     private $noteActivity;
+    private $photoPath;
 
     // Formation envisagé
     private $etapes = array();
@@ -63,11 +64,14 @@ class PagePdf{
     private $foreignLanguage;
     private $otherElements;
 
+    // Informations spécifiques
+    private $informationsSpecifiques;
+
     // Documents généraux
-    private $documentsGeneraux = array();
+    //private $documentsGeneraux = array();
 
     // Documents spécifiques
-    private $documentsSpecifiques = array ();
+    //private $documentsSpecifiques = array ();
 
     public function __construct($cssPath, $backTop = "30mm", $backBottom = "7mm", $backLeft = "0mm", $backRight = "10mm") {
         $this->pagePdfHeader = new PagePdfHeader();
@@ -182,6 +186,14 @@ class PagePdf{
         $this->applicantActivity   = $applicantActivity;
     }
 
+    public function setPhotoPath($photoPath){
+        $this->photoPath = $photoPath;
+    }
+
+    public function getPhotoPath(){
+        return '<img src="./pdf/img/' . $this->photoPath . '" alt="cadre_administration" style="width: 150px"/>';
+    }
+
     public function getApplicant(){
         return '<div class="titre_encadre">CANDIDAT</div>
                 <br>
@@ -190,20 +202,27 @@ class PagePdf{
 					<input type="checkbox" value="monsieur"><span class="bold note">M.</span>
                 </form>
                 <br><br>
-                <div class="cadre">
-                	<span class="bold">Nom :</span> ' . $this->applicantName . '<br><br>
-                    <span class="bold">Prénom :</span> ' . $this->applicantFirstName . '<br><br>
-                    <span class="bold">Date de naissance :</span> ' . $this->applicantBirthPlace . '<br><br>
-                    <span class="bold">Lieu de naissance :</span> ' . $this->applicantBirthDate . '<br><br>
-                    <span class="bold">N° INE (pour étudiants en France) :</span> ' . $this->applicantIne . '
-                </div>
+                <table>
+                    <tr>
+                        <td width="535">
+                            <span class="bold">Nom :</span> ' . $this->applicantName . '<br><br>
+                            <span class="bold">Prénom :</span> ' . $this->applicantFirstName . '<br><br>
+                            <span class="bold">Date de naissance :</span> ' . $this->applicantBirthPlace . '<br><br>
+                            <span class="bold">Lieu de naissance :</span> ' . $this->applicantBirthDate . '<br><br>
+                            <span class="bold">N° INE (pour étudiants en France) :</span> ' . $this->applicantIne . '
+                        </td>
+                        <td>
+                            ' . $this->getPhotoPath() . '
+                        </td>
+                    </tr>
+                </table>
                 <br>
                 <div>
                     <span class="bold">Adresse :</span> ' . $this->applicantAdress . '<br><br>
                     <span class="bold">Tel Fixe :</span> ' . $this->applicantFixNumber . '<br><br>
                     <span class="bold">Tel Portable :</span> ' . $this->applicantPortNumber . '<br><br>
                     <span class="bold">Adresse électronique :</span> ' . $this->applicantMail . '<br><br>
-                    <span class="bold">Activité actuelle* (étudiant, salarié, demandeur d\'emploi, autre) :</span> ' . $this->applicantActivity . '<br><br>
+                    <span class="bold">Activité actuelle (étudiant, salarié, demandeur d\'emploi, autre) :</span> ' . $this->applicantActivity . '<br><br>
                 </div>';
     }
 
@@ -212,25 +231,40 @@ class PagePdf{
         $this->villesPossibles = $villesPossibles;
     }
 
-    public function printPlanFormation (){
+    public function printVillesPossibles (){
+        $villes = '';
+        foreach($this->villesPossibles as $villePossible){
+            $villes .= $villePossible . ' ';
+        }
+        return $villes;
+    }
 
+    public function printPlanFormation (){
+        $nomEtapeOrdre = '';
+        foreach ($this->etapes as $ordre => $etape) {
+            $nomEtapeOrdre .= '<tr><td text-align="center">' . $ordre . '</td>' .
+                                   '<td>' . $etape . '</td>
+                                    <td text-align="center"></td>
+                              </tr>' ;
+        }
+        return $nomEtapeOrdre;
     }
 
     public function getPlanFormation(){
         return '<br/><div class="titre_encadre">FORMATION ENVISAGE</div><br>
-                <br>
-                <table class="t_planFormation">
-                    <tr>
-                        <td class="border-top-none border-left-none"></td>
-                        <td class="bold" text-align="center">Localisation des parcours</td>
-                    </tr>
-                    <tr>
-                        <td class="planFormation bold" text-align="center">Parcours</td>
-                        <td class="bold" text-align="center">Aix-en-Provence/Marseille</td>
-                    </tr>
-                    <tr>
+                <table>
+                    <col style="width: 8%">
+                    <col style="width: 70%">
+                    <col style="width: 28%">
 
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th text-align="center">Ordre</th>
+                            <th text-align="center">Parcours</th>
+                            <th text-align="center"> Localisation : ' . $this->printVillesPossibles() . '</th>
+                        </tr>
+                    </thead>
+                    ' . $this->printPlanFormation() . '
                 </table>';
     }
 
@@ -262,7 +296,7 @@ class PagePdf{
     public function getPrevFormation (){
         return '
                 <div class="titre_encadre">CURSUS ANTÉRIEUR</div><br>
-                <div class="cadre">
+                <div class="cadre" width="685">
                     <div class="titre3 bold" text-align="center">BACCALAURÉAT</div><br>
                     <span class="bold">Série : </span>' . $this->serie . '<br><br>
                     <span class="bold">Année d\'obtention </span>: ' . $this->yearAcquisition . '<br><br>
@@ -275,18 +309,22 @@ class PagePdf{
                     <span>Formation suivie : </span><br><br>
 
                     <table class="t_postBac">
+                        <col style="width: 13%">
+                        <col style="width: 40%">
+                        <col style="width: 37%">
+                        <col style="width: 10%">
                         <tr>
-                            <td class="bold" colspan="4" text-align="center">Cursus Post-Bac</td>
+                            <th class="bold" colspan="4" text-align="center">Cursus Post-Bac</th>
                         </tr>
                         <tr>
-                            <th class="col3 center">Année</th>
-                            <th class="col5 center">Établissement</th>
-                            <th class="col5 center">Cursus suivi</th>
-                            <th class="col2 center">Validé</th>
+                            <th class="center">Année</th>
+                            <th class="center">Établissement</th>
+                            <th class="center">Cursus suivi</th>
+                            <th class="center">Validé</th>
                         </tr>'
-                        . $this->printPostBac() .
-                    '</table>
-                </div>';
+        . $this->printPostBac() .
+        '</table>
+    </div>';
     }
 
     public function setProExperience ($proExperience){
@@ -309,17 +347,18 @@ class PagePdf{
     public function getProExperience (){
         return '<br/><div class="bold_underline">Expérience professionnelle (emplois, stages, jobs étdudiants):</div><br/>
                 <table class="t_postBac">
-                     <tr>
-                        <td class="bold" colspan="4" text-align="center">Cursus Post-Bac</td>
-                    </tr>
+                    <col style="width: 15%">
+                    <col style="width: 13%">
+                    <col style="width: 37%">
+                    <col style="width: 40%">
                     <tr>
                         <th class="col3 center">Date début</th>
                         <th class="col3 center">Date fin</th>
                         <th class="col4 center">Entreprise</th>
                         <th class="col6 center">Fonction</th>
                     </tr> '.
-                    $this->printProExperience()
-                . '</table>';
+        $this->printProExperience()
+        . '</table>';
     }
 
     public function setOther ($foreignLanguage, $otherElements){
@@ -330,16 +369,15 @@ class PagePdf{
     public function getOther (){
         return '<br/>
         <div class="bold_underline">Langues étrangères (lu, écrit, parlé) :</div><br/>' . $this->foreignLanguage . '<br/><br/>
-        <div class="bold_underline">Autres éléments appuyant votre candidature :</div><br/>' . $this->otherElements . '<br/>
-        ';
+        <div class="bold_underline">Autres éléments appuyant votre candidature :</div><br/>' . $this->otherElements . '<br/>';
     }
 
-    public function setInformationsSpecifiques (){
-
+    public function setInformationsSpecifiques($informationsSpecifiques ){
+        $this->informationsSpecifiques = $informationsSpecifiques;
     }
 
     public function getInformationsSpecifiques (){
-        return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES</div><br/><br/>';
+        return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES</div><br/>' . $this->informationsSpecifiques;
     }
 
     public function setDocumentsGeneraux ($documentsGeneraux){
@@ -357,7 +395,7 @@ class PagePdf{
 
     public function getDocumentsGeneraux (){
         return '<div class="titre_encadre">PIECES A JOINDRE GENERALES</div><br/>'
-                . $this->printDocumentsGeneraux();
+        . $this->printDocumentsGeneraux();
     }
 
     public function setDocumentsSpecifiques($documentsSpecifiques){
@@ -375,50 +413,14 @@ class PagePdf{
 
     public function getDocumentsSpecifiques (){
         return '<div class="titre_encadre">PIECES A JOINDRE SPECIFIQUES</div><br/>'
-                . $this->printDocumentsSpecifiques();
-    }
-
-    public function getDossierModalite (){
-        return '<div class="titre_encadre">DEPOT OU ENVOI DU DOSSIER</div><br/>
-                <div class="bold">Nous recommandons aux candidats l’utilisation de la formule « courrier suivi » pour l’envoi du dossier à nos services. Le respect des dates limites mentionnées en page 1 est impératif, le cachet de la Poste faisant foi.<br/><br/>
-                Adressez le dossier à : </div><br/>
-                <div class="addressFac">IUP MIAGE<br/>
-                FACULTE D’ECONOMIE et de GESTION<br/>
-                15-19 Allée Claude Forbin<br/>
-                13627 Aix-en-Provence Cedex 1</div>
-
-                <br/><div class="italic_underline">Jours et Horaires d’ouverture au public :</div><br/>
-                <span>Du lundi au vendredi, de 9h à 12h30 et de 14h à 16h.</span><br/><br/>
-                <div class="italic_underline">Contacts :</div>
-                <div class="center">Nathalie DI MARTINO <br/>
-                     Bureau 2.15.B <br/>
-                     Tel : 04 42 21 68 88 <br/>
-                     Email : miage.aix@univ-cezanne.fr <br/>
-                </div><br/>
-
-                <div class="titre_encadre">Modalités de Candidature</div><br/>
-                <div>La procédure de candidature en L3 Gestion parcours MIAGE se fait en deux étapes :
-                <ol>
-                    <li>Examen du dossier, à l’issue duquel l’admissibilité du candidat est évaluée.</li>
-                    <li>Entretien + tests d’aptitudes, à l’issue desquels l’admission est déclarée ou rejetée.</li>
-                </ol>
-                Lors de l’examen des dossiers, la commission de recrutement prend une décision d’admissibilité. Tous les candidats admissibles reçoivent une convocation pour un entretien et un test d’aptitude qui ont lieu la même demi-journée. Les tests porteront sur des notions de base en <span class="bold">Logique, Algorithmique, Compréhension de Texte, Expression Française et Anglais</span>.
-                La date exacte de ces entretiens sera précisée avec la convocation.<br/><br/>
-                Après ces entretiens, la commission de recrutement prend une décision d’admission ou de rejet de la candidature. Selon le nombre de places disponibles et la qualité des dossiers, les candidatures sont placées sur une liste principale ou sur une liste d’attente. Tous les candidats sont prévenus par courrier et par e-mail, de l’avis rendu par la commission y compris en ce qui concerne la liste d’affectation (principale ou liste d’attente).
-                <br/><br/>
-                <span class="bold_underline">Remarques :</span>
-                <ul>
-                    <li>Votre dossier de candidature doit comprendre l’intégralité des 6 pages de ce dossier et les pièces supplémentaire décrites en page 4.<br/><br/></li>
-                    <li>Joindre au dossier une enveloppe timbrée à votre adresse pour communication des résultats d’admissibilité et/ou d’admission.</li>
-                </ul>
-                </div><br/>';
+        . $this->printDocumentsSpecifiques();
     }
 
     public function getFicheCommissionPeda(){
         return '<div class="titre_encadre">FICHE COMMISSION PEDAGOGIQUE</div><br/>
                 <div class="text_align">Commission pédagogique du :………………………………………</div><br/>
                 <div>Nom et Prénom du candidat : ' . $this->applicantName . ' ' . $this->applicantFirstName . '</div>
-                <br/><div>Demande l’autorisation de s’inscrire en :<br/></div><br/>
+                <br/><div>Demande l’autorisation de s’inscrire en : ' . $this->title2 . '<br/></div><br/>
                 <div>Dernier diplôme obtenu : </div><br/>
                 <div>Date et lieu : le ' . date("d/m/Y") . ' à </div><br/><br/>
                 <img src="./pdf/img/cadre.png" alt="cadre_administration"/>';
@@ -430,7 +432,7 @@ class PagePdf{
         $this->getNewPage() . $this->getPrevFormation() . $this->getProExperience() . $this->getOther() . $this->getPageEnd() .
         //$this->getNewPage() . $this->getOther() . $this->getPageEnd() .
         $this->getNewPage() . $this->getInformationsSpecifiques() . $this->getPageEnd() .
-       // $this->getNewPage() . $this->getDocumentsGeneraux() . $this->getPageEnd() .
+        // $this->getNewPage() . $this->getDocumentsGeneraux() . $this->getPageEnd() .
         //$this->getNewPage() . $this->getDocumentsSpecifiques() . $this->getPageEnd() .
         //$this->getNewPage() . $this->getDossierModalite() . $this->getPageEnd() .
         $this->getNewPage() . $this->getFicheCommissionPeda() . $this->getPageEnd();
