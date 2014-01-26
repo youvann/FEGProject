@@ -37,10 +37,22 @@
                                                 <option>M1 Aix Marseille Sciences Economiques</option>
                                                 <option>M1 Aix Marseille Sciences Economiques parcours Magistere</option>
                                             </optgroup>
+                                            <optgroup label="Autre">
+                                                <option>Autre</option>
+                                            </optgroup>
                                         </select>
                                     </div>
                                 </div><!-- /row -->
                             </div><!-- /form-group -->
+
+                            <div id="autre_formation">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label for="nomAutreFormation">Veuillez entrer le nom de la dernière formation que vous avez effectuée</label>
+                                        <input type="text" class="form-control" id="nomAutreFormation" name="nomAutreFormation">
+                                    </div>
+                                </form>
+                            </div>
 
                             <div class="form-group">
                                 <label for="liste2">Sélectionnez la formation souhaitée pour l'année scolaire 2014-2015</label>
@@ -66,11 +78,28 @@
                             </div><!-- /form-group -->
                             <input type="submit" class="btn btn-primary">
                         </fieldset>
-
                     </form>
                 </div> <!-- panel-body -->
             </div><!-- panel panel-primary -->
         </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+
+     <script type="text/javascript">
+        $(document).ready(function(){
+            var choixFormation = $("select[name='derniere'] > optgroup > option:selected").val();
+            var autreFormation = $("#autre_formation");
+
+            (choixFormation === "Autre") ? autreFormation.fadeIn("slow") : autreFormation.hide();
+
+            $("select[name='derniere']").on('change', function(){
+                choixFormation = $("select[name='derniere'] > optgroup > option:selected").val();
+                (choixFormation === "Autre") ? autreFormation.fadeIn("slow") : autreFormation.fadeOut("fast");
+            });
+        });
+    </script>
 {% endblock %}
