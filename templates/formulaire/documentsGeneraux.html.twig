@@ -1,83 +1,27 @@
-{% extends 'layout.html.twig' %}
+Veuillez nous transmettre les pièces suivantes :
+<ul>
+	{% for documentGeneral in documentsGeneraux %}
+	<li>{{ documentGeneral.nom }}</li>
+    {% endfor %}
+</ul>
 
-{% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>Documents à joindre</h3>
-                </div><!-- /panel-heading -->
+<div id="upload">Ajouter</div><br>
+<button type="button" class="btn btn-primary"><div id="startUpload">Commencer l'upload</div></button>
 
-                <div class="panel-body">
-                    Veuillez nous transmettre les pièces suivantes :
-                    <ul>
-                        {% for documentGeneral in documentsGeneraux %}
-                            <li>{{ documentGeneral.nom }}</li>
-                        {% endfor %}
-                    </ul>
-
-                    <div id="upload">Ajouter</div><br>
-                    <button type="button" class="btn btn-primary"><div id="startUpload">Commencer l'upload</div></button>
-
-                </div> <!-- panel-body -->
-            </div><!-- panel panel-primary -->
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                </div>
-                <div class="modal-body">
-                    Attention, le fichier a été supprimé.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-{% endblock %}
-
-{% block scripts %}
-    {{ parent() }}
-    <script src="./public/js/jquery-upload/jquery.uploadfile.js"></script>
-    <script>
-        $(document).ready(function(){
-            var uploadObj = $("#upload").uploadFile({
-                url: "upload/upload.php",
-                dragDrop: true,
-                fileName: "myfile",
-                returnType: "json",
-                showDelete: true,
-                multiple:true,
-                autoSubmit:false,
-                dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
-                abortStr:"Abandonner",
-                cancelStr:"Annuler",
-                deletelStr:"Supprimer",
-                showDone:false,
-                deleteCallback: function (data, pd) {
-                    for (var i = 0; i < data.length; i++) {
-                        $.post("upload/delete.php", {op: "Supprimer",name: data[i]},
-                            function (resp,textStatus, jqXHR) {
-                                //Show Message
-                                $('#myModal').modal('show')
-                            });
-                    }
-                    pd.statusbar.hide(); //You choice.
-                }
-            });
-
-            $("#startUpload").click(function(){
-                uploadObj.startUpload();
-            });
-        });
-    </script>
-
-{% endblock %}
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				Attention, le fichier a été supprimé.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,74 +1,23 @@
-{% extends 'layout.html.twig' %}
-
-{% block content %}
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3>Sélection des voeux</h3>
-				<br/>
-				<div class="progress progress-striped active">
-					<div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 48%">
-						<span class="sr-only">48% Complete</span>
-					</div>
-				</div>
-			</div><!-- /panel-heading -->
-
-			<div class="panel-body">
-				<form id="formChoixVoeux" role="form" action="index.php?uc=formulaire&action=traiteChoixVoeux" id="formChoixSpe" method="post">
-					<input type="hidden" id="nbVoeux" name="nbVoeux" value="{{ nbVoeux }}" />
-					<fieldset>
-						<legend>Choix de la spécialité</legend>
+<fieldset>
+	<legend>Choix de la spécialité</legend>
 								{% for i in 1..nbVoeux %}
-						<div class="form-group">
-							<label for="voeu-{{ i }}">Sélectionnez votre voeu n°{{ i }}</label>
-							<select class="form-control" id="voeu-{{ i }}" name="voeu[]">
+	<div class="form-group">
+		<label for="voeu-{{ i }}">Sélectionnez votre voeu n°{{ i }}</label>
+		<select class="form-control" id="voeu-{{ i }}" name="voeu[]">
                                             {% for voeu in voeux %}
 											{% set villes = voeu.villes %}
-								<option value="{{ voeu.codeEtape }}">{{ voeu.etape }}
+			<option value="{{ voeu.codeEtape }}">{{ voeu.etape }}
 											{% for ville in villes %}
-									- ({{ ville.nom }})
+				- ({{ ville.nom }})
 											{% endfor %}
-								</option>
+			</option>
 											{% endfor %}
-							</select>
-						</div>
+		</select>
+	</div>
 								{% endfor %}
-						<div class="form-group">
-							<label>Ville préférée</label>
-							<input class="form-control required" type="text" id="ville_preferee" name="ville_preferee" />
-                            <input type="submit" class="btn btn-primary">
-							</fieldset>
-							</form>
-						</div><!-- panel-body -->
-						</div><!-- panel panel-primary -->
-						</div>
-						</div>
+	<div class="form-group">
+		<label>Ville préférée</label>
+		<input class="form-control required" type="text" id="ville_preferee" name="ville_preferee" />
 
-{% endblock %}
+</fieldset>
 
-{% block scripts %}
-	{{ parent() }}
-						<script type="text/javascript">
-							Array.prototype.allValuesAreDifferent = function() {
-								var ok = true;
-								for(var i = 0; i < this.length; ++i) {
-									if ($.inArray(this[i], this, i + 1) > -1) {
-										ok = false;
-									}
-								}
-								return ok;
-							};
-
-							$(function() {
-								$('#formChoixVoeux').submit(function() {
-									//alert($(this).serialize());
-									var choix = [];
-									$('select').each(function() {
-										choix.push($(this).val());
-									});
-									alert(choix.allValuesAreDifferent());
-								});
-							});
-						</script>
-{% endblock %}

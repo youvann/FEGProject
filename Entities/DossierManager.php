@@ -17,7 +17,7 @@ class DossierManager {
 		$q = $this->db->prepare("SELECT * FROM `DOSSIER` WHERE `INE` = ? AND `CODE_FORMATION` = ?;");
 		$q->execute(array($ine, $codeFormation));
 		$rs = $q->fetch();
-		return new Dossier($rs['INE'], $rs['CODE_FORMATION'], $rs['AUTRE'], $rs['NOM'], $rs['PRENOM'], $rs['ADRESSE'], $rs['COMPLEMENT'], $rs['CODE_POSTAL'], $rs['VILLE'], $rs['DATE_NAISSANCE'], $rs['LIEU_NAISSANCE'], $rs['FIXE'], $rs['PORTABLE'], $rs['MAIL'], $rs['LANGUES'], $rs['NATIONALITE'], $rs['SERIE_BAC'], $rs['ANNEE_BAC'], $rs['ETABLISSEMENT_BAC'], $rs['DEPARTEMENT_BAC'], $rs['PAYS_BAC'], $rs['ACTIVITE'], $rs['TITULAIRE'], $rs['AUTRES_ELEMENTS'], $rs['INFORMATIONS'], $rs['DATE_DOSSIER']);
+		return new Dossier($rs['INE'], $rs['CODE_FORMATION'], $rs['NOM'], $rs['PRENOM'], $rs['ADRESSE'], $rs['COMPLEMENT'], $rs['CODE_POSTAL'], $rs['VILLE'], $rs['DATE_NAISSANCE'], $rs['LIEU_NAISSANCE'], $rs['FIXE'], $rs['PORTABLE'], $rs['MAIL'], $rs['GENRE'], $rs['LANGUES'], $rs['NATIONALITE'], $rs['SERIE_BAC'], $rs['ANNEE_BAC'], $rs['ETABLISSEMENT_BAC'], $rs['DEPARTEMENT_BAC'], $rs['PAYS_BAC'], $rs['ACTIVITE'], $rs['AUTRE'], $rs['TITULAIRE'], $rs['VILLE_PREFEREE'], $rs['AUTRES_ELEMENTS'], $rs['INFORMATIONS'], $rs['DATE_DOSSIER']);
 	}
 
 	public function findAllByFormation($codeFormation) {
@@ -32,11 +32,10 @@ class DossierManager {
 	}
 
 	public function insert(Dossier $dossier) {
-		return $this->db->prepare("INSERT INTO `DOSSIER` (`INE`, `CODE_FORMATION`, `AUTRE`, `NOM`, `PRENOM`, `ADRESSE`, `COMPLEMENT`, `CODE_POSTAL`, `VILLE`, `DATE_NAISSANCE`, `LIEU_NAISSANCE`, `FIXE`, `PORTABLE`, `MAIL`, `LANGUES`, `NATIONALITE`, `SERIE_BAC`, `ANNEE_BAC`, `ETABLISSEMENT_BAC`, `DEPARTEMENT_BAC`, `PAYS_BAC`, `ACTIVITE`, `TITULAIRE`, `AUTRES_ELEMENTS`, `INFORMATIONS`, `DATE_DOSSIER`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now());")
-				->execute(array(
+		return $this->db->prepare("INSERT INTO `dossier` (`INE`, `CODE_FORMATION`, `NOM`, `PRENOM`, `ADRESSE`, `COMPLEMENT`, `CODE_POSTAL`, `VILLE`, `DATE_NAISSANCE`, `LIEU_NAISSANCE`, `FIXE`, `PORTABLE`, `MAIL`, `GENRE`, `LANGUES`, `NATIONALITE`, `SERIE_BAC`, `ANNEE_BAC`, `ETABLISSEMENT_BAC`, `DEPARTEMENT_BAC`, `PAYS_BAC`, `ACTIVITE`, `AUTRE`, `TITULAIRE`, `VILLE_PREFEREE`, `AUTRES_ELEMENTS`, `INFORMATIONS`, `COMPLET`, `DATE_DOSSIER`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW());")
+						->execute(array(
 							$dossier->getIne(),
 							$dossier->getCodeFormation(),
-							$dossier->getAutre(),
 							$dossier->getNom(),
 							$dossier->getPrenom(),
 							$dossier->getAdresse(),
@@ -48,6 +47,7 @@ class DossierManager {
 							$dossier->getFixe(),
 							$dossier->getPortable(),
 							$dossier->getMail(),
+							$dossier->getGenre(),
 							$dossier->getLangues(),
 							$dossier->getNationalite(),
 							$dossier->getSerieBac(),
@@ -56,16 +56,18 @@ class DossierManager {
 							$dossier->getDepartementBac(),
 							$dossier->getPaysBac(),
 							$dossier->getActivite(),
+							$dossier->getAutre(),
 							$dossier->getTitulaire(),
+							$dossier->getVillePreferee(),
 							$dossier->getAutresElements(),
-							$dossier->getInformations()
+							$dossier->getInformations(),
+							$dossier->getDateDossier()
 		));
 	}
 
 	public function update(Dossier $dossier) {
-		return $this->db->prepare("UPDATE `DOSSIER` SET `AUTRE` = ?, `NOM` = ?, `PRENOM` = ?, `ADRESSE` = ?, `COMPLEMENT` = ?, `CODE_POSTAL` = ?, `VILLE` = ?, `DATE_NAISSANCE` = ?, `LIEU_NAISSANCE` = ?, `FIXE` = ?, `PORTABLE` = ?, `MAIL` = ?, `LANGUES` = ?, `NATIONALITE` = ?, `SERIE_BAC` = ?, `ANNEE_BAC` = ?, `ETABLISSEMENT_BAC` = ?, `DEPARTEMENT_BAC` = ?, `PAYS_BAC` = ?, `ACTIVITE` = ?, `TITULAIRE` = ?, `AUTRES_ELEMENTS` = ?, `INFORMATIONS` = ?, `DATE_DOSSIER` = ? WHERE `INE` = ? AND `CODE_FORMATION` = ?;")
+		return $this->db->prepare("UPDATE `dossier` SET `NOM` = ?, `PRENOM` = ?, `ADRESSE` = ?, `COMPLEMENT` = ?, `CODE_POSTAL` = ?, `VILLE` = ?, `DATE_NAISSANCE` = ?, `LIEU_NAISSANCE` = ?, `FIXE` = ?, `PORTABLE` = ?, `MAIL` = ?, `GENRE` = ?, `LANGUES` = ?, `NATIONALITE` = ?, `SERIE_BAC` = ?, `ANNEE_BAC` = ?, `ETABLISSEMENT_BAC` = ?, `DEPARTEMENT_BAC` = ?, `PAYS_BAC` = ?, `ACTIVITE` = ?, `AUTRE` = ?, `TITULAIRE` = ?, `VILLE_PREFEREE` = ?, `AUTRES_ELEMENTS` = ?, `INFORMATIONS` = ?, `COMPLET` = ?, `DATE_DOSSIER` = ? WHERE `INE` = ? AND `CODE_FORMATION` = ?;")
 						->execute(array(
-							$dossier->getAutre(),
 							$dossier->getNom(),
 							$dossier->getPrenom(),
 							$dossier->getAdresse(),
@@ -77,6 +79,7 @@ class DossierManager {
 							$dossier->getFixe(),
 							$dossier->getPortable(),
 							$dossier->getMail(),
+							$dossier->getGenre(),
 							$dossier->getLangues(),
 							$dossier->getNationalite(),
 							$dossier->getSerieBac(),
@@ -85,7 +88,9 @@ class DossierManager {
 							$dossier->getDepartementBac(),
 							$dossier->getPaysBac(),
 							$dossier->getActivite(),
+							$dossier->getAutre(),
 							$dossier->getTitulaire(),
+							$dossier->getVillePreferee(),
 							$dossier->getAutresElements(),
 							$dossier->getInformations(),
 							$dossier->getDateDossier(),
