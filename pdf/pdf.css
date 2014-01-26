@@ -2,12 +2,9 @@
 table {
     border-collapse: collapse;
 
+
 }
-/*td {
-	border: 1px solid black;
-	padding-left: 3px;
-	padding-right: 3px;
-}*/
+
 .full_width_table{
     width: 690px;
     font-size : 18px;
@@ -140,6 +137,10 @@ page{
     font-weight: bold;
 }
 
+.bold{
+    font-weight: bold;
+}
+
 .underline{
     text-decoration: underline;
 }
@@ -177,3 +178,20 @@ page{
     border: 1px solid black;
     width: 120px; 
 }
+
+.cadreRouge{
+ border-top : 20px solid red;
+ border-bottom: 20px solid red;
+ border-left : 13px solid red;
+ border-right: 13px solid red;
+ margin: 10px;
+ padding: 10px;
+}
+
+
+.table_cadre  td, .table_cadre th {
+    border: 3px solid black;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
