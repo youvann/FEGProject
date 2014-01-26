@@ -39,15 +39,11 @@ switch ($action) {
         break;
     case "generationPdfCandidature" :
     {
-        // Code Formation, Mention, ouverte, faculte, langue
         $formation   = $formationManager->find("3BAS");
-        // Dossier de l'étudiant ($ine, $codeFormation, $autre, $nom, $prenom, $adresse ...)
         $dossier     = $dossierManager->find('g11625159', '3BAS');
-        // Id, Libelle
         $titulaire   = $titulaireManager->findAll();
         $cursus      = $cursusManager->findAllByDossier($dossier);
         $experiences = $experienceManager->findAllByDossier($dossier);
-        // Récupère le code étape, le numéro INE, le code formation, et l'ordre des voeux
         $faires      = $faireManager->findAllByDossier($dossier);
 
         //$documentsGeneraux    = $documentGeneralManager->findAll();
@@ -84,13 +80,11 @@ switch ($action) {
         $structure               = $translatorResultsetToStructure->translate($rs);
         $informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
 
-        //var_dump($informationsSpecifiques);
-
         require_once './classes/Pdf/PagePdf.class.php';
-        $pagePdf = new PagePdf("./pdf/pdf.css", "30mm", "7mm", "0mm", "10mm");
+        $pagePdf = new PagePdf("./classes/pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
 
         // En-tête du pdf
-        $pagePdf->setPagePdfHeaderImgPath("./pdf/img/feg.png");
+        $pagePdf->setPagePdfHeaderImgPath("./classes/Pdf/img/feg.png");
         $pagePdf->setPagePdfHeaderText("DOSSIER DE CANDIDATURE<br />ANNÉE UNIVERSITAIRE 2013-2014<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
         // Pied du pdf
@@ -100,8 +94,8 @@ switch ($action) {
         $pagePdf->setTitle("Institut supérieur en sciences de Gestion", $formation->getMention());
         $pagePdf->setHolder(' ' . $titulaire[0]->getLibelle(), ' ' . $titulaire[1]->getLibelle(), ' ' . $titulaire[2]->getLibelle(), $dossier->getTitulaire());
         //$pagePdf->setNote("* Dossier à utiliser si vous résidez dans l'Espace européen, ou dans un pays où il n'existe pas d'espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.");
-        $pagePdf->setApplicant($dossier->getNom(), $dossier->getPrenom(), $dossier->getLieuNaissance(), $dossier->getDateNaissance(), $dossier->getIne(), $dossier->getAdresse() . ' ' . $dossier->getComplement() . ' ' . $dossier->getCodePostal(), $dossier->getFixe(), $dossier->getPortable(), $dossier->getMail(), $dossier->getActivite());
-        $pagePdf->setPhotoPath('github.png');
+        $pagePdf->setApplicant("Monsieur", $dossier->getNom(), $dossier->getPrenom(), $dossier->getLieuNaissance(), $dossier->getDateNaissance(), $dossier->getIne(), $dossier->getAdresse() . ' ' . $dossier->getComplement() . ' ' . $dossier->getVille() . ' ' . $dossier->getCodePostal(), $dossier->getFixe(), $dossier->getPortable(), $dossier->getMail(), $dossier->getActivite());
+        $pagePdf->setPhotoPath('./classes/Pdf/img/photo/github.png');
         $pagePdf->setPlanFormation($etapes, $villesPossibles);
 
         $pagePdf->setPrevFormation($dossier->getSerieBac(), $dossier->getAnneeBac(), $dossier->getEtablissementBac(), $dossier->getDepartementBac(), $dossier->getPaysBac(), $cursus);
@@ -133,7 +127,6 @@ switch ($action) {
             echo $e;
             exit;
         }
-
     }
         break;
     default:
