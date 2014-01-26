@@ -6,88 +6,78 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3>Documents à joindre</h3>
-                    <br/>
-                    <div class="progress progress-striped active">
-                        <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                            <span class="sr-only">80% Complete</span>
-                        </div>
-                    </div>
                 </div><!-- /panel-heading -->
 
                 <div class="panel-body">
+                    Veuillez nous transmettre les pièces suivantes :
+                    <ul>
+                        {% for documentGeneral in documentsGeneraux %}
+                            <li>{{ documentGeneral.nom }}</li>
+                        {% endfor %}
+                    </ul>
 
-                    <!-- Modal pour Erreur ajouter-->
-                    <div class="modal fade" id="myModaAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel">Erreur</h4>
-                                </div>
-                                <div class="modal-body">
-                                    Vous ne pouvez pas ajouter plus de 10 pièces.
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-                                </div>
-                            </div><!-- /.modal-content -->
+                    <div id="upload">Ajouter</div><br>
+                    <button type="button" class="btn btn-primary"><div id="startUpload">Commencer l'upload</div></button>
 
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-
-                    <!-- Modal pour Erreur supprimer -->
-                    <div class="modal fade" id="myModaDel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel">Erreur</h4>
-                                </div>
-                                <div class="modal-body">
-                                    Vous devez ajoutez au moins une pièce.
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-                                </div>
-                            </div><!-- /.modal-content -->
-
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-
-                    <form role="form" action="#" id="formPieceAJoindre" method="post" enctype="multipart/form-data" target="uploadFrame">
-
-                        <fieldset>
-                            <legend>Pour les titulaires de diplômes de l'union européenne</legend>
-
-                            <table class="table table-bordered documentTable">
-                                <tr>
-                                    <th>Pièces à joindre</th>
-                                    <th>Options</th>
-                                </tr>
-
-                                {% for documentGeneral in documentsGeneraux %}
-                                    <tr>
-                                        <td>
-                                            <div class="form-group">
-                                                <label for="uploadRow{{ loop.index }}-1">{{ documentGeneral.nom }}</label>
-                                                <input id="uploadRow{{ loop.index }}-1" name="file[]" type="file" class="a"/>
-
-                                            </div>
-                                        </td>
-                                        <td>
-                                            {% if (documentGeneral.multiple) == 1 %}
-                                                <button type="button" class="btn btn-primary buttonAddUpload" id=""><span class="glyphicon glyphicon-plus-sign"></span></button>
-                                                <button type="button" class="btn btn-danger buttonRemoveUpload" id=""><span class="glyphicon glyphicon-minus-sign"></span></button>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </table>
-
-                        </fieldset>
-                        <input type="submit" value="Upload" class="btn btn-primary"/>
-                    </form>
                 </div> <!-- panel-body -->
             </div><!-- panel panel-primary -->
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    Attention, le fichier a été supprimé.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="./public/js/jquery-upload/jquery.uploadfile.js"></script>
+    <script>
+        $(document).ready(function(){
+            var uploadObj = $("#upload").uploadFile({
+                url: "upload/upload.php",
+                dragDrop: true,
+                fileName: "myfile",
+                returnType: "json",
+                showDelete: true,
+                multiple:true,
+                autoSubmit:false,
+                dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
+                abortStr:"Abandonner",
+                cancelStr:"Annuler",
+                deletelStr:"Supprimer",
+                showDone:false,
+                deleteCallback: function (data, pd) {
+                    for (var i = 0; i < data.length; i++) {
+                        $.post("upload/delete.php", {op: "Supprimer",name: data[i]},
+                            function (resp,textStatus, jqXHR) {
+                                //Show Message
+                                $('#myModal').modal('show')
+                            });
+                    }
+                    pd.statusbar.hide(); //You choice.
+                }
+            });
+
+            $("#startUpload").click(function(){
+                uploadObj.startUpload();
+            });
+        });
+    </script>
 
 {% endblock %}

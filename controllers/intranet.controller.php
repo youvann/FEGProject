@@ -20,41 +20,50 @@ if (!isset($_GET['action'])) {
   } */
 
 switch ($action) {
-    case "accueil": {
+    case "accueil" :
+    {
         echo $twig->render('intranet/accueil.html.twig');
-    } break;
-    case "carte": {
+    }
+        break;
+    case "carte" :
+    {
         echo $twig->render('intranet/carte.html.twig');
-    } break;
-    case "explorateur": {
-        echo $twig->render('intranet/explorateur.html.twig', array('directory' => str_replace(DIRECTORY_SEPARATOR,'/',realpath(dirname(__FILE__))).'/'));
-    } break;
-    case "generationPdfCandidature": {
+    }
+        break;
+    case "explorateur" :
+    {
+        echo $twig->render('intranet/explorateur.html.twig',
+            array('directory' => str_replace(DIRECTORY_SEPARATOR, '/', realpath(dirname(__FILE__))) . '/../')
+        );
+    }
+        break;
+    case "generationPdfCandidature" :
+    {
         // Code Formation, Mention, ouverte, faculte, langue
-        $formation            = $formationManager->find("3BAS");
+        $formation   = $formationManager->find("3BAS");
         // Dossier de l'étudiant ($ine, $codeFormation, $autre, $nom, $prenom, $adresse ...)
-        $dossier              = $dossierManager->find('g11625159', '3BAS');
+        $dossier     = $dossierManager->find('g11625159', '3BAS');
         // Id, Libelle
-        $titulaire            = $titulaireManager->findAll();
-        $cursus               = $cursusManager->findAllByDossier($dossier);
-        $experiences          = $experienceManager->findAllByDossier($dossier);
+        $titulaire   = $titulaireManager->findAll();
+        $cursus      = $cursusManager->findAllByDossier($dossier);
+        $experiences = $experienceManager->findAllByDossier($dossier);
         // Récupère le code étape, le numéro INE, le code formation, et l'ordre des voeux
-        $faires               = $faireManager->findAllByDossier($dossier);
+        $faires      = $faireManager->findAllByDossier($dossier);
 
         //$documentsGeneraux    = $documentGeneralManager->findAll();
         //$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("3BAS");
 
-        $etapes          = array ();
-        $villesPossibles = array ();
+        $etapes = array();
+        $villesPossibles = array();
 
-        foreach($faires as $faire){
-            $voeu = $voeuManager->find($faire->getCodeEtape());
-            $lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
-
+        // Récupère l'ordre des voeux et les villes où la formatin a lieu
+        foreach ($faires as $faire) {
+            $voeu                       = $voeuManager->find($faire->getCodeEtape());
+            $lesSeDerouler              = $seDeroulerManager->findAllByVoeu($voeu);
             $etapes[$faire->getOrdre()] = $voeu->getEtape();
 
             //echo $voeu->getEtape() . ' ' . $faire->getOrdre();
-            foreach($lesSeDerouler as $unSeDerouler){
+            foreach ($lesSeDerouler as $unSeDerouler) {
                 $ville = $villeManager->find($unSeDerouler->getCodeVet());
                 // echo ' - ' . $ville->getNom();
             }
@@ -63,18 +72,19 @@ switch ($action) {
         }
         // Supprime les doublons des villes
         $villesPossibles = array_unique($villesPossibles);
-        //var_dump($etapes);
+
         //var_dump($villesPossibles);
 
-        ///var_dump($conn);
         $rs = $conn->query('SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
                             FROM `information`
-                             INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
-                             LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
-                             ORDER BY `information`.`ordre`;')->fetchAll();
+                            INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
+                            LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
+                            ORDER BY `information`.`ordre`;')->fetchAll();
 
-        $structure = $translatorResultsetToStructure->translate($rs);
-        echo $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
+        $structure               = $translatorResultsetToStructure->translate($rs);
+        $informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
+
+        //var_dump($informationsSpecifiques);
 
         require_once './classes/Pdf/PagePdf.class.php';
         $pagePdf = new PagePdf("./pdf/pdf.css", "30mm", "7mm", "0mm", "10mm");
@@ -84,18 +94,20 @@ switch ($action) {
         $pagePdf->setPagePdfHeaderText("DOSSIER DE CANDIDATURE<br />ANNÉE UNIVERSITAIRE 2013-2014<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
         // Pied du pdf
-        $pagePdf->setPagePdfFooterText("Pied de page");
+        $pagePdf->setPagePdfFooterText("Page [[page_cu]]/[[page_nb]]");
 
         // Corps du pdf
         $pagePdf->setTitle("Institut supérieur en sciences de Gestion", $formation->getMention());
         $pagePdf->setHolder(' ' . $titulaire[0]->getLibelle(), ' ' . $titulaire[1]->getLibelle(), ' ' . $titulaire[2]->getLibelle(), $dossier->getTitulaire());
         //$pagePdf->setNote("* Dossier à utiliser si vous résidez dans l'Espace européen, ou dans un pays où il n'existe pas d'espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.");
         $pagePdf->setApplicant($dossier->getNom(), $dossier->getPrenom(), $dossier->getLieuNaissance(), $dossier->getDateNaissance(), $dossier->getIne(), $dossier->getAdresse() . ' ' . $dossier->getComplement() . ' ' . $dossier->getCodePostal(), $dossier->getFixe(), $dossier->getPortable(), $dossier->getMail(), $dossier->getActivite());
+        $pagePdf->setPhotoPath('github.png');
         $pagePdf->setPlanFormation($etapes, $villesPossibles);
 
-        $pagePdf->setPrevFormation($dossier->getSerieBac(), $dossier->getAnneeBac() , $dossier->getEtablissementBac(), $dossier->getDepartementBac(), $dossier->getPaysBac(), $cursus);
+        $pagePdf->setPrevFormation($dossier->getSerieBac(), $dossier->getAnneeBac(), $dossier->getEtablissementBac(), $dossier->getDepartementBac(), $dossier->getPaysBac(), $cursus);
         $pagePdf->setProExperience($experiences);
         $pagePdf->setOther($dossier->getLangues(), $dossier->getAutresElements());
+        $pagePdf->setInformationsSpecifiques($informationsSpecifiques);
 
         // $documentsGeneraux    = array("CV", "Lettre de motivation", "Passeport/Carte d'identité","Diplômes", "Photo");
         // $documentsSpecifiques = array("Livret de famille", "Lettre essai", "llo/Carte d'identité","sss", "aaa");
@@ -107,9 +119,8 @@ switch ($action) {
         $content = ob_get_clean();
 
         // convert in PDF
-        /*
         require_once './classes/Pdf/html2pdf/html2pdf.class.php';
-        try{
+        try {
             $html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
             //$html2pdf->setModeDebug();
             $html2pdf->pdf->addFont('verdana', '', './classes/html2pdf/_tcpdf_5.0.002/fonts/verdana.php');
@@ -118,12 +129,13 @@ switch ($action) {
             $html2pdf->pdf->SetDisplayMode('fullpage');
             $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
             $html2pdf->Output('html2pdf.pdf');
-        }
-        catch(HTML2PDF_exception $e) {
+        } catch (HTML2PDF_exception $e) {
             echo $e;
             exit;
-        }*/
+        }
 
-    } break;
-    default: break;
+    }
+        break;
+    default:
+        break;
 }

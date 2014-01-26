@@ -89,6 +89,7 @@ $(document).ready(function() {
     });
 
     // Ajout/Supression d'un champ d'upload
+    /*
     var buttonAddUpload = $(".buttonAddUpload");
     var buttonRemoveUpload = $(".buttonRemoveUpload");
     var messageError  = $(".messageError");
@@ -126,7 +127,7 @@ $(document).ready(function() {
         }else{
             $('#myModaDel').modal('show');
         }
-    });
+    });*/
 
     /*
     var myLanguageFR = {
