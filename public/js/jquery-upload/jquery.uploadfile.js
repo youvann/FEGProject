@@ -40,7 +40,7 @@
             showStatusAfterSuccess: true,
             showStatusAfterError: true,
             showFileCounter:true,
-            fileCounterStyle:"). ",
+            fileCounterStyle:". ",
             showProgress:false,
             onSelect:function(files){ return true;},            
             onSubmit: function (files, xhr) {},
@@ -376,9 +376,9 @@
             this.progressDiv = $("<div class='ajax-file-upload-progress'>").appendTo(this.statusbar).hide();
             this.progressbar = $("<div class='ajax-file-upload-bar " + obj.formGroup + "'></div>").appendTo(this.progressDiv);
             this.abort = $("<div class='ajax-file-upload-red " + obj.formGroup + "'>" + s.abortStr + "</div>").appendTo(this.statusbar).hide();
-            this.cancel = $("<div class='ajax-file-upload-red'>" + s.cancelStr + "</div>").appendTo(this.statusbar).hide();
+            this.cancel = $("<button type='button' class='btn btn-danger'>" + s.cancelStr + "</button>").appendTo(this.statusbar).hide();
             this.done = $("<div class='ajax-file-upload-green'>" + s.doneStr + "</div>").appendTo(this.statusbar).hide();
-            this.del = $("<div class='ajax-file-upload-red'>" + s.deletelStr + "</div>").appendTo(this.statusbar).hide();
+            this.del = $("<button type='button' class='btn btn-danger'>" + s.deletelStr + "</button>").appendTo(this.statusbar).hide();
             obj.errorLog.after(this.statusbar);
             return this;
         }

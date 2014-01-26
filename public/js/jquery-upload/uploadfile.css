@@ -25,7 +25,7 @@
     display: inline-block
 }
 .ajax-file-upload-bar {
-    background-color: #0ba1b5;
+    background-color: #22BBEA;
     width: 0;
     height: 20px;
     border-radius: 3px;
@@ -121,4 +121,8 @@
     text-align:left;
     vertical-align:middle;
     padding:10px 10px 0px 10px;
+}
+
+.ajax-file-upload-statusbar .btn-danger {
+    margin-bottom: 30px;
 }
