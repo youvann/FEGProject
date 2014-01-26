@@ -17,6 +17,9 @@
 	} else if (dir.charAt(dir.length()-1) != '/') {
 	    dir += "/";
 	}
+	
+	dir = java.net.URLDecoder.decode(dir, "UTF-8");	
+	
     if (new File(dir).exists()) {
 		String[] files = new File(dir).list(new FilenameFilter() {
 		    public boolean accept(File dir, String name) {

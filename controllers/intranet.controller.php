@@ -20,22 +20,24 @@ if (!isset($_GET['action'])) {
   } */
 
 switch ($action) {
-    case "accueil":
+    case "accueil" :
     {
         echo $twig->render('intranet/accueil.html.twig');
     }
         break;
-    case "carte":
+    case "carte" :
     {
         echo $twig->render('intranet/carte.html.twig');
     }
         break;
-    case "explorateur":
+    case "explorateur" :
     {
-        echo $twig->render('intranet/explorateur.html.twig', array('directory' => str_replace(DIRECTORY_SEPARATOR, '/', realpath(dirname(__FILE__))) . '/'));
+        echo $twig->render('intranet/explorateur.html.twig',
+            array('directory' => str_replace(DIRECTORY_SEPARATOR, '/', realpath(dirname(__FILE__))) . '/../')
+        );
     }
         break;
-    case "generationPdfCandidature":
+    case "generationPdfCandidature" :
     {
         // Code Formation, Mention, ouverte, faculte, langue
         $formation   = $formationManager->find("3BAS");

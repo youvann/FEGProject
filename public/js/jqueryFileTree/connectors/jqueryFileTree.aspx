@@ -14,7 +14,7 @@
 	if(Request.Form["dir"] == null || Request.Form["dir"].Length <= 0)
 		dir = "/";
 	else
-		dir = Request.Form["dir"];
+		dir = Server.UrlDecode(Request.Form["dir"]);
 	System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(dir);
 	Response.Write("<ul class=\"jqueryFileTree\" style=\"display: none;\">\n");
 	foreach (System.IO.DirectoryInfo di_child in di.GetDirectories())
