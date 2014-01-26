@@ -82,6 +82,9 @@ class PagePdf{
     private $foreignLanguage;
     private $otherElements;
     
+    
+    //cadre administration
+    private $licenceMsg;
 
     
 
@@ -348,7 +351,7 @@ class PagePdf{
         <form action="">
             <input type="checkbox" value="job">Jobs étudiants<br>
             <input type="checkbox" value="stage">Stages dans le cadre de vos études : fournir les attestations de stage<br>
-            <input type="checkbox" value="emploi">Emploi occupé à temps partiel ou à temps plein (hors statut d’étudiant salarié)<br>
+            <input type="checkbox" value="emploi">Emploi occupé &agrave; temps partiel ou &agrave; temps plein (hors statut d’étudiant salarié)<br>
         </form><br/>
         <span>Durée cumulée du ou des contrats (en mois) :</span>'.$this->contractDurateMonths.'<br/>
         <span>Quotité hebdomadaire (en heures) : </span>'.$this->weeklyProportion.'<br/><br/>
@@ -393,7 +396,7 @@ class PagePdf{
                 13627 Aix-en-Provence Cedex 1</div>
 
                 <br/><div class="italic_underline">Jours et Horaires d’ouverture au public :</div><br/>
-                <span>Du lundi au vendredi, de 9h à 12h30 et de 14h à 16h.</span><br/><br/>
+                <span>Du lundi au vendredi, de 9h &agrave; 12h30 et de 14h &agrave; 16h.</span><br/><br/>
                 <div class="italic_underline">Contacts :</div>
                 <div class="center">Nathalie DI MARTINO <br/>
                      Bureau 2.15.B <br/>
@@ -404,8 +407,8 @@ class PagePdf{
                 <div class="titre_encadre">Modalités de Candidature</div><br/>
                 <div>La procédure de candidature en L3 Gestion parcours MIAGE se fait en deux étapes :
                 <ol>
-                    <li>Examen du dossier, à l’issue duquel l’admissibilité du candidat est évaluée.</li>
-                    <li>Entretien + tests d’aptitudes, à l’issue desquels l’admission est déclarée ou rejetée.</li>
+                    <li>Examen du dossier, &agrave; l’issue duquel l’admissibilité du candidat est évaluée.</li>
+                    <li>Entretien + tests d’aptitudes, &agrave; l’issue desquels l’admission est déclarée ou rejetée.</li>
                 </ol>
                 Lors de l’examen des dossiers, la commission de recrutement prend une décision d’admissibilité. Tous les candidats admissibles reçoivent une convocation pour un entretien et un test d’aptitude qui ont lieu la même demi-journée. Les tests porteront sur des notions de base en <span class="bold">Logique, Algorithmique, Compréhension de Texte, Expression Française et Anglais</span>.
                 La date exacte de ces entretiens sera précisée avec la convocation.<br/><br/>
@@ -428,6 +431,68 @@ class PagePdf{
                 <div>Date et lieu : le '. date("d/m/Y") .' à </div><br/><br/>
                 <img src="./img/cadre.png" alt="cadre_administration"/>';
     }
+    
+    public function setCadreAdministration($licenceMsg)
+    {
+         $this->licenceMsg = $licenceMsg;
+    }
+    
+    public function getCadreAdministration()
+    {  
+        return '<br/><div class="cadreRouge"><span class="titre3 bold_underline">CADRE RESERVE A L’ADMINISTRATION</span><br/><br/><br/>  
+                <div class="bold_underline">AVIS DU RESPONSABLE PEDAGOGIQUE DE LA FORMATION :</div><br/>
+                    <form method="POST" action=""><table class="table_cadre">
+                    
+                        <tr><th style="border-top:none;border-left:none;" colspan="2"></th>
+                            <th class="center">UE bénéficiant de la dispense</th>  
+                        </tr>
+                        <tr> 
+                            <td style="border-right:none;"><input type="checkbox" name="nom">Admis<br/><br/><br/><br/>
+                            <input type="checkbox" name="nom">Refusé</td>
+                            <td style="width:110px; border-left:none;">'.$this->licenceMsg.'<br/><br/></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="center bold" colspan="2">Motif du refus</td>
+                            <td><input type="checkbox" name="motif">Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
+                                <input type="checkbox" name="motif">Le niveau est insuffisant pour la formation envisagée<br/><br/>
+                                <input type="checkbox" name="motif">Le niveau est jugé trop juste en français<br/><br/>
+                                <input type="checkbox" name="motif"> Autre motif:<br/>
+                                ………………………………………………………………………………………………………
+                            </td>
+                        </tr>
+                        <tr><td colspan="3">
+                        <!--cette partie doit être visible dans certain cas: condition if avec booleen mais fonctionne pas-->
+                            <input type="checkbox" name="suggestion">Proposition admission en niveau inférieur<br/>
+                            ………………………………………………………………………………………………………………………………………………………………………<br/>
+                            ………………………………………………………………………………………………………………………………………………………………………<br/><br/>   
+                        <!--jusque là-->
+                        <input type="checkbox" name="suggestion">Suggestion éventuelle de réorientation<br/>
+                            ………………………………………………………………………………………………………………………………………………………………………<br/>
+                            ………………………………………………………………………………………………………………………………………………………………………<br/>
+                            ………………………………………………………………………………………………………………………………………………………………………
+                            </td>
+                            
+                        </tr>   
+                        <tr>
+                             <td colspan="3">Nom et signature<br/><br/><br/></td>
+                        </tr> 
+                        
+                        </table></form>
+                   <br/><div class="bold_underline">DECISION DE LA COMMISSION PEDAGOGIQUE de la faculté d’économie et de gestion</div>
+                            <span class=bold"><input type="checkbox" name="nom">ADMIS</span> 
+                            <span class=bold"><input type="checkbox" name="nom">REFUSE</span> 
+                            <span class=bold text_align"><input type="checkbox" name="nom">LISTE D’ATTENTE</span><br/><br/>
+                            <div class="underline">Motif du refus</div>
+                   <div>
+                            <input type="checkbox" name="nom">Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
+                            <input type="checkbox" name="nom">Le niveau est insuffisant pour la formation envisagée<br/><br/>
+                            <input type="checkbox" name="nom">Le niveau est jugé trop juste en français<br/><br/>
+                            <input type="checkbox" name="nom">Autre motif
+                   </div>
+        </div>
+        ';
+    }
 
     public function __toString (){
         return $this->getCssPath() .
@@ -435,7 +500,7 @@ class PagePdf{
         $this->getNewPage() . $this->getPlanFormation() . $this->getPrevFormation() . $this->getExperiencePro() . $this->getPageEnd() .
         $this->getNewPage() . $this->getPieceAjoindre() . $this->getPageEnd() .
         $this->getNewPage() . $this->getDossierModalite() . $this->getPageEnd() .
-        $this->getNewPage() . $this->getFicheCommissionPeda() . $this->getPageEnd();
+        $this->getNewPage() . $this->getFicheCommissionPeda() . $this->getCadreAdministration() . $this->getPageEnd();
     }
 }
 
