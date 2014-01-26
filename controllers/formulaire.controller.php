@@ -15,6 +15,10 @@ if (!isset($_GET['action'])) {
 $limitDate = "7 juin 2014";
 
 switch ($action) {
+	case "main": {
+			echo $twig->render('formulaire/mainFormulaire.html.twig', array(
+			));
+		} break;
 	case "choixFormation": {
 			echo $twig->render('formulaire/choixFormation.html.twig', array(
 			));

@@ -4,7 +4,6 @@ class Dossier {
 
 	private $ine;
 	private $codeFormation;
-	private $autre;
 	private $nom;
 	private $prenom;
 	private $adresse;
@@ -16,6 +15,7 @@ class Dossier {
 	private $fixe;
 	private $portable;
 	private $mail;
+	private $genre;
 	private $langues;
 	private $nationalite;
 	private $serieBac;
@@ -24,38 +24,42 @@ class Dossier {
 	private $departementBac;
 	private $paysBac;
 	private $activite;
+	private $autre;
 	private $titulaire;
+	private $villePreferee;
 	private $autresElements;
 	private $informations;
 	private $dateDossier;
 
-	function __construct($ine, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $autresElements, $informations, $dateDossier) {
-		$this->ine              = $ine;
-		$this->codeFormation    = $codeFormation;
-		$this->autre            = $autre;
-		$this->nom              = $nom;
-		$this->prenom           = $prenom;
-		$this->adresse          = $adresse;
-		$this->complement       = $complement;
-		$this->codePostal       = $codePostal;
-		$this->ville            = $ville;
-		$this->dateNaissance    = $dateNaissance;
-		$this->lieuNaissance    = $lieuNaissance;
-		$this->fixe             = $fixe;
-		$this->portable         = $portable;
-		$this->mail             = $mail;
-		$this->langues          = $langues;
-		$this->nationalite      = $nationalite;
-		$this->serieBac         = $serieBac;
-		$this->anneeBac         = $anneeBac;
+	function __construct($ine, $codeFormation, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $genre, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $autre, $titulaire, $villePreferee, $autresElements, $informations, $dateDossier) {
+		$this->ine = $ine;
+		$this->codeFormation = $codeFormation;
+		$this->nom = $nom;
+		$this->prenom = $prenom;
+		$this->adresse = $adresse;
+		$this->complement = $complement;
+		$this->codePostal = $codePostal;
+		$this->ville = $ville;
+		$this->dateNaissance = $dateNaissance;
+		$this->lieuNaissance = $lieuNaissance;
+		$this->fixe = $fixe;
+		$this->portable = $portable;
+		$this->mail = $mail;
+		$this->genre = $genre;
+		$this->langues = $langues;
+		$this->nationalite = $nationalite;
+		$this->serieBac = $serieBac;
+		$this->anneeBac = $anneeBac;
 		$this->etablissementBac = $etablissementBac;
-		$this->departementBac   = $departementBac;
-		$this->paysBac          = $paysBac;
-		$this->activite         = $activite;
-		$this->titulaire        = $titulaire;
-		$this->autresElements   = $autresElements;
-		$this->informations     = $informations;
-		$this->dateDossier      = $dateDossier;
+		$this->departementBac = $departementBac;
+		$this->paysBac = $paysBac;
+		$this->activite = $activite;
+		$this->autre = $autre;
+		$this->titulaire = $titulaire;
+		$this->villePreferee = $villePreferee;
+		$this->autresElements = $autresElements;
+		$this->informations = $informations;
+		$this->dateDossier = $dateDossier;
 	}
 
 	public function getIne() {
@@ -64,10 +68,6 @@ class Dossier {
 
 	public function getCodeFormation() {
 		return $this->codeFormation;
-	}
-
-	public function getAutre() {
-		return $this->autre;
 	}
 
 	public function getNom() {
@@ -114,6 +114,10 @@ class Dossier {
 		return $this->mail;
 	}
 
+	public function getGenre() {
+		return $this->genre;
+	}
+
 	public function getLangues() {
 		return $this->langues;
 	}
@@ -146,8 +150,16 @@ class Dossier {
 		return $this->activite;
 	}
 
+	public function getAutre() {
+		return $this->autre;
+	}
+
 	public function getTitulaire() {
 		return $this->titulaire;
+	}
+
+	public function getVillePreferee() {
+		return $this->villePreferee;
 	}
 
 	public function getAutresElements() {
@@ -168,10 +180,6 @@ class Dossier {
 
 	public function setCodeFormation($codeFormation) {
 		$this->codeFormation = $codeFormation;
-	}
-
-	public function setAutre($autre) {
-		$this->autre = $autre;
 	}
 
 	public function setNom($nom) {
@@ -218,6 +226,10 @@ class Dossier {
 		$this->mail = $mail;
 	}
 
+	public function setGenre($genre) {
+		$this->genre = $genre;
+	}
+
 	public function setLangues($langues) {
 		$this->langues = $langues;
 	}
@@ -250,8 +262,16 @@ class Dossier {
 		$this->activite = $activite;
 	}
 
+	public function setAutre($autre) {
+		$this->autre = $autre;
+	}
+
 	public function setTitulaire($titulaire) {
 		$this->titulaire = $titulaire;
+	}
+
+	public function setVillePreferee($villePreferee) {
+		$this->villePreferee = $villePreferee;
 	}
 
 	public function setAutresElements($autresElements) {
