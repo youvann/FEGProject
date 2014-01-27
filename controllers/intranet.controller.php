@@ -45,7 +45,9 @@ switch ($action) {
         $z->close();*/
         //var_dump($_GET['folder'], str_replace('/', '\\', $_GET['folder']));
         //var_dump($_GET['folder']);
-        $path = folderToZip2($_GET['folder']);
+        //$path = folderToZip2($_GET['folder']);
+
+        $path = Zip($_GET['folder'], './lib/' . time() . '.zip');
 		echo $twig->render('intranet/telechargerDossier.html.twig', array('path' => $path));
     }
         break;
