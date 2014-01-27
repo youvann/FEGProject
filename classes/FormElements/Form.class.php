@@ -36,10 +36,13 @@ class Form {
 	}
 
 	public function getHTML() {
-		$return = '<form role="form" method="' . $this->method . '" action="' . $this->action . '"' . ($this->uploadForm === true ? ' enctype="multipart/form-data"' : '') . '>';
+		$return = '';
+		if (is_null($this->formElements)) {
+			return null;
+		}
 		foreach ($this->formElements as $formElement) {
 			$return .= '<div class="form-group">' . $formElement . '</div>';
 		}
-		return $return . '<input class="btn btn-primary" type="submit" /></form>';
+		return $return;
 	}
 }

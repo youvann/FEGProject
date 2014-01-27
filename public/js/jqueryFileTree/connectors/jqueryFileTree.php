@@ -41,5 +41,3 @@ if( file_exists($root . $_POST['dir']) ) {
 		echo "</ul>";	
 	}
 }
-
-?>

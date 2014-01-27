@@ -1,0 +1,92 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3>Parcours post-bac</h3>
+				<br/>
+				<div class="progress progress-striped active">
+					<div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 64%">
+						<span class="sr-only">64% Complete</span>
+					</div>
+				</div>
+			</div><!-- /panel-heading -->
+
+			<div class="panel-body">
+				<form role="form" id="mainFormulaire" action="index.php?uc=formulaire&action=traiterMainFormulaire" method="post">
+                        {% include 'formulaire/informationsGenerales.html.twig' %}
+						{% include 'formulaire/postBacExperiences.html.twig' %}
+						{% include 'formulaire/choixVoeux.html.twig' %}
+					{% if form is not null %}
+					<fieldset>
+						<legend>Informations supplémentaires</legend>
+                            {{ form|raw }}
+					</fieldset>
+					{% endif %}
+					{% include 'formulaire/documentsGeneraux.html.twig' %}
+					<input type="submit" class="btn btn-primary">
+				</form>
+			</div> <!-- panel-body -->
+		</div><!-- panel panel-primary -->
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+	{{ parent() }}
+<script src="./public/js/jquery-upload/jquery.uploadfile.js"></script>
+<script type="text/javascript">
+	Array.prototype.allValuesAreDifferent = function() {
+		var ok = true;
+		for (var i = 0; i < this.length; ++i) {
+			if ($.inArray(this[i], this, i + 1) > -1) {
+				ok = false;
+			}
+		}
+		return ok;
+	};
+
+	$(function() {
+		$('#formChoixVoeux').submit(function() {
+			//alert($(this).serialize());
+			var choix = [];
+			$('select').each(function() {
+				choix.push($(this).val());
+			});
+			alert(choix.allValuesAreDifferent());
+		});
+
+		var uploadObj = $("#upload").uploadFile({
+			url: "upload/upload.php",
+			dragDrop: true,
+			fileName: "myfile",
+			returnType: "json",
+			showDelete: true,
+			multiple: true,
+			autoSubmit: false,
+			dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
+			abortStr: "Abandonner",
+			cancelStr: "Annuler",
+			deletelStr: "Supprimer",
+			showDone: false,
+			deleteCallback: function(data, pd) {
+				for (var i = 0; i < data.length; i++) {
+					$.post("upload/delete.php", {op: "Supprimer", name: data[i]},
+					function(resp, textStatus, jqXHR) {
+						//Show Message
+						$('#myModal').modal('show')
+					});
+				}
+				pd.statusbar.hide(); //You choice.
+			}
+		});
+
+		$("#startUpload").click(function() {
+			uploadObj.startUpload();
+		});
+	});
+</script>
+{% endblock %}

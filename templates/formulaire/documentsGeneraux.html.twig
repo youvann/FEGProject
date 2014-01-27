@@ -4,6 +4,18 @@ Veuillez nous transmettre les pièces suivantes :
 	<li>{{ documentGeneral.nom }}</li>
     {% endfor %}
 </ul>
+{% if documentsSpecifiques is not null %}
+Veuillez nous transmettre les pièces suivantes :
+<ul>
+	{% for documentSpecifique in documentsSpecifiques %}
+	<li>{{ documentSpecifique.nom }}
+	{% if documentSpecifique is not null %}
+		
+	{% endif %}
+	</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
 <div id="upload">Ajouter</div><br>
 <button type="button" class="btn btn-primary"><div id="startUpload">Commencer l'upload</div></button>

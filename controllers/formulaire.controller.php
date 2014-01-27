@@ -12,11 +12,31 @@ if (!isset($_GET['action'])) {
 	$action = $_GET['action'];
 }
 
-$limitDate = "7 juin 2014";
-
 switch ($action) {
 	case "main": {
+			// Chargement des voeux
+			$formation = $formationManager->find('3BAS');
+			$voeux = $voeuManager->findAllByFormation($formation);
+			foreach ($voeux as $voeu) {
+				$voeu->setVilles($voeuManager->getVilles($voeu));
+			}
+			$nbVoeux = count($voeux);
+			
+			// Chargement des informations supplémentaires
+			$structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formation));
+			$form = $translatorStructureToForm->translate($structure);
+			$formHTML = $form->getHTML();
+			
+			// Chargement des documents généraux et spécifiques
+			$documentsGeneraux = $documentGeneralManager->findAll();
+			$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("3BAS");
+			
 			echo $twig->render('formulaire/mainFormulaire.html.twig', array(
+				'voeux' => $voeux,
+				'nbVoeux' => $nbVoeux,
+				'form' => $formHTML,
+				"documentsGeneraux" => $documentsGeneraux,
+				"documentsSpecifique" => $documentsSpecifiques
 			));
 		} break;
 	case "choixFormation": {
