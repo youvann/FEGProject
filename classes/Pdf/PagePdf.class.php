@@ -32,6 +32,7 @@ class PagePdf{
     private $note;
 
     //Candidat
+    private $applicantSex;
     private $applicantName;
     private $applicantFirstName;
     private $applicantBirthDate;
@@ -170,10 +171,11 @@ class PagePdf{
         return $checkbox;
     }
 
-    public function setApplicant($applicantName, $applicantFirstName, $applicantBirthDate,
+    public function setApplicant($applicantSex, $applicantName, $applicantFirstName, $applicantBirthDate,
                                  $applicantBirthPlace, $applicantIne, $applicantAdress,
                                  $applicantFixNumber, $applicantPortNumber, $applicantMail,
                                  $applicantActivity) {
+        $this->applicantSex        = $applicantSex;
         $this->applicantName       = $applicantName;
         $this->applicantFirstName  = $applicantFirstName;
         $this->applicantBirthDate  = $applicantBirthDate;
@@ -191,16 +193,13 @@ class PagePdf{
     }
 
     public function getPhotoPath(){
-        return '<img src="./pdf/img/' . $this->photoPath . '" alt="cadre_administration" style="width: 150px"/>';
+        return '<img src="' . $this->photoPath . '" alt="cadre_administration" style="width: 150px"/>';
     }
 
     public function getApplicant(){
         return '<div class="titre_encadre">CANDIDAT</div>
                 <br>
-                <form action="">
-					<input type="checkbox" value="madame"><span class="bold note">Mme</span>
-					<input type="checkbox" value="monsieur"><span class="bold note">M.</span>
-                </form>
+                <span class="bold">' . $this->applicantSex . '</span>
                 <br><br>
                 <table>
                     <tr>
@@ -423,7 +422,7 @@ class PagePdf{
                 <br/><div>Demande l’autorisation de s’inscrire en : ' . $this->title2 . '<br/></div><br/>
                 <div>Dernier diplôme obtenu : </div><br/>
                 <div>Date et lieu : le ' . date("d/m/Y") . ' à </div><br/><br/>
-                <img src="./pdf/img/cadre.png" alt="cadre_administration"/>';
+                <img src="./classes/Pdf/img/cadre.png" alt="cadre_administration"/>';
     }
 
     public function __toString (){
