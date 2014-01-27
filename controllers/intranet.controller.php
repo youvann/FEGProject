@@ -44,8 +44,9 @@ switch ($action) {
         folderToZip($_GET['folder'], $z, true);
         $z->close();*/
         //var_dump($_GET['folder'], str_replace('/', '\\', $_GET['folder']));
-        var_dump($_GET['folder']);
-        echo '<a href="'.folderToZip2($_GET['folder']).'">Télécharger</a>';
+        //var_dump($_GET['folder']);
+        $path = folderToZip2($_GET['folder']);
+		echo $twig->render('intranet/telechargerDossier.html.twig', array('path' => $path));
     }
         break;
     case "generationPdfCandidature" :
