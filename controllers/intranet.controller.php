@@ -43,8 +43,9 @@ switch ($action) {
         $z->open("test.zip", ZIPARCHIVE::CREATE);
         folderToZip($_GET['folder'], $z, true);
         $z->close();*/
-        var_dump($_GET['folder'], str_replace('/', '\\', $_GET['folder']));
-        echo '<a href="lib/'.folderToZip2(str_replace('/', '\\', $_GET['folder'])).'">Télécharger</a>';
+        //var_dump($_GET['folder'], str_replace('/', '\\', $_GET['folder']));
+        var_dump($_GET['folder']);
+        echo '<a href="lib/'.folderToZip2($_GET['folder']).'">Télécharger</a>';
     }
         break;
     case "generationPdfCandidature" :

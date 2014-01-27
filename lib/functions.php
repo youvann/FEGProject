@@ -48,7 +48,7 @@ $z->close();
 
 
 function folderToZip2 ($path) {
-    $zip = new ZipArchive;
+    /*$zip = new ZipArchive;
     //$n = date('h.i.s-j:m:y').'.zip';
     $n = 'test.zip';
     $zip->open($n, ZipArchive::CREATE);
@@ -57,9 +57,29 @@ function folderToZip2 ($path) {
             if ($file != '.' && $file != '..') {
                 $zip->addFile($path.DIRECTORY_SEPARATOR.$file);
             } else {
-                die('Can\'t read dir');
+                die('Can\'t read dir motha');
             }
         }
+    }
+    $zip->close();
+    return $n;*/
+
+    $zip = new ZipArchive;
+    $n = 'file2.zip';
+    $zip->open($n, ZipArchive::CREATE);
+    if (false !== ($dir = opendir($path)))
+    {
+        while (false !== ($file = readdir($dir)))
+        {
+            if ($file != '.' && $file != '..')
+            {
+                $zip->addFile($path.DIRECTORY_SEPARATOR.$file);
+            }
+        }
+    }
+    else
+    {
+        die('Can\'t read dir');
     }
     $zip->close();
     return $n;
