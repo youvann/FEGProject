@@ -45,7 +45,7 @@ switch ($action) {
         $z->close();*/
         //var_dump($_GET['folder'], str_replace('/', '\\', $_GET['folder']));
         var_dump($_GET['folder']);
-        echo '<a href="lib/'.folderToZip2($_GET['folder']).'">Télécharger</a>';
+        echo '<a href="'.folderToZip2($_GET['folder']).'">Télécharger</a>';
     }
         break;
     case "generationPdfCandidature" :

@@ -65,7 +65,7 @@ function folderToZip2 ($path) {
     return $n;*/
 
     $zip = new ZipArchive;
-    $n = 'file2.zip';
+    $n = 'lib/file2.zip';
     $zip->open($n, ZipArchive::CREATE);
     if (false !== ($dir = opendir($path)))
     {
