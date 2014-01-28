@@ -45,7 +45,9 @@ switch ($action) {
         $z->close();*/
         //var_dump($_GET['folder'], str_replace('/', '\\', $_GET['folder']));
         //var_dump($_GET['folder']);
-        $path = folderToZip2($_GET['folder']);
+        //$path = folderToZip2($_GET['folder']);
+
+        $path = Zip($_GET['folder'], './lib/' . time() . '.zip');
 		echo $twig->render('intranet/telechargerDossier.html.twig', array('path' => $path));
     }
         break;
@@ -89,8 +91,10 @@ switch ($action) {
                             LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
                             ORDER BY `information`.`ordre`;')->fetchAll();
 
-        $structure               = $translatorResultsetToStructure->translate($rs);
-        $informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
+        //$structure               = $translatorResultsetToStructure->translate($rs);
+        //$informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
+        $informationsSpecifiques = "";
+        $structure = "";
 
         require_once './classes/Pdf/PagePdf.class.php';
         $pagePdf = new PagePdf("./classes/pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
@@ -106,7 +110,7 @@ switch ($action) {
         $pagePdf->setTitle("Institut supérieur en sciences de Gestion", $formation->getMention());
         $pagePdf->setHolder(' ' . $titulaire[0]->getLibelle(), ' ' . $titulaire[1]->getLibelle(), ' ' . $titulaire[2]->getLibelle(), $dossier->getTitulaire());
         //$pagePdf->setNote("* Dossier à utiliser si vous résidez dans l'Espace européen, ou dans un pays où il n'existe pas d'espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.");
-        $pagePdf->setApplicant("Monsieur", $dossier->getNom(), $dossier->getPrenom(), $dossier->getLieuNaissance(), $dossier->getDateNaissance(), $dossier->getIne(), $dossier->getAdresse() . ' ' . $dossier->getComplement() . ' ' . $dossier->getVille() . ' ' . $dossier->getCodePostal(), $dossier->getFixe(), $dossier->getPortable(), $dossier->getMail(), $dossier->getActivite());
+        $pagePdf->setApplicant($dossier->getGenre(), $dossier->getNom(), $dossier->getPrenom(), $dossier->getLieuNaissance(), $dossier->getDateNaissance(), $dossier->getIne(), $dossier->getAdresse() . ' ' . $dossier->getComplement() . ' ' . $dossier->getVille() . ' ' . $dossier->getCodePostal(), $dossier->getFixe(), $dossier->getPortable(), $dossier->getMail(), $dossier->getActivite());
         $pagePdf->setPhotoPath('./classes/Pdf/img/photo/github.png');
         $pagePdf->setPlanFormation($etapes, $villesPossibles);
 

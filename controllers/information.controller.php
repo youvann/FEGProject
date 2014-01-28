@@ -49,5 +49,15 @@ switch ($action) {
 			$informationManager->delete($information);
 			header('location:index.php?uc=information&action=grille&code=' . $_GET['code']);
 		} break;
+    case "ordonnancement": {
+        $i = 1;
+       //var_dump($_POST);
+        foreach ($_POST['info'] as $id) {
+            //echo 'id : ' . $id . ', iterateur : ' . $i . '<br />';
+            $information = $informationManager->find($id);
+            $information->setOrdre($i++);
+            $informationManager->update($information);
+        }
+    } break;
 	default: break;
 }

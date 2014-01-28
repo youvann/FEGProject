@@ -16,7 +16,7 @@
         $(document).ready(function() {
             $('#explorateur').fileTree({
                 // root : ne pas oublier de mettre slash à la fin du chemin !
-                root: '{{ directory }}' + 'lib/',
+                root: '{{ directory }}',
                 script: './public/js/jqueryFileTree/connectors/jqueryFileTree.php'
             }, function(file) {
                 //window.open(file.replace("Applications/", ""));

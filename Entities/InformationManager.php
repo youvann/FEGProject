@@ -22,7 +22,7 @@ class InformationManager {
 
 	public function findAllByFormation(Formation $formation) {
 		$informations = array();
-		$q = $this->db->prepare("SELECT * FROM `INFORMATION` WHERE `CODE_FORMATION` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `INFORMATION` WHERE `CODE_FORMATION` = ? ORDER BY `ORDRE`;");
 		$q->execute(array($formation->getCodeFormation()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $information) {
