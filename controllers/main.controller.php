@@ -7,7 +7,7 @@
  * @Author:
  */
 if (!isset($_GET['uc'])) {
-	$uc = "formation";
+	$uc = "formulaire";
 } else {
 	$uc = $_GET['uc'];
 }
@@ -40,6 +40,9 @@ switch ($uc) {
 		} break;
 	case "formulaire": {
 			require_once './controllers/formulaire.controller.php';
+		} break;
+	case "utilisateur": {
+			require_once './controllers/utilisateur.controller.php';
 		} break;
 	default: break;
 }

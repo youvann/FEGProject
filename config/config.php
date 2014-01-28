@@ -24,3 +24,16 @@ Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem('templates'); // Dossier contenant les templates
 $twig = new Twig_Environment($loader, array('cache' => false));
 $twig->addGlobal('get', $_GET);
+
+// Module connexion
+session_start();
+
+if (empty($_SESSION)) {
+	$_SESSION['name'] = 'Anonymous';
+	$_SESSION['rights'] = $anonymous;
+}
+if (isset($_GET['uc']) && isset($_GET['action'])) {
+	if(!in_array(array($_GET['uc'], $_GET['action']), $_SESSION['rights'])) {
+		header('location:index.php');
+	}
+}

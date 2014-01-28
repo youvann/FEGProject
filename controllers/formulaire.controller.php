@@ -171,7 +171,7 @@ switch ($action) {
         echo $pagePdf;
         $content = ob_get_clean();
 
-        /*
+        
         // convert in PDF
         require_once './classes/Pdf/html2pdf/html2pdf.class.php';
         try {
@@ -185,13 +185,13 @@ switch ($action) {
             //Affiche le PDF dans le navigateur
             //$html2pdf->Output('html2pdf.pdf');
             //$html2pdf->Output('html2pdf.pdf');
-            $html2pdf->Output('dossiers/3BAS/Candidatures/g11625159/Candidature-g11625159.pdf', 'F');
+            $html2pdf->Output('dossiers/3BAS/Candidatures/Candidature-g11625159.pdf', 'F');
             echo "PDF BIEN GENERE";
         } catch (HTML2PDF_exception $e) {
             echo $e;
             exit;
         }
-        */
+        
     }
         break;
     default:

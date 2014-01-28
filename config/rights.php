@@ -137,16 +137,9 @@ $anonymous = array(
 	array("", ""),
 	array("formulaire", "choixFormation"),
 	array("formulaire", "traiterChoixFormation"),
-	array("formulaire", "informationsGenerales"),
-	array("formulaire", "traiterInfoPerso"),
-	array("formulaire", "postBacExperiences"),
-	array("formulaire", "traiterPostBacExperiences"),
-	array("formulaire", "choixVoeux"),
-	array("formulaire", "traiteChoixVoeux"),
-	array("formulaire", "informationsSpecifiques"),
-	array("formulaire", "traiterInformationsSpecifiques"),
-	array("formulaire", "documentsGeneraux"),
-	array("formulaire", "traiteDocumentsGeneraux"),
-	array("formulaire", "documentsSpecifiques"),
-	array("formulaire", "traiteDocumentsSpecifiques")
+	array("formulaire", "main"),
+	array("formulaire", "traiterMainFormulaire"),
+	array("utilisateur", "connecter"),
+	array("utilisateur", "connexion"),
+	array("utilisateur", "deconnexion")
 );
