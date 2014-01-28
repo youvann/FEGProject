@@ -478,7 +478,7 @@ class PagePdf{
                                 ………………………………………………………………………………………………………
                             </td>
                         </tr>
-                        <tr><td colspan="3">'.$this->getItem(false).'
+                        <tr><td colspan="3">'.$this->getItem(true).'
                         
                            
                        
@@ -514,12 +514,12 @@ class PagePdf{
             {
              $a='';
              
-             foreach($this->voeux as $element)
+             foreach($voeux as $element)
              {      
                    $a.=  '  <tr> 
-                            <td style="border-right:none;"><input type="checkbox" name="nom">Admis<br/><br/><br/><br/>
+                            <td ><input type="checkbox" name="nom">Admis<br/><br/><br/><br/>
                             <input type="checkbox" name="nom">Refusé</td>
-                            <td style="width:110px; border-left:none;">'.$element.'<br/><br/></td>
+                            <td style="width:110px;>'.$element.'<br/><br/></td>
                             <td></td>
                             </tr>';
              }
