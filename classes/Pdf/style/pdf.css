@@ -49,6 +49,14 @@ td, th {
     border-left: none;
 }
 
+.border-bottom-none{
+    border-bottom: none;
+}
+
+.no-border{
+    border: none;
+}
+
 .bold{
     font-family: verdanab;
 }
@@ -183,4 +191,12 @@ page{
     padding: 5px;
     border: 1px solid black;
     width: 120px;
+}
+
+.cadreRouge {
+    border-top: 20px solid red;
+    border-bottom: 20px solid red;
+    border-right: 10px solid red;
+    border-left: 10px solid red;
+    padding: 3px;
 }
