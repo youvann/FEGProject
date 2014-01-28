@@ -119,6 +119,10 @@ switch ($action) {
         $pagePdf->setOther($dossier->getLangues(), $dossier->getAutresElements());
         $pagePdf->setInformationsSpecifiques($informationsSpecifiques);
 
+        $pagePdf->setCadreAdministrationVoeux(array("voeux1", "voeux2"));
+        $pagePdf->setVoeuxMultiple(true);
+        $pagePdf->setRowAdmin(true);
+
         // $documentsGeneraux    = array("CV", "Lettre de motivation", "Passeport/Carte d'identité","Diplômes", "Photo");
         // $documentsSpecifiques = array("Livret de famille", "Lettre essai", "llo/Carte d'identité","sss", "aaa");
         //$pagePdf->setDocumentsGeneraux($documentsGeneraux);

@@ -68,6 +68,10 @@ class PagePdf{
     // Informations spécifiques
     private $informationsSpecifiques;
 
+    private $rowAdmin;
+    private $tableauVoeux  = array();
+    private $voeuxMultiple;
+
     // Documents généraux
     //private $documentsGeneraux = array();
 
@@ -415,14 +419,132 @@ class PagePdf{
         . $this->printDocumentsSpecifiques();
     }
 
+    public function setRowAdmin($rowAdmin){
+        $this->rowAdmin = $rowAdmin;
+    }
+
+    public function getRowAdmin($rowAdmin){
+        if ($rowAdmin){
+            return '<input type="checkbox" name="suggestion">Proposition admission en niveau inférieur<br/>
+                    ………………………………………………………………………………………………………………………………………………………………………<br/>
+                    ………………………………………………………………………………………………………………………………………………………………………<br/><br/>';
+        }
+    }
+
+    public function getCadreSemester (){
+        return $this->voeuxMultiple . '<br><br><input type="checkbox"> S1
+                <input type="checkbox"> S2';
+    }
+
+    public function getCadreAdministration(){
+        return '<div class="cadreRouge"><span class="titre3 bold_underline">CADRE RESERVE A L’ADMINISTRATION</span><br/><br/><br/>
+                <div class="bold_underline">AVIS DU RESPONSABLE PEDAGOGIQUE DE LA FORMATION :</div><br/>
+                <form method="POST" action="">
+                    <table class="table_cadre">
+                        <tr>
+                            <th style="border-top:none;border-left:none;" colspan="2"></th>
+                            <th class="center">UE bénéficiant de la dispense</th>
+                        </tr>
+                        ' . $this->getVoeux($this->tableauVoeux, $this->voeuxMultiple) . '
+                        <tr>
+                            <td class="center bold" colspan="2">Motif du refus</td>
+                            <td>
+                                <input type="checkbox" name="motif">Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
+                                <input type="checkbox" name="motif">Le niveau est insuffisant pour la formation envisagée<br/><br/>
+                                <input type="checkbox" name="motif">Le niveau est jugé trop juste en français<br/><br/>
+                                <input type="checkbox" name="motif"> Autre motif:<br/>
+                                ………………………………………………………………………………………………………
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">' . $this->getRowAdmin($this->rowAdmin) . '</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                            <input type="checkbox" name="suggestion">Suggestion éventuelle de réorientation<br/>
+                                ………………………………………………………………………………………………………………………………………………………………………<br/>
+                                ………………………………………………………………………………………………………………………………………………………………………<br/>
+                                ………………………………………………………………………………………………………………………………………………………………………
+                            </td>
+                        </tr>
+                        <tr>
+                             <td colspan="3">Nom et signature<br/><br/><br/></td>
+                        </tr>
+                        </table>
+                    </form><br/>
+                    <div class="bold_underline">DECISION DE LA COMMISSION PEDAGOGIQUE de la faculté d’économie et de gestion</div><br>
+                        <table>
+                            <col style="width: 33%">
+                            <col style="width: 33%">
+                            <col style="width: 33%">
+                            <tr>
+                                <td class="bold no-border">
+                                    <input type="checkbox" class="bold">ADMIS
+                                </td>
+                                <td class="bold no-border">
+                                    <input type="checkbox" class="bold">REFUSE
+                                </td>
+                                <td class="bold no-border">
+                                    <input type="checkbox">LISTE D’ATTENTE
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+
+                        <div class="underline">Motif du refus</div><br>
+                         <div>
+                            <input type="checkbox" name="nom">Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
+                            <input type="checkbox" name="nom">Le niveau est insuffisant pour la formation envisagée<br/><br/>
+                            <input type="checkbox" name="nom">Le niveau est jugé trop juste en français<br/><br/>
+                            <input type="checkbox" name="nom">Autre motif
+                        </div>
+                </div>';
+    }
+
+    public function setVoeuxMultiple ($voeuxMultiple){
+        $this->voeuxMultiple = $voeuxMultiple;
+    }
+
+    public function getVoeux($voeux, $voeuxMultiple){
+        $voeuxFormation = '';
+        if($voeuxMultiple){
+            foreach($voeux as $element){
+                $voeuxFormation.=  '  <tr>
+                        <td><input type="checkbox" name="nom">Admis<br/>
+                        <input type="checkbox" name="nom">Refusé</td>
+                        <td style="width:110px;>' . $element . '<br/><br/></td>
+                        <td></td>
+                        </tr>';
+            }
+        }else{
+            $voeuxFormation = '<tr>
+                            <td width="100">
+                                <input type="checkbox" name="nom">Admis
+                            </td>
+                            <td width="100">
+                                <input type="checkbox" name="nom" />Refusé
+                            </td>
+                            <td class="border-bottom-none"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" width="200">' . $this->getCadreSemester() . '<br/></td>
+                            <td></td>
+                        </tr>';
+        }
+        return $voeuxFormation;
+    }
+
+    public function setCadreAdministrationVoeux($tableauVoeux){
+        $this->tableauVoeux = $tableauVoeux;
+    }
+
     public function getFicheCommissionPeda(){
         return '<div class="titre_encadre">FICHE COMMISSION PEDAGOGIQUE</div><br/>
                 <div class="text_align">Commission pédagogique du :………………………………………</div><br/>
                 <div>Nom et Prénom du candidat : ' . $this->applicantName . ' ' . $this->applicantFirstName . '</div>
                 <br/><div>Demande l’autorisation de s’inscrire en : ' . $this->title2 . '<br/></div><br/>
                 <div>Dernier diplôme obtenu : </div><br/>
-                <div>Date et lieu : le ' . date("d/m/Y") . ' à </div><br/><br/>
-                <img src="./classes/Pdf/img/cadre.png" alt="cadre_administration"/>';
+                <div>Date et lieu : le ' . date("d/m/Y") . ' à </div><br/><br/>';
     }
 
     public function __toString (){
@@ -434,7 +556,7 @@ class PagePdf{
         // $this->getNewPage() . $this->getDocumentsGeneraux() . $this->getPageEnd() .
         //$this->getNewPage() . $this->getDocumentsSpecifiques() . $this->getPageEnd() .
         //$this->getNewPage() . $this->getDossierModalite() . $this->getPageEnd() .
-        $this->getNewPage() . $this->getFicheCommissionPeda() . $this->getPageEnd();
+        $this->getNewPage() . $this->getFicheCommissionPeda() . $this->getCadreAdministration() . $this->getPageEnd();
     }
 }
 
