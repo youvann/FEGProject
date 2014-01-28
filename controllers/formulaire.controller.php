@@ -21,9 +21,7 @@ switch ($action) {
 			$derniere = $_POST['derniere'];
 			$souhaitee = $_POST['souhaitee'];
 
-			echo $twig->render('formulaire/informationsGenerales.html.twig', array(
-				"limitDate" => $limitDate
-			));
+			echo $twig->render('formulaire/informationsGenerales.html.twig');
 		} break;
 	case "main": {
 			// Chargement des voeux
@@ -53,15 +51,16 @@ switch ($action) {
 				'typedossier' => 'CA'
 			));
 		} break;
-
-	case "informationsGenerales": {
-			echo $twig->render('formulaire/informationsGenerales.html.twig');
-		} break;
 	case "traiterMainFormulaire": {
-			var_dump($_POST);
+			var_dump($_POST, count($_POST));
+
+			$postInformations = array_slice($_POST, 69);
+			$structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find('3BAS')));
+			$json = $translatorFormToJson->translate($structure, $postInformations);
+			var_dump($json);
 			
 			// Changer le code formation !!
-			$dossier = new Dossier($_POST["ine"], '3BAS', $_POST["nom"], $_POST["prenom"], $_POST["adresse"], $_POST["complement"], $_POST["code_postal"], $_POST["ville"], $_POST["date_naissance"], $_POST["lieu_naissance"], $_POST["fixe"], $_POST["portable"], $_POST["mail"], $_POST["genre"], $_POST["langues"], $_POST["nationalite"], $_POST["serie_bac"], $_POST["annee_bac"], $_POST["etablissement_bac"], $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["autre"], $_POST["titulaire"], $_POST["ville_preferee"], $_POST["autres_elements"], NULL, NULL);
+			$dossier = new Dossier($_POST["ine"], '3BAS', $_POST["nom"], $_POST["prenom"], $_POST["adresse"], $_POST["complement"], $_POST["code_postal"], $_POST["ville"], $_POST["date_naissance"], $_POST["lieu_naissance"], $_POST["fixe"], $_POST["portable"], $_POST["mail"], $_POST["genre"], $_POST["langues"], $_POST["nationalite"], $_POST["serie_bac"], $_POST["annee_bac"], $_POST["etablissement_bac"], $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["autre"], $_POST["titulaire"], $_POST["ville_preferee"], $_POST["autres_elements"], $json, NULL);
 			var_dump($dossier);
 
 			if (!$etudiantManager->ifExists(new Etudiant($_POST["ine"], 1))) {
@@ -89,13 +88,6 @@ switch ($action) {
 				$faireManager->insert(new Faire($codeEtape, $_POST["ine"], '3BAS', $i));
 				++$i;
 			}
-
-			$structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find('3BAS')));
-			$json = $translatorFormToJson->translate($structure, $_POST['elem-']);
-			var_dump($json);
-			$dossier = $dossierManager->find($_POST['ine'], '3BAS');
-			$dossier->setInformations($json);
-			$dossierManager->update($dossier);
 		}
 	default: break;
 }
