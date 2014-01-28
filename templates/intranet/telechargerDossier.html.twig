@@ -1,7 +1,21 @@
 {% extends 'intranet.html.twig' %}
 
 {% block content %}
+    <h2 class="titre_rubrique">Options</h2>
 
-<a href="{{ path }}">Télécharger</a>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <a href="{{ path }}" class="btn btn-primary  btn-block">Télécharger {{ path }}</a>
+                    <a href="#" class="btn btn-danger btn-block">Supprimer {{ path }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <a href="index.php?uc=intranet&action=explorateur"  class="btn btn-primary">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+    </a>
 
 {% endblock %}
