@@ -76,8 +76,8 @@ class PagePdf{
         $this->css        = '<link type="text/css" href="' . $this->cssPath . '" rel="stylesheet" >';
     }
 
-    public function setPagePdfHeaderImgPath ($imgPath, $imgPath2){
-        $this->pagePdfHeader->setImgPath($imgPath, $imgPath2);
+    public function setPagePdfHeaderImgPath ($imgPath){
+        $this->pagePdfHeader->setImgPath($imgPath);
     }
 
     public function setPagePdfHeaderText ($headerText){

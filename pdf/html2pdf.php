@@ -26,6 +26,7 @@
     $pagePdf->setPrevFormation("Scientifique", "2010", "Lycée Pierre Paul Jack", "Réunion", "France", "Lycée 1", "Lycée 2", "Lycée 3", "Lycée 4", "Lycée 5", "cursus 1", "cursus 2", "cursus 3", "cursus 4", "cursus 5", "oui", "non", "oui", "non", "non", "2012/2013", "2011/2012", "2010/2011", "2009/2010", "2008/2007");
     $pagePdf->setExperiencePro('checked', 'checked', 'checked', 12, 35, "Anglais bon niveau (lu, écrit et parlé)", "Pas d'autres éléments appuyant ma candidature");
     $pagePdf->setCadreAdministration("Licence L3 gestion parcours Miage<br/> <input type='checkbox' name='s1ouS2'>S1  <input type='checkbox' name='s1ouS2'>S2");
+    $pagePdf->setCadreAdministrationVoeux(array("voeux 1", "voeux 2", "voeux 3"));
     // Rajouter code ici 
     
     ob_start();

@@ -11,7 +11,7 @@
     $pagePdf = new PagePdf("./pdf.css", "30mm", "7mm", "0mm", "10mm");
 
     // En-tête du pdf
-    $pagePdf->setPagePdfHeaderImgPath("./img/feg.png", "./img/logo_eco_appliquee.png");
+    $pagePdf->setPagePdfHeaderImgPath("./img/feg.png");
     
 
     // Pied du pdf

@@ -85,6 +85,9 @@ class PagePdf{
     
     //cadre administration
     private $licenceMsg;
+    private $a;
+    private $tablo=array();
+    private $voeux=array();
 
     
 
@@ -437,6 +440,20 @@ class PagePdf{
          $this->licenceMsg = $licenceMsg;
     }
     
+    
+    public function getItem($formation)
+    { if ($formation==true)
+        {
+        $a= '
+           <input type="checkbox" name="suggestion">Proposition admission en niveau inférieur<br/>
+                            ………………………………………………………………………………………………………………………………………………………………………<br/>
+                            ………………………………………………………………………………………………………………………………………………………………………<br/><br/> 
+        ';
+        
+        return $a;
+        }
+    }
+
     public function getCadreAdministration()
     {  
         return '<br/><div class="cadreRouge"><span class="titre3 bold_underline">CADRE RESERVE A L’ADMINISTRATION</span><br/><br/><br/>  
@@ -461,12 +478,10 @@ class PagePdf{
                                 ………………………………………………………………………………………………………
                             </td>
                         </tr>
-                        <tr><td colspan="3">
-                        <!--cette partie doit être visible dans certain cas: condition if avec booleen mais fonctionne pas-->
-                            <input type="checkbox" name="suggestion">Proposition admission en niveau inférieur<br/>
-                            ………………………………………………………………………………………………………………………………………………………………………<br/>
-                            ………………………………………………………………………………………………………………………………………………………………………<br/><br/>   
-                        <!--jusque là-->
+                        <tr><td colspan="3">'.$this->getItem(false).'
+                        
+                           
+                       
                         <input type="checkbox" name="suggestion">Suggestion éventuelle de réorientation<br/>
                             ………………………………………………………………………………………………………………………………………………………………………<br/>
                             ………………………………………………………………………………………………………………………………………………………………………<br/>
@@ -493,6 +508,91 @@ class PagePdf{
         </div>
         ';
     }
+    
+        public function getVoeux($voeux)
+        { 
+            {
+             $a='';
+             
+             foreach($this->voeux as $element)
+             {      
+                   $a.=  '  <tr> 
+                            <td style="border-right:none;"><input type="checkbox" name="nom">Admis<br/><br/><br/><br/>
+                            <input type="checkbox" name="nom">Refusé</td>
+                            <td style="width:110px; border-left:none;">'.$element.'<br/><br/></td>
+                            <td></td>
+                            </tr>';
+             }
+
+
+            return $a;
+            }
+        }
+    
+        
+        public function setCadreAdministrationVoeux($tablo)
+    {
+            $this->tablo = $tablo;
+    }
+        
+        
+    public function getCadreAdministrationVoeux()
+    {  
+        return '<br/><div class="cadreRouge"><span class="titre3 bold_underline">CADRE RESERVE A L’ADMINISTRATION</span><br/><br/><br/>  
+                <div class="bold_underline">AVIS DU RESPONSABLE PEDAGOGIQUE DE LA FORMATION :</div><br/>
+                    <form method="POST" action=""><table class="table_cadre">
+                    
+                        <tr><th style="border-top:none;border-left:none;" colspan="2"></th>
+                            <th class="center">UE bénéficiant de la dispense</th>  
+                        </tr>'.$this->getVoeux($this->tablo).'
+                        
+                        <tr>
+                            <td class="center bold" colspan="2">Motif du refus</td>
+                            <td><input type="checkbox" name="motif">Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
+                                <input type="checkbox" name="motif">Le niveau est insuffisant pour la formation envisagée<br/><br/>
+                                <input type="checkbox" name="motif">Le niveau est jugé trop juste en français<br/><br/>
+                                <input type="checkbox" name="motif"> Autre motif:<br/>
+                                ………………………………………………………………………………………………………
+                            </td>
+                        </tr>
+                        <tr><td colspan="3">'.$this->getItem(false).'
+                        
+                           
+                       
+                        <input type="checkbox" name="suggestion">Suggestion éventuelle de réorientation<br/>
+                            ………………………………………………………………………………………………………………………………………………………………………<br/>
+                            ………………………………………………………………………………………………………………………………………………………………………<br/>
+                            ………………………………………………………………………………………………………………………………………………………………………
+                            </td>
+                            
+                        </tr>   
+                        <tr>
+                             <td colspan="3">Nom et signature<br/><br/><br/></td>
+                        </tr> 
+                        
+                        </table></form>
+                   <br/><div class="bold_underline">DECISION DE LA COMMISSION PEDAGOGIQUE de la faculté d’économie et de gestion</div>
+                            <span class=bold"><input type="checkbox" name="nom">ADMIS</span> 
+                            <span class=bold"><input type="checkbox" name="nom">REFUSE</span> 
+                            <span class=bold text_align"><input type="checkbox" name="nom">LISTE D’ATTENTE</span><br/><br/>
+                            <div class="underline">Motif du refus</div>
+                   <div>
+                            <input type="checkbox" name="nom">Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
+                            <input type="checkbox" name="nom">Le niveau est insuffisant pour la formation envisagée<br/><br/>
+                            <input type="checkbox" name="nom">Le niveau est jugé trop juste en français<br/><br/>
+                            <input type="checkbox" name="nom">Autre motif
+                   </div>
+        </div>
+        ';
+    }
+    
+    
+    
+    
+    
+    
+    
+   
 
     public function __toString (){
         return $this->getCssPath() .
@@ -500,7 +600,9 @@ class PagePdf{
         $this->getNewPage() . $this->getPlanFormation() . $this->getPrevFormation() . $this->getExperiencePro() . $this->getPageEnd() .
         $this->getNewPage() . $this->getPieceAjoindre() . $this->getPageEnd() .
         $this->getNewPage() . $this->getDossierModalite() . $this->getPageEnd() .
-        $this->getNewPage() . $this->getFicheCommissionPeda() . $this->getCadreAdministration() . $this->getPageEnd();
+        $this->getNewPage() . $this->getFicheCommissionPeda() . $this->getCadreAdministration() . $this->getPageEnd() .
+        $this->getNewPage() . $this->getCadreAdministrationVoeux() . $this->getPageEnd();
+         
     }
 }
 
