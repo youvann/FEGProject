@@ -34,15 +34,17 @@ switch ($action) {
         echo $twig->render('formation/ajouterFormation.html.twig', array('facultes' => $facultes, 'langues' => $langues));
     } break;
     case "ajout": {
-		$formationManager->insert(new Formation($_POST['code_formation'], $_POST['mention'], $_POST['ouverte'], $_POST['faculte'], $_POST['langue']));
+		$formationManager->insert(new Formation($_POST['code_formation'], $_POST['mention'], $_POST['modalites'], $_POST['ouverte'], $_POST['faculte'], $_POST['langue']));
         header('location:index.php?uc=formation&action=grille');
     } break;
     case "modifier": {
+		$facultes = $faculteManager->findAll();
+		$langues = $langueManager->findAll();
         $formation = $formationManager->find($_GET['code']);
-        echo $twig->render('formation/modifierFormation.html.twig', array('formation' => $formation));
+        echo $twig->render('formation/modifierFormation.html.twig', array('facultes' => $facultes, 'langues' => $langues, 'formation' => $formation));
     } break;
     case "modification": {
-        $formation = new Formation($_POST['code_formation'], $_POST['mention'], $_POST['ouverte'], $_POST['faculte'], $_POST['langue']);
+        $formation = new Formation($_POST['code_formation'], $_POST['mention'], $_POST['modalites'], $_POST['ouverte'], $_POST['faculte'], $_POST['langue']);
         $formationManager->update($formation);
         header('location:index.php?uc=formation&action=grille');
     } break;

@@ -1,3 +1,6 @@
+
+<fieldset>
+	<legend>Documents à joindre</legend>
 Veuillez nous transmettre les pièces suivantes :
 <ul>
 	{% for documentGeneral in documentsGeneraux %}
@@ -16,6 +19,7 @@ Veuillez nous transmettre les pièces suivantes :
     {% endfor %}
 </ul>
 {% endif %}
+</fieldset>
 
 <div id="upload">Ajouter</div><br>
 <button type="button" class="btn btn-primary"><div id="startUpload">Commencer l'upload</div></button>
