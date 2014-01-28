@@ -27,8 +27,8 @@
 						{% endif %}
 						{% include 'formulaire/documentsGeneraux.html.twig' %}
 					{% endif %}
-					<input type="submit" class="btn btn-primary">
 				</form>
+				<button id="customSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Envoyer</button>
 			</div> <!-- panel-body -->
 		</div><!-- panel panel-primary -->
 	</div>
@@ -77,15 +77,17 @@
 				$('#mainFormulaire').submit();
 			}
 		});
+		
+		$("#customSubmit").click(function() {
+			// On lance la validation du formulaire ici
+			uploadObj.startUpload();
+		});
 
 		$('#mainFormulaire').submit(function() {
-			console.log("je passe");
 			var choix = [];
 			$('select').each(function() {
 				choix.push($(this).val());
 			});
-			uploadObj.startUpload();
-			return false;
 		});
 
 		$("#startUpload").click(function() {
