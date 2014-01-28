@@ -1,6 +1,6 @@
 <?php
 
-$output_dir = "";
+$output_dir = "../dossiers/3BAS/Candidatures/";
 if (isset($_FILES["myfile"])) {
 	$ret = array();
 

@@ -91,11 +91,11 @@ switch ($action) {
                             LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
                             ORDER BY `information`.`ordre`;')->fetchAll();
 
-        //$structure               = $translatorResultsetToStructure->translate($rs);
-        //$informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
-        $informationsSpecifiques = "";
-        $structure = "";
-
+        $structure               = $translatorResultsetToStructure->translate($rs);
+        $informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
+        //$informationsSpecifiques = "";
+        //$structure = "";
+        
         require_once './classes/Pdf/PagePdf.class.php';
         $pagePdf = new PagePdf("./classes/pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
 

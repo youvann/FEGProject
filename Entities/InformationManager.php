@@ -70,7 +70,7 @@ class InformationManager {
 			INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
 			LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
 			WHERE `information`.`code_formation` = ?
-			ORDER BY `information`.`id`, `information`.`ordre`;');
+			ORDER BY `information`.`ordre`;');
 		$q->execute(array($formation->getCodeFormation()));
 		return $q->fetchAll();
 	}

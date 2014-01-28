@@ -386,6 +386,10 @@
 
         function ajaxFormSubmit(form, s, pd, fileArray, obj) {
             var currentXHR = null;
+            console.log(s);
+            console.log(s.formData);
+            console.log(s.fileData);
+            console.log(s.returnType);
             var options = {
                 cache: false,
                 contentType: false,

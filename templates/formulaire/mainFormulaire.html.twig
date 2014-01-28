@@ -50,15 +50,6 @@
 	};
 
 	$(function() {
-		$('#formChoixVoeux').submit(function() {
-			//alert($(this).serialize());
-			var choix = [];
-			$('select').each(function() {
-				choix.push($(this).val());
-			});
-			alert(choix.allValuesAreDifferent());
-		});
-
 		var uploadObj = $("#upload").uploadFile({
 			url: "upload/upload.php",
 			dragDrop: true,
@@ -81,7 +72,20 @@
 					});
 				}
 				pd.statusbar.hide(); //You choice.
+			},
+			afterUploadAll:function() {
+				$('#mainFormulaire').submit();
 			}
+		});
+
+		$('#mainFormulaire').submit(function() {
+			console.log("je passe");
+			var choix = [];
+			$('select').each(function() {
+				choix.push($(this).val());
+			});
+			uploadObj.startUpload();
+			return false;
 		});
 
 		$("#startUpload").click(function() {

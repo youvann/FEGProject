@@ -30,10 +30,10 @@
 					require_once '../../../model/PDO.php';
 
 					$rs = $conn->query('SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
-FROM `information` 
-	INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
-	LEFT JOIN `choix` ON (`information`.`id` = `choix`.`texte`) 
-	ORDER BY `information`.`ordre`;')->fetchAll();
+						FROM `information` 
+							INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
+							LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`) 
+						ORDER BY `information`.`ordre`;')->fetchAll();
 
 					$structure = array();
 
@@ -56,7 +56,7 @@ FROM `information`
 						++$i;
 						$structure[] = $array;
 					}
-
+					var_dump($structure);
 
 					if (!empty($_POST)) {
 						$translator = new TranslatorJsonToHTML();
