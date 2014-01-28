@@ -1,54 +1,82 @@
 {% extends 'intranet.html.twig' %}
 
 {% block content %}
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+        <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
+        <li class="active">Liste des informations</li>
+    </ol>
 
-<ol class="breadcrumb">
-	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
-	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
-	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
-	<li class="active">Liste des informations</li>
-</ol>
+    <h2 class="titre_rubrique">Liste des informations</h2>
 
-<h2 class="titre_rubrique">Liste des informations</h2>
+    <a href="index.php?uc=information&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
+        <span class="glyphicon glyphicon-plus-sign"></span> Ajouter une information
+    </a>
 
-<a href="index.php?uc=information&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
-	<span class="glyphicon glyphicon-plus-sign"></span> Ajouter une information
-</a>
+    {% if informations is not empty %}
 
-{% if informations is not empty %}
+        <div class="row" style="margin-top: 2em;">
+            <div class="col-md-4"><b>Libellé</b></div>
+            <div class="col-md-2"><b>Explications</b></div>
+            <div class="col-md-2"><b>Type</b></div>
+            <div class="col-md-4"><b>Options</b></div>
+        </div>
 
-<table style="margin-top: 1em;" class="table table-hover table-bordered table-striped">
-	<tr>
-		<th>Libellé</th>
-		<th>Explications</th>
-		<th>Type</th>
-		<th>Ordre</th>
-		<th>Options</th>
-	</tr>
-        {% for information in informations %}
-	<tr>
-		<td>{{ information.libelle }}</td>
-		<td>{{ information.explications }}</td>
-		<td>{{ information.nom }}</td>
-		<td>{{ information.ordre }}</td>
-		<td>
-			<div class="btn-group">
-				<a href="index.php?uc=information&action=consulter&id={{ information.id }}&code={{ code }}" type="button" class="btn btn-info">
-					<span class="glyphicon glyphicon-check"></span> Consulter
-				</a>
-				<a href="index.php?uc=information&action=suppression&id={{ information.id }}&code={{ code }}" type="button" class="btn btn-danger">
-					<span class="glyphicon glyphicon-trash"></span> Supprimer
-				</a>
-			</div>
-		</td>
-	</tr>
-        {% endfor %}
-</table>
+        <div class="grid">
+            {% for information in informations %}
+                <div id="info-{{ information.id }}" class="well-feg col-md-12 tile">
+                    <div class="col-md-4">{{ information.libelle }}</div>
+                    <div class="col-md-2">{{ information.explications }}</div>
+                    <div class="col-md-2">{{ information.nom }}</div>
 
-{% endif %}
-<hr />
-<a href="index.php?uc=formation&action=consulter&code={{ code }}"  class="btn btn-primary">
-	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
-</a>
+                    <div class="col-md-4">
+                        <div class="btn-group">
+                            <a href="index.php?uc=information&action=consulter&id={{ information.id }}&code={{ code }}" type="button" class="btn btn-info">
+                                <span class="glyphicon glyphicon-check"></span> Consulter
+                            </a>
+                            <a href="index.php?uc=information&action=suppression&id={{ information.id }}&code={{ code }}" type="button" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span> Supprimer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
+    <hr />
+    <a href="index.php?uc=formation&action=consulter&code={{ code }}"  class="btn btn-primary">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+    </a>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="./public/js/jquery-ui-1.10.4.custom.min.js"></script>
+    <script>
+        $(function () {
+            $(".grid").sortable({
+                tolerance: 'pointer',
+                revert: 'invalid',
+                placeholder: 'col-md-12 well placeholder tile',
+                forceHelperSize: true,
+                axis :'y',
+                stop: function(event, ui) {
+                    var data = $(this).sortable('serialize');
+                    console.log(data);
+                    $.ajax({
+                        data: data,
+                        type: 'POST',
+                        url: 'index.php?uc=information&action=ordonnancement',
+                        success: function(html) {
+                            console.log(html);
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
 {% endblock %}
