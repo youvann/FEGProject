@@ -182,7 +182,11 @@ switch ($action) {
             $html2pdf->setDefaultFont('verdana');
             $html2pdf->pdf->SetDisplayMode('fullpage');
             $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-            $html2pdf->Output('html2pdf.pdf');
+            //Affiche le PDF dans le navigateur
+            //$html2pdf->Output('html2pdf.pdf');
+            //$html2pdf->Output('html2pdf.pdf');
+            $html2pdf->Output('dossiers/3BAS/Candidatures/g11625159/Candidature-g11625159.pdf', 'F');
+            echo "PDF BIEN GENERE";
         } catch (HTML2PDF_exception $e) {
             echo $e;
             exit;
