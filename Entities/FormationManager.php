@@ -28,6 +28,10 @@ class FormationManager {
 		return $formations;
 	}
 
+	public function getLinks() {
+		return $this->db->query("SELECT CONCAT('<a href=\"http://miage-aix-marseille.fr/?uc=formulaire&action=choixFormation&formationchoisie=', `formation`.`CODE_FORMATION`, '\">', `formation`.`MENTION`, '</a>') as lien FROM `formation`;")->fetchAll();
+	}
+
 	public function insert(Formation $formation) {
 		return $this->db->prepare("insert into formation (`CODE_FORMATION`, `MENTION`, `MODALITES`,`OUVERTE`, `FACULTE`, `LANGUE`) VALUES (?, ?, ?, ?, ?, ?);")
 						->execute(array(

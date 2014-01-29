@@ -22,13 +22,15 @@ switch ($action) {
 			$rs = $q->fetch();
 			if ($rs[0] === '1') {
 				$_SESSION['name'] = 'Administrateur';
-				$_SESSION['rights'] = $superAdmin;
+				$_SESSION['grade'] = 4;
+				$_SESSION['rights'] = $droits[$_SESSION['grade'] - 1];
 				header('location:index.php?uc=intranet&action=accueil');
 			} else {
 				header('location:index.php');
 			}
 		} break;
 	case "deconnexion": {
+			session_destroy();
 			$_SESSION['name'] = 'Anonymous';
 			$_SESSION['rights'] = $anonymous;
 			header('location:index.php');

@@ -2,7 +2,7 @@
 
 /**
  * @Project: FEG Project
- * @File: /controllers/informationSupp.controller.php
+ * @File: /controllers/information.controller.php
  * @Purpose:
  * @Author:
  */
@@ -11,13 +11,6 @@ if (!isset($_GET['action'])) {
 } else {
 	$action = $_GET['action'];
 }
-
-/* autorisations
-  $pageAction = array("ordonner", "ajouter", "ajout", "modifier", "modification", "suppression");
-
-  if (in_array($action, $pageAction) && !$utilisateur->isConnected()) {
-  header('location:index.php?uc=utilisateur&action=connecter');
-  } */
 
 switch ($action) {
 	case "grille": {
@@ -51,9 +44,7 @@ switch ($action) {
 		} break;
     case "ordonnancement": {
         $i = 1;
-       //var_dump($_POST);
         foreach ($_POST['info'] as $id) {
-            //echo 'id : ' . $id . ', iterateur : ' . $i . '<br />';
             $information = $informationManager->find($id);
             $information->setOrdre($i++);
             $informationManager->update($information);

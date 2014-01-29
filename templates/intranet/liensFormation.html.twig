@@ -1,0 +1,9 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+{% for lien in liens %}
+{{ lien.lien }}<br />
+{% endfor %}
+
+{% endblock %}

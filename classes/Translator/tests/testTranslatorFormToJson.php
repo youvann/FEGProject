@@ -20,11 +20,12 @@
 
 					require_once '../../../model/PDO.php';
 
-					$rs = $conn->query('SELECT `information_supp`.`id` as idInfo, `information_supp`.`libelle` as libelleInfo, `type_formelement`.`nom` as typeInfo, `libelle_info`.`contenu` as libellesInfo
-FROM `information_supp` 
-	INNER JOIN `type_formelement` ON (`information_supp`.`type` = `type_formelement`.`id`)
-	LEFT JOIN `libelle_info` ON (`information_supp`.`id` = `libelle_info`.`info`) 
-	ORDER BY `information_supp`.`ordre`;')->fetchAll();
+					$rs = $conn->query("SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
+						FROM `information` 
+							INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
+							LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`) 
+						WHERE `information`.`code_formation` = '3BAS'
+						ORDER BY `information`.`ordre`;")->fetchAll();
 
 					$structure = array();
 
@@ -48,7 +49,7 @@ FROM `information_supp`
 						$structure[] = $array;
 					}
 
-
+					var_dump($structure, $_POST);
 					if (!empty($_POST)) {
 						$translator = new TranslatorFormToJson();
 						var_dump($translator->translate($structure, $_POST));

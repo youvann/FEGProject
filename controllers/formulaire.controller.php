@@ -21,7 +21,7 @@ switch ($action) {
         $derniere = $_POST['derniere'];
         $souhaitee = $_POST['souhaitee'];
 
-        echo $twig->render('formulaire/informationsGenerales.html.twig');
+        header('location:index.php?uc=formulaire&action=main');
     }
         break;
     case "main": {

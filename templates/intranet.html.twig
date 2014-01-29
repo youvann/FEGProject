@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-2">
 			<div class="panel panel-primary-bf">
-				<div class="panel-heading">Accueil</div>
+				<div class="panel-heading">Accueil ({{ session.name}})</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills nav-stacked">
 						<li class="{% if get.uc == 'intranet' and get.action == 'accueil' %}active{% endif %}"><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>

@@ -37,31 +37,18 @@ switch ($action) {
         );
     }
         break;
-    case "telechargerDossier" :
-    {
-        /*$z = new ZipArchive();
-        $z->open("test.zip", ZIPARCHIVE::CREATE);
-        folderToZip($_GET['folder'], $z, true);
-        $z->close();*/
-        //var_dump($_GET['folder'], str_replace('/', '\\', $_GET['folder']));
-        //var_dump($_GET['folder']);
-        //$path = folderToZip2($_GET['folder']);
-
+    case "telechargerDossier" : {
         $path = Zip($_GET['folder'], './lib/' . time() . '.zip');
 		echo $twig->render('intranet/telechargerDossier.html.twig', array('path' => $path));
     }
         break;
-    case "generationPdfCandidature" :
-    {
+    case "generationPdfCandidature" : {
         $formation   = $formationManager->find("3BAS");
         $dossier     = $dossierManager->find('g11625159', '3BAS');
         $titulaire   = $titulaireManager->findAll();
         $cursus      = $cursusManager->findAllByDossier($dossier);
         $experiences = $experienceManager->findAllByDossier($dossier);
         $faires      = $faireManager->findAllByDossier($dossier);
-
-        //$documentsGeneraux    = $documentGeneralManager->findAll();
-        //$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("3BAS");
 
         $etapes = array();
         $villesPossibles = array();
@@ -151,6 +138,10 @@ switch ($action) {
         }
     }
         break;
+    case "liensFormation": {
+        $liens = $formationManager->getLinks();
+        echo $twig->render('intranet/liensFormation.html.twig', array('liens' => $liens));
+    } break;
     default:
         break;
 }

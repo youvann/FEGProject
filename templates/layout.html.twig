@@ -16,7 +16,11 @@
                         </tr>
                         <tr>
                             <td>
+                                {% if session.grade > 1 %}
+                                <a href="index.php?uc=intranet&action=accueil">Espace réservé au personnel</a>
+                                {% else %}
                                 <a href="index.php?uc=utilisateur&action=connecter">Espace réservé au personnel</a>
+                                {% endif %}
                             </td>
                         </tr>
                     </table>

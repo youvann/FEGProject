@@ -32,13 +32,20 @@ class InformationManager {
 	}
 
 	public function insert(Information $information) {
-		return $this->db->prepare("INSERT INTO `information` (`TYPE`, `CODE_FORMATION`, `LIBELLE`, `EXPLICATIONS`, `ORDRE`) VALUES (?, ?, ?, ?, ?);")
+		$q = $this->db->prepare("SELECT (SELECT ifnull(max(`id`),'i00000')  FROM `information`) as id, (SELECT ifnull(max(`ordre`),'0') FROM `information` WHERE `information`.`code_formation` = ?) as ordre;");
+		$q->execute(array($information->getCodeFormation()));
+		$rs = $q->fetch();
+		$id = $rs['id'];
+		$ordre = $rs['ordre'];
+
+		return $this->db->prepare("INSERT INTO `information` (`ID`, `TYPE`, `CODE_FORMATION`, `LIBELLE`, `EXPLICATIONS`, `ORDRE`) VALUES (?, ?, ?, ?, ?, ?);")
 						->execute(array(
+							++$id,
 							$information->getType(),
 							$information->getCodeFormation(),
 							$information->getLibelle(),
 							$information->getExplications(),
-							$information->getOrdre()
+							++$ordre
 		));
 	}
 
