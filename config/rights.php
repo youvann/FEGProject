@@ -7,6 +7,7 @@ $droits = array(
 		array("formulaire", "traiterChoixFormation"),
 		array("formulaire", "main"),
 		array("formulaire", "traiterMainFormulaire"),
+		array("formulaire", "candidaturePossible"),
 		array("utilisateur", "connecter"),
 		array("utilisateur", "connexion"),
 		array("utilisateur", "deconnexion")

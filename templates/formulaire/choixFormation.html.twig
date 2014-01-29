@@ -8,79 +8,85 @@
                 <div class="panel-heading">
                     <h3>Votre parcours</h3>
                     <br/>
+
                     <div class="progress progress-striped active">
-                        <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 16%">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 16%">
                             <span class="sr-only">16% Complete</span>
                         </div>
                     </div>
-                </div><!-- /panel-heading -->
+                </div>
+                <!-- /panel-heading -->
 
                 <div class="panel-body">
 
-                    <form role="form" action="index.php?uc=formulaire&action=traiterChoixFormation" id="formChoixFormation" method="post">
-
+                    <form role="form" action="index.php?uc=formulaire&action=traiterChoixFormation"
+                          id="formChoixFormation" method="post">
                         <fieldset>
                             <legend>Formation souhaitée</legend>
+                            <div class="form-group has-success">
+                                <label for="ine">Votre numéro INE</label>
+                                <input class="form-control" type="text" id="ine" name="ine"/>
+                            </div>
                             <div class="form-group">
                                 <label for="liste1">Sélectionnez votre dernière formation effectuée</label>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <select class="form-control" name="derniere">
-                                            <optgroup label="Licence">
-                                                <option>L1 AES</option>
-                                                <option>L2 AES</option>
-                                                <option>L3 Parcours Travail et Ressources Humaines (TRH)</option>
-                                                <option>L3 Parcours Gestion des Entreprises (GE)</option>
-                                            </optgroup>
-                                            <optgroup label="Master">
-                                                <option>M1 Administration des Institutions Culturelles (AIC)</option>
-                                                <option>M1 Aix Marseille Sciences Economiques</option>
-                                                <option>M1 Aix Marseille Sciences Economiques parcours Magistere</option>
-                                            </optgroup>
-                                            <optgroup label="Autre">
-                                                <option>Autre</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                </div><!-- /row -->
-                            </div><!-- /form-group -->
-
-                            <div id="autre_formation">
-                                <form role="form">
+                                <select class="form-control" id="nomFormationChoisie" name="nomFormationChoisie">
+                                    <optgroup label="Licence">
+                                        <option>L1 AES</option>
+                                        <option>L2 AES</option>
+                                        <option>L3 Parcours Travail et Ressources Humaines (TRH)</option>
+                                        <option>L3 Parcours Gestion des Entreprises (GE)</option>
+                                    </optgroup>
+                                    <optgroup label="Master">
+                                        <option>M1 Administration des Institutions Culturelles (AIC)</option>
+                                        <option>M1 Aix Marseille Sciences Economiques</option>
+                                        <option>M1 Aix Marseille Sciences Economiques parcours Magistere</option>
+                                    </optgroup>
+                                    <optgroup label="Autre">
+                                        <option>Autre</option>
+                                    </optgroup>
+                                </select>
+                                <!-- /form-group -->
+                                <div id="autre_formation">
                                     <div class="form-group">
-                                        <label for="nomAutreFormation">Veuillez entrer le nom de la dernière formation que vous avez effectuée</label>
-                                        <input type="text" class="form-control" id="nomAutreFormation" name="nomAutreFormation">
+                                        <label for="nomAutreFormation">Veuillez entrer le nom de la dernière
+                                            formation que vous avez effectuée</label>
+                                        <input type="text" class="form-control" id="nomAutreFormation"
+                                               name="nomAutreFormation">
                                     </div>
-                                </form>
-                            </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label for="liste2">Sélectionnez la formation souhaitée pour l'année scolaire 2014-2015</label>
-                                <div class="row">
-                                    <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="liste2">Sélectionnez la formation souhaitée pour l'année scolaire
+                                        2014-2015</label>
 
-                                        <select class="form-control" name="souhaitee">
-                                            <optgroup label="Licence">
-                                                <option>L1 AES</option>
-                                                <option>L2 AES</option>
-                                                <option>L3 Parcours Travail et Ressources Humaines (TRH)</option>
-                                                <option>L3 Parcours Gestion des Entreprises (GE)</option>
-                                            </optgroup>
-                                            <optgroup label="Master">
-                                                <option>M1 Administration des Institutions Culturelles (AIC)</option>
-                                                <option>M1 Aix Marseille Sciences Economiques</option>
-                                                <option>M1 Aix Marseille Sciences Economiques parcours Magistere</option>
-                                            </optgroup>
-                                        </select>
 
-                                    </div>
-                                </div><!-- /row -->
-                            </div><!-- /form-group -->
-                            <input type="submit" class="btn btn-primary">
+                                    <select class="form-control" name="souhaitee">
+                                        <optgroup label="Licence">
+                                            <option>L1 AES</option>
+                                            <option>L2 AES</option>
+                                            <option>L3 Parcours Travail et Ressources Humaines (TRH)</option>
+                                            <option>L3 Parcours Gestion des Entreprises (GE)</option>
+                                        </optgroup>
+                                        <optgroup label="Master">
+                                            <option>M1 Administration des Institutions Culturelles (AIC)
+                                            </option>
+                                            <option>M1 Aix Marseille Sciences Economiques</option>
+                                            <option>M1 Aix Marseille Sciences Economiques parcours Magistere
+                                            </option>
+                                        </optgroup>
+                                    </select>
+
+
+                                </div>
+                                <!-- /form-group -->
+                                <input type="submit" class="btn btn-primary">
                         </fieldset>
                     </form>
-                </div> <!-- panel-body -->
-            </div><!-- panel panel-primary -->
+                </div>
+                <!-- panel-body -->
+            </div>
+            <!-- panel panel-primary -->
         </div>
     </div>
 
@@ -89,16 +95,34 @@
 {% block scripts %}
     {{ parent() }}
 
-     <script type="text/javascript">
-        $(document).ready(function(){
+    <script type="text/javascript">
+        $(document).ready(function () {
             var choixFormation = $("select[name='derniere'] > optgroup > option:selected").val();
             var autreFormation = $("#autre_formation");
 
             (choixFormation === "Autre") ? autreFormation.fadeIn("slow") : autreFormation.hide();
 
-            $("select[name='derniere']").on('change', function(){
+            $("select[name='derniere']").on('change', function () {
                 choixFormation = $("select[name='derniere'] > optgroup > option:selected").val();
                 (choixFormation === "Autre") ? autreFormation.fadeIn("slow") : autreFormation.fadeOut("fast");
+            });
+
+            $('#ine').on('input', function () {
+                console.log($(this).val());
+                var ine = $(this).val();
+                var codeFormation = '3BAS';
+                $.ajax({
+                    url: 'index.php?uc=formulaire&action=candidaturePossible',
+                    type: 'post',
+                    data: 'ine=' + ine + '&code_formation=' + codeFormation,
+                    dataType: 'json',
+                    success: function (json) {
+                        console.log(json.response);
+                        if (json.response == 0) {
+                            $('.has-success').removeClass('has-success').addClass('has-error');
+                        }
+                    }
+                });
             });
         });
     </script>

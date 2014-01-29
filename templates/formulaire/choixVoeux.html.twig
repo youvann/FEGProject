@@ -1,23 +1,23 @@
 <fieldset>
-	<legend>Choix de la spécialité</legend>
-								{% for i in 1..nbVoeux %}
-	<div class="form-group">
-		<label for="voeu-{{ i }}">Sélectionnez votre voeu n°{{ i }}</label>
-		<select class="form-control" id="voeu-{{ i }}" name="voeu[]">
-                                            {% for voeu in voeux %}
-											{% set villes = voeu.villes %}
-			<option value="{{ voeu.codeEtape }}">{{ voeu.etape }}
-											{% for ville in villes %}
-				- ({{ ville.nom }})
-											{% endfor %}
-			</option>
-											{% endfor %}
-		</select>
-	</div>
-								{% endfor %}
-	<div class="form-group">
-		<label>Ville préférée</label>
-		<input class="form-control required" type="text" id="ville_preferee" name="ville_preferee" />
+    <legend>Choix de la spécialité</legend>
+    {% for i in 1..3 %}
+        <div class="form-group">
+            <label for="voeu-{{ i }}">Sélectionnez votre voeu n°{{ i }}</label>
+            <select class="form-control" id="voeu-{{ i }}" name="voeu[]">
+                {% for voeu in voeux %}
+                    {% set villes = voeu.villes %}
+                    <option value="{{ voeu.codeEtape }}">{{ voeu.etape }}
+                        {% for ville in villes %}
+                            - ({{ ville.nom }})
+                        {% endfor %}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    {% endfor %}
+    <div class="form-group">
+        <label>Ville préférée</label>
+        <input class="form-control required" type="text" id="ville_preferee" name="ville_preferee"/>
 
 </fieldset>
 
