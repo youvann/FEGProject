@@ -36,6 +36,7 @@ $droits = array(
 		array("intranet", "carte"),
 		array("intranet", "explorateur"),
 		array("intranet", "generationPdfCandidature"),
+        array("intranet", "supprimerRepertoire"),
 		array("voeu", "consulter"),
 		array("voeu", "grille")
 	),array(// Responsable
@@ -78,6 +79,7 @@ $droits = array(
 		array("intranet", "carte"),
 		array("intranet", "explorateur"),
 		array("intranet", "generationPdfCandidature"),
+        array("intranet", "supprimerRepertoire"),
 		array("voeu", "consulter"),
 		array("voeu", "grille"),
 		array("voeu", "ajouter"),
@@ -123,6 +125,7 @@ $droits = array(
 		array("intranet", "telechargerDossier"),
 		array("intranet", "generationPdfCandidature"),
 		array("intranet", "liensFormation"),
+        array("intranet", "supprimerRepertoire"),
 		array("voeu", "consulter"),
 		array("voeu", "grille"),
 		array("voeu", "ajouter"),

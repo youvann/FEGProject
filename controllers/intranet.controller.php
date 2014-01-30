@@ -33,30 +33,50 @@ switch ($action) {
     case "explorateur" :
     {
         echo $twig->render('intranet/explorateur.html.twig',
-            array('directory' => str_replace(DIRECTORY_SEPARATOR, '/', realpath(dirname(__FILE__))) . '/../')
+            array('directory' => str_replace(DIRECTORY_SEPARATOR, '/', realpath(dirname(__FILE__))) . '/../dossiers/')
         );
     }
         break;
-    case "telechargerDossier" : {
-        $path = Zip($_GET['folder'], './lib/' . time() . '.zip');
-		echo $twig->render('intranet/telechargerDossier.html.twig', array('path' => $path));
+    case "telechargerDossier" :
+    {
+        //var_dump($_GET['folder']);
+        $pathFolder = $_GET['folder'];
+        $dirName = explode("/", $pathFolder);
+        $dirName = $dirName[sizeof($dirName )- 2];
+
+        $path = Zip($pathFolder, './dossiers/ZIP/' . $dirName . "-" . time() . '.zip');
+        var_dump($pathFolder);
+        echo $twig->render('intranet/telechargerDossier.html.twig', array(
+            'path' => $path,
+            'dirName' => $dirName,
+            'pathFolder' => $pathFolder
+        ));
     }
         break;
-    case "generationPdfCandidature" : {
-        $formation   = $formationManager->find("3BAS");
-        $dossier     = $dossierManager->find('g11625159', '3BAS');
-        $titulaire   = $titulaireManager->findAll();
-        $cursus      = $cursusManager->findAllByDossier($dossier);
+    case "supprimerRepertoire" :
+    {
+        // Suppression du contenu du répertoire concerné
+        removeDir($_GET["pathFolder"]);
+        header('location:index.php?uc=intranet&action=explorateur');
+
+    }
+        break;
+    case "generationPdfCandidature" :
+    {
+        $formation = $formationManager->find("3BAS");
+        $dossier = $dossierManager->find('g11625159', '3BAS');
+        $titulaire = $titulaireManager->findAll();
+        $cursus = $cursusManager->findAllByDossier($dossier);
         $experiences = $experienceManager->findAllByDossier($dossier);
-        $faires      = $faireManager->findAllByDossier($dossier);
+        $faires = $faireManager->findAllByDossier($dossier);
 
         $etapes = array();
         $villesPossibles = array();
 
         // Récupère l'ordre des voeux et les villes où la formatin a lieu
         foreach ($faires as $faire) {
-            $voeu                       = $voeuManager->find($faire->getCodeEtape());
-            $lesSeDerouler              = $seDeroulerManager->findAllByVoeu($voeu);
+            $voeu = $voeuManager->find($faire->getCodeEtape());
+            $lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
             $etapes[$faire->getOrdre()] = $voeu->getEtape();
 
             //echo $voeu->getEtape() . ' ' . $faire->getOrdre();
@@ -78,11 +98,11 @@ switch ($action) {
                             LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
                             ORDER BY `information`.`ordre`;')->fetchAll();
 
-        $structure               = $translatorResultsetToStructure->translate($rs);
+        $structure = $translatorResultsetToStructure->translate($rs);
         $informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
         //$informationsSpecifiques = "";
         //$structure = "";
-        
+
         require_once './classes/Pdf/PagePdf.class.php';
         $pagePdf = new PagePdf("./classes/pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
 
@@ -138,10 +158,12 @@ switch ($action) {
         }
     }
         break;
-    case "liensFormation": {
+    case "liensFormation":
+    {
         $liens = $formationManager->getLinks();
         echo $twig->render('intranet/liensFormation.html.twig', array('liens' => $liens));
-    } break;
+    }
+        break;
     default:
         break;
 }

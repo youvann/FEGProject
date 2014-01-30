@@ -6,6 +6,7 @@ function myMkdir($dir) {
 	}
 }
 
+/*
 myMkdir('3BAS');
 myMkdir('3BAS/Candidatures');
 myMkdir('3BAS/Preinsciption');
@@ -69,3 +70,5 @@ myMkdir('5BLS/Preinsciption');
 myMkdir('5BRH');
 myMkdir('5BRH/Candidatures');
 myMkdir('5BRH/Preinsciption');
+
+*/
