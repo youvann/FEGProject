@@ -120,6 +120,7 @@ $droits = array(
 		array("intranet", "accueil"),
 		array("intranet", "carte"),
 		array("intranet", "explorateur"),
+		array("intranet", "telechargerDossier"),
 		array("intranet", "generationPdfCandidature"),
 		array("intranet", "liensFormation"),
 		array("voeu", "consulter"),
