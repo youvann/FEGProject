@@ -19,6 +19,20 @@ header {
     border-radius: 10px 10px 10px 10px;
 }
 
+.nav-title{
+    text-align: center;
+    color: #23BBEA;
+    font-family: oswald;
+    font-size: 1.5em;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+}
+
+.sidebar{
+    box-shadow: 1px 1px 12px #b8b8b8;
+    border-radius: 10px 10px 10px 10px;
+}
+
 .titre_rubrique {
     font-weight: 300;
     margin-bottom: 20px;

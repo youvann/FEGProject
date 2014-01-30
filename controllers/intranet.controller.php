@@ -39,17 +39,25 @@ switch ($action) {
         break;
     case "telechargerDossier" :
     {
-        //var_dump($_GET['folder']);
+        // Récupère le chemin complet du répertoire à télécharger
         $pathFolder = $_GET['folder'];
         $dirName = explode("/", $pathFolder);
-        $dirName = $dirName[sizeof($dirName )- 2];
+        // Récupère le nom du répertoire à télécharger
+        $dirName = $dirName[sizeof($dirName) - 2];
+        // Vérifie si les répertoires candidatures et préinscriptions sont vides ou non
+        if($dirName === "Candidatures" || $dirName === "Preinscriptions"){
+            $empty = dirIsEmpty($pathFolder);
+        }else{
+            $empty = dirIsEmpty($pathFolder . "/Candidatures") && dirIsEmpty($pathFolder . "/Preinscriptions");
+        }
 
+        // Chemin où se trouve le zip à télécharger
         $path = Zip($pathFolder, './dossiers/ZIP/' . $dirName . "-" . time() . '.zip');
-        var_dump($pathFolder);
         echo $twig->render('intranet/telechargerDossier.html.twig', array(
             'path' => $path,
             'dirName' => $dirName,
-            'pathFolder' => $pathFolder
+            'pathFolder' => $pathFolder,
+            'empty' => $empty
         ));
     }
         break;

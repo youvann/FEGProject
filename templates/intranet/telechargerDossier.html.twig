@@ -2,19 +2,23 @@
 
 {% block content %}
     <h2 class="titre_rubrique">Options</h2>
+    <div class="alert alert-info">
+        <ul>
+            <li>Cliquer sur <b>télécharger</b> pour obtenir le répertoire compressé.</li>
+            <li>Cliquer sur <b>supprimer</b> pour effacer le <b>contenu</b> du répertoire sélectionné.</li>
+        </ul>
+    </div>
 
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <a href="{{ path }}" class="btn btn-primary  btn-block">Télécharger {{ dirName }}</a>
-                    <a href="#" class="btn btn-danger btn-block">Supprimer le contenu de {{ dirName }}</a>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="{{ path }}" class="btn btn-primary  btn-block">Télécharger {{ dirName }}</a>
+            <a href="#" class="btn btn-danger btn-block" {% if empty %}disabled="disabled"{% endif %}>Supprimer le
+                contenu de {{ dirName }}</a>
         </div>
     </div>
+
     <hr/>
-    <a href="index.php?uc=intranet&action=explorateur"  class="btn btn-primary">
+    <a href="index.php?uc=intranet&action=explorateur" class="btn btn-primary">
         <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
     </a>
 
@@ -33,8 +37,10 @@
                     <button type="button" class="btn btn-primary" id="btnOk">Ok</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
 {% endblock %}
@@ -42,12 +48,12 @@
 {% block scripts %}
     {{ parent() }}
     <script type="text/javascript">
-        $(function() {
-            $('.btn-danger').click(function() {
+        $(function () {
+            $('.btn-danger').click(function () {
                 $('#myModal').modal('show');
                 return false;
             });
-            $('#btnOk').click(function() {
+            $('#btnOk').click(function () {
                 document.location.href = "index.php?uc=intranet&action=supprimerRepertoire&pathFolder={{ pathFolder }}";
             });
         });

@@ -28,7 +28,7 @@
 	<tr>
 		<td>{{ formation.codeformation }}</td>
 		<td>{{ formation.mention }}</td>
-		<td>{{ formation.ouverte }}</td>
+		<td>{% if formation.ouverte == 1 %}Oui{% else %}Non{% endif %}</td>
 		<td>
 			<div class="btn-group">
 				<a href="index.php?uc=formation&action=consulter&code={{ formation.codeformation }}" class="btn btn-info">
