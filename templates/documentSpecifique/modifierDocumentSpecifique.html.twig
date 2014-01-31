@@ -6,7 +6,7 @@
 	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
 	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
 	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
-	<li><a href="index.php?uc=information&action=grille&code={{ code }}">Liste des documents à joindre</a></li>
+	<li><a href="index.php?uc=documentSpecifique&action=grille&code={{ code }}">Liste des documents à joindre</a></li>
 	<li class="active">Modifier un document à joindre</li>
 </ol>
 
@@ -30,7 +30,7 @@
 
 <hr />
 
-<a href="index.php?uc=voeu&action=grille&code={{ code }}"  class="btn btn-primary">
+<a href="index.php?uc=documentSpecifique&action=grille&code={{ code }}"  class="btn btn-primary">
 	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
 </a>
 {% endblock %}

@@ -18,28 +18,27 @@ class DocumentGeneralManager {
 		$q = $this->db->prepare("SELECT * FROM `DOCUMENT_GENERAL` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
-		return new DocumentGeneral($rs['ID'], $rs['NOM'], $rs['MULTIPLE']);
+		return new DocumentGeneral($rs['ID'], $rs['NOM']);
 	}
 
 	public function findAll() {
 		$documents = array();
 		$rs = $this->db->query("SELECT * FROM `DOCUMENT_GENERAL`;")->fetchAll();
 		foreach ($rs as $document) {
-			$documents[] = new DocumentGeneral($document['ID'], $document['NOM'], $document['MULTIPLE']);
+			$documents[] = new DocumentGeneral($document['ID'], $document['NOM']);
 		}
 		return $documents;
 	}
 
 	public function insert(DocumentGeneral $document) {
-		return $this->db->prepare("INSERT INTO `DOCUMENT_GENERAL` (`NOM`, `MULTIPLE`) VALUES (?, ?);")
-						->execute(array($document->getNom(), $document->getMultiple()));
+		return $this->db->prepare("INSERT INTO `DOCUMENT_GENERAL` (`NOM`) VALUES (?);")
+						->execute(array($document->getNom()));
 	}
 
 	public function update(DocumentGeneral $document) {
-		return $this->db->prepare("UPDATE `DOCUMENT_GENERAL` SET `NOM` = ?, `MULTIPLE` = ? WHERE `ID` = ?;")
+		return $this->db->prepare("UPDATE `DOCUMENT_GENERAL` SET `NOM` = ? WHERE `ID` = ?;")
 						->execute(array(
 							$document->getNom(),
-							$document->getMultiple(),
 							$document->getId()
 		));
 	}

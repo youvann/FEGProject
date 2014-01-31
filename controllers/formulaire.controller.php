@@ -25,7 +25,8 @@ switch ($action) {
 		break;
 	case "choixFormation" :
 	{
-		echo $twig->render('formulaire/choixFormation.html.twig', array());
+		$formations = $formationManager->findAll();
+		echo $twig->render('formulaire/choixFormation.html.twig', array('formations' => $formations));
 	}
 		break;
 	case "traiterChoixFormation":
@@ -34,6 +35,27 @@ switch ($action) {
 		$souhaitee = $_POST['souhaitee'];
 
 		header('location:index.php?uc=formulaire&action=main');
+	}
+		break;
+	case "displayDocuments":
+	{
+		FileHeader::headerJson();
+		$documentsGeneraux = $documentGeneralManager->findAll();
+		$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation($_POST['code']);
+
+		$response = array();
+		$general = array();
+		$specifique = array();
+
+		foreach($documentsGeneraux as $documentGeneral) {
+			$general[] = $documentGeneral->getNom();
+		}
+		foreach($documentsSpecifiques as $documentSpecifique) {
+			$specifique[] = array($documentSpecifique->getNom(), $documentSpecifique->getUrl());
+		}
+		$response['general'] = $general;
+		$response['specifique'] = $specifique;
+		echo(json_encode($response));
 	}
 		break;
 	case "main":
@@ -73,11 +95,9 @@ switch ($action) {
 		$postInformations = array_slice($_POST, 69);
 		$structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find('3BAS')));
 		$json = $translatorFormToJson->translate($structure, $postInformations);
-		var_dump($json);
 
 		// Changer le code formation !!
 		$dossier = new Dossier($_POST["ine"], '3BAS', $_POST["nom"], $_POST["prenom"], $_POST["adresse"], $_POST["complement"], $_POST["code_postal"], $_POST["ville"], $_POST["date_naissance"], $_POST["lieu_naissance"], $_POST["fixe"], $_POST["portable"], $_POST["mail"], $_POST["genre"], $_POST["langues"], $_POST["nationalite"], $_POST["serie_bac"], $_POST["annee_bac"], $_POST["etablissement_bac"], $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["autre"], $_POST["titulaire"], $_POST["ville_preferee"], $_POST["autres_elements"], $json, NULL);
-		var_dump($dossier);
 
 		if (!$etudiantManager->ifExists(new Etudiant($_POST["ine"], 1))) {
 			$etudiantManager->insert(new Etudiant($_POST["ine"], 1));
@@ -146,8 +166,6 @@ switch ($action) {
 
 		$structure = $translatorResultsetToStructure->translate($rs);
 		$informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
-		//$informationsSpecifiques = "";
-		//$structure = "";
 
 		require_once './classes/Pdf/PagePdf.class.php';
 		$pagePdf = new PagePdf("./classes/pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
@@ -175,11 +193,6 @@ switch ($action) {
 		$pagePdf->setCadreAdministrationVoeux(array("voeux1", "voeux2"));
 		$pagePdf->setVoeuxMultiple(true);
 		$pagePdf->setRowAdmin(true);
-
-		// $documentsGeneraux    = array("CV", "Lettre de motivation", "Passeport/Carte d'identité","Diplômes", "Photo");
-		// $documentsSpecifiques = array("Livret de famille", "Lettre essai", "llo/Carte d'identité","sss", "aaa");
-		//$pagePdf->setDocumentsGeneraux($documentsGeneraux);
-		//$pagePdf->setDocumentsSpecifiques($documentsSpecifiques);
 
 		ob_start();
 		echo $pagePdf;

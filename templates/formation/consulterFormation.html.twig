@@ -2,90 +2,91 @@
 
 {% block content %}
 
-<ol class="breadcrumb">
-	<li><a href="index.php?uc=intranet&action">Accueil</a></li>
-	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
-	<li class="active">Fiche formation</li>
-</ol>
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action">Accueil</a></li>
+        <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+        <li class="active">Fiche formation</li>
+    </ol>
 
-<h2 class="titre_rubrique">Fiche formation</h2>
+    <h2 class="titre_rubrique">Fiche formation</h2>
 
-<p class="text-muted">Code</p>
-<p class="text-info">{{ formation.codeformation }}</p>
-<p class="text-muted">Modalités</p>
-<div>{{ formation.modalites|raw }}</div>
-<p class="text-muted">Mention</p>
-<p class="text-info">{{ formation.mention }}</p>
-<p class="text-muted">Ouverte</p>
-<p class="text-info">{{ formation.ouverte }}</p>
-<hr/>
-<a href="index.php?uc=formation&action=grille" class="btn btn-primary">
-	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
-</a>
+    <p class="text-muted">Code</p>
+    <p class="text-info">{{ formation.codeformation }}</p>
+    <p class="text-muted">Modalités</p>
+    <div>{{ formation.modalites|raw }}</div>
+    <p class="text-muted">Mention</p>
+    <p class="text-info">{{ formation.mention }}</p>
+    <p class="text-muted">Ouverte</p>
+    <p class="text-info">{{ formation.ouverte }}</p>
+    <p class="text-muted">Faculté</p>
+    <p class="text-info">{{ formation.faculte }}</p>
+    <hr/>
+    <a href="index.php?uc=formation&action=grille" class="btn btn-primary">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+    </a>
 
-<a href="index.php?uc=formation&action=modifier&code={{ formation.codeformation }}" class="btn btn-warning">
-	<span class="glyphicon glyphicon-edit"></span> Modifier
-</a>
-<a href="index.php?uc=formation&action=suppression&code={{ formation.codeformation }}" class="btn btn-danger">
-	<span class="glyphicon glyphicon-trash"></span> Supprimer
-</a>
+    <a href="index.php?uc=formation&action=modifier&code={{ formation.codeformation }}" class="btn btn-warning">
+        <span class="glyphicon glyphicon-edit"></span> Modifier
+    </a>
+    <a href="index.php?uc=formation&action=suppression&code={{ formation.codeformation }}" class="btn btn-danger">
+        <span class="glyphicon glyphicon-trash"></span> Supprimer
+    </a>
 
-<div class="btn-group">
-	<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-		Gestion de la formation <span class="caret"></span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-		<li>
-			<a href="index.php?uc=voeu&action=grille&code={{ formation.codeformation }}">
-				<span class="glyphicon glyphicon-briefcase"></span> Gérer les voeux
-			</a>
-		</li>
-		<li>
-			<a href="index.php?uc=information&action=grille&code={{ formation.codeformation }}">
-				<span class="glyphicon glyphicon-info-sign"></span> Gérer les informations spécifiques
-			</a>
-		</li>
-		<li>
-			<a href="index.php?uc=documentSpecifique&action=grille&code={{ formation.codeformation }}">
-				<span class="glyphicon glyphicon-paperclip"></span> Gérer les documents à joindre
-			</a>
-		</li>
-	</ul>
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content panel-danger">
-      <div class="modal-header panel-heading">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Attention !</h4>
-      </div>
-      <div class="modal-body">
-        Etes-vous sûr(e) de vouloir réaliser cette action ?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="btnOk">Ok</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
+    <div class="btn-group">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+            Gestion de la formation <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href="index.php?uc=voeu&action=grille&code={{ formation.codeformation }}">
+                    <span class="glyphicon glyphicon-briefcase"></span> Gérer les voeux
+                </a>
+            </li>
+            <li>
+                <a href="index.php?uc=information&action=grille&code={{ formation.codeformation }}">
+                    <span class="glyphicon glyphicon-info-sign"></span> Gérer les informations spécifiques
+                </a>
+            </li>
+            <li>
+                <a href="index.php?uc=documentSpecifique&action=grille&code={{ formation.codeformation }}">
+                    <span class="glyphicon glyphicon-paperclip"></span> Gérer les documents à joindre
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sûr(e) de vouloir réaliser cette action ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnOk">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 {% endblock %}
 
 {% block scripts %}
-{{ parent() }}
-<script type="text/javascript">
-	$(function() {
-		$('.btn-danger').click(function() {
-			$('#myModal').modal('show');
-			return false;
-		});
-		$('#btnOk').click(function() {
-			window.location.href = $('.btn-danger').attr("href");
-		});
-	});
-</script>
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            $('.btn-danger').click(function () {
+                $('#myModal').modal('show');
+                return false;
+            });
+            $('#btnOk').click(function () {
+                window.location.href = $('.btn-danger').attr("href");
+            });
+        });
+    </script>
 {% endblock %}

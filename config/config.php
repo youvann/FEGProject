@@ -9,6 +9,8 @@ require_once './lib/functions.php';
 // main classes loader
 require_once './classes/FormElements/loader.php';
 require_once './classes/Translator/loader.php';
+require_once './classes/FileHeader.class.php';
+
 // Connexion PDO
 require_once './model/PDO.php';
 // entities loader

@@ -7,80 +7,61 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3>Votre parcours</h3>
-                    <br/>
-
-                    <div class="progress progress-striped active">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0"
-                             aria-valuemax="100" style="width: 16%">
-                            <span class="sr-only">16% Complete</span>
-                        </div>
-                    </div>
                 </div>
                 <!-- /panel-heading -->
-
                 <div class="panel-body">
-
                     <form role="form" action="index.php?uc=formulaire&action=traiterChoixFormation"
                           id="formChoixFormation" method="post">
                         <fieldset>
                             <legend>Formation souhaitée</legend>
-                            <div class="form-group has-success">
+                            <div id="textboxIne" class="form-group has-success">
                                 <label for="ine">Votre numéro INE</label>
                                 <input class="form-control" type="text" id="ine" name="ine"/>
                             </div>
                             <div class="form-group">
-                                <label for="liste1">Sélectionnez votre dernière formation effectuée</label>
-                                <select class="form-control" id="nomFormationChoisie" name="nomFormationChoisie">
-                                    <optgroup label="Licence">
-                                        <option>L1 AES</option>
-                                        <option>L2 AES</option>
-                                        <option>L3 Parcours Travail et Ressources Humaines (TRH)</option>
-                                        <option>L3 Parcours Gestion des Entreprises (GE)</option>
-                                    </optgroup>
-                                    <optgroup label="Master">
-                                        <option>M1 Administration des Institutions Culturelles (AIC)</option>
-                                        <option>M1 Aix Marseille Sciences Economiques</option>
-                                        <option>M1 Aix Marseille Sciences Economiques parcours Magistere</option>
-                                    </optgroup>
-                                    <optgroup label="Autre">
-                                        <option>Autre</option>
-                                    </optgroup>
+                                <label for="derniere">Sélectionnez votre dernière formation effectuée</label>
+                                <select class="form-control" id="derniere" name="derniere">
+                                    <option value="">---- Sélectionnez ----</option>
+                                    {% for formation in formations %}
+                                        <option value="{{ formation.codeformation }}">{{ formation.mention }}</option>
+                                    {% endfor %}
+                                    <option value="0000">Autre</option>
                                 </select>
-                                <!-- /form-group -->
-                                <div id="autre_formation">
-                                    <div class="form-group">
-                                        <label for="nomAutreFormation">Veuillez entrer le nom de la dernière
-                                            formation que vous avez effectuée</label>
-                                        <input type="text" class="form-control" id="nomAutreFormation"
-                                               name="nomAutreFormation">
-                                    </div>
-                                </div>
-
+                            </div>
+                            <!-- /form-group -->
+                            <div id="autre_formation">
                                 <div class="form-group">
-                                    <label for="liste2">Sélectionnez la formation souhaitée pour l'année scolaire
-                                        2014-2015</label>
-
-
-                                    <select class="form-control" name="souhaitee">
-                                        <optgroup label="Licence">
-                                            <option>L1 AES</option>
-                                            <option>L2 AES</option>
-                                            <option>L3 Parcours Travail et Ressources Humaines (TRH)</option>
-                                            <option>L3 Parcours Gestion des Entreprises (GE)</option>
-                                        </optgroup>
-                                        <optgroup label="Master">
-                                            <option>M1 Administration des Institutions Culturelles (AIC)
-                                            </option>
-                                            <option>M1 Aix Marseille Sciences Economiques</option>
-                                            <option>M1 Aix Marseille Sciences Economiques parcours Magistere
-                                            </option>
-                                        </optgroup>
-                                    </select>
-
-
+                                    <label for="nomAutreFormation">Veuillez entrer le nom de la dernière
+                                        formation que vous avez effectuée</label>
+                                    <input type="text" class="form-control" id="nomAutreFormation"
+                                           name="nomAutreFormation">
                                 </div>
-                                <!-- /form-group -->
-                                <input type="submit" class="btn btn-primary">
+                            </div>
+                            <div class="form-group">
+                                <label for="choisie">Sélectionnez la formation souhaitée pour l'année scolaire
+                                    2014-2015</label>
+                                <select class="form-control" id="choisie" name="choisie">
+                                    <option value="">---- Séléctionnez ----</option>
+                                    {% for formation in formations %}
+                                        <option value="{{ formation.codeformation }}">{{ formation.mention }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div id="displayDocuments"></div>
+                            <div id="divAllDocuments" class="form-group">
+                                <label>Etez-vous en possession de tous les documents demandés ?</label>
+                                <div class="radio">
+                                    <label for="oui">
+                                        <input type="radio" id="oui" name="allDocuments" value="oui" /> Oui
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label for="non">
+                                        <input type="radio" id="non" name="allDocuments" value="non" checked /> Non
+                                    </label>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary" />
                         </fieldset>
                     </form>
                 </div>
@@ -97,6 +78,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('input[type=submit]').hide();
+            $('#divAllDocuments').hide();
+
             var choixFormation = $("select[name='derniere'] > optgroup > option:selected").val();
             var autreFormation = $("#autre_formation");
 
@@ -107,23 +91,91 @@
                 (choixFormation === "Autre") ? autreFormation.fadeIn("slow") : autreFormation.fadeOut("fast");
             });
 
+            $('input[type=radio]').on('change', function() {
+                if($(this).val() == 'oui') {
+                    $('input[type=submit]').show();
+                } else {
+                    $('input[type=submit]').hide();
+                }
+            });
+
             $('#ine').on('input', function () {
-                console.log($(this).val());
-                var ine = $(this).val();
-                var codeFormation = '3BAS';
+                checkCreationDossierPossible();
+            });
+            $('#choisie').on('change', function () {
+                $('#divAllDocuments').show();
+                checkCreationDossierPossible();
+                $.ajax({
+                    url: 'index.php?uc=formulaire&action=displayDocuments',
+                    type: 'post',
+                    data: 'code=' +  $('#choisie').val(),
+                    dataType: 'json',
+                    success: function (json) {
+                        $('#displayDocuments').empty();
+                        var documentsGeneraux = json.general;
+                        var documentsSpecifiques = json.specifique;
+                        var listeDocumentsGeneraux = $('<ul></ul>');
+                        var listeDocumentsSpecifiques = $('<ul></ul>');
+
+                        documentsGeneraux.forEach(function (doc) {
+                            var li = $('<li></li>').append(doc)
+                            listeDocumentsGeneraux.append(li);
+                        });
+                        documentsSpecifiques.forEach(function (doc) {
+                            console.log(doc)
+                            var li = $('<li></li>').append(doc[0]);
+                            if (doc[1] !== "") {
+                                var link = $('<a></a>')
+                                        .attr('href', doc[1]).
+                                        append('Cliquez ici pour télécharger le document');
+                                li.append(' - ')
+                                        .append(link);
+                            }
+                            listeDocumentsSpecifiques.append(li);
+                        });
+                        var alert = $('<div></div>')
+                                .addClass('alert')
+                                .addClass('alert-danger')
+                                .append(
+                                        $('<button></button>')
+                                                .addClass('close')
+                                                .attr('data-dismiss', 'alert')
+                                                .attr('aria-hidden', 'true')
+                                                .append('&times;')
+                                ).append('Pour postuler à cette formation, assurez vous d\'être en possession des documents ci dessous :');
+
+                        $('#displayDocuments').append('<hr />')
+                                .append(alert)
+                                .append('<h4>Documents communs</h4>')
+                                .append(listeDocumentsGeneraux);
+                        if (documentsSpecifiques.length > 0) {
+                            $('#displayDocuments').append('<h4>Documents spécifiques à la formation choisie</h4>')
+                                    .append(listeDocumentsSpecifiques);
+                        }
+                    }
+                });
+            });
+            function checkCreationDossierPossible() {
+                var ine = $('#ine').val();
+                var codeFormation = $('#choisie').val();
                 $.ajax({
                     url: 'index.php?uc=formulaire&action=candidaturePossible',
                     type: 'post',
                     data: 'ine=' + ine + '&code_formation=' + codeFormation,
                     dataType: 'json',
                     success: function (json) {
-                        console.log(json.response);
                         if (json.response == 0) {
-                            $('.has-success').removeClass('has-success').addClass('has-error');
+                            if ($('#textboxIne').hasClass('has-success')) {
+                                $('#textboxIne').removeClass('has-success').addClass('has-error');
+                            }
+                        } else {
+                            if ($('#textboxIne').hasClass('has-error')) {
+                                $('#textboxIne').removeClass('has-error').addClass('has-success');
+                            }
                         }
                     }
                 });
-            });
+            }
         });
     </script>
 {% endblock %}

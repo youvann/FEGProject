@@ -5,14 +5,12 @@ class DocumentSpecifique {
 	private $codeFormation;
 	private $nom;
 	private $url;
-    private $multiple;
 	
-	function __construct($id, $codeFormation, $nom, $url, $multiple) {
+	function __construct($id, $codeFormation, $nom, $url) {
 		$this->id = $id;
 		$this->codeFormation = $codeFormation;
 		$this->nom = $nom;
 		$this->url = $url;
-        $this->multiple = $multiple;
 	}
 
 	public function getId() {
@@ -31,10 +29,6 @@ class DocumentSpecifique {
 		return $this->url;
 	}
 
-    public function getMultiple (){
-        return $this->multiple;
-    }
-
 	public function setId($id) {
 		$this->id = $id;
 	}
@@ -50,10 +44,4 @@ class DocumentSpecifique {
 	public function setUrl($url) {
 		$this->url = $url;
 	}
-
-    public function setMultiple($multiple){
-        $this->multiple = $multiple;
-    }
-
-
 }
