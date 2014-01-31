@@ -59,7 +59,6 @@ function myMkdirIne($dir){
     }
 }
 
-
 function removeDir($dir) {
     if (is_dir($dir)) // si c'est un repertoire
         $dh = opendir($dir); // on l'ouvre
@@ -77,7 +76,7 @@ function removeDir($dir) {
                 //echo '</div><br />';
                 //echo "effacement du rép",$path,'<br />';
                 // ne pas supprimer les répertoires Candidatures et Preinscriptions
-                if ($file !== "Candidatures" && $file !== "Preinscriptions") {
+                if ($file !== "Candidatures" && $file !== "Preinscriptions" && $file !== "Dossier_Type") {
                     rmdir($path);
                 }
             } else {
