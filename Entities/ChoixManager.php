@@ -13,8 +13,9 @@ class ChoixManager {
 	}
 
 	public function find($id) {
-		$rs = $this->db->prepare("SELECT * FROM `CHOIX` WHERE `ID` = ?;")
-						->execute(array($id))->fetch();
+		$q = $this->db->prepare("SELECT * FROM `CHOIX` WHERE `ID` = ?;");
+        $q->execute(array($id))->fetch();
+        $rs = $q->fetchAll();
 		return new Choix($rs['ID'], $rs['INFORMATION'], $rs['TEXTE']);
 	}
 

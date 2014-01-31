@@ -1,0 +1,22 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+    <h2 class="titre_rubrique">
+        Prévisualisation du dossier PDF {{ codeFormation }}
+    </h2>
+    <div class="well">
+        <object data="./dossiers/{{ codeFormation }}/Dossier_Type/Candidature_Type.pdf" type="application/pdf"
+                width="100%"
+                height="700px">
+            <p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+        </object>
+    </div>
+    <hr/>
+    <a href="index.php?uc=formation&action=consulter&code={{ codeFormation }}" class="btn btn-primary">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+    </a>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

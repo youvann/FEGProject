@@ -21,9 +21,9 @@
 				<div class="panel-heading">Formations</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills nav-stacked">
-						<li class="{% if get.uc == 'formation' and get.action != 'ajouter' %}active{% endif %}"><a href="index.php?uc=formation&action=grille">Liste</a></li>
+						<li class="{% if get.uc == 'formation' and get.action == 'grille' %}active{% endif %}"><a href="index.php?uc=formation&action=grille">Liste</a></li>
 						<li class="{% if get.uc == 'formation' and get.action == 'ajouter' %}active{% endif %}"><a href="index.php?uc=formation&action=ajouter">Ajouter</a></li>
-                        <li class="{% if get.uc == 'formation' and get.action == 'ajouter' %}active{% endif %}"><a href="index.php?uc=intranet&action=liensFormation">Liens</a></li>
+                        <li class="{% if get.uc == 'intranet' and get.action == 'liensFormation' %}active{% endif %}"><a href="index.php?uc=intranet&action=liensFormation">Liens</a></li>
 					</ul>
 				</div>
 			</div>
