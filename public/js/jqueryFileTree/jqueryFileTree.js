@@ -78,7 +78,7 @@ if (jQuery)
 					function bindTree(t) {
 						$(t).find('LI A').bind(o.folderEvent, function(event) {
 							if (event.which === 3) {
-								window.open('index.php?uc=intranet&action=telechargerDossier&folder=' + $(this).attr('rel'));
+								self.location.href = 'index.php?uc=intranet&action=telechargerDossier&folder=' + $(this).attr('rel');
 							} else if(event.which === 1) {
 								if ($(this).parent().hasClass('directory')) {
 									if ($(this).parent().hasClass('collapsed')) {
@@ -103,7 +103,7 @@ if (jQuery)
 						});
 						if (o.folderEvent.toLowerCase !== 'dblclick ')
 							$(t).find('LI A').bind('dblclick', function() {
-								alert('GG');
+								//alert('GG');
 								return false;
 							});
 						// Prevent A from triggering the # on non-click events

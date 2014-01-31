@@ -6,7 +6,7 @@
 
     <div class="row">
         <div class="col-md-2">
-			<div class="panel panel-primary-bf">
+			<div class="panel panel-primary">
 				<div class="panel-heading">Accueil ({{ session.name}})</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills nav-stacked">
@@ -17,16 +17,17 @@
 					</ul>
 				</div>
 			</div>
-			<div class="panel panel-primary-bt">
+			<div class="panel panel-primary">
 				<div class="panel-heading">Formations</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills nav-stacked">
 						<li class="{% if get.uc == 'formation' and get.action != 'ajouter' %}active{% endif %}"><a href="index.php?uc=formation&action=grille">Liste</a></li>
 						<li class="{% if get.uc == 'formation' and get.action == 'ajouter' %}active{% endif %}"><a href="index.php?uc=formation&action=ajouter">Ajouter</a></li>
+                        <li class="{% if get.uc == 'formation' and get.action == 'ajouter' %}active{% endif %}"><a href="index.php?uc=intranet&action=liensFormation">Liens</a></li>
 					</ul>
 				</div>
 			</div>
-			<div class="panel panel-primary-ja">
+			<div class="panel panel-primary">
 				<div class="panel-heading">Documents généraux à joindre</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills nav-stacked">
@@ -47,6 +48,7 @@
 
         </div>
     </div>
+    <div style="margin-bottom: 2em;"></div>
 
 </div><!-- container -->
 

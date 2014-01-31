@@ -6,8 +6,8 @@
 
         <div class="row">
             <div class="col-md-2">
-                <div class="panel panel-primary-bt">
-                    <div class="panel-heading">Formations</div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading nav-title">Formations</div>
                     <table class="table">
                         <tr>
                             <td>
@@ -17,28 +17,58 @@
                         <tr>
                             <td>
                                 {% if session.grade > 1 %}
-                                <a href="index.php?uc=intranet&action=accueil">Espace réservé au personnel</a>
+                                    <a href="index.php?uc=intranet&action=accueil">Espace réservé au personnel</a>
                                 {% else %}
-                                <a href="index.php?uc=utilisateur&action=connecter">Espace réservé au personnel</a>
+                                    <a href="index.php?uc=utilisateur&action=connecter">Espace réservé au personnel</a>
                                 {% endif %}
                             </td>
                         </tr>
                     </table>
                 </div>
 
+                <div class="well sidebar">
+                    <label class="nav-header nav-title">Formations</label>
+                    <ul class="nav nav-list">
+                        <li><a href="index.php?uc=formulaire&action=choixFormation">Formation souhaitée</a></li>
+                        <li>
+                            {% if session.grade > 1 %}
+                                <a href="index.php?uc=intranet&action=accueil">Intranet</a>
+                            {% else %}
+                                <a href="index.php?uc=utilisateur&action=connecter">Intranet</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="list-group sidebar">
+                    <a href="#" class="list-group-item active">Formation souhaitée</a>
+                    {% if session.grade > 1 %}
+                        <a href="index.php?uc=intranet&action=accueil" class="list-group-item">Intranet</a>
+                    {% else %}
+                        <a href="index.php?uc=utilisateur&action=connecter" class="list-group-item">Intranet</a>
+                    {% endif %}
+                </div>
+
             </div>
             <div id="content" class="col-md-10 well-feg">
-                
+
                 {% block content %}{% endblock %}
 
-                <footer style="margin-top: 2em;">
-                    <p class="text-muted text-center">© 2014 FEG PROJECT | MADE BY COHEN-GUISSANI-KARAGOZ-MEAS | WE <3 BOOTSTRAP</p>
+                <footer style="margin-top: 2em; margin-bottom: 2em;">
+                    <p class="text-muted text-center">© 2014 FEG PROJECT | MADE BY COHEN-GUISSANI-KARAGOZ-MEAS | WE <3
+                        BOOTSTRAP</p>
                 </footer>
 
             </div>
         </div>
+        <div style="margin-bottom: 2em;"></div>
 
     </div><!-- container -->
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
 
 {% endblock %}
 
