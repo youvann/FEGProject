@@ -53,6 +53,13 @@ function myMkdir($dir) {
     }
 }
 
+function myMkdirIne($dir){
+    if (!file_exists($dir)){
+        mkdir("./dossiers/" . $dir, 0777);
+    }
+}
+
+
 function removeDir($dir) {
     if (is_dir($dir)) // si c'est un repertoire
         $dh = opendir($dir); // on l'ouvre

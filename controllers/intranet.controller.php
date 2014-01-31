@@ -71,8 +71,8 @@ switch ($action) {
         break;
     case "generationPdfCandidature" :
     {
-        $formation = $formationManager->find("3BAS");
-        $dossier = $dossierManager->find('g11625159', '3BAS');
+        $formation = $formationManager->find($_SESSION['choisie']);
+        $dossier = $dossierManager->find($_SESSION['ine'], $_SESSION['choisie']);
         $titulaire = $titulaireManager->findAll();
         $cursus = $cursusManager->findAllByDossier($dossier);
         $experiences = $experienceManager->findAllByDossier($dossier);
@@ -158,8 +158,8 @@ switch ($action) {
             $html2pdf->pdf->SetDisplayMode('fullpage');
             $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
             //$html2pdf->Output('html2pdf.pdf');
-            $html2pdf->Output('dossiers/3BAS/Candidatures/g11625159/Candidature-g11625159.pdf', 'F');
-            echo "PDF BIEN GENERE";
+            myMkdir('dossiers/' . $_SESSION['choisie'] . '/Candidatures/' . $_SESSION['ine'] . '/');
+            $html2pdf->Output('dossiers/' . $_SESSION['choisie'] . '/Candidatures/' . $_SESSION['ine'] . '/Candidature-' . $_SESSION['ine'] . '.pdf', 'F');
         } catch (HTML2PDF_exception $e) {
             echo $e;
             exit;

@@ -7,15 +7,13 @@ class Formation {
 	private $modalites;
 	private $ouverte;
 	private $faculte;
-	private $langue;
 	
-	function __construct($codeFormation, $mention, $modalites, $ouverte, $faculte, $langue) {
+	function __construct($codeFormation, $mention, $modalites, $ouverte, $faculte) {
 		$this->codeFormation = $codeFormation;
 		$this->mention = $mention;
 		$this->modalites = $modalites;
 		$this->ouverte = $ouverte;
 		$this->faculte = $faculte;
-		$this->langue = $langue;
 	}
 
 	public function getCodeFormation() {
@@ -38,10 +36,6 @@ class Formation {
 		return $this->faculte;
 	}
 
-	public function getLangue() {
-		return $this->langue;
-	}
-
 	public function setCodeFormation($codeFormation) {
 		$this->codeFormation = $codeFormation;
 	}
@@ -61,10 +55,4 @@ class Formation {
 	public function setFaculte($faculte) {
 		$this->faculte = $faculte;
 	}
-
-	public function setLangue($langue) {
-		$this->langue = $langue;
-	}
-
-
 }

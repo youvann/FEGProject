@@ -1,6 +1,6 @@
 <?php
-
-$output_dir = "../dossiers/3BAS/Candidatures/";
+session_start();
+$output_dir = "../dossiers/" . $_SESSION['choisie'] . "/Candidatures/" . $_SESSION['ine'] . "/";
 if (isset($_FILES["myfile"])) {
 	$ret = array();
 

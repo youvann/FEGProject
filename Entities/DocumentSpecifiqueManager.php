@@ -17,7 +17,7 @@ class DocumentSpecifiqueManager {
 		$q = $this->db->prepare("SELECT * FROM `DOCUMENT_SPECIFIQUE` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
-		return new DocumentSpecifique($rs['ID'], $rs['CODE_FORMATION'], $rs['NOM'], $rs['URL'], $rs['MULTIPLE']);
+		return new DocumentSpecifique($rs['ID'], $rs['CODE_FORMATION'], $rs['NOM'], $rs['URL']);
 	}
 
 	public function findAllByFormation($code) {
@@ -26,29 +26,27 @@ class DocumentSpecifiqueManager {
 		$q->execute(array($code));
 		$rs = $q->fetchAll();
 		foreach ($rs as $documentSpecifique) {
-			$documentsSpecifiques[] = new DocumentSpecifique($documentSpecifique['ID'], $documentSpecifique['CODE_FORMATION'], $documentSpecifique['NOM'], $documentSpecifique['URL'],$documentSpecifique['MULTIPLE']);
+			$documentsSpecifiques[] = new DocumentSpecifique($documentSpecifique['ID'], $documentSpecifique['CODE_FORMATION'], $documentSpecifique['NOM'], $documentSpecifique['URL']);
 		}
 		return $documentsSpecifiques;
 	}
 
 	public function insert(DocumentSpecifique $documentSpecifique) {
-		return $this->db->prepare("INSERT INTO `DOCUMENT_SPECIFIQUE` (`CODE_FORMATION`, `NOM`, `URL`, `MULTIPLE`) VALUES (?, ?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `DOCUMENT_SPECIFIQUE` (`CODE_FORMATION`, `NOM`, `URL`) VALUES (?, ?, ?);")
 						->execute(array(
 							$documentSpecifique->getCodeFormation(),
 							$documentSpecifique->getNom(),
-							$documentSpecifique->getUrl(),
-                            $documentSpecifique->getMultiple()
+							$documentSpecifique->getUrl()
 		));
 	}
 
 	public function update(DocumentSpecifique $documentSpecifique) {
-		return $this->db->prepare("UPDATE `DOCUMENT_SPECIFIQUE` SET `CODE_FORMATION` = ?, `NOM` = ?, `URL` = ?, `MULTIPLE` = ? WHERE `ID` = ?;")
+		return $this->db->prepare("UPDATE `DOCUMENT_SPECIFIQUE` SET `CODE_FORMATION` = ?, `NOM` = ?, `URL` = ? WHERE `ID` = ?;")
 						->execute(array(
 							$documentSpecifique->getCodeFormation(),
 							$documentSpecifique->getNom(),
 							$documentSpecifique->getUrl(),
-							$documentSpecifique->getId(),
-                            $documentSpecifique->getMultiple()
+							$documentSpecifique->getId()
 		));
 	}
 

@@ -25,21 +25,44 @@ switch ($action) {
 		break;
 	case "choixFormation" :
 	{
-		echo $twig->render('formulaire/choixFormation.html.twig', array());
+		$formations = $formationManager->findAll();
+		echo $twig->render('formulaire/choixFormation.html.twig', array('formations' => $formations));
 	}
 		break;
 	case "traiterChoixFormation":
 	{
 		$derniere = $_POST['derniere'];
-		$souhaitee = $_POST['souhaitee'];
+		$_SESSION['choisie'] = $_POST['choisie'];
+        $_SESSION['ine'] = $_POST['ine'];
 
 		header('location:index.php?uc=formulaire&action=main');
+	}
+		break;
+	case "displayDocuments":
+	{
+		FileHeader::headerJson();
+		$documentsGeneraux = $documentGeneralManager->findAll();
+		$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation($_POST['code']);
+
+		$response = array();
+		$general = array();
+		$specifique = array();
+
+		foreach($documentsGeneraux as $documentGeneral) {
+			$general[] = $documentGeneral->getNom();
+		}
+		foreach($documentsSpecifiques as $documentSpecifique) {
+			$specifique[] = array($documentSpecifique->getNom(), $documentSpecifique->getUrl());
+		}
+		$response['general'] = $general;
+		$response['specifique'] = $specifique;
+		echo(json_encode($response));
 	}
 		break;
 	case "main":
 	{
 		// Chargement des voeux
-		$formation = $formationManager->find('3BAS');
+		$formation = $formationManager->find($_SESSION['choisie']);
 		$voeux = $voeuManager->findAllByFormation($formation);
 		foreach ($voeux as $voeu) {
 			$voeu->setVilles($voeuManager->getVilles($voeu));
@@ -53,7 +76,7 @@ switch ($action) {
 
 		// Chargement des documents généraux et spécifiques
 		$documentsGeneraux = $documentGeneralManager->findAll();
-		$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("3BAS");
+		$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation($_SESSION['choisie']);
 
 		echo $twig->render('formulaire/mainFormulaire.html.twig', array(
 			'formation' => $formation,
@@ -69,15 +92,12 @@ switch ($action) {
 	case "traiterMainFormulaire":
 	{
 		var_dump($_POST, count($_POST));
-
 		$postInformations = array_slice($_POST, 69);
-		$structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find('3BAS')));
+		$structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find($_SESSION['choisie'])));
 		$json = $translatorFormToJson->translate($structure, $postInformations);
-		var_dump($json);
 
 		// Changer le code formation !!
-		$dossier = new Dossier($_POST["ine"], '3BAS', $_POST["nom"], $_POST["prenom"], $_POST["adresse"], $_POST["complement"], $_POST["code_postal"], $_POST["ville"], $_POST["date_naissance"], $_POST["lieu_naissance"], $_POST["fixe"], $_POST["portable"], $_POST["mail"], $_POST["genre"], $_POST["langues"], $_POST["nationalite"], $_POST["serie_bac"], $_POST["annee_bac"], $_POST["etablissement_bac"], $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["autre"], $_POST["titulaire"], $_POST["ville_preferee"], $_POST["autres_elements"], $json, NULL);
-		var_dump($dossier);
+		$dossier = new Dossier($_POST["ine"], $_SESSION['choisie'], $_POST["nom"], $_POST["prenom"], $_POST["adresse"], $_POST["complement"], $_POST["code_postal"], $_POST["ville"], $_POST["date_naissance"], $_POST["lieu_naissance"], $_POST["fixe"], $_POST["portable"], $_POST["mail"], $_POST["genre"], $_POST["langues"], $_POST["nationalite"], $_POST["serie_bac"], $_POST["annee_bac"], $_POST["etablissement_bac"], $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["autre"], $_POST["titulaire"], $_POST["ville_preferee"], $_POST["autres_elements"], $json, NULL);
 
 		if (!$etudiantManager->ifExists(new Etudiant($_POST["ine"], 1))) {
 			$etudiantManager->insert(new Etudiant($_POST["ine"], 1));
@@ -89,32 +109,32 @@ switch ($action) {
 		}
 		$dossierManager->insert($dossier);
 
-		$cursusManager->insert(new Cursus(0, $_POST["ine"], '3BAS', $_POST['anneeDebutCursus-1'], $_POST['anneeFinCursus-1'], $_POST['cursus-1'], $_POST['etablissement-1'], $_POST['valide-1']));
-		$cursusManager->insert(new Cursus(0, $_POST["ine"], '3BAS', $_POST['anneeDebutCursus-2'], $_POST['anneeFinCursus-2'], $_POST['cursus-2'], $_POST['etablissement-2'], $_POST['valide-2']));
-		$cursusManager->insert(new Cursus(0, $_POST["ine"], '3BAS', $_POST['anneeDebutCursus-3'], $_POST['anneeFinCursus-3'], $_POST['cursus-3'], $_POST['etablissement-3'], $_POST['valide-3']));
-		$cursusManager->insert(new Cursus(0, $_POST["ine"], '3BAS', $_POST['anneeDebutCursus-4'], $_POST['anneeFinCursus-4'], $_POST['cursus-4'], $_POST['etablissement-4'], $_POST['valide-4']));
-		$cursusManager->insert(new Cursus(0, $_POST["ine"], '3BAS', $_POST['anneeDebutCursus-5'], $_POST['anneeFinCursus-5'], $_POST['cursus-5'], $_POST['etablissement-5'], $_POST['valide-5']));
+		$cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-1'], $_POST['anneeFinCursus-1'], $_POST['cursus-1'], $_POST['etablissement-1'], $_POST['valide-1']));
+		$cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-2'], $_POST['anneeFinCursus-2'], $_POST['cursus-2'], $_POST['etablissement-2'], $_POST['valide-2']));
+		$cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-3'], $_POST['anneeFinCursus-3'], $_POST['cursus-3'], $_POST['etablissement-3'], $_POST['valide-3']));
+		$cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-4'], $_POST['anneeFinCursus-4'], $_POST['cursus-4'], $_POST['etablissement-4'], $_POST['valide-4']));
+		$cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-5'], $_POST['anneeFinCursus-5'], $_POST['cursus-5'], $_POST['etablissement-5'], $_POST['valide-5']));
 
-		$experienceManager->insert(new Experience(0, $_POST["ine"], '3BAS', $_POST['moisDebut-1'], $_POST['anneeDebut-1'], $_POST['moisFin-1'], $_POST['anneeFin-1'], $_POST['entreprise-1'], $_POST['fonction-1']));
-		$experienceManager->insert(new Experience(0, $_POST["ine"], '3BAS', $_POST['moisDebut-2'], $_POST['anneeDebut-2'], $_POST['moisFin-2'], $_POST['anneeFin-2'], $_POST['entreprise-2'], $_POST['fonction-2']));
-		$experienceManager->insert(new Experience(0, $_POST["ine"], '3BAS', $_POST['moisDebut-3'], $_POST['anneeDebut-3'], $_POST['moisFin-3'], $_POST['anneeFin-3'], $_POST['entreprise-3'], $_POST['fonction-3']));
+		$experienceManager->insert(new Experience(0, $_POST["ine"], $_SESSION['choisie'], $_POST['moisDebut-1'], $_POST['anneeDebut-1'], $_POST['moisFin-1'], $_POST['anneeFin-1'], $_POST['entreprise-1'], $_POST['fonction-1']));
+		$experienceManager->insert(new Experience(0, $_POST["ine"], $_SESSION['choisie'], $_POST['moisDebut-2'], $_POST['anneeDebut-2'], $_POST['moisFin-2'], $_POST['anneeFin-2'], $_POST['entreprise-2'], $_POST['fonction-2']));
+		$experienceManager->insert(new Experience(0, $_POST["ine"], $_SESSION['choisie'], $_POST['moisDebut-3'], $_POST['anneeDebut-3'], $_POST['moisFin-3'], $_POST['anneeFin-3'], $_POST['entreprise-3'], $_POST['fonction-3']));
 
 		$i = 1;
 		foreach ($_POST['voeu'] as $codeEtape) {
-			$faireManager->insert(new Faire($codeEtape, $_POST["ine"], '3BAS', $i));
+			$faireManager->insert(new Faire($codeEtape, $_POST["ine"], $_SESSION['choisie'], $i));
 			++$i;
 		}
 
 		/* GENERATION PDF HERE */
-		$formation = $formationManager->find("3BAS");
-		$dossier = $dossierManager->find('g11625159', '3BAS');
+		$formation = $formationManager->find($_SESSION['choisie']);
+		$dossier = $dossierManager->find($_SESSION['ine'], $_SESSION['choisie']);
 		$titulaire = $titulaireManager->findAll();
 		$cursus = $cursusManager->findAllByDossier($dossier);
 		$experiences = $experienceManager->findAllByDossier($dossier);
 		$faires = $faireManager->findAllByDossier($dossier);
 
 		//$documentsGeneraux    = $documentGeneralManager->findAll();
-		//$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation("3BAS");
+		//$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation($_SESSION['choisie']);
 
 		$etapes = array();
 		$villesPossibles = array();
@@ -146,8 +166,6 @@ switch ($action) {
 
 		$structure = $translatorResultsetToStructure->translate($rs);
 		$informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
-		//$informationsSpecifiques = "";
-		//$structure = "";
 
 		require_once './classes/Pdf/PagePdf.class.php';
 		$pagePdf = new PagePdf("./classes/pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
@@ -176,15 +194,9 @@ switch ($action) {
 		$pagePdf->setVoeuxMultiple(true);
 		$pagePdf->setRowAdmin(true);
 
-		// $documentsGeneraux    = array("CV", "Lettre de motivation", "Passeport/Carte d'identité","Diplômes", "Photo");
-		// $documentsSpecifiques = array("Livret de famille", "Lettre essai", "llo/Carte d'identité","sss", "aaa");
-		//$pagePdf->setDocumentsGeneraux($documentsGeneraux);
-		//$pagePdf->setDocumentsSpecifiques($documentsSpecifiques);
-
 		ob_start();
 		echo $pagePdf;
 		$content = ob_get_clean();
-
 
 		// convert in PDF
 		require_once './classes/Pdf/html2pdf/html2pdf.class.php';
@@ -196,10 +208,9 @@ switch ($action) {
 			$html2pdf->setDefaultFont('verdana');
 			$html2pdf->pdf->SetDisplayMode('fullpage');
 			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-			//Affiche le PDF dans le navigateur
-			//$html2pdf->Output('html2pdf.pdf');
-			//$html2pdf->Output('html2pdf.pdf');
-			$html2pdf->Output('dossiers/3BAS/Candidatures/Candidature-g11625159.pdf', 'F');
+
+            myMkdirIne($_SESSION['choisie'] . '/Candidatures/' . $_SESSION['ine']);
+			$html2pdf->Output('./dossiers/' . $_SESSION['choisie'] . '/Candidatures/' . $_SESSION['ine'] . '/Candidature-' . $_SESSION['ine'] . '.pdf', 'F');
 			echo "PDF BIEN GENERE";
 		} catch (HTML2PDF_exception $e) {
 			echo $e;
