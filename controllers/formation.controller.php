@@ -146,7 +146,6 @@ switch ($action){
         $pagePdf->setVoeuxMultiple(true);
         $pagePdf->setRowAdmin(true);
 
-
         ob_start();
         echo $pagePdf;
         $content = ob_get_clean();

@@ -24,13 +24,13 @@ $(document).ready(function() {
     });
 
     // Ajout d'une étoile rouge pour tous les champs obligatoires
-    $(".required").each(function(){
+    /*$(".required").each(function(){
         var span = $("<span />");
         span.attr("class", "obligatory").text(" *");
         span.appendTo($(this).prev());
         // Etoile rouge
         span.css("color", "red");
-    });
+    });*/
 
     // Ajout/Suppression d'une textbox
     var error  = $("#error");

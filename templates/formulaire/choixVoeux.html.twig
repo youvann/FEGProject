@@ -1,5 +1,6 @@
 <fieldset>
     <legend>Choix de la spécialité</legend>
+<div class="well well-fg">
     {% set nbListes = 3 %}
     {% if nbVoeux < 3 %}
         {% set nbListes = nbVoeux %}
@@ -19,9 +20,9 @@
             </select>
         </div>
     {% endfor %}
-    <div class="form-group">
+    <div class="form-group required">
         <label>Ville préférée</label>
         <input class="form-control required" type="text" id="ville_preferee" name="ville_preferee"/>
     </div>
+</div>
 </fieldset>
-

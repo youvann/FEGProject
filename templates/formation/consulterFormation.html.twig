@@ -53,7 +53,7 @@
                 </a>
             </li>
             <li>
-                <a href="index.php?uc=formation&action=previsualisationPdf&code={{ formation.codeformation }}">
+                <a id="prevPdf" href="#">
                     <span class="glyphicon glyphicon-file"></span> Prévisualiser le dossier PDF
                 </a>
             </li>
@@ -93,6 +93,15 @@
             });
             $('#btnOk').click(function () {
                 window.location.href = $('.btn-danger').attr("href");
+            });
+            $('#prevPdf').click(function(){
+
+                $.ajax({
+                    url: "index.php?uc=formation&action=previsualisationPdf&code={{ formation.codeformation }}",
+                    success: function(data){
+                        console.log('salu');
+                    }
+                });
             });
         });
     </script>

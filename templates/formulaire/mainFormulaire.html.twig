@@ -2,97 +2,99 @@
 
 {% block content %}
 
-<div class="row" style="margin-top: 1em;">
-	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h2 class="titre_rubrique">
-					{% if typedossier == 'CA' %}Candidature{% elseif typedossier == 'PI' %}Pré-inscription{% endif %} en {{ formation.mention }} pour l'année scolaire 2014-2015
-				</h2>
-			</div><!-- /panel-heading -->
+    <div class="row" style="margin-top: 1em;">
+        <div class="col-md-12">
+            <h2 class="titre_rubrique">
+                {% if typedossier == 'CA' %}Candidature{% elseif typedossier == 'PI' %}Pré-inscription{% endif %}
+                en {{ formation.mention }} pour l'année scolaire 2014-2015
+            </h2>
 
-			<div class="panel-body">
-				<form role="form" id="mainFormulaire" action="index.php?uc=formulaire&action=traiterMainFormulaire" method="post">
-					<fieldset>
-						<legend>Modalités</legend>
-						{{ formation.modalites|raw }}
-					</fieldset>
-					
-					{% include 'formulaire/informationsGenerales.html.twig' %}
-					{% if typedossier == 'CA' %}
-						{% include 'formulaire/postBacExperiences.html.twig' %}
-						{% include 'formulaire/choixVoeux.html.twig' %}
-						{% if form is not null %}
-							{% include 'formulaire/informationsSpecifiques.html.twig' %}
-						{% endif %}
-						{% include 'formulaire/documentsGeneraux.html.twig' %}
-					{% endif %}
-				</form>
-				<button id="customSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Envoyer</button>
-			</div> <!-- panel-body -->
-		</div><!-- panel panel-primary -->
-	</div>
-</div>
+            <form role="form" id="mainFormulaire" action="index.php?uc=formulaire&action=traiterMainFormulaire"
+                  method="post">
+                <legend>Modalités</legend>
+                <div class="well well-fg">
+                </div>
+                <fieldset>
+                    {{ formation.modalites|raw }}
+                </fieldset>
+
+                {% include 'formulaire/informationsGenerales.html.twig' %}
+                {% if typedossier == 'CA' %}
+                    {% include 'formulaire/postBacExperiences.html.twig' %}
+                    {% include 'formulaire/choixVoeux.html.twig' %}
+                    {% if form is not null %}
+                        {% include 'formulaire/informationsSpecifiques.html.twig' %}
+                    {% endif %}
+                    {% include 'formulaire/documentsGeneraux.html.twig' %}
+                {% endif %}
+            </form>
+            <button id="customSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span>
+                Envoyer
+            </button>
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}
-	{{ parent() }}
-<script src="./public/js/jquery-upload/jquery.uploadfile.js"></script>
-<script type="text/javascript">
-	Array.prototype.allValuesAreDifferent = function() {
-		var ok = true;
-		for (var i = 0; i < this.length; ++i) {
-			if ($.inArray(this[i], this, i + 1) > -1) {
-				ok = false;
-			}
-		}
-		return ok;
-	};
+    {{ parent() }}
+    <script src="./public/js/jquery-upload/jquery.uploadfile.js"></script>
+    <script src="./public/js/jq.progress-bar.js"></script>
+    <script type="text/javascript">
+        Array.prototype.allValuesAreDifferent = function () {
+            var ok = true;
+            for (var i = 0; i < this.length; ++i) {
+                if ($.inArray(this[i], this, i + 1) > -1) {
+                    ok = false;
+                }
+            }
+            return ok;
+        };
 
-	$(function() {
-		var uploadObj = $("#upload").uploadFile({
-			url: "upload/upload.php",
-			dragDrop: true,
-			fileName: "myfile",
-			returnType: "json",
-			showDelete: true,
-			multiple: true,
-			autoSubmit: false,
-			dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
-			abortStr: "Abandonner",
-			cancelStr: "Annuler",
-			deletelStr: "Supprimer",
-			showDone: false,
-			deleteCallback: function(data, pd) {
-				for (var i = 0; i < data.length; i++) {
-					$.post("upload/delete.php", {op: "Supprimer", name: data[i]},
-					function(resp, textStatus, jqXHR) {
-						//Show Message
-						$('#myModal').modal('show')
-					});
-				}
-				pd.statusbar.hide(); //You choice.
-			},
-			afterUploadAll:function() {
-				$('#mainFormulaire').submit();
-			}
-		});
-		
-		$("#customSubmit").click(function() {
-			// On lance la validation du formulaire ici
-			uploadObj.startUpload();
-		});
+        $(document).ready(function () {
+            $('#mainFormulaire').showProgress({ message: { '10': 'You\'re off to a great start!', '25': 'You\'re doing great so far!', '50': 'You\'re halfway there!', '75': 'Look at that, you\'re nearly done already!', '100': 'All done! Just click <strong>Submit</strong> to continue!' } });
+            var uploadObj = $("#upload").uploadFile({
+                url: "upload/upload.php",
+                dragDrop: true,
+                fileName: "myfile",
+                returnType: "json",
+                showDelete: true,
+                multiple: true,
+                autoSubmit: false,
+                dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
+                abortStr: "Abandonner",
+                cancelStr: "Annuler",
+                deletelStr: "Supprimer",
+                showDone: false,
+                deleteCallback: function (data, pd) {
+                    for (var i = 0; i < data.length; i++) {
+                        $.post("upload/delete.php", {op: "Supprimer", name: data[i]},
+                                function (resp, textStatus, jqXHR) {
+                                    //Show Message
+                                    $('#myModal').modal('show')
+                                });
+                    }
+                    pd.statusbar.hide(); //You choice.
+                },
+                afterUploadAll: function () {
+                    $('#mainFormulaire').submit();
+                }
+            });
 
-		$('#mainFormulaire').submit(function() {
-			var choix = [];
-			$('select').each(function() {
-				choix.push($(this).val());
-			});
-		});
+            $("#customSubmit").click(function () {
+                // On lance la validation du formulaire ici
+                uploadObj.startUpload();
+            });
 
-		$("#startUpload").click(function() {
-			uploadObj.startUpload();
-		});
-	});
-</script>
+            $('#mainFormulaire').submit(function () {
+                var choix = [];
+                $('select').each(function () {
+                    choix.push($(this).val());
+                });
+            });
+
+            $("#startUpload").click(function () {
+                uploadObj.startUpload();
+            });
+        });
+    </script>
 {% endblock %}
