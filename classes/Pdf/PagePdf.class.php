@@ -3,7 +3,7 @@
  * @Project: FEG Project
  * @File: /classes/Pdf/PagePdf.class.php
  * @Purpose: Construit la page d'un document HTML qui va être transformé en PDF
- * @Author: Kevin Meas & Hasan Karakoz
+ * @Author: Kevin Meas & Hasan Karagoz
  */
 
 require_once 'PagePdfHeader.class.php';
@@ -201,18 +201,19 @@ class PagePdf{
     }
 
     public function getApplicant(){
-        return '<div class="titre_encadre">CANDIDAT</div>
+        return '<div class="titre_encadre">CANDIDAT <span class="traduitAnglais">/ APPLICANT</span></div>
                 <br>
                 <span class="bold">' . $this->applicantSex . '</span>
                 <br><br>
                 <table>
                     <tr>
                         <td width="535">
-                            <span class="bold">Nom :</span> ' . $this->applicantName . '<br><br>
-                            <span class="bold">Prénom :</span> ' . $this->applicantFirstName . '<br><br>
-                            <span class="bold">Date de naissance :</span> ' . $this->applicantBirthPlace . '<br><br>
-                            <span class="bold">Lieu de naissance :</span> ' . $this->applicantBirthDate . '<br><br>
-                            <span class="bold">N° INE (pour étudiants en France) :</span> ' . $this->applicantIne . '
+                            <span class="bold">Nom <span class="traduitAnglais">/ Surname </span>:</span> ' . $this->applicantName . '<br><br>
+                            <span class="bold">Prénom <span class="traduitAnglais">/ First name </span>:</span> ' . $this->applicantFirstName . '<br><br>
+                            <span class="bold">Date de naissance <span class="traduitAnglais">/ Date of birth </span>:</span> ' . $this->applicantBirthPlace . '<br><br>
+                            <span class="bold">Lieu de naissance <span class="traduitAnglais">/ Place of birth </span>:</span> ' . $this->applicantBirthDate . '<br><br>
+                            <span class="bold">N° INE (pour étudiants en France) :<br/>
+                              <span class="traduitAnglais">(only for students already in France)</span></span> ' . $this->applicantIne . '
                         </td>
                         <td>
                             ' . $this->getPhotoPath() . '
@@ -221,11 +222,12 @@ class PagePdf{
                 </table>
                 <br>
                 <div>
-                    <span class="bold">Adresse :</span> ' . $this->applicantAdress . '<br><br>
-                    <span class="bold">Tel Fixe :</span> ' . $this->applicantFixNumber . '<br><br>
-                    <span class="bold">Tel Portable :</span> ' . $this->applicantPortNumber . '<br><br>
-                    <span class="bold">Adresse électronique :</span> ' . $this->applicantMail . '<br><br>
-                    <span class="bold">Activité actuelle (étudiant, salarié, demandeur d\'emploi, autre) :</span> ' . $this->applicantActivity . '<br><br>
+                    <span class="bold">Adresse <span class="traduitAnglais">/ Address </span>:</span> ' . $this->applicantAdress . '<br><br>
+                    <span class="bold">Tel Fixe <span class="traduitAnglais">/ Phonenumber </span>:</span> ' . $this->applicantFixNumber . '<br><br>
+                    <span class="bold">Tel Portable :</span> ' . $this->applicantPortNumber . '<br/><br/>
+                    <span class="bold">Email :</span> ' . $this->applicantMail . '<br><br>
+                    <span class="bold">Activité actuelle (étudiant, salarié, demandeur d\'emploi, autre) :<br/>
+                     <span class="traduitAnglais">Current situation (student, employee, other)</span></span> ' . $this->applicantActivity . '<br><br>
                 </div>';
     }
 
@@ -298,18 +300,18 @@ class PagePdf{
 
     public function getPrevFormation (){
         return '
-                <div class="titre_encadre">CURSUS ANTÉRIEUR</div><br>
+                <div class="titre_encadre">CURSUS ANTÉRIEUR <span class="traduitAnglais">/ PREVIOUS STUDIES</span></div><br>
                 <div class="cadre" width="685">
-                    <div class="titre3 bold" text-align="center">BACCALAURÉAT</div><br>
-                    <span class="bold">Série : </span>' . $this->serie . '<br><br>
-                    <span class="bold">Année d\'obtention </span>: ' . $this->yearAcquisition . '<br><br>
-                    <span class="bold">Etablissement : </span>' . $this->establishment . ' <br><br>
-                    <span class="bold">Département : </span>' . $this->departement . ' <br><br>
-                    <span class="bold">Pays : </span>' . $this->country . '<br><br>
+                    <div class="titre3 bold" text-align="center">BACCALAURÉAT <span class="traduitAnglais">/ High-school diploma</span></div><br>
+                    <span class="bold">Série <span class="traduitAnglais">/ Type </span>: </span>' . $this->serie . '<br><br>
+                    <span class="bold">Année d\'obtention <span class="traduitAnglais">/ Year </span>:</span> ' . $this->yearAcquisition . '<br><br>
+                    <span class="bold">Etablissement <span class="traduitAnglais">/ Establishment </span>:  </span>' . $this->establishment . ' <br><br>
+                    <span class="bold">Département <span class="traduitAnglais">/ Department </span>: </span>' . $this->departement . ' <br><br>
+                    <span class="bold">Pays <span class="traduitAnglais">/ Country </span>: </span>' . $this->country . '<br><br>
                     <div class="titre3 bold" text-align="center">ENSEIGNEMENT SUPÉRIEUR</div><br>
-                    <div class="bold">Dernière inscription dans l\'enseignement supérieur : </div>
-                    <span>Année universitaire : .../...</span><br>
-                    <span>Formation suivie : </span><br><br>
+                    <div class="bold">Dernière inscription dans l\'enseignement supérieur  <span class="traduitAnglais">/ Last registration in higher education </span></div>
+                    <span>Année universitaire <span class="traduitAnglais">/ Year </span>:</span><br>
+                    <span>Formation suivie <span class="traduitAnglais">/ Training followed </span>: </span><br><br>
 
                     <table class="t_postBac">
                         <col style="width: 13%">
@@ -320,10 +322,10 @@ class PagePdf{
                             <th class="bold" colspan="4" text-align="center">Cursus Post-Bac</th>
                         </tr>
                         <tr>
-                            <th class="center">Année</th>
-                            <th class="center">Établissement</th>
-                            <th class="center">Cursus suivi</th>
-                            <th class="center">Validé</th>
+                            <th class="center">Année <span class="traduitAnglais">/<br/> Year</span></th>
+                            <th class="center">Établissement <span class="traduitAnglais">/<br/> University name</span></th>
+                            <th class="center">Cursus suivi <span class="traduitAnglais">/<br/> Degree</span></th>
+                            <th class="center">Validé <span class="traduitAnglais">/<br/> Obtained</span></th>
                         </tr>'
         . $this->printPostBac() .
         '</table>
@@ -371,8 +373,8 @@ class PagePdf{
 
     public function getOther (){
         return '<br/>
-        <div class="bold_underline">Langues étrangères (lu, écrit, parlé) :</div><br/>' . $this->foreignLanguage . '<br/><br/>
-        <div class="bold_underline">Autres éléments appuyant votre candidature :</div><br/>' . $this->otherElements . '<br/>';
+        <div class="bold_underline">Langues étrangères (lu, écrit, parlé)  :<span class="traduitAnglais"><br/> Foreign languages (reading, writing, speaking)</span></div><br/>' . $this->foreignLanguage . '<br/><br/>
+        <div class="bold_underline">Autres éléments appuyant votre candidature :<span class="traduitAnglais"><br/> Other</span></div><br/>' . $this->otherElements . '<br/>';
     }
 
     public function setInformationsSpecifiques($informationsSpecifiques ){
@@ -425,7 +427,7 @@ class PagePdf{
 
     public function getRowAdmin($rowAdmin){
         if ($rowAdmin){
-            return '<input type="checkbox" name="suggestion">Proposition admission en niveau inférieur<br/>
+            return '<input type="checkbox" name="suggestion">  Proposition admission en niveau inférieur<br/>
                     ………………………………………………………………………………………………………………………………………………………………………<br/>
                     ………………………………………………………………………………………………………………………………………………………………………<br/><br/>';
         }
@@ -449,10 +451,10 @@ class PagePdf{
                         <tr>
                             <td class="center bold" colspan="2">Motif du refus</td>
                             <td>
-                                <input type="checkbox" name="motif">Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
-                                <input type="checkbox" name="motif">Le niveau est insuffisant pour la formation envisagée<br/><br/>
-                                <input type="checkbox" name="motif">Le niveau est jugé trop juste en français<br/><br/>
-                                <input type="checkbox" name="motif"> Autre motif:<br/>
+                                <input type="checkbox" name="motif">  Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
+                                <input type="checkbox" name="motif">  Le niveau est insuffisant pour la formation envisagée<br/><br/>
+                                <input type="checkbox" name="motif">  Le niveau est jugé trop juste en français<br/><br/>
+                                <input type="checkbox" name="motif">  Autre motif:<br/>
                                 ………………………………………………………………………………………………………
                             </td>
                         </tr>
@@ -461,7 +463,7 @@ class PagePdf{
                         </tr>
                         <tr>
                             <td colspan="3">
-                            <input type="checkbox" name="suggestion">Suggestion éventuelle de réorientation<br/>
+                            <input type="checkbox" name="suggestion">  Suggestion éventuelle de réorientation<br/>
                                 ………………………………………………………………………………………………………………………………………………………………………<br/>
                                 ………………………………………………………………………………………………………………………………………………………………………<br/>
                                 ………………………………………………………………………………………………………………………………………………………………………
@@ -479,13 +481,13 @@ class PagePdf{
                             <col style="width: 33%">
                             <tr>
                                 <td class="bold no-border">
-                                    <input type="checkbox" class="bold">ADMIS
+                                    <input type="checkbox">  ADMIS
                                 </td>
                                 <td class="bold no-border">
-                                    <input type="checkbox" class="bold">REFUSE
+                                    <input type="checkbox">  REFUSE
                                 </td>
                                 <td class="bold no-border">
-                                    <input type="checkbox">LISTE D’ATTENTE
+                                    <input type="checkbox">  LISTE D’ATTENTE
                                 </td>
                             </tr>
                         </table>
@@ -493,10 +495,10 @@ class PagePdf{
 
                         <div class="underline">Motif du refus</div><br>
                          <div>
-                            <input type="checkbox" name="nom">Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
-                            <input type="checkbox" name="nom">Le niveau est insuffisant pour la formation envisagée<br/><br/>
-                            <input type="checkbox" name="nom">Le niveau est jugé trop juste en français<br/><br/>
-                            <input type="checkbox" name="nom">Autre motif
+                            <input type="checkbox" name="nom">  Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
+                            <input type="checkbox" name="nom">  Le niveau est insuffisant pour la formation envisagée<br/><br/>
+                            <input type="checkbox" name="nom">  Le niveau est jugé trop juste en français<br/><br/>
+                            <input type="checkbox" name="nom">  Autre motif
                         </div>
                 </div>';
     }
@@ -510,8 +512,8 @@ class PagePdf{
         if($voeuxMultiple){
             foreach($voeux as $element){
                 $voeuxFormation.=  '  <tr>
-                        <td><input type="checkbox" name="nom">Admis<br/>
-                        <input type="checkbox" name="nom">Refusé</td>
+                        <td><input type="checkbox" name="nom">  Admis<br/>
+                        <input type="checkbox" name="nom">  Refusé</td>
                         <td style="width:110px;>' . $element . '<br/><br/></td>
                         <td></td>
                         </tr>';
@@ -539,7 +541,7 @@ class PagePdf{
     }
 
     public function getFicheCommissionPeda(){
-        return '<div class="titre_encadre">FICHE COMMISSION PEDAGOGIQUE</div><br/>
+        return '<div class="titre_encadre">FICHE COMMISSION PEDAGOGIQUE <span class="traduitAnglais">/ FORM EDUCATIONAL COMMISSION</span></div><br/>
                 <div class="text_align">Commission pédagogique du :………………………………………</div><br/>
                 <div>Nom et Prénom du candidat : ' . $this->applicantName . ' ' . $this->applicantFirstName . '</div>
                 <br/><div>Demande l’autorisation de s’inscrire en : ' . $this->title2 . '<br/></div><br/>
