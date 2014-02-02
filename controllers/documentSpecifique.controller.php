@@ -28,7 +28,7 @@ switch ($action) {
         echo $twig->render('documentSpecifique/ajouterDocumentSpecifique.html.twig', array('code' => $_GET['code']));
     } break;
     case "ajout": {
-        $documentSpecifiqueManager->insert(new DocumentSpecifique(0, $_POST['code_formation'], $_POST['nom'], $_POST['url'], $_POST['multiple']));
+        $documentSpecifiqueManager->insert(new DocumentSpecifique(0, $_POST['code_formation'], $_POST['nom'], $_POST['url']));
         header('location:index.php?uc=documentSpecifique&action=grille&code='.$_POST['code_formation']);
     } break;
     case "modifier": {

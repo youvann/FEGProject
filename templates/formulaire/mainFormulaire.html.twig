@@ -12,11 +12,11 @@
             <form role="form" id="mainFormulaire" action="index.php?uc=formulaire&action=traiterMainFormulaire"
                   method="post">
                 <legend>Modalités</legend>
-                <div class="well well-fg">
+                <div class="alert alert-warning">
+                    <fieldset>
+                        {{ formation.modalites|raw }}
+                    </fieldset>
                 </div>
-                <fieldset>
-                    {{ formation.modalites|raw }}
-                </fieldset>
 
                 {% include 'formulaire/informationsGenerales.html.twig' %}
                 {% if typedossier == 'CA' %}

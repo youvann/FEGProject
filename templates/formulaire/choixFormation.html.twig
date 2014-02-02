@@ -111,8 +111,8 @@
                         $('#displayDocuments').empty();
                         var documentsGeneraux = json.general;
                         var documentsSpecifiques = json.specifique;
-                        var listeDocumentsGeneraux = $('<ul></ul>');
-                        var listeDocumentsSpecifiques = $('<ul></ul>');
+                        var listeDocumentsGeneraux = $('<div class="alert alert-warning"><ul></ul></div>');
+                        var listeDocumentsSpecifiques = $('<div class="alert alert-warning"><ul></ul></div>');
 
                         documentsGeneraux.forEach(function (doc) {
                             var li = $('<li></li>').append(doc)

@@ -15,8 +15,13 @@ header {
 
 #content{
     background-color: #FAFAFA;
-    box-shadow: 1px 1px 12px #b8b8b8;
-    border-radius: 10px 10px 10px 10px;
+    /*box-shadow: 1px 1px 12px #b8b8b8;
+    border-radius: 10px 10px 10px 10px;*/
+    border: solid 1px #e7e7e7;
+}
+
+#content{
+    padding: 2em;
 }
 
 .nav-title{
@@ -158,6 +163,14 @@ p, label{
     line-height: .75em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.progress .progress-bar.six-sec-ease-in-out {
+    -webkit-transition: width 10s ease-in-out;
+    -moz-transition: width 10s ease-in-out;
+    -ms-transition: width 10s ease-in-out;
+    -o-transition: width 10s ease-in-out;
+    transition: width 10s ease-in-out;
 }
 
 

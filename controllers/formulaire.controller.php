@@ -212,12 +212,18 @@ switch ($action){
             $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
 
             $html2pdf->Output('./dossiers/' . $_SESSION['choisie'] . '/Candidatures/' . $_SESSION['ine'] . '/Candidature-' . $_SESSION['ine'] . '.pdf', 'F');
-            echo "PDF BIEN GENERE";
+            echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
+
         } catch (HTML2PDF_exception $e){
             echo $e;
             exit;
         }
 
+    }
+        break;
+    case "recapitulatif" :
+    {
+        echo $twig->render('formulaire/recapitulatif.html.twig', array());
     }
         break;
     default:
