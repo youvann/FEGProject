@@ -21,7 +21,7 @@ switch ($action) {
         echo $twig->render('documentGeneral/ajouterDocumentGeneral.html.twig');
     } break;
     case "ajout": {
-        $documentGeneralManager->insert(new DocumentGeneral(0, $_POST['nom'], $_POST['multiple']));
+        $documentGeneralManager->insert(new DocumentGeneral(0, $_POST['nom']));
         header('location:index.php?uc=documentGeneral&action=grille');
     } break;
     case "modifier": {
