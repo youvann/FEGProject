@@ -28,7 +28,7 @@ $droits = array(
 		array("intranet", "liensFormation"),
 		array("utilisateur", "deconnexion"),
 		array("voeu", "consulter"),
-		array("voeu", "grille"),
+		array("voeu", "grille")
 	),array(// Responsable
 		array("choix", "ajouter"),
 		array("choix", "ajout"),
@@ -41,6 +41,7 @@ $droits = array(
 		array("formation", "ajout"),
 		array("formation", "modifier"),
 		array("formation", "modification"),
+		array("formation", "codeFormationPossible"),
 		array("information", "ajouter"),
 		array("information", "ajout"),
 		array("information", "suppression"),
@@ -50,6 +51,7 @@ $droits = array(
 		array("voeu", "modifier"),
 		array("voeu", "modification"),
 		array("voeu", "suppression"),
+		array("voeu", "codeEtapePossible")
 	),array(// Administrateur
 		array("formation", "suppression"),
 		array("documentGeneral", "ajouter"),

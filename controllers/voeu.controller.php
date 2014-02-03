@@ -70,5 +70,12 @@ switch ($action) {
 			$voeuManager->delete($voeu);
 			header('location:index.php?uc=formation&action=grille' . $voeu->getCode());
 		} break;
+	case "codeEtapePossible": {
+		$q = $conn->prepare("SELECT IF(count(*) = 1, FALSE, TRUE) as ok FROM `voeu` WHERE `code_etape` = ?;");
+		$q->execute(array($_POST['code']));
+		$rs = $q->fetch();
+		$response['response'] = $rs['ok'];
+		echo json_encode($response);
+	} break;
 	default: break;
 }

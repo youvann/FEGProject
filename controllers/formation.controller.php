@@ -60,6 +60,13 @@ switch ($action) {
         header('location:index.php?uc=formation&action=grille');
     }
         break;
+	case "codeFormationPossible": {
+		$q = $conn->prepare("SELECT IF(count(*) = 1, FALSE, TRUE) as ok FROM `formation` WHERE `code_formation` = ?;");
+		$q->execute(array($_POST['code']));
+		$rs = $q->fetch();
+		$response['response'] = $rs['ok'];
+		echo json_encode($response);
+	} break;
     default:
         break;
 }

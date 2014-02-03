@@ -50,3 +50,22 @@
 </a>
 
 {% endblock %}
+
+{% block scripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $(function() {
+        $('#code_etape').on('input', function() {
+            $.ajax({
+                url: 'index.php?uc=voeu&action=codeEtapePossible',
+                type: 'post',
+                data: 'code=' +  $('#code_etape').val(),
+                dataType: 'json',
+                success: function (json) {
+                    console.log(json);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
