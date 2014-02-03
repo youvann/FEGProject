@@ -15,7 +15,7 @@ class DocumentGeneralManager {
 
 	public function find($id) {
 
-		$q = $this->db->prepare("SELECT * FROM `DOCUMENT_GENERAL` WHERE `ID` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `document_general` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
 		return new DocumentGeneral($rs['ID'], $rs['NOM']);
@@ -23,7 +23,7 @@ class DocumentGeneralManager {
 
 	public function findAll() {
 		$documents = array();
-		$rs = $this->db->query("SELECT * FROM `DOCUMENT_GENERAL`;")->fetchAll();
+		$rs = $this->db->query("SELECT * FROM `document_general`;")->fetchAll();
 		foreach ($rs as $document) {
 			$documents[] = new DocumentGeneral($document['ID'], $document['NOM']);
 		}
@@ -31,12 +31,12 @@ class DocumentGeneralManager {
 	}
 
 	public function insert(DocumentGeneral $document) {
-		return $this->db->prepare("INSERT INTO `DOCUMENT_GENERAL` (`NOM`) VALUES (?);")
+		return $this->db->prepare("INSERT INTO `document_general` (`NOM`) VALUES (?);")
 						->execute(array($document->getNom()));
 	}
 
 	public function update(DocumentGeneral $document) {
-		return $this->db->prepare("UPDATE `DOCUMENT_GENERAL` SET `NOM` = ? WHERE `ID` = ?;")
+		return $this->db->prepare("UPDATE `document_general` SET `NOM` = ? WHERE `ID` = ?;")
 						->execute(array(
 							$document->getNom(),
 							$document->getId()
@@ -44,7 +44,7 @@ class DocumentGeneralManager {
 	}
 
 	public function delete(DocumentGeneral $document) {
-		return $this->db->prepare("DELETE FROM `DOCUMENT_GENERAL` WHERE `ID` = ?;")
+		return $this->db->prepare("DELETE FROM `document_general` WHERE `ID` = ?;")
 						->execute(array($document->getId()));
 	}
 

@@ -201,7 +201,7 @@ switch ($action){
         $content = ob_get_clean();
 
         // convert in PDF
-        require_once './classes/Pdf/html2pdf/html2pdf.class.php';
+        require_once 'classes/Pdf/html2pdf/html2pdf.class.php';
         try{
             $html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
             //$html2pdf->setModeDebug();

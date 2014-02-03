@@ -13,7 +13,7 @@ class FormationManager {
 	}
 
 	public function find($code) {
-		$q = $this->db->prepare("SELECT * FROM `FORMATION` WHERE `CODE_FORMATION` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `formation` WHERE `CODE_FORMATION` = ?;");
 		$q->execute(array($code));
 		$rs = $q->fetch();
 		return new Formation($rs['CODE_FORMATION'], $rs['MENTION'], $rs['MODALITES'], $rs['OUVERTE'], $rs['FACULTE']);
@@ -21,7 +21,7 @@ class FormationManager {
 
 	public function findAll() {
 		$formations = array();
-		$rs = $this->db->query("SELECT * FROM `FORMATION`;")->fetchAll();
+		$rs = $this->db->query("SELECT * FROM `formation`;")->fetchAll();
 		foreach ($rs as $formation) {
 			$formations[] = new Formation($formation['CODE_FORMATION'], $formation['MENTION'], $formation['MODALITES'], $formation['OUVERTE'], $formation['FACULTE']);
 		}
@@ -44,7 +44,7 @@ class FormationManager {
 	}
 
 	public function update(Formation $formation) {
-		return $this->db->prepare("UPDATE `FORMATION` SET `MENTION` = ?, `MODALITES` = ?, `OUVERTE` = ?, `FACULTE` = ? WHERE `CODE_FORMATION` = ?;")
+		return $this->db->prepare("UPDATE `formation` SET `MENTION` = ?, `MODALITES` = ?, `OUVERTE` = ?, `FACULTE` = ? WHERE `CODE_FORMATION` = ?;")
 						->execute(array(
 							$formation->getMention(),
 							$formation->getModalites(),
@@ -55,7 +55,7 @@ class FormationManager {
 	}
 
 	public function delete(Formation $formation) {
-		return $this->db->prepare("DELETE FROM `FORMATION` WHERE `CODE_FORMATION` = ?;")
+		return $this->db->prepare("DELETE FROM `formation` WHERE `CODE_FORMATION` = ?;")
 						->execute(array($formation->getCodeFormation()));
 	}
 

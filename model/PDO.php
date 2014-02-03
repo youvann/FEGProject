@@ -1,13 +1,17 @@
 <?php
 
-// Connexion PDO
+/*/ Connexion PDO
 $dbname = 'fegtest1';
 $host = 'localhost';
 $user = 'root';
-$password = '';
-if (__DIR__ !== 'C:\wamp\www\FEGProject\model') {
-	$password = 'root';
-}
+$password = '';*/
+
+// Connexion PDO
+$dbname = 'miageaixcandid';
+$host = 'mysql51-63.pro';
+$user = 'miageaixcandid';
+$password = 'candidfeg13';
+
 static $conn = null;
 
 try {

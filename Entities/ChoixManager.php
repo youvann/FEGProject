@@ -13,7 +13,7 @@ class ChoixManager {
 	}
 
 	public function find($id) {
-		$q = $this->db->prepare("SELECT * FROM `CHOIX` WHERE `ID` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `choix` WHERE `ID` = ?;");
         $q->execute(array($id))->fetch();
         $rs = $q->fetchAll();
 		return new Choix($rs['ID'], $rs['INFORMATION'], $rs['TEXTE']);
@@ -21,7 +21,7 @@ class ChoixManager {
 
 	public function findAll() {
 		$lesChoix = array();
-		$rs = $this->db->query("SELECT * FROM `CHOIX`;")->fetchAll();
+		$rs = $this->db->query("SELECT * FROM `choix`;")->fetchAll();
 		foreach ($rs as $unChoix) {
 			$lesChoix[] = new Choix($unChoix['ID'], $unChoix['INFORMATION'], $unChoix['TEXTE']);
 		}
@@ -30,7 +30,7 @@ class ChoixManager {
 	
 	public function findAllByInformation(Information $information) {
 		$lesChoix = array();
-		$q = $this->db->prepare("SELECT * FROM `CHOIX` WHERE `INFORMATION` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `choix` WHERE `INFORMATION` = ?;");
 		$q->execute(array($information->getId()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $unChoix) {
@@ -45,12 +45,12 @@ class ChoixManager {
 	}
 
 	public function update(Choix $choix) {
-		return $this->db->prepare("UPDATE `CHOIX` SET `INFORMATION` = ?, `TEXTE` = ? WHERE `ID` = ?;")
+		return $this->db->prepare("UPDATE `choix` SET `INFORMATION` = ?, `TEXTE` = ? WHERE `ID` = ?;")
 						->execute(array($choix->getInformation(), $choix->getTexte(), $choix->getId()));
 	}
 	
 	public function delete(Choix $choix) {
-		return $this->db->prepare("DELETE FROM `CHOIX` WHERE `ID` = ?;")
+		return $this->db->prepare("DELETE FROM `choix` WHERE `ID` = ?;")
 						->execute(array($choix->getId()));
 	}
 }

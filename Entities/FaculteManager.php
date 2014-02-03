@@ -12,7 +12,7 @@ class FaculteManager {
 	}
 
 	public function find($id) {
-		$q = $this->db->prepare("SELECT * FROM `FACULTE` WHERE `ID` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `faculte` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
 		return new Faculte($rs['ID'], $rs['NOM']);
@@ -20,7 +20,7 @@ class FaculteManager {
 
 	public function findAll() {
 		$facultes = array();
-		$rs = $this->db->query("SELECT * FROM `FACULTE`;")->fetchAll();
+		$rs = $this->db->query("SELECT * FROM `faculte`;")->fetchAll();
 		foreach ($rs as $faculte) {
 			$facultes[] = new Faculte($faculte['ID'], $faculte['NOM']);
 		}
@@ -28,12 +28,12 @@ class FaculteManager {
 	}
 
 	public function insert(Faculte $faculte) {
-		return $this->db->prepare("INSERT INTO `FACULTE` (`NOM`) VALUES (?);")
+		return $this->db->prepare("INSERT INTO `faculte` (`NOM`) VALUES (?);")
 						->execute(array($faculte->getNom()));
 	}
 
 	public function update(Faculte $faculte) {
-		return $this->db->prepare("UPDATE `FACULTE` SET `NOM` = ? WHERE `ID` = ?;")
+		return $this->db->prepare("UPDATE `faculte` SET `NOM` = ? WHERE `ID` = ?;")
 						->execute(array(
 							$faculte->getNom(),
 							$faculte->getId()
@@ -41,7 +41,7 @@ class FaculteManager {
 	}
 
 	public function delete(Faculte $faculte) {
-		return $this->db->prepare("DELETE FROM `FACULTE` WHERE `ID` = ?;")
+		return $this->db->prepare("DELETE FROM `faculte` WHERE `ID` = ?;")
 						->execute(array($faculte->getId()));
 	}
 }

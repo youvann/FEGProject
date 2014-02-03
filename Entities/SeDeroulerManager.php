@@ -14,7 +14,7 @@ class SeDeroulerManager {
 
 	public function findAll() {
 		$lesSeDerouler = array();
-		$rs = $this->db->query("SELECT * FROM `SE_DEROULER`;")->fetchAll();
+		$rs = $this->db->query("SELECT * FROM `se_derouler`;")->fetchAll();
 		foreach ($rs as $unSeDerouler) {
 			$lesSeDerouler[] = new SeDerouler($unSeDerouler['CODE_VET'], $unSeDerouler['CODE_ETAPE']);
 		}
@@ -23,7 +23,7 @@ class SeDeroulerManager {
 	
 	public function findAllByVoeu(Voeu $voeu) {
 		$lesSeDerouler = array();
-		$q = $this->db->prepare("SELECT * FROM `SE_DEROULER` WHERE `CODE_ETAPE` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `se_derouler` WHERE `CODE_ETAPE` = ?;");
 		$q->execute(array($voeu->getCodeEtape()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $unSeDerouler) {
@@ -33,12 +33,12 @@ class SeDeroulerManager {
 	}
 
 	public function insert(SeDerouler $SeDerouler) {
-		return $this->db->prepare("INSERT INTO `SE_DEROULER` (`CODE_VET`, `CODE_ETAPE`) VALUES (?, ?);")
+		return $this->db->prepare("INSERT INTO `se_derouler` (`CODE_VET`, `CODE_ETAPE`) VALUES (?, ?);")
 						->execute(array($SeDerouler->getCodeVet(), $SeDerouler->getCodeEtape()));
 	}
 
 	public function delete(SeDerouler $SeDerouler) {
-		return $this->db->prepare("DELETE FROM `SE_DEROULER` WHERE `CODE_VET`= ? AND `CODE_ETAPE` = ?;")
+		return $this->db->prepare("DELETE FROM `se_derouler` WHERE `CODE_VET`= ? AND `CODE_ETAPE` = ?;")
 						->execute(array($SeDerouler->getCodeVet(), $SeDerouler->getCodeEtape()));
 	}
 

@@ -28,8 +28,7 @@ switch ($action){
 	case "ajouter":
 	{
 		$facultes = $faculteManager->findAll();
-		$langues = $langueManager->findAll();
-		echo $twig->render('formation/ajouterFormation.html.twig', array('facultes' => $facultes, 'langues' => $langues));
+		echo $twig->render('formation/ajouterFormation.html.twig', array('facultes' => $facultes));
 	} break;
 	case "ajout": {
 		$formationManager->insert(new Formation($_POST['code_formation'], $_POST['mention'], $_POST['modalites'], $_POST['ouverte'], $_POST['faculte']));

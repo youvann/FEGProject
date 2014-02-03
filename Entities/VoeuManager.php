@@ -12,7 +12,7 @@ class VoeuManager {
 	}
 
 	public function find($codeEtape) {
-		$q = $this->db->prepare("SELECT * FROM `VOEU` WHERE `CODE_ETAPE` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `voeu` WHERE `CODE_ETAPE` = ?;");
 		$q->execute(array($codeEtape));
 		$rs = $q->fetch();
 		return new Voeu($rs['CODE_ETAPE'], $rs['CODE_FORMATION'], $rs['ETAPE'], $rs['RESPONSABLE']);
@@ -20,7 +20,7 @@ class VoeuManager {
 
 	public function findAll() {
 		$voeux = array();
-		$rs = $this->db->query("SELECT * FROM `VOEU`;")->fetchAll();
+		$rs = $this->db->query("SELECT * FROM `voeu`;")->fetchAll();
 		foreach ($rs as $voeu) {
 			$voeux[] = Voeu($voeu['CODE_ETAPE'], $voeu['CODE_FORMATION'], $voeu['ETAPE'], $voeu['RESPONSABLE']);
 		}
@@ -29,7 +29,7 @@ class VoeuManager {
 	
 	public function findAllByFormation(Formation $formation) {
 		$voeux = array();
-		$q = $this->db->prepare("SELECT * FROM `VOEU` WHERE `CODE_FORMATION` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `voeu` WHERE `CODE_FORMATION` = ?;");
 		$q->execute(array($formation->getCodeFormation()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $voeu) {
@@ -39,17 +39,17 @@ class VoeuManager {
 	}
 
 	public function insert(Voeu $voeu) {
-		return $this->db->prepare("INSERT INTO `VOEU` (`CODE_ETAPE`, `CODE_FORMATION`, `ETAPE`, `RESPONSABLE`) VALUES (?, ?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `voeu` (`CODE_ETAPE`, `CODE_FORMATION`, `ETAPE`, `RESPONSABLE`) VALUES (?, ?, ?, ?);")
 						->execute(array($voeu->getCodeEtape(), $voeu->getCodeFormation(), $voeu->getEtape(), $voeu->getResponsable()));
 	}
 
 	public function update(Voeu $voeu) {
-		return $this->db->prepare("UPDATE `VOEU` SET `CODE_FORMATION` = ?, `ETAPE` = ?, `RESPONSABLE` = ? WHERE `CODE_ETAPE` = ?;")
+		return $this->db->prepare("UPDATE `voeu` SET `CODE_FORMATION` = ?, `ETAPE` = ?, `RESPONSABLE` = ? WHERE `CODE_ETAPE` = ?;")
 						->execute(array($voeu->getCodeFormation(), $voeu->getEtape(), $voeu->getResponsable(), $voeu->getCodeEtape()));
 	}
 	
 	public function delete(Voeu $voeu) {
-		return $this->db->prepare("DELETE FROM `VOEU` WHERE `CODE_ETAPE` = ?;")
+		return $this->db->prepare("DELETE FROM `voeu` WHERE `CODE_ETAPE` = ?;")
 						->execute(array($voeu->getCodeEtape()));
 	}
 	

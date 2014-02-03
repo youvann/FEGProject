@@ -14,7 +14,7 @@ class ExperienceManager {
 
 	public function findAllByDossier(Dossier $dossier) {
 		$lesExperiences = array();
-		$q = $this->db->prepare("SELECT * FROM `EXPERIENCE` WHERE `INE` = ? AND `CODE_FORMATION` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `experience` WHERE `INE` = ? AND `CODE_FORMATION` = ?;");
         $q->execute(array($dossier->getIne(), $dossier->getCodeFormation()));
         $rs = $q->fetchAll();
 		foreach ($rs as $experience) {
@@ -24,7 +24,7 @@ class ExperienceManager {
 	}
 
 	public function insert(Experience $experience) {
-		return $this->db->prepare("INSERT INTO `EXPERIENCE` (`INE`, `CODE_FORMATION`, `MOIS_DEBUT`, `ANNEE_DEBUT`, `MOIS_FIN`, `ANNEE_FIN`, `ENTREPRISE`, `FONCTION`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `experience` (`INE`, `CODE_FORMATION`, `MOIS_DEBUT`, `ANNEE_DEBUT`, `MOIS_FIN`, `ANNEE_FIN`, `ENTREPRISE`, `FONCTION`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);")
 						->execute(array(
 							$experience->getIne(),
 							$experience->getCodeFormation(),
@@ -38,7 +38,7 @@ class ExperienceManager {
 	}
 
 	public function delete(Experience $experience) {
-		return $this->db->prepare("DELETE FROM `EXPERIENCE` WHERE `ID` = ?;")
+		return $this->db->prepare("DELETE FROM `experience` WHERE `ID` = ?;")
 						->execute(array($experience->getId()));
 	}
 
