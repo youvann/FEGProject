@@ -2,73 +2,70 @@
 
 {% block content %}
 
-    <div class="row" style="margin-top: 1em;">
+    <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>Votre parcours</h3>
-                </div>
-                <!-- /panel-heading -->
-                <div class="panel-body">
-                    <form role="form" action="index.php?uc=formulaire&action=traiterChoixFormation"
-                          id="formChoixFormation" method="post">
-                        <fieldset>
-                            <legend>Formation souhaitée</legend>
-                            <div id="textboxIne" class="form-group has-success">
-                                <label for="ine">Votre numéro INE</label>
-                                <input class="form-control" type="text" id="ine" name="ine"/>
-                            </div>
+
+            <h2 class="titre_rubrique">Votre parcours</h2>
+
+            <form role="form" action="index.php?uc=formulaire&action=traiterChoixFormation"
+                  id="formChoixFormation" method="post">
+                <fieldset>
+                    <legend>Formation souhaitée</legend>
+                    <div class="well well-fg">
+                        <div id="textboxIne" class="form-group has-success">
+                            <label for="ine">Votre numéro INE</label>
+                            <input class="form-control" type="text" id="ine" name="ine"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="derniere">Sélectionnez votre dernière formation effectuée</label>
+                            <select class="form-control" id="derniere" name="derniere">
+                                <option value="">---- Sélectionnez ----</option>
+                                {% for formation in formations %}
+                                    <option value="{{ formation.codeformation }}">{{ formation.mention }}</option>
+                                {% endfor %}
+                                <option value="0000">Autre</option>
+                            </select>
+                        </div>
+                        <!-- /form-group -->
+                        <div id="autre_formation">
                             <div class="form-group">
-                                <label for="derniere">Sélectionnez votre dernière formation effectuée</label>
-                                <select class="form-control" id="derniere" name="derniere">
-                                    <option value="">---- Sélectionnez ----</option>
-                                    {% for formation in formations %}
-                                        <option value="{{ formation.codeformation }}">{{ formation.mention }}</option>
-                                    {% endfor %}
-                                    <option value="0000">Autre</option>
-                                </select>
+                                <label for="nomAutreFormation">Veuillez entrer le nom de la dernière
+                                    formation que vous avez effectuée</label>
+                                <input type="text" class="form-control" id="nomAutreFormation"
+                                       name="nomAutreFormation">
                             </div>
-                            <!-- /form-group -->
-                            <div id="autre_formation">
-                                <div class="form-group">
-                                    <label for="nomAutreFormation">Veuillez entrer le nom de la dernière
-                                        formation que vous avez effectuée</label>
-                                    <input type="text" class="form-control" id="nomAutreFormation"
-                                           name="nomAutreFormation">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="choisie">Sélectionnez la formation souhaitée pour l'année scolaire
+                                2014-2015</label>
+                            <select class="form-control" id="choisie" name="choisie">
+                                <option value="">---- Séléctionnez ----</option>
+                                {% for formation in formations %}
+                                    <option value="{{ formation.codeformation }}">{{ formation.mention }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div id="displayDocuments"></div>
+                        <div id="divAllDocuments" class="form-group">
+                            <label>Etez-vous en possession de tous les documents demandés ?</label>
+
+                            <div class="radio">
+                                <label for="oui">
+                                    <input type="radio" id="oui" name="allDocuments" value="oui"/> Oui
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <label for="choisie">Sélectionnez la formation souhaitée pour l'année scolaire
-                                    2014-2015</label>
-                                <select class="form-control" id="choisie" name="choisie">
-                                    <option value="">---- Séléctionnez ----</option>
-                                    {% for formation in formations %}
-                                        <option value="{{ formation.codeformation }}">{{ formation.mention }}</option>
-                                    {% endfor %}
-                                </select>
+                            <div class="radio">
+                                <label for="non">
+                                    <input type="radio" id="non" name="allDocuments" value="non" checked/> Non
+                                </label>
                             </div>
-                            <div id="displayDocuments"></div>
-                            <div id="divAllDocuments" class="form-group">
-                                <label>Etez-vous en possession de tous les documents demandés ?</label>
-                                <div class="radio">
-                                    <label for="oui">
-                                        <input type="radio" id="oui" name="allDocuments" value="oui" /> Oui
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label for="non">
-                                        <input type="radio" id="non" name="allDocuments" value="non" checked /> Non
-                                    </label>
-                                </div>
-                            </div>
-                            <input type="submit" class="btn btn-primary" />
-                        </fieldset>
-                    </form>
-                </div>
-                <!-- panel-body -->
-            </div>
-            <!-- panel panel-primary -->
+                        </div>
+                        <input type="submit" class="btn btn-primary"/>
+                    </div>
+                </fieldset>
+            </form>
         </div>
+
     </div>
 
 {% endblock %}
@@ -91,8 +88,8 @@
                 (choixFormation === "Autre") ? autreFormation.fadeIn("slow") : autreFormation.fadeOut("fast");
             });
 
-            $('input[type=radio]').on('change', function() {
-                if($(this).val() == 'oui') {
+            $('input[type=radio]').on('change', function () {
+                if ($(this).val() == 'oui') {
                     $('input[type=submit]').show();
                 } else {
                     $('input[type=submit]').hide();
@@ -108,14 +105,14 @@
                 $.ajax({
                     url: 'index.php?uc=formulaire&action=displayDocuments',
                     type: 'post',
-                    data: 'code=' +  $('#choisie').val(),
+                    data: 'code=' + $('#choisie').val(),
                     dataType: 'json',
                     success: function (json) {
                         $('#displayDocuments').empty();
                         var documentsGeneraux = json.general;
                         var documentsSpecifiques = json.specifique;
-                        var listeDocumentsGeneraux = $('<ul></ul>');
-                        var listeDocumentsSpecifiques = $('<ul></ul>');
+                        var listeDocumentsGeneraux = $('<div class="alert alert-warning"><ul></ul></div>');
+                        var listeDocumentsSpecifiques = $('<div class="alert alert-warning"><ul></ul></div>');
 
                         documentsGeneraux.forEach(function (doc) {
                             var li = $('<li></li>').append(doc)

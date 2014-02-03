@@ -1,6 +1,11 @@
 <fieldset>
     <legend>Choix de la spécialité</legend>
-    {% for i in 1..3 %}
+<div class="well well-fg">
+    {% set nbListes = 3 %}
+    {% if nbVoeux < 3 %}
+        {% set nbListes = nbVoeux %}
+    {% endif %}
+    {% for i in 1..nbListes %}
         <div class="form-group">
             <label for="voeu-{{ i }}">Sélectionnez votre voeu n°{{ i }}</label>
             <select class="form-control" id="voeu-{{ i }}" name="voeu[]">
@@ -15,9 +20,9 @@
             </select>
         </div>
     {% endfor %}
-    <div class="form-group">
+    <div class="form-group required">
         <label>Ville préférée</label>
         <input class="form-control required" type="text" id="ville_preferee" name="ville_preferee"/>
-
+    </div>
+</div>
 </fieldset>
-

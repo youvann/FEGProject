@@ -2,32 +2,33 @@
 
 {% block content %}
 
-    <div class="row" style="margin-top: 1em;">
+    <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>Espace réservé au personnel</h3>
-                </div><!-- /panel-heading -->
-                <div class="panel-body">
 
-                    <form role="form" action="index.php?uc=utilisateur&action=connexion" method="post">
-                        <fieldset>
-                            <legend>Connectez-vous</legend>
-                            <div class="form-group">
-                                <label for="login">Identifiant :</label>
-                                <input class="form-control" type="text" id="login" name="login" />
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Mot de passe :</label>
-                                <input class="form-control" type="password" id="password" name="password" />
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-log-in"></span> Se connecter
-                            </button>
-                        </fieldset>
-                    </form>
-                </div> <!-- panel-body -->
-            </div><!-- panel panel-primary -->
+
+            <h2 class="titre_rubrique">Espace réservé au personnel</h2>
+
+
+            <form role="form" action="index.php?uc=utilisateur&action=connexion" method="post">
+                <fieldset>
+                    <legend>Connectez-vous</legend>
+                    <div class="well well-fg">
+                    <div class="form-group">
+                        <label for="login">Identifiant :</label>
+                        <input class="form-control" type="text" id="login" name="login"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe :</label>
+                        <input class="form-control" type="password" id="password" name="password"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-log-in"></span> Se connecter
+                    </button>
+                    </div>
+                </fieldset>
+            </form>
+                
+
         </div>
     </div>
 

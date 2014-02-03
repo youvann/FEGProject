@@ -46,10 +46,16 @@ function Zip($source, $destination) {
 }
 
 function myMkdir($dir) {
-    if (!file_exists($dir)) {
+    if (!file_exists("./dossiers/" . $dir)) {
         mkdir("./dossiers/" . $dir, 0777);
         mkdir("./dossiers/" . $dir . "/Candidatures", 0777);
         mkdir("./dossiers/" . $dir . "/Preinscriptions", 0777);
+    }
+}
+
+function myMkdirIne($dir){
+    if (!file_exists("./dossiers/" . $dir)){
+        mkdir("./dossiers/" . $dir, 0777);
     }
 }
 
@@ -70,7 +76,7 @@ function removeDir($dir) {
                 //echo '</div><br />';
                 //echo "effacement du rép",$path,'<br />';
                 // ne pas supprimer les répertoires Candidatures et Preinscriptions
-                if ($file !== "Candidatures" && $file !== "Preinscriptions") {
+                if ($file !== "Candidatures" && $file !== "Preinscriptions" && $file !== "Dossier_Type") {
                     rmdir($path);
                 }
             } else {

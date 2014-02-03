@@ -2,10 +2,68 @@
 
 {% block body %}
 
-<div class="container">
+    <div class="container">
+        <div class="row">
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="brand" href="index.php?uc=intranet&action=accueil"><img src="./public/img/layout/amu.png" width="100" style="margin-top: 10px;"></a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <!--<li class="{% if get.uc == 'intranet' and get.action == 'accueil' %}active{% endif %}"><a
+                                        href="index.php?uc=intranet&action=accueil">Accueil</a></li>-->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration
+                                    ({{ session.name }})<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class="{% if get.uc == 'intranet' and get.action == 'carte' %}active{% endif %}">
+                                        <a
+                                                href="index.php?uc=intranet&action=carte">Carte</a></li>
+                                    <li class="{% if get.uc == 'intranet' and get.action == 'explorateur' %}active{% endif %}">
+                                        <a href="index.php?uc=intranet&action=explorateur">Explorateur</a></li>
+                                    <li><a href="index.php?uc=utilisateur&action=deconnexion">Se déconnecter</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Formations<b
+                                            class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class="{% if get.uc == 'formation' and get.action == 'grille' %}active{% endif %}">
+                                        <a
+                                                href="index.php?uc=formation&action=grille">Liste</a></li>
+                                    <li class="{% if get.uc == 'formation' and get.action == 'ajouter' %}active{% endif %}">
+                                        <a
+                                                href="index.php?uc=formation&action=ajouter">Ajouter</a></li>
+                                    <li class="{% if get.uc == 'intranet' and get.action == 'liensFormation' %}active{% endif %}">
+                                        <a href="index.php?uc=intranet&action=liensFormation">Liens</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documents généraux à
+                                    joindre<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class="{% if get.uc == 'documentGeneral' and get.action != 'ajouter' %}active{% endif %}">
+                                        <a href="index.php?uc=documentGeneral&action=grille">Liste</a></li>
+                                    <li class="{% if get.uc == 'documentGeneral' and get.action == 'ajouter' %}active{% endif %}">
+                                        <a href="index.php?uc=documentGeneral&action=ajouter">Ajouter</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+                <!--/.container-fluid -->
+            </div>
 
-    <div class="row">
-        <div class="col-md-2">
+            <!--<div class="col-md-2">
 			<div class="panel panel-primary">
 				<div class="panel-heading">Accueil ({{ session.name}})</div>
 				<div class="panel-body">
@@ -21,9 +79,9 @@
 				<div class="panel-heading">Formations</div>
 				<div class="panel-body">
 					<ul class="nav nav-pills nav-stacked">
-						<li class="{% if get.uc == 'formation' and get.action != 'ajouter' %}active{% endif %}"><a href="index.php?uc=formation&action=grille">Liste</a></li>
+						<li class="{% if get.uc == 'formation' and get.action == 'grille' %}active{% endif %}"><a href="index.php?uc=formation&action=grille">Liste</a></li>
 						<li class="{% if get.uc == 'formation' and get.action == 'ajouter' %}active{% endif %}"><a href="index.php?uc=formation&action=ajouter">Ajouter</a></li>
-                        <li class="{% if get.uc == 'formation' and get.action == 'ajouter' %}active{% endif %}"><a href="index.php?uc=intranet&action=liensFormation">Liens</a></li>
+                        <li class="{% if get.uc == 'intranet' and get.action == 'liensFormation' %}active{% endif %}"><a href="index.php?uc=intranet&action=liensFormation">Liens</a></li>
 					</ul>
 				</div>
 			</div>
@@ -36,20 +94,21 @@
 					</ul>
 				</div>
 			</div>
+        </div>-->
+            <div id="content" class="col-md-12 well-feg">
+                {% block content %}
+
+                {% endblock %}
+
+                <footer>
+                    <p class="text-muted text-center" style="margin-top: 2em;">© 2014-FEG-PROJECT | MADE
+                        BY COHEN-GUISSANI-KARAGOZ-MEAS</p>
+                </footer>
+
+            </div>
         </div>
-        <div id="content" class="col-md-10 well-feg">
-            {% block content %}
+        <div style="margin-bottom: 2em;"></div>
 
-			{% endblock %}
-
-            <footer>
-                <p class="text-muted text-center" style="margin-top: 2em;">© 2014 FEG PROJECT | MADE BY COHEN-GUISSANI-KARAGOZ-MEAS | WE FUCKIN' <3 BOOTSTRAP</p>
-            </footer>
-
-        </div>
-    </div>
-    <div style="margin-bottom: 2em;"></div>
-
-</div><!-- container -->
+    </div><!-- container -->
 
 {% endblock %}

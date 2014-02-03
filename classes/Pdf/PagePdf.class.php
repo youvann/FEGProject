@@ -214,9 +214,6 @@ class PagePdf{
                             <span class="bold">Lieu de naissance :</span> ' . $this->applicantBirthDate . '<br><br>
                             <span class="bold">N° INE (pour étudiants en France) :</span> ' . $this->applicantIne . '
                         </td>
-                        <td>
-                            ' . $this->getPhotoPath() . '
-                        </td>
                     </tr>
                 </table>
                 <br>

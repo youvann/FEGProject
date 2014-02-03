@@ -2,37 +2,36 @@
 
 {% block content %}
 
-<ol class="breadcrumb">
-	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
-	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
-	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
-	<li><a href="index.php?uc=information&action=grille&code={{ code }}">Liste des informations</a></li>
-	<li class="active">Fiche information</li>
-</ol>
+    div.row>div.col-md-12
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+        <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
+        <li><a href="index.php?uc=information&action=grille&code={{ code }}">Liste des informations</a></li>
+        <li class="active">Fiche information</li>
+    </ol>
 
-<h2 class="titre_rubrique">Fiche information</h2>
+    <h2 class="titre_rubrique">Fiche information</h2>
 
-
-
-<p class="text-muted">Libellé</p>
-<p class="text-info">{{ information.libelle }}</p>
-<p class="text-muted">Explications</th>
-<p class="text-info">{{ information.explications }}</p>
-<p class="text-info">Type</th>
-<p class="text-muted">{{ information.nom }}</p>
-<p class="text-info">Ordre</th>
-<p class="text-muted">{{ information.ordre }}</p>
-		{% if choix is not empty %}
-<p class="text-muted">Choix</p>
-<ul class="list-unstyled">	
-{% for unChoix in choix %}
-	<li class="text-info">{{ unChoix.texte }}</li>
-{% endfor %}
-</ul>
-		{% endif %}
-<hr />
-<a href="index.php?uc=information&action=grille&code={{ code }}"  class="btn btn-primary">
-	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
-</a>
+    <p class="text-muted">Libellé</p>
+    <p class="text-info">{{ information.libelle }}</p>
+    <p class="text-muted">Explications</p>
+    <p class="text-info">{{ information.explications }}</p>
+    <p class="text-info">Type</p>
+    <p class="text-muted">{{ information.nom }}</p>
+    <p class="text-info">Ordre</p>
+    <p class="text-muted">{{ information.ordre }}</p>
+    {% if choix is not empty %}
+        <p class="text-muted">Choix</p>
+        <ul class="list-unstyled">
+            {% for unChoix in choix %}
+                <li class="text-info">{{ unChoix.texte }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <hr/>
+    <a href="index.php?uc=information&action=grille&code={{ code }}" class="btn btn-primary">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+    </a>
 
 {% endblock %}

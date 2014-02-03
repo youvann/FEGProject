@@ -1,43 +1,48 @@
-
 <fieldset>
-	<legend>Documents à joindre</legend>
-Veuillez nous transmettre les pièces suivantes :
-<ul>
-	{% for documentGeneral in documentsGeneraux %}
-	<li>{{ documentGeneral.nom }}</li>
-    {% endfor %}
-</ul>
-{% if documentsSpecifiques is not null %}
-Veuillez nous transmettre les pièces suivantes :
-<ul>
-	{% for documentSpecifique in documentsSpecifiques %}
-	<li>{{ documentSpecifique.nom }}
-	{% if documentSpecifique is not null %}
-		
-	{% endif %}
-	</li>
-    {% endfor %}
-</ul>
-{% endif %}
+    <legend>Documents à joindre</legend>
+    <div class="well well-fg required">
+        <b>Veuillez nous transmettre toutes les pièces suivantes :</b>
+        <br/><br/>
+        <ul>
+            {% for documentGeneral in documentsGeneraux %}
+                <li><p class="text-info">{{ documentGeneral.nom }}</p></li>
+            {% endfor %}
+        </ul>
+        {% if documentsSpecifiques is not null %}
+            Veuillez nous transmettre les pièces suivantes :
+            <ul>
+                {% for documentSpecifique in documentsSpecifiques %}
+                    <li><p class="bg-warning">{{ documentSpecifique.nom }}</p>
+                        {% if documentSpecifique is not null %}
+
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <br/>
+
+        <div id="upload">Ajouter</div>
+        <br>
+        <!--<button id="startUpload" type="button" class="btn btn-primary">Commencer l'upload</button>-->
+    </div>
 </fieldset>
-
-<div id="upload">Ajouter</div><br>
-<!--<button id="startUpload" type="button" class="btn btn-primary">Commencer l'upload</button>-->
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-			</div>
-			<div class="modal-body">
-				Attention, le fichier a été supprimé.
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                Attention, le fichier a été supprimé.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div><!-- /.modal -->
