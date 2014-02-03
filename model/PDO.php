@@ -1,7 +1,7 @@
 <?php
 
 // Connexion PDO
-$dbname = 'fegtest1';
+$dbname = 'miageaixcandid';
 $host = 'localhost';
 $user = 'root';
 $password = '';
