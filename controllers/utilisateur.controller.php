@@ -25,9 +25,9 @@ switch ($action){
         $rs = $q->fetch();
         if ($rs[0] === '1'){
             $_SESSION['name'] = $rs['LOGIN'];
-            $grade = $rs['DROITS'];
+            $_SESSION['grade'] = $rs['DROITS'];
             $lesDroits = array ();
-            for ($i = 0; $i < $grade; ++$i){
+            for ($i = 0; $i <= $_SESSION['grade']; ++$i) {
                 $lesDroits = array_merge($lesDroits, $droits[$i]);
             }
             $_SESSION['rights'] = $lesDroits;
@@ -40,8 +40,7 @@ switch ($action){
     case "deconnexion":
     {
         session_destroy();
-        $_SESSION['name'] = 'Anonymous';
-        $_SESSION['rights'] = $anonymous;
+		$_SESSION = array();
         header('location:index.php');
     }
         break;

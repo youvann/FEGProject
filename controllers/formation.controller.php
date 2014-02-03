@@ -12,13 +12,6 @@ if (!isset($_GET['action'])){
 	$action = $_GET['action'];
 }
 
-/* autorisations
-$pageAction = array("ordonner", "ajouter", "ajout", "modifier", "modification", "suppression");
-
-if (in_array($action, $pageAction) && !$utilisateur->isConnected()) {
-header('location:index.php?uc=utilisateur&action=connecter');
-} */
-
 switch ($action){
 	case "consulter":
 	{
@@ -60,6 +53,13 @@ switch ($action){
 		header('location:index.php?uc=formation&action=grille');
 	}
 		break;
+	case "codeFormationPossible": {
+		$q = $conn->prepare("SELECT IF(count(*) = 1, FALSE, TRUE) as ok FROM `formation` WHERE `code_formation` = ?;");
+		$q->execute(array($_POST['code']));
+		$rs = $q->fetch();
+		$response['response'] = $rs['ok'];
+		echo json_encode($response);
+	} break;
 	case "previsualiserPdf":
 	{
 		$codeFormation = $_GET['code'];

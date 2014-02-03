@@ -22,7 +22,7 @@
                                         href="index.php?uc=intranet&action=accueil">Accueil</a></li>-->
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration
-                                    ({{ session.name }})<b class="caret"></b></a>
+                                    ({{ session.name }})  <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li class="{% if get.uc == 'intranet' and get.action == 'carte' %}active{% endif %}">
                                         <a
@@ -33,7 +33,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Formations<b
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Formations <b
                                             class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li class="{% if get.uc == 'formation' and get.action == 'grille' %}active{% endif %}">
@@ -48,7 +48,7 @@
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documents généraux à
-                                    joindre<b class="caret"></b></a>
+                                    joindre <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li class="{% if get.uc == 'documentGeneral' and get.action != 'ajouter' %}active{% endif %}">
                                         <a href="index.php?uc=documentGeneral&action=grille">Liste</a></li>
