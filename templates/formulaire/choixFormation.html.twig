@@ -19,7 +19,7 @@
                         <div class="form-group">
                             <label for="derniere">Sélectionnez votre dernière formation effectuée</label>
                             <select class="form-control" id="derniere" name="derniere">
-                                <option value="">---- Sélectionnez ----</option>
+                                <option value="">&mdash; Sélectionnez &mdash;</option>
                                 {% for formation in formations %}
                                     <option value="{{ formation.codeformation }}">{{ formation.mention }}</option>
                                 {% endfor %}
@@ -39,7 +39,7 @@
                             <label for="choisie">Sélectionnez la formation souhaitée pour l'année scolaire
                                 2014-2015</label>
                             <select class="form-control" id="choisie" name="choisie">
-                                <option value="">---- Séléctionnez ----</option>
+                                <option value="">&mdash; Sélectionnez &mdash;</option>
                                 {% for formation in formations %}
                                     <option value="{{ formation.codeformation }}">{{ formation.mention }}</option>
                                 {% endfor %}

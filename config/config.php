@@ -25,7 +25,7 @@ session_start();
 if (empty($_SESSION)) {
 	$_SESSION['name'] = 'Anonymous';
 	$_SESSION['grade'] = 0;
-	$_SESSION['rights'] = $_SESSION['grade'];
+	$_SESSION['rights'] = $droits[$_SESSION['grade']];
 }
 // Pare-feu
 if (isset($_GET['uc']) && isset($_GET['action'])) {
