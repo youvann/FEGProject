@@ -10,6 +10,7 @@
 abstract class FormElement {
 
 	protected $label;
+	protected $help;
 
 	public function getLabel() {
 		return $this->label;
@@ -19,4 +20,10 @@ abstract class FormElement {
 		$this->label = $label;
 	}
 
+	public function setHelp($help) {
+		$this->help = $help;
+	}
+	public function getHelp() {
+		return $this->help;
+	}
 }

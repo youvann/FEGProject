@@ -16,7 +16,7 @@ class TranslatorResulsetToStructure {
 	 * @return array Structure des informations supplémentaires
 	 */
 	public function translate($rs) {
-		$structureTest = array();
+		$structure = array();
 
 		$i = 0;
 		while ($i < count($rs)) {
@@ -35,10 +35,8 @@ class TranslatorResulsetToStructure {
 				$i = $i - 1;
 			}
 			++$i;
-			$structureTest[] = $array;
+			$structure[] = $array;
 		}
-
-		return $structureTest;
+		return $structure;
 	}
-
 }
