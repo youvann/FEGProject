@@ -8,13 +8,31 @@
             <div class="alert alert-success">Votre demande de candidature a bien été prise en compte.</div>
             <div class="well well-lg">
                 Veuillez conserver le dossier de candidature PDF ci-dessous et les modalités de candidature (pas encore disponible).
+                (Si le PDF ne s'affiche pas correctement, veuillez recharger la page)
             </div>
-            <object data="./dossiers/{{ code }}/Candidatures/{{ ine }}/Candidature-{{ ine }}.pdf" type="application/pdf"
+            <div id="loading" style="text-align: center;"></div>
+            <object id="pdfPreview" data="./dossiers/{{ code }}/Candidatures/{{ ine }}/Candidature-{{ ine }}.pdf" type="application/pdf"
                     width="100%"
                     height="700px">
-                <p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+                <p>Si le PDF ne s'affiche pas, veuillez recharger la page.</p>
             </object>
 
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#pdfPreview').hide();
+            $('#loading').append(
+                    $('<img/>').attr('src', 'public/img/layout/ajax-loader.gif')
+            ).append($('<div/>').text('Veuillez patienter ...'));
+            setTimeout(function () {
+                $('#loading').fadeOut('fast');
+                $('#pdfPreview').fadeIn('slow');
+            }, 6000);
+        });
+    </script>
 {% endblock %}

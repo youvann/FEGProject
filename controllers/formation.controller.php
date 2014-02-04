@@ -126,7 +126,7 @@ $villesPossibles = array_unique($villesPossibles);
 */
 
 		require_once './classes/Pdf/PagePdf.class.php';
-		$pagePdf = new PagePdf("./classes/pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
+		$pagePdf = new PagePdf("./classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
 
 		// En-tête du pdf
 		$pagePdf->setPagePdfHeaderImgPath("./classes/Pdf/img/feg.png");
