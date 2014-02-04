@@ -93,7 +93,7 @@ switch ($action){
         break;
     case "traiterMainFormulaire":
     {
-        var_dump($_POST, count($_POST));
+        //var_dump($_POST, count($_POST));
         $postInformations = array_slice($_POST, 69);
         $structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find($_SESSION['choisie'])));
         $json = $translatorFormToJson->translate($structure, $postInformations);
@@ -110,6 +110,8 @@ switch ($action){
             $etudiantManager->update($etudiant);
         }
         $dossierManager->insert($dossier);
+
+        //var_dump($_POST);
 
         $cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-1'], $_POST['anneeFinCursus-1'], $_POST['cursus-1'], $_POST['etablissement-1'], $_POST['valide-1']));
         $cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-2'], $_POST['anneeFinCursus-2'], $_POST['cursus-2'], $_POST['etablissement-2'], $_POST['valide-2']));
@@ -130,10 +132,10 @@ switch ($action){
         /* GENERATION PDF HERE */
         $formation = $formationManager->find($_SESSION['choisie']);
         $dossier = $dossierManager->find($_SESSION['ine'], $_SESSION['choisie']);
-        var_dump($dossier);
+        //var_dump($dossier);
         $titulaire = $titulaireManager->findAll();
         $cursus = $cursusManager->findAllByDossier($dossier);
-        var_dump($cursus);
+        //var_dump($cursus);
         $experiences = $experienceManager->findAllByDossier($dossier);
         $faires = $faireManager->findAllByDossier($dossier);
 
@@ -214,18 +216,20 @@ switch ($action){
             $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
 
             $html2pdf->Output('./dossiers/' . $_SESSION['choisie'] . '/Candidatures/' . $_SESSION['ine'] . '/Candidature-' . $_SESSION['ine'] . '.pdf', 'F');
-            //echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
+            echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
 
         } catch (HTML2PDF_exception $e){
             echo $e;
             exit;
         }
-
     }
         break;
     case "recapitulatif" :
     {
-        echo $twig->render('formulaire/recapitulatif.html.twig', array());
+        echo $twig->render('formulaire/recapitulatif.html.twig', array(
+            'code' => $_SESSION['choisie'],
+            'ine' => $_SESSION['ine']
+        ));
     }
         break;
     default:

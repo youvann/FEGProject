@@ -12,10 +12,8 @@
             <form role="form" id="mainFormulaire" action="index.php?uc=formulaire&action=traiterMainFormulaire"
                   method="post">
                 <legend>Modalités</legend>
-                <div class="alert alert-warning">
-                    <fieldset>
-                        {{ formation.modalites|raw }}
-                    </fieldset>
+                <div class="alert alert-info">
+                    {{ formation.modalites|raw }}
                 </div>
 
                 {% include 'formulaire/informationsGenerales.html.twig' %}
@@ -31,6 +29,8 @@
             <button id="customSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span>
                 Envoyer
             </button>
+            <br/><br/>
+            <div class="alert alert-warning">Le traitement du formulaire peut prendre plusieurs secondes. Veuillez patienter et ne pas recharger la page.</div>
         </div>
     </div>
 {% endblock %}
