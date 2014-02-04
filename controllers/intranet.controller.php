@@ -149,6 +149,12 @@ switch ($action) {
         }
     }
         break;
+        case "generationPdfPreinscription" :
+    {
+            
+            
+    }
+        break;
     default:
         break;
 }

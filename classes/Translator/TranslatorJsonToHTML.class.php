@@ -34,7 +34,7 @@ class TranslatorJsonToHTML extends Translator {
 				// Récupération de la donnée formatée dans le cas d'une case à cocher.
 				case "CheckBox": $html .= $this->checkBoxJsonToHTML($json[$i], $structure[$i][0], $structure[$i][1]); break;
 				// Récupération des données formatées dans le cas d'un groupe de cases à cocher.
-				case "CheckBoxGroup": $html .= $this->checkBoxGroupJsonToHTML($json[$i], $structure[$i][0], $structure[$i][1], $structure[$i][3]); break;
+                                case "CheckBoxGroup": $html .= $this->checkBoxGroupJsonToHTML($json[$i], $structure[$i][0], $structure[$i][1], $structure[$i][3]); break;
 				// Récupération des données formatées dans le cas d'un groupe de boutons radio.
 				case "RadioButtonGroup": $html .= $this->radioButtonGroupJsonToHTML($json[$i], $structure[$i][0], $structure[$i][1]); break;
 			default: echo '<div class="alert alert-danger">Il y a un problème dans le script ' . __FILE__ . '.<br />La variable du switch vaut <span class="label label-danger">'.$structure[$i][2].'</span></div>'; break;
