@@ -93,7 +93,7 @@ switch ($action){
         break;
     case "traiterMainFormulaire":
     {
-        var_dump($_POST, count($_POST));
+        //var_dump($_POST, count($_POST));
         $postInformations = array_slice($_POST, 69);
         $structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find($_SESSION['choisie'])));
         $json = $translatorFormToJson->translate($structure, $postInformations);
@@ -111,7 +111,7 @@ switch ($action){
         }
         $dossierManager->insert($dossier);
 
-        var_dump($_POST);
+        //var_dump($_POST);
 
         $cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-1'], $_POST['anneeFinCursus-1'], $_POST['cursus-1'], $_POST['etablissement-1'], $_POST['valide-1']));
         $cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-2'], $_POST['anneeFinCursus-2'], $_POST['cursus-2'], $_POST['etablissement-2'], $_POST['valide-2']));
@@ -222,12 +222,14 @@ switch ($action){
             echo $e;
             exit;
         }
-
     }
         break;
     case "recapitulatif" :
     {
-        echo $twig->render('formulaire/recapitulatif.html.twig', array());
+        echo $twig->render('formulaire/recapitulatif.html.twig', array(
+            'code' => $_SESSION['choisie'],
+            'ine' => $_SESSION['ine']
+        ));
     }
         break;
     default:
