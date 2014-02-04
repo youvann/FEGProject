@@ -26,12 +26,12 @@ try {
 
 $conn->query("SET CHARACTER SET utf8");
 
-$rs = $conn->query('SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
+$rs = $conn->query("SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
 			FROM `information` 
 			INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
 			LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
-			WHERE `information`.`code_formation` = \'3BAS\'
-			ORDER BY `information`.`id`, `information`.`ordre`;')->fetchAll();
+			WHERE `information`.`code_formation` = '3BAS'
+			ORDER BY `information`.`id`, `information`.`ordre`;")->fetchAll();
 var_dump($rs);
 $structureTest = array();
 

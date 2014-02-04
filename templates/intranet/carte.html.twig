@@ -1,57 +1,248 @@
 {% extends 'intranet.html.twig' %}
 
+{% block css %}
+    {{ parent() }}
+    <style type="text/css">
+        .tree {
+            min-height: 20px;
+            padding: 19px;
+            margin-bottom: 20px;
+            background-color: #fbfbfb;
+            border: 1px solid #999;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05)
+        }
+
+        .tree li {
+            list-style-type: none;
+            margin: 0;
+            padding: 10px 5px 0 5px;
+            position: relative
+        }
+
+        .tree li::before, .tree li::after {
+            content: '';
+            left: -20px;
+            position: absolute;
+            right: auto
+        }
+
+        .tree li::before {
+            border-left: 1px solid #999;
+            bottom: 50px;
+            height: 100%;
+            top: 0;
+            width: 1px
+        }
+
+        .tree li::after {
+            border-top: 1px solid #999;
+            height: 20px;
+            top: 25px;
+            width: 25px
+        }
+
+        .tree li span {
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            display: inline-block;
+            padding: 3px 8px;
+            text-decoration: none
+        }
+
+        .tree li.parent_li > span {
+            cursor: pointer
+        }
+
+        .tree > ul > li::before, .tree > ul > li::after {
+            border: 0
+        }
+
+        .tree li:last-child::before {
+            height: 30px
+        }
+
+        .tree li.parent_li > span:hover, .tree li.parent_li > span:hover + ul li span {
+            background: #eee;
+            border: 1px solid #94a0b4;
+            color: #000
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
+    <div class="tree well">
+        <ul>
+            <li>
+                <span><i class="glyphicon glyphicon-folder-open"></i> Intranet</span>
+                <!--<a class="btn btn-xs btn-primary" href="?uc=intranet&action=accueil"><i class="glyphicon glyphicon-new-window"></i></a>-->
+                <a href=""></a>
+                <ul>
+                    <li>
+                        <span><i class="glyphicon glyphglyphicon glyphicon-minus-sign"></i> Formations</span>
+                        <a href=""></a>
+                        <ul>
+                            <li>
+                                <span><i class="glyphicon glyphicon-minus-sign"></i> Liste</span>
+                                <a href=""></a>
+                                <ul>
+                                    <li>
+                                        <span><i class="glyphicon glyphicon-minus-sign"></i> Consulter</span>
+                                        <a href=""></a>
+                                        <ul>
+                                            <li>
+                                                <span><i class="glyphicon glyphicon-minus-sign"></i> Voeux</span>
+                                                <a href=""></a>
+                                                <ul>
+                                                    <li>
+                                                        <span><i class="glyphicon glyphicon-minus-sign"></i> Liste</span>
+                                                        <a href=""></a>
+                                                        <ul>
+                                                            <li>
+                                                                <span><i class=""></i> Consulter</span>
+                                                                <a href=""></a>
+                                                            </li>
+                                                            <li>
+                                                                <span><i class=""></i> Ajouter</span>
+                                                                <a href=""></a>
+                                                            </li>
+                                                            <li>
+                                                                <span><i class=""></i> Modifier</span>
+                                                                <a href=""></a>
+                                                            </li>
+                                                            <li>
+                                                                <span><i class=""></i> Supprimer</span>
+                                                                <a href=""></a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <span><i class="glyphicon glyphicon-minus-sign"></i> Informations spécifiques</span>
+                                                <a href=""></a>
+                                                <ul>
+                                                    <li>
+                                                        <span><i class="glyphicon glyphicon-minus-sign"></i> Liste</span>
+                                                        <a href=""></a>
+                                                        <ul>
+                                                            <li>
+                                                                <span><i class=""></i> Consulter</span>
+                                                                <a href=""></a>
+                                                            </li>
+                                                            <li>
+                                                                <span><i class=""></i> Ajouter</span>
+                                                                <a href=""></a>
+                                                            </li>
+                                                            <li>
+                                                                <span><i class=""></i> Modifier</span>
+                                                                <a href=""></a>
+                                                            </li>
+                                                            <li>
+                                                                <span><i class=""></i> Supprimer</span>
+                                                                <a href=""></a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <span><i class="glyphicon glyphicon-minus-sign"></i> Documents spécifiques</span>
+                                                <a href=""></a>
+                                                <ul>
+                                                    <li>
+                                                        <span><i class="glyphicon glyphicon-minus-sign"></i> Liste</span>
+                                                        <a href=""></a>
+                                                        <ul>
+                                                            <li>
+                                                                <span><i class=""></i> Consulter</span>
+                                                                <a href=""></a>
+                                                            </li>
+                                                            <li>
+                                                                <span><i class=""></i> Ajouter</span>
+                                                                <a href=""></a>
+                                                            </li>
+                                                            <li>
+                                                                <span><i class=""></i> Modifier</span>
+                                                                <a href=""></a>
+                                                            </li>
+                                                            <li>
+                                                                <span><i class=""></i> Supprimer</span>
+                                                                <a href=""></a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <span><i class=""></i> Prévisualisation du Pdf</span>
+                                                <a href=""></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span><i class=""></i> Modifier</span>
+                                        <a href=""></a>
+                                    </li>
+                                    <li>
+                                        <span><i class=""></i> Supprimer</span>
+                                        <a href=""></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span><i class=""></i> Ajouter</span>
+                                <a href=""></a>
+                            </li>
+                            <li>
+                                <span><i class=""></i> Liens</span>
+                                <a href=""></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span><i class="glyphicon glyphicon-minus-sign"></i> Documents généraux</span>
+                        <a href=""></a>
+                        <ul>
+                            <li>
+                                <span><i class=""></i> Liste</span>
+                                <a href=""></a>
+                            </li>
+                            <li>
+                                <span><i class=""></i> Ajouter</span>
+                                <a href=""></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
-<table class="table table-bordered" style="background-color: white;">
-	<tr>
-		<th rowspan="2"></th>
-		<th colspan="4">Formation</th>
-		<th colspan="4">Information</th>
-		<th colspan="4">Voeu</th>
-		<th colspan="4">Document spécifique</th>
-		<th colspan="4">Document général</th>
-	</tr>
-	<tr>
-		<th>Grille</th><th>Consulter</th><th>Ajouter</th><th>Modifier</th>
-		<th>Grille</th><th>Consulter</th><th>Ajouter</th><th>Modifier</th>
-		<th>Grille</th><th>Consulter</th><th>Ajouter</th><th>Modifier</th>
-		<th>Grille</th><th>Consulter</th><th>Ajouter</th><th>Modifier</th>
-		<th>Grille</th><th>Consulter</th><th>Ajouter</th><th>Modifier</th>
-	</tr>
-	</tr>
-	<tr>
-		<th>Doit exister</th>
-		<td class="success"></td><td class="success"></td><td class="success"></td><td class="success"></td>
-		<td class="success"></td><td class="success"></td><td class="success"></td><td class="danger"></td>
-		<td class="success"></td><td class="success"></td><td class="success"></td><td class="success"></td>
-		<td class="success"></td><td class="danger"></td><td class="success"></td><td class="success"></td>
-		<td class="success"></td><td class="danger"></td><td class="success"></td><td class="success"></td>
-		<td></td><td></td><td></td><td></td>
-	</tr>
-	<tr>
-		<th>Existe</th>
-		<td class="success"></td><td class="success"></td><td class="success"></td><td class="success"></td>
-		<td class="success"></td><td class="success"></td><td class="success"></td><td class="danger"></td>
-		<td class="success"></td><td class="success"></td><td class="success"></td><td class="success"></td>
-		<td></td><td></td><td></td><td></td>
-		<td></td><td></td><td></td><td></td>
-	</tr>
-	<tr>
-		<th>Précédent</th>
-		<td></td><td></td><td></td><td></td>
-		<td></td><td></td><td></td><td></td>
-		<td></td><td></td><td></td><td></td>
-		<td></td><td></td><td></td><td></td>
-		<td></td><td></td><td></td><td></td>
-	</tr>
-	<tr>
-		<th>Breadcrumbs</th>
-		<td></td><td></td><td></td><td></td>
-		<td></td><td></td><td></td><td></td>
-		<td></td><td></td><td></td><td></td>
-		<td></td><td></td><td></td><td></td>
-		<td></td><td></td><td></td><td></td>
-	</tr>
-</table>
+{% endblock %}
 
-{% endblock		%}
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+            $('.tree li.parent_li > span').on('click', function (e) {
+                var children = $(this).parent('li.parent_li').find(' > ul > li');
+                if (children.is(":visible")) {
+                    children.hide('fast');
+                    $(this).attr('title', 'Expand this branch').find(' > i').addClass('glyphicon-plus-sign').removeClass('glyphicon-minus-sign');
+                } else {
+                    children.show('fast');
+                    $(this).attr('title', 'Collapse this branch').find(' > i').addClass('glyphicon-minus-sign').removeClass('glyphicon-plus-sign');
+                }
+                e.stopPropagation();
+            });
+        });
+    </script>
+{% endblock %}
