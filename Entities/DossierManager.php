@@ -32,10 +32,11 @@ class DossierManager {
 	}
 
 	public function insert(Dossier $dossier) {
-		return $this->db->prepare("INSERT INTO `dossier` (`INE`, `CODE_FORMATION`, `NOM`, `PRENOM`, `ADRESSE`, `COMPLEMENT`, `CODE_POSTAL`, `VILLE`, `DATE_NAISSANCE`, `LIEU_NAISSANCE`, `FIXE`, `PORTABLE`, `MAIL`, `GENRE`, `LANGUES`, `NATIONALITE`, `SERIE_BAC`, `ANNEE_BAC`, `ETABLISSEMENT_BAC`, `DEPARTEMENT_BAC`, `PAYS_BAC`, `ACTIVITE`, `AUTRE`, `TITULAIRE`, `VILLE_PREFEREE`, `AUTRES_ELEMENTS`, `INFORMATIONS`, `DATE_dossier`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW());")
+		return $this->db->prepare("INSERT INTO `dossier` (`INE`, `CODE_FORMATION`, `CODE_FORMATION_PRECEDENTE`, `NOM`, `PRENOM`, `ADRESSE`, `COMPLEMENT`, `CODE_POSTAL`, `VILLE`, `DATE_NAISSANCE`, `LIEU_NAISSANCE`, `FIXE`, `PORTABLE`, `MAIL`, `GENRE`, `LANGUES`, `NATIONALITE`, `SERIE_BAC`, `ANNEE_BAC`, `ETABLISSEMENT_BAC`, `DEPARTEMENT_BAC`, `PAYS_BAC`, `ACTIVITE`, `AUTRE`, `TITULAIRE`, `VILLE_PREFEREE`, `AUTRES_ELEMENTS`, `INFORMATIONS`, `DATE_dossier`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW());")
 						->execute(array(
 							$dossier->getIne(),
 							$dossier->getCodeFormation(),
+							$dossier->getCodeFormationPrecedente(),
 							$dossier->getNom(),
 							$dossier->getPrenom(),
 							$dossier->getAdresse(),
@@ -65,8 +66,9 @@ class DossierManager {
 	}
 
 	public function update(Dossier $dossier) {
-		return $this->db->prepare("UPDATE `dossier` SET `NOM` = ?, `PRENOM` = ?, `ADRESSE` = ?, `COMPLEMENT` = ?, `CODE_POSTAL` = ?, `VILLE` = ?, `DATE_NAISSANCE` = ?, `LIEU_NAISSANCE` = ?, `FIXE` = ?, `PORTABLE` = ?, `MAIL` = ?, `GENRE` = ?, `LANGUES` = ?, `NATIONALITE` = ?, `SERIE_BAC` = ?, `ANNEE_BAC` = ?, `ETABLISSEMENT_BAC` = ?, `DEPARTEMENT_BAC` = ?, `PAYS_BAC` = ?, `ACTIVITE` = ?, `AUTRE` = ?, `TITULAIRE` = ?, `VILLE_PREFEREE` = ?, `AUTRES_ELEMENTS` = ?, `INFORMATIONS` = ?, `DATE_dossier` = ? WHERE `INE` = ? AND `CODE_FORMATION` = ?;")
+		return $this->db->prepare("UPDATE `dossier` SET `CODE_FORMATION_PRECEDENTE` = ?, `NOM` = ?, `PRENOM` = ?, `ADRESSE` = ?, `COMPLEMENT` = ?, `CODE_POSTAL` = ?, `VILLE` = ?, `DATE_NAISSANCE` = ?, `LIEU_NAISSANCE` = ?, `FIXE` = ?, `PORTABLE` = ?, `MAIL` = ?, `GENRE` = ?, `LANGUES` = ?, `NATIONALITE` = ?, `SERIE_BAC` = ?, `ANNEE_BAC` = ?, `ETABLISSEMENT_BAC` = ?, `DEPARTEMENT_BAC` = ?, `PAYS_BAC` = ?, `ACTIVITE` = ?, `AUTRE` = ?, `TITULAIRE` = ?, `VILLE_PREFEREE` = ?, `AUTRES_ELEMENTS` = ?, `INFORMATIONS` = ?, `DATE_dossier` = ? WHERE `INE` = ? AND `CODE_FORMATION` = ?;")
 						->execute(array(
+							$dossier->getCodeFormationPrecedente(),
 							$dossier->getNom(),
 							$dossier->getPrenom(),
 							$dossier->getAdresse(),

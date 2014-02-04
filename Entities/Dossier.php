@@ -4,6 +4,7 @@ class Dossier {
 
 	private $ine;
 	private $codeFormation;
+	private $codeFormationPrecedente;
 	private $nom;
 	private $prenom;
 	private $adresse;
@@ -31,9 +32,10 @@ class Dossier {
 	private $informations;
 	private $dateDossier;
 
-	function __construct($ine, $codeFormation, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $genre, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $autre, $titulaire, $villePreferee, $autresElements, $informations, $dateDossier) {
+	function __construct($ine, $codeFormation, $codeFormationPrecedente, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $genre, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $autre, $titulaire, $villePreferee, $autresElements, $informations, $dateDossier) {
 		$this->ine = $ine;
 		$this->codeFormation = $codeFormation;
+		$this->codeFormationPrecedente = $codeFormationPrecedente;
 		$this->nom = $nom;
 		$this->prenom = $prenom;
 		$this->adresse = $adresse;
@@ -68,6 +70,10 @@ class Dossier {
 
 	public function getCodeFormation() {
 		return $this->codeFormation;
+	}
+
+	public function getCodeFormationPrecedente() {
+		return $this->codeFormationPrecedente;
 	}
 
 	public function getNom() {
@@ -180,6 +186,10 @@ class Dossier {
 
 	public function setCodeFormation($codeFormation) {
 		$this->codeFormation = $codeFormation;
+	}
+
+	public function setCodeFormationPrecedente($codeFormationPrecedente) {
+		$this->codeFormationPrecedente = $codeFormationPrecedente;
 	}
 
 	public function setNom($nom) {
