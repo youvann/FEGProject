@@ -50,11 +50,12 @@ function myMkdir($dir) {
         mkdir("./dossiers/" . $dir, 0777);
         mkdir("./dossiers/" . $dir . "/Candidatures", 0777);
         mkdir("./dossiers/" . $dir . "/Preinscriptions", 0777);
+        mkdir("./dossiers/" . $dir . "/Dossier_Type", 0777);
     }
 }
 
-function myMkdirIne($dir){
-    if (!file_exists("./dossiers/" . $dir)){
+function myMkdirIne($dir) {
+    if (!file_exists("./dossiers/" . $dir)) {
         mkdir("./dossiers/" . $dir, 0777);
     }
 }
@@ -90,7 +91,7 @@ function removeDir($dir) {
 
 function dirIsEmpty($path) {
     $empty = true;
-    $dir = opendir($path);
+    $dir   = opendir($path);
     while ($file = readdir($dir)) {
         if ($file !== '.' && $file !== '..') {
             $empty = false;
