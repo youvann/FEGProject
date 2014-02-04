@@ -51,8 +51,7 @@
                 <div class="col-md-4">
                     <label for="date_naissance">Date de naissance</label>
                     <input type="text" class="form-control required" id="date_naissance" name="date_naissance"
-                           placeholder="jj/mm/aaaa" data-validation="custom"
-                           data-validation-regexp="(^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$)"
+                           placeholder="aaaa-mm-jj" data-validation="required"
                            data-validation-error-msg="Veuillez entrer une date valide"/>
                 </div>
                 <div class="col-md-4">
@@ -73,8 +72,7 @@
                 <div class="col-md-12">
                     <label for="ine">N° INE (pour étudiants en France)</label>
                     <input type="text" class="form-control required" id="ine" name="ine" placeholder="Ex : 1234567891A"
-                           data-validation="custom" data-validation-regexp="(^[0-9]{10}[a-zA-Z]$)"
-                           data-validation-error-msg="Veuillez entrer un numéro d'INE valide"/>
+                           data-validation="required" data-validation-error-msg="Veuillez entrer un numéro d'INE valide"/>
                 </div>
             </div>
         </div>
@@ -154,9 +152,7 @@
                 <div class="col-md-4">
                     <label for="annee_bac">Année d'obtention du bac</label>
                     <input type="text" class="form-control required" id="annee_bac" name="annee_bac"
-                           placeholder="Votre année d'obtention" data-validation="custom"
-                           data-validation-regexp="(^(06|07)[0-9]{8}$)"
-                           data-validation-error-msg="Veuillez entrer un numéro valide" data-validation="required"/>
+                           placeholder="Votre année d'obtention" data-validation="required"/>
                 </div>
                 <div class="col-md-4">
                     <label for="etablissement_bac">Etablissement</label>
@@ -190,7 +186,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="langues">Lue(s), écrite(s), parlée(s)</label>
-                    <textarea class="form-control required" id="langues" name="langues" data-validation="required"></textarea>
+                    <textarea class="form-control required" id="langues" name="langues"
+                              data-validation="required"></textarea>
                 </div>
             </div>
         </div>
