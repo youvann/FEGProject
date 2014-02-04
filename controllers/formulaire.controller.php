@@ -130,8 +130,10 @@ switch ($action){
         /* GENERATION PDF HERE */
         $formation = $formationManager->find($_SESSION['choisie']);
         $dossier = $dossierManager->find($_SESSION['ine'], $_SESSION['choisie']);
+        var_dump($dossier);
         $titulaire = $titulaireManager->findAll();
         $cursus = $cursusManager->findAllByDossier($dossier);
+        var_dump($cursus);
         $experiences = $experienceManager->findAllByDossier($dossier);
         $faires = $faireManager->findAllByDossier($dossier);
 

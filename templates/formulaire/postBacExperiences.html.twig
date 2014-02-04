@@ -10,17 +10,17 @@
                 <div class="col-md-4">
                     <label for="anneeDebutCursus-{{ i }}">Année de début</label>
                     <input type="text" class="form-control required" id="anneeDebutCursus-{{ i }}"
-                           name="anneeDebutCursus-{{ i }}"/>
+                           name="anneeDebutCursus-{{ i }}" data-validation="required"/>
                 </div>
                 <div class="col-md-4">
                     <label for="anneeFinCursus-{{ i }}">Année de fin</label>
                     <input type="text" class="form-control required" id="anneeFinCursus-{{ i }}"
-                           name="anneeFinCursus-{{ i }}"/>
+                           name="anneeFinCursus-{{ i }}" data-validation="required"/>
                 </div>
                 <div class="col-md-4">
                     <label for="etablissement-{{ i }}">Etablissement</label>
                     <input type="text" class="form-control required" id="etablissement-{{ i }}"
-                           name="etablissement-{{ i }}"/>
+                           name="etablissement-{{ i }}" data-validation="required"/>
                 </div>
             </div>
         </div>
@@ -29,11 +29,13 @@
 
                 <div class="col-md-6">
                     <label for="cursus-{{ i }}">Cursus suivi</label>
-                    <input type="text" class="form-control required" id="cursus-{{ i }}" name="cursus-{{ i }}"/>
+                    <input type="text" class="form-control required" id="cursus-{{ i }}" name="cursus-{{ i }}"
+                           data-validation="required"/>
                 </div>
                 <div class="col-md-6">
                     <label for="valide-{{ i }}">Note/Mention</label>
-                    <input type="text" class="form-control required" id="valide-{{ i }}" name="valide-{{ i }}"/>
+                    <input type="text" class="form-control required" id="valide-{{ i }}" name="valide-{{ i }} "
+                           data-validation="required"/>
                 </div>
             </div>
             <hr/>

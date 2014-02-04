@@ -77,14 +77,15 @@
             $('input[type=submit]').hide();
             $('#divAllDocuments').hide();
 
-            var choixFormation = $("select[name='derniere'] > optgroup > option:selected").val();
+            //var choixFormation = $("select[name='derniere'] > option:selected").val();
+            var choixFormation = $('#derniere').val();
             var autreFormation = $("#autre_formation");
 
             (choixFormation === "Autre") ? autreFormation.fadeIn("slow") : autreFormation.hide();
 
-            $("select[name='derniere']").on('change', function () {
-                choixFormation = $("select[name='derniere'] > optgroup > option:selected").val();
-                (choixFormation === "Autre") ? autreFormation.fadeIn("slow") : autreFormation.fadeOut("fast");
+            $('#derniere').on('change', function () {
+                choixFormation = $(this).val();
+                (choixFormation === "0000") ? autreFormation.fadeIn("slow") : autreFormation.fadeOut("fast");
             });
 
             $('input[type=radio]').on('change', function () {

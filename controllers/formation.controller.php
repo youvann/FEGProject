@@ -31,6 +31,8 @@ switch ($action){
 		echo $twig->render('formation/ajouterFormation.html.twig', array('facultes' => $facultes));
 	} break;
 	case "ajout": {
+        // Création du répertoire "code_formation"
+        myMkdir($_POST['code_formation']);
 		$formationManager->insert(new Formation($_POST['code_formation'], $_POST['mention'], $_POST['modalites'], $_POST['ouverte'], $_POST['faculte']));
 		header('location:index.php?uc=formation&action=grille');
 	} break;

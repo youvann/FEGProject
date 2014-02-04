@@ -170,8 +170,6 @@ $(document).ready(function() {
     });
     */
 
-
-
     /*/ Explorateur de fichiers
     $('#explorateur').fileTree({
         // root : ne pas oublier de mettre slash à la fin du chemin !

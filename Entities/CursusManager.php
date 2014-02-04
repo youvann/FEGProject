@@ -19,7 +19,7 @@ class CursusManager {
         $rs = $q->fetchAll();
 
         foreach($rs as $cursus){
-            $lesCursus[] = new Cursus($cursus['ID'], $cursus['INE'], $cursus['CODE_FORMATION'], $cursus['ANNEE_DEBUT'], $cursus['ANNEE_FIN'], $cursus['cursus'], $cursus['ETABLISSEMENT'], $cursus['VALIDE']);
+            $lesCursus[] = new Cursus($cursus['ID'], $cursus['INE'], $cursus['CODE_FORMATION'], $cursus['ANNEE_DEBUT'], $cursus['ANNEE_FIN'], $cursus['CURSUS'], $cursus['ETABLISSEMENT'], $cursus['VALIDE']);
         }
         return $lesCursus;
 	}

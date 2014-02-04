@@ -36,7 +36,7 @@
                 <div class="col-md-6">
                     <label for="nom">Nom</label>
                     <input type="text" class="form-control required" id="nom" name="nom" placeholder="Votre nom"
-                           data-validation="required"/>
+                           data-validation="required" data-validation="length" data-validation-length="min4"/>
                 </div>
                 <div class="col-md-6">
                     <label for="prenom">Prénom</label>
@@ -141,7 +141,6 @@
     </div>
 </fieldset>
 
-
 <fieldset>
     <legend>Baccalauréat</legend>
     <div class="well well-lg">
@@ -150,19 +149,19 @@
                 <div class="col-md-4">
                     <label for="serie_bac">Série</label>
                     <input type="text" class="form-control required" id="serie_bac" name="serie_bac"
-                           placeholder="Votre série"/>
+                           placeholder="Votre série" data-validation="required"/>
                 </div>
                 <div class="col-md-4">
                     <label for="annee_bac">Année d'obtention du bac</label>
                     <input type="text" class="form-control required" id="annee_bac" name="annee_bac"
                            placeholder="Votre année d'obtention" data-validation="custom"
                            data-validation-regexp="(^(06|07)[0-9]{8}$)"
-                           data-validation-error-msg="Veuillez entrer un numéro valide"/>
+                           data-validation-error-msg="Veuillez entrer un numéro valide" data-validation="required"/>
                 </div>
                 <div class="col-md-4">
                     <label for="etablissement_bac">Etablissement</label>
                     <input type="text" class="form-control required" id="etablissement_bac" name="etablissement_bac"
-                           placeholder="Votre établissement" data-validation="email"/>
+                           placeholder="Votre établissement" data-validation="required"/>
                 </div>
             </div>
         </div>
@@ -172,18 +171,17 @@
                 <div class="col-md-6">
                     <label for="departement_bac">Département</label>
                     <input type="text" class="form-control required" id="departement_bac" name="departement_bac"
-                           placeholder="Votre département"/>
+                           placeholder="Votre département" data-validation="required"/>
                 </div>
                 <div class="col-md-6">
                     <label for="pays_bac">Pays</label>
                     <input type="text" class="form-control required" id="pays_bac" name="pays_bac"
-                           placeholder="Votre pays"/>
+                           placeholder="Votre pays" data-validation="required"/>
                 </div>
             </div>
         </div>
     </div>
 </fieldset>
-
 
 <fieldset>
     <legend>Langues étrangères</legend>
@@ -192,7 +190,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="langues">Lue(s), écrite(s), parlée(s)</label>
-                    <textarea class="form-control required" id="langues" name="langues"></textarea>
+                    <textarea class="form-control required" id="langues" name="langues" data-validation="required"></textarea>
                 </div>
             </div>
         </div>
