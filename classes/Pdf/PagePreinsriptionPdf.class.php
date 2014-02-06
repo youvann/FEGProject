@@ -25,6 +25,7 @@ class PagePdf{
     private $title2;
     private $title3;
     private $title4;
+ 
 
 
     //Candidat
@@ -83,6 +84,7 @@ class PagePdf{
     public function setPagePdfHeaderText ($headerText){
         $this->pagePdfHeader->setHeadertext($headerText);
     }
+    
 
     public function setPagePdfFooterText ($footerText){
         $this->pagePdfFooter->setFooterText($footerText);
@@ -123,9 +125,12 @@ class PagePdf{
     public function setNote ($note){
         $this->note = $note;
     }
+    
+
 
     public function getFormationTitle(){
-        return '    <div class="cadreDate">Dossier reçue le :<br/>' . $this->folderDate . '</div>
+        return ' 
+                    <div class="cadreDate">Dossier reçue le :<br/>' . $this->folderDate . '</div>
                     <div class="center bold">' . $this->title1 . '</div>
                     <div class="center">'      . $this->title11 . '</div><br/><br/>
                     <div class="center bold">' . $this->title2 . '</div><br/><br/>
