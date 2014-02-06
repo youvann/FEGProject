@@ -59,7 +59,30 @@
             </li>
             <li>
                 <a id="prevPdf" href="#">
-                    <span class="glyphicon glyphicon-file"></span> Prévisualiser le dossier PDF
+                    <span class="glyphicon glyphicon-file"></span> Prévisualiser le dossier de candidature PDF
+                </a>
+            </li>
+            <li>
+                <a id="prevPdf" href="#">
+                    <span class="glyphicon glyphicon-file"></span> Prévisualiser le dossier de pré-inscrption PDF
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+           Prévisualisation <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a class="prevPdf candidature" href="#">
+                    <span class="glyphicon glyphicon-file"></span> Prévisualiser le dossier de candidature PDF
+                </a>
+            </li>
+            <li>
+                <a class="prevPdf preinscription" href="#">
+                    <span class="glyphicon glyphicon-file"></span> Prévisualiser le dossier de pré-inscription PDF
                 </a>
             </li>
         </ul>
@@ -125,17 +148,22 @@
                 window.location.href = $('.btn-danger').attr("href");
             });
 
-            $('#prevPdf').click(function () {
+            var typePdf = 'null';
+            $('.prevPdf').click(function () {
+                typePdf = ($(this).hasClass('candidature')) ? 'candidature' : 'preinscription';
+
                 $('#loadingModal').modal('show');
                 $('.progress .progress-bar').progressbar({
                     display_text: 'fill',
                     use_percentage: true,
                     refresh_speed: 50
                 });
+                var linkPdf = (typePdf == 'candidature') ? "index.php?uc=formation&action=previsualisationPdfCandidature&code={{ formation.codeformation }}&typePdf=" + typePdf
+                                                         : "index.php?uc=formation&action=previsualisationPdfPreinscription&code={{ formation.codeformation }}&typePdf=" + typePdf
                 $.ajax({
-                    url: "index.php?uc=formation&action=previsualisationPdf&code={{ formation.codeformation }}",
+                    url: linkPdf,
                     success: function (data) {
-                        window.location.replace("index.php?uc=formation&action=previsualiserPdf&code={{ formation.codeformation }}");
+                        window.location.replace("index.php?uc=formation&action=previsualiserPdf&code={{ formation.codeformation }}&typePdf=" + typePdf);
                     }
                 });
             });

@@ -93,14 +93,14 @@ switch ($action){
         break;
     case "traiterMainFormulaire":
     {
-        var_dump($_POST, count($_POST));
+        //var_dump($_POST, count($_POST));
         $postInformations = array_slice($_POST, 69);
         $structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find($_SESSION['choisie'])));
         $json = $translatorFormToJson->translate($structure, $postInformations);
 
         // Changer le code formation !!
         $dossier = new Dossier($_POST["ine"], $_SESSION['choisie'], "", $_POST["nom"], $_POST["prenom"], $_POST["adresse"], $_POST["complement"], $_POST["code_postal"], $_POST["ville"], $_POST["date_naissance"], $_POST["lieu_naissance"], $_POST["fixe"], $_POST["portable"], $_POST["mail"], $_POST["genre"], $_POST["langues"], $_POST["nationalite"], $_POST["serie_bac"], $_POST["annee_bac"], $_POST["etablissement_bac"], $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["autre"], $_POST["titulaire"], $_POST["ville_preferee"], $_POST["autres_elements"], $json, NULL);
-        var_dump($dossier);
+        //var_dump($dossier);
         if (!$etudiantManager->ifExists(new Etudiant($_POST["ine"], 1))){
             $etudiantManager->insert(new Etudiant($_POST["ine"], 1));
         } else{
@@ -174,7 +174,7 @@ switch ($action){
         $informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
 
         require_once './classes/Pdf/PagePdf.class.php';
-        $pagePdf = new PagePdf("./classes/pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
+        $pagePdf = new PagePdf("./classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
 
         // En-tête du pdf
         $pagePdf->setPagePdfHeaderImgPath("./classes/Pdf/img/feg.png");
@@ -209,9 +209,9 @@ switch ($action){
         try{
             $html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
             //$html2pdf->setModeDebug();
-            $html2pdf->pdf->addFont('verdana', '', './classes/html2pdf/_tcpdf_5.0.002/fonts/verdana.php');
-            $html2pdf->pdf->addFont('verdanab', '', './classes/html2pdf/_tcpdf_5.0.002/fonts/verdanab.php');
-            $html2pdf->setDefaultFont('verdana');
+            //$html2pdf->pdf->addFont('verdana', '', './classes/html2pdf/_tcpdf_5.0.002/fonts/verdana.php');
+            //$html2pdf->pdf->addFont('verdanab', '', './classes/html2pdf/_tcpdf_5.0.002/fonts/verdanab.php');
+            $html2pdf->setDefaultFont('arial');
             $html2pdf->pdf->SetDisplayMode('fullpage');
             $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
 

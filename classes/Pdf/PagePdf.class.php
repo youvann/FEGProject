@@ -87,7 +87,8 @@ class PagePdf{
         $this->backLeft   = $backLeft;
         $this->backRight  = $backRight;
         $this->cssPath    = $cssPath;
-        $this->css        = '<link type="text/css" href="' . $this->cssPath . '" rel="stylesheet" >';
+        $this->css        = '<link type="text/css" href="' . DIRNAME(__FILE__) . '/' . $cssPath . '" rel="stylesheet" >';
+        //$this->css = '<link type="text/css" href="' . $cssPath . '" rel="stylesheet" >';
     }
 
     public function setPagePdfHeaderImgPath ($imgPath){
@@ -115,7 +116,84 @@ class PagePdf{
     }
 
     public function getCssPath (){
-        return $this->css;
+        return
+        '<style type="text/css">
+        table { border-collapse: collapse; }
+
+        .full_width_table{ width: 690px; font-size : 18px; }
+
+        .t_title .full_width_table{ width: 690px; font-size : 18px; }
+
+        .fifty_width_table{ width: 339px; }
+
+        td, th { border: 1px solid black; padding-left: 3px; padding-right: 3px; }
+
+        .t_header img{ height: 80px; width: 300px; }
+
+        .t_title img{ height: 85px; width: 200px; }
+
+        .border-top-none{ border-top: none; }
+
+        .border-right-none{ border-right: none; }
+
+        .border-left-none{ border-left: none; }
+
+        .border-bottom-none{ border-bottom: none; }
+
+        .no-border{ border: none; }
+
+        .bold{ font-family: verdanab; }
+
+        .titre1{ font-size: 40px; }
+
+        .titre2{ font-size: 30px; }
+
+        .titre3{ font-size: 20px; }
+
+        .titre4{ font-size: 18px; }
+
+        page{ font-size: 13px; }
+
+        .note{ font-size: 12px; text-align: justify; }
+
+        .titre_encadre { padding: 3px; border: 1px solid black; width: 701px; font-family: verdanab; background-color: #F1F1F1; }
+
+        .cadre{ padding: 5px; border: 1px solid black; width: 700px; }
+
+        .localisation_parcours{ padding: 5px; border: 1px solid black; width: 190px; font-family: verdanab; }
+
+        .center{ text-align: center; }
+
+        .planFormation{ width:490px; }
+
+        .t_postBac .col2{ width: 75px; }
+        .t_postBac .col3{ width: 100px; }
+        .t_postBac .col4{ width: 180px; }
+        .t_postBac .col5{ width: 240px; }
+        .t_postBac .col6{ width: 270px; }
+        .t_postBac2 .col3{ width: 100px; }
+        .t_postBac2 .col4{ width: 130px; }
+        .t_postBac2 .col6{ width: 130px; }
+        .t_postBac2 .col7{ width: 140px; }
+
+        .bold_underline{ text-decoration: underline; font-weight: bold; }
+
+        .underline{ text-decoration: underline; }
+
+        .italic_underline{ font-style: italic; text-decoration: underline; }
+
+        .italic{ font-style: italic; }
+
+        .addressFac{ padding: 5px; border: 1px solid black; font-size: 20px; text-align: center; font-weight: bold; }
+
+        .text_align{ text-align: right; }
+
+        .alinea{ margin-left: 20px; padding-left: 20px; }
+
+        .cadreDate{ padding: 5px; border: 1px solid black; width: 120px; }
+
+        .cadreRouge { border-top: 20px solid red; border-bottom: 20px solid red; border-right: 10px solid red; border-left: 10px solid red; padding: 3px; }
+         </style>';
     }
 
     public function setCssPath ($cssPath){

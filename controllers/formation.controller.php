@@ -69,16 +69,56 @@ switch ($action) {
 		echo json_encode($response);
 	}
 		break;
+	case "dependances":
+	{
+		echo $twig->render('formation/dependances.html.twig', array('code' => $_GET['code']));
+	}
+		break;
+	case "syntheseCsv":
+	{
+		$csvFileName = 'Csv/Synthese-' . $_GET['code'] . '.csv';
+
+		if (file_exists($csvFileName)) {
+			unlink($csvFileName);
+		}
+
+		$q = $conn->prepare("select `INE`, `NOM`, `PRENOM`, `MAIL`, concat(`FIXE`, ' / ', `PORTABLE`) as TEL, `DATE_NAISSANCE`, `CODE_FORMATION_PRECEDENTE`, `CODE_FORMATION`, `ANNEE_BAC` FROM `dossier` WHERE `CODE_FORMATION` = ?;");
+		$q->execute(array($_GET['code']));
+		$rs = $q->fetchAll();
+
+		$csv = fopen($csvFileName, 'w');
+
+		fwrite($csv, 'Ine;Nom;Prenom;Mail;Telephone;Date de naissance;Code formation precedente;Code formation choisie;Annee du Bac\n');
+
+		foreach ($rs as $row) {
+			fwrite($csv, $row['INE'] . ';');
+			fwrite($csv, $row['NOM'] . ';');
+			fwrite($csv, $row['PRENOM'] . ';');
+			fwrite($csv, $row['MAIL'] . ';');
+			fwrite($csv, $row['TEL'] . ';');
+			fwrite($csv, $row['DATE_NAISSANCE'] . ';');
+			fwrite($csv, $row['CODE_FORMATION_PRECEDENTE'] . ';');
+			fwrite($csv, $row['CODE_FORMATION'] . ';');
+			fwrite($csv, $row['ANNEE_BAC'] . '\n');
+		}
+
+		echo $twig->render('formation/syntheseCsv.html.twig', array('code' => $_GET['code']));
+	}
+		break;
 	case "previsualiserPdf":
 	{
 		$codeFormation = $_GET['code'];
-		echo $twig->render('formation/previsualiserPdfFormation.html.twig', array('codeFormation' => $codeFormation));
-
+		$typePdf = $_GET['typePdf'];
+		echo $twig->render('formation/previsualiserPdfFormation.html.twig', array(
+			'codeFormation' => $codeFormation,
+			'typePdf' => $typePdf
+		));
 	}
 		break;
-	case "previsualisationPdf":
+	case "previsualisationPdfCandidature":
 	{
 		$codeFormation = $_GET['code'];
+		$typePdf = $_GET['typePdf'];
 		$formation = $formationManager->find($codeFormation);
 		$titulaire = $titulaireManager->findAll();
 
@@ -134,7 +174,7 @@ $villesPossibles = array_unique($villesPossibles);
 */
 
 		require_once './classes/Pdf/PagePdf.class.php';
-		$pagePdf = new PagePdf("./classes/pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
+		$pagePdf = new PagePdf("./classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
 
 		// En-tête du pdf
 		$pagePdf->setPagePdfHeaderImgPath("./classes/Pdf/img/feg.png");
@@ -164,9 +204,9 @@ $villesPossibles = array_unique($villesPossibles);
 		try {
 			$html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
 			//$html2pdf->setModeDebug();
-			$html2pdf->pdf->addFont('verdana', '', './classes/html2pdf/_tcpdf_5.0.002/fonts/verdana.php');
-			$html2pdf->pdf->addFont('verdanab', '', './classes/html2pdf/_tcpdf_5.0.002/fonts/verdanab.php');
-			$html2pdf->setDefaultFont('verdana');
+			//$html2pdf->pdf->addFont('verdana', '', './classes/html2pdf/_tcpdf_5.0.002/fonts/verdana.php');
+			//$html2pdf->pdf->addFont('verdanab', '', './classes/html2pdf/_tcpdf_5.0.002/fonts/verdanab.php');
+			$html2pdf->setDefaultFont('arial');
 			$html2pdf->pdf->SetDisplayMode('fullpage');
 			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
 			//$html2pdf->Output('html2pdf.pdf');
@@ -176,43 +216,51 @@ $villesPossibles = array_unique($villesPossibles);
 			echo $e;
 			exit;
 		}
-		header('location:index.php?uc=formation&action=previsualiserPdf&code=' . $codeFormation);
+		//header('location:index.php?uc=formation&action=previsualiserPdf&code=' . $codeFormation . '&typePdf=' . $typePdf);
 	}
 		break;
-	case "dependances":
+	case 'previsualisationPdfPreinscription' :
 	{
-		echo $twig->render('formation/dependances.html.twig', array('code' => $_GET['code']));
-	}
-		break;
-	case "syntheseCsv":
-	{
-		$csvFileName = 'Csv/Synthese-' . $_GET['code'] . '.csv';
+		require_once './classes/Pdf/PagePreinsriptionPdf.class.php';
+		$codeFormation = $_GET['code'];
+		$typePdf = $_GET['typePdf'];
 
-		if (file_exists($csvFileName)) {
-			unlink($csvFileName);
+		$pagePdfPreinscription = new PagePreinscriptionPdf("", "30mm", "7mm", "0mm", "10mm");
+
+		// En-tête du pdf
+		$pagePdfPreinscription->setPagePdfHeaderImgPath("./classes/Pdf/img/feg.png");
+
+		// Pied du pdf
+		$pagePdfPreinscription->setPagePdfFooterText("Page [[page_cu]]/[[page_nb]]");
+
+		// Corps du pdf
+		$pagePdfPreinscription->setTitle("01/01/2014", "DOSSIER DE PRE-INSCRIPTION", "Réservé aux étudiants titulaires d’une licence du domaine de formation <br/> Sciences économiques, sciences de gestion et AES", "ANNEE UNIVERSITAIRE 2013/2014 <br/> Institut Supérieur de Management des Organisations (ISMO)", "MASTER Économie Appliquée", "Dossier à adresser avant le 3 Juillet 2013 <br/> Aimée FERRÉ - Secrétariat Master 1 Économie Appliquée <br/> Faculté d’Économie et de Gestion <br/> 14, avenue Jules Ferry – 13621 Aix-en-Provence Cedex");
+		$pagePdfPreinscription->setNote("Dossier à utiliser si vous résidez dans l'Espace européen, ou dans un pays où il n'existe pas d'espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.");
+		//$pagePdfPreinscription->setApplicant("", "", "", "", "", "", "", "", "", "", "", "");
+		$pagePdfPreinscription->setFormationDepuisBac("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+		$pagePdfPreinscription->setStageExpPro("mai 2011 <br/> - <br/> juillet 2011", "mars 2009 <br/> - <br/> août 2009", "janvier 2005 <br/> - <br/> mars 2005", "janvier 2004 <br/> - <br/> décembre 2004", "juin 2003 <br/>-<br/> septembre 2003", "CMA CGM", "Airbus Helicopters", "Capgemini", "LogicielNet", "Sistema", "Marseille", "Marignane", "Marseille", "Aix en Provence", "Aix en Provence", "Info", "Info", "Info", "Info", "Info", "stage", "stage", "emploi", "emploi", "stage");
+		$pagePdfPreinscription->setPartieAdministration('checked', 'checked');
+
+		ob_start();
+		echo $pagePdfPreinscription;
+		$content = ob_get_clean();
+
+		// convert in PDF
+		require_once './classes/Pdf/html2pdf/html2pdf.class.php';
+		try {
+			$html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
+			// $html2pdf->setModeDebug();
+			//$html2pdf->pdf->addFont('verdana', '', '../../classes/html2pdf/_tcpdf_5.0.002/fonts/verdana.php');
+			//$html2pdf->pdf->addFont('verdanab', '', '../../classes/html2pdf/_tcpdf_5.0.002/fonts/verdanab.php');
+			$html2pdf->setDefaultFont('arial');
+			$html2pdf->pdf->SetDisplayMode('fullpage');
+			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+			$html2pdf->Output('dossiers/' . $codeFormation . '/Dossier_Type/Preinscription_Type.pdf', 'F');
+
+		} catch (HTML2PDF_exception $e) {
+			echo $e;
+			exit;
 		}
-
-		$q = $conn->prepare("select `INE`, `NOM`, `PRENOM`, `MAIL`, concat(`FIXE`, ' / ', `PORTABLE`) as TEL, `DATE_NAISSANCE`, `CODE_FORMATION_PRECEDENTE`, `CODE_FORMATION`, `ANNEE_BAC` FROM `dossier` WHERE `CODE_FORMATION` = ?;");
-		$q->execute(array($_GET['code']));
-		$rs = $q->fetchAll();
-
-		$csv = fopen($csvFileName, 'w');
-
-		fwrite($csv, 'Ine;Nom;Prenom;Mail;Telephone;Date de naissance;Code formation precedente;Code formation choisie;Annee du Bac\n');
-
-		foreach($rs as $row) {
-			fwrite($csv, $row['INE'] . ';');
-			fwrite($csv, $row['NOM'] . ';');
-			fwrite($csv, $row['PRENOM'] . ';');
-			fwrite($csv, $row['MAIL'] . ';');
-			fwrite($csv, $row['TEL'] . ';');
-			fwrite($csv, $row['DATE_NAISSANCE'] . ';');
-			fwrite($csv, $row['CODE_FORMATION_PRECEDENTE'] . ';');
-			fwrite($csv, $row['CODE_FORMATION'] . ';');
-			fwrite($csv, $row['ANNEE_BAC'] . '\n');
-		}
-
-		echo $twig->render('formation/syntheseCsv.html.twig', array('code' => $_GET['code']));
 	}
 		break;
 	default:
