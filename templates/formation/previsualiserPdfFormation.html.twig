@@ -9,12 +9,12 @@
     </ol>
 
     <h2 class="titre_rubrique">
-        Prévisualisation du dossier PDF {{ codeFormation }}
+        Prévisualisation du dossier PDF de {{ typePdf }} {{ codeFormation }}
     </h2>
     <p>(Si le PDF ne s'affiche pas correctement, veuillez recharger la page)</p>
     <div  class="well">
         <div id="loading" style="text-align: center;"></div>
-        <object id="pdfPreview" data="./dossiers/{{ codeFormation }}/Dossier_Type/Candidature_Type.pdf" type="application/pdf"
+        <object id="pdfPreview" data="./dossiers/{{ codeFormation }}/Dossier_Type/{{ typePdf }}_Type.pdf" type="application/pdf"
                 width="100%"
                 height="700px">
             <p>Chargement veuillez patienter</p>

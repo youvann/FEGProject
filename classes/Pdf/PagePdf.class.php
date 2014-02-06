@@ -194,7 +194,6 @@ class PagePdf{
 
         .cadreRouge { border-top: 20px solid red; border-bottom: 20px solid red; border-right: 10px solid red; border-left: 10px solid red; padding: 3px; }
          </style>';
-        //return $this->css;
     }
 
     public function setCssPath ($cssPath){

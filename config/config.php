@@ -42,3 +42,6 @@ $loader = new Twig_Loader_Filesystem('templates'); // Dossier contenant les temp
 $twig = new Twig_Environment($loader, array('cache' => false));
 $twig->addGlobal('get', $_GET);
 $twig->addGlobal('session', $_SESSION);
+
+$twig->addGlobal('random', rand(10000, 900000));
+
