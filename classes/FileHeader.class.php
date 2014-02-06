@@ -9,17 +9,15 @@ class FileHeader {
 	/**
 	 * Créé une entete pour fichiers CSS
 	 */
-	public static function headerCss($a) {
+	public static function headerCss() {
 		header("Content-type: text/css");
-		return $a;
 	}
 	
 	/**
 	 * Créé une entete pour fichiers CSV
 	 */
-	public static function headerCsv($a) {
+	public static function headerCsv() {
 		header("Content-type: application/vnd.ms-excel");
-		return $a;
 	}
 
 	/**

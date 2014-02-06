@@ -6,13 +6,13 @@
  * @Purpose:
  * @Author :
  */
-if (!isset($_GET['action'])){
+if (!isset($_GET['action'])) {
 	$action = "grille";
-} else{
+} else {
 	$action = $_GET['action'];
 }
 
-switch ($action){
+switch ($action) {
 	case "consulter":
 	{
 		$formation = $formationManager->find($_GET['code']);
@@ -29,19 +29,25 @@ switch ($action){
 	{
 		$facultes = $faculteManager->findAll();
 		echo $twig->render('formation/ajouterFormation.html.twig', array('facultes' => $facultes));
-	} break;
-	case "ajout": {
-        // Création du répertoire "code_formation"
-        myMkdir($_POST['code_formation']);
+	}
+		break;
+	case "ajout":
+	{
+		// Création du répertoire "code_formation"
+		myMkdir($_POST['code_formation']);
 		$formationManager->insert(new Formation($_POST['code_formation'], $_POST['mention'], $_POST['modalites'], $_POST['ouverte'], $_POST['faculte']));
 		header('location:index.php?uc=formation&action=grille');
-	} break;
-	case "modifier": {
+	}
+		break;
+	case "modifier":
+	{
 		$facultes = $faculteManager->findAll();
 		$formation = $formationManager->find($_GET['code']);
 		echo $twig->render('formation/modifierFormation.html.twig', array('facultes' => $facultes, 'formation' => $formation));
-	} break;
-	case "modification": {
+	}
+		break;
+	case "modification":
+	{
 		$formation = new Formation($_POST['code_formation'], $_POST['mention'], $_POST['modalites'], $_POST['ouverte'], $_POST['faculte']);
 		$formationManager->update($formation);
 		header('location:index.php?uc=formation&action=grille');
@@ -54,13 +60,15 @@ switch ($action){
 		header('location:index.php?uc=formation&action=grille');
 	}
 		break;
-	case "codeFormationPossible": {
+	case "codeFormationPossible":
+	{
 		$q = $conn->prepare("SELECT IF(count(*) = 1, FALSE, TRUE) as ok FROM `formation` WHERE `code_formation` = ?;");
 		$q->execute(array($_POST['code']));
 		$rs = $q->fetch();
 		$response['response'] = $rs['ok'];
 		echo json_encode($response);
-	} break;
+	}
+		break;
 	case "previsualiserPdf":
 	{
 		$codeFormation = $_GET['code'];
@@ -80,8 +88,8 @@ switch ($action){
 
 		// Récupère les informations spécifiques
 		$informationsSpecifiques = '';
-		foreach($rsInfoSupp as $infoSupp){
-			$informationsSpecifiques .= '<div class="bold">'.$infoSupp['LIBELLE'] . ' ' . $infoSupp['EXPLICATIONS'] . ' : </div><br/>';
+		foreach ($rsInfoSupp as $infoSupp) {
+			$informationsSpecifiques .= '<div class="bold">' . $infoSupp['LIBELLE'] . ' ' . $infoSupp['EXPLICATIONS'] . ' : </div><br/>';
 		}
 
 		// Récupère les voeux possibles
@@ -91,7 +99,7 @@ switch ($action){
 
 		// Insère les voeux possibles dans le tableau étapes
 		$etapes = array();
-		foreach($rsVoeux as $voeu){
+		foreach ($rsVoeux as $voeu) {
 			$etapes[] = $voeu['ETAPE'];
 		}
 
@@ -153,7 +161,7 @@ $villesPossibles = array_unique($villesPossibles);
 
 		// convert in PDF
 		require_once './classes/Pdf/html2pdf/html2pdf.class.php';
-		try{
+		try {
 			$html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
 			//$html2pdf->setModeDebug();
 			$html2pdf->pdf->addFont('verdana', '', './classes/html2pdf/_tcpdf_5.0.002/fonts/verdana.php');
@@ -164,11 +172,47 @@ $villesPossibles = array_unique($villesPossibles);
 			//$html2pdf->Output('html2pdf.pdf');
 			$html2pdf->Output('dossiers/' . $codeFormation . '/Dossier_Type/Candidature_Type.pdf', 'F');
 			//echo "PDF BIEN GENERE";
-		} catch (HTML2PDF_exception $e){
+		} catch (HTML2PDF_exception $e) {
 			echo $e;
 			exit;
 		}
 		header('location:index.php?uc=formation&action=previsualiserPdf&code=' . $codeFormation);
+	}
+		break;
+	case "dependances":
+	{
+		echo $twig->render('formation/dependances.html.twig', array('code' => $_GET['code']));
+	}
+		break;
+	case "syntheseCsv":
+	{
+		$csvFileName = 'Csv/Synthese-' . $_GET['code'] . '.csv';
+
+		if (file_exists($csvFileName)) {
+			unlink($csvFileName);
+		}
+
+		$q = $conn->prepare("select `INE`, `NOM`, `PRENOM`, `MAIL`, concat(`FIXE`, ' / ', `PORTABLE`) as TEL, `DATE_NAISSANCE`, `CODE_FORMATION_PRECEDENTE`, `CODE_FORMATION`, `ANNEE_BAC` FROM `dossier` WHERE `CODE_FORMATION` = ?;");
+		$q->execute(array($_GET['code']));
+		$rs = $q->fetchAll();
+
+		$csv = fopen($csvFileName, 'w');
+
+		fwrite($csv, 'Ine;Nom;Prenom;Mail;Telephone;Date de naissance;Code formation precedente;Code formation choisie;Annee du Bac\n');
+
+		foreach($rs as $row) {
+			fwrite($csv, $row['INE'] . ';');
+			fwrite($csv, $row['NOM'] . ';');
+			fwrite($csv, $row['PRENOM'] . ';');
+			fwrite($csv, $row['MAIL'] . ';');
+			fwrite($csv, $row['TEL'] . ';');
+			fwrite($csv, $row['DATE_NAISSANCE'] . ';');
+			fwrite($csv, $row['CODE_FORMATION_PRECEDENTE'] . ';');
+			fwrite($csv, $row['CODE_FORMATION'] . ';');
+			fwrite($csv, $row['ANNEE_BAC'] . '\n');
+		}
+
+		echo $twig->render('formation/syntheseCsv.html.twig', array('code' => $_GET['code']));
 	}
 		break;
 	default:

@@ -53,13 +53,20 @@
                 </a>
             </li>
             <li>
+                <a href="index.php?uc=formation&action=syntheseCsv&code={{ formation.codeformation }}">
+                    <span class="glyphicon glyphicon-list"></span> Synthèse Excel
+                </a>
+            </li>
+            <li>
                 <a id="prevPdf" href="#">
                     <span class="glyphicon glyphicon-file"></span> Prévisualiser le dossier PDF
                 </a>
             </li>
         </ul>
     </div>
-
+    <a class="btn btn-info" href="index.php?uc=formation&action=dependances&code={{ formation.codeformation }}">
+        <span class="glyphicon glyphicon-briefcase"></span> Domaines de compatibilité
+    </a>
     <!-- Modal -->
     <div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true" data-backdrop="static" data-keyboard="false">
