@@ -99,7 +99,8 @@ switch ($action) {
 			fwrite($csv, $row['DATE_NAISSANCE'] . ';');
 			fwrite($csv, $row['CODE_FORMATION_PRECEDENTE'] . ';');
 			fwrite($csv, $row['CODE_FORMATION'] . ';');
-			fwrite($csv, $row['ANNEE_BAC'] . '\n');
+			fwrite($csv, $row['ANNEE_BAC']);
+			fwrite($csv, '\r\n');
 		}
 
 		echo $twig->render('formation/syntheseCsv.html.twig', array('code' => $_GET['code']));
