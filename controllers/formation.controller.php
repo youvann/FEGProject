@@ -76,7 +76,7 @@ switch ($action) {
 		break;
 	case "syntheseCsv":
 	{
-		$csvFileName = 'Csv/Synthese-' . $_GET['code'] . '.csv';
+		$csvFileName = 'dossiers/' . $_GET['code'] . '/Synthese.csv';
 
 		if (file_exists($csvFileName)) {
 			unlink($csvFileName);
