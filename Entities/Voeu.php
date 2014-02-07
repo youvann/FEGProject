@@ -5,13 +5,15 @@ class Voeu {
 	private $codeFormation;
 	private $etape;
 	private $responsable;
+	private $mailResponsable;
 	private $villes;
 	
-	function __construct($codeEtape, $codeFormation, $etape, $responsable) {
+	function __construct($codeEtape, $codeFormation, $etape, $responsable, $mailResponsable) {
 		$this->codeEtape = $codeEtape;
 		$this->codeFormation = $codeFormation;
 		$this->etape = $etape;
 		$this->responsable = $responsable;
+		$this->mailResponsable = $mailResponsable;
 		$this->villes = NULL;
 	}
 
@@ -29,6 +31,10 @@ class Voeu {
 
 	public function getResponsable() {
 		return $this->responsable;
+	}
+
+	public function getMailResponsable() {
+		return $this->mailResponsable;
 	}
 	
 	public function getVilles() {
@@ -49,6 +55,10 @@ class Voeu {
 
 	public function setResponsable($responsable) {
 		$this->responsable = $responsable;
+	}
+
+	public function setMailResponsable($mailResponsable) {
+		$this->mailResponsable = $mailResponsable;
 	}
 
 	public function setVilles($villes) {

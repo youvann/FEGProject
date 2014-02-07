@@ -34,6 +34,10 @@ if (isset($_GET['uc']) && isset($_GET['action'])) {
 	}
 }
 
+// Années
+$anneeBasse = (int)date('Y');
+$anneeHaute = ((int)date('Y')) + 1;
+
 // Chargement de TWIG
 include_once('Twig/lib/Twig/Autoloader.php');
 Twig_Autoloader::register();
@@ -42,6 +46,9 @@ $loader = new Twig_Loader_Filesystem('templates'); // Dossier contenant les temp
 $twig = new Twig_Environment($loader, array('cache' => false));
 $twig->addGlobal('get', $_GET);
 $twig->addGlobal('session', $_SESSION);
+
+$twig->addGlobal('anneeBasse', $anneeBasse);
+$twig->addGlobal('anneeHaute', $anneeHaute);
 
 $twig->addGlobal('random', rand(10000, 900000));
 
