@@ -6,13 +6,13 @@
  * @Purpose: Contrôleur qui se charge d'afficher les différentes vues des formulaires d'inscription
  * @Author :
  */
-if (!isset($_GET['action'])){
+if (!isset($_GET['action'])) {
     $action = "choixFormation";
-} else{
+} else {
     $action = $_GET['action'];
 }
 
-switch ($action){
+switch ($action) {
     case "candidaturePossible" :
     {
         $q = $conn->prepare("SELECT if(count(*) = 0, true, false) as possible FROM `dossier` WHERE `dossier`.`INE` = ? and `dossier`.`CODE_FORMATION` = ?;");
@@ -31,9 +31,9 @@ switch ($action){
         break;
     case "traiterChoixFormation":
     {
-        $derniere = $_POST['derniere'];
+        $derniere            = $_POST['derniere'];
         $_SESSION['choisie'] = $_POST['choisie'];
-        $_SESSION['ine'] = $_POST['ine'];
+        $_SESSION['ine']     = $_POST['ine'];
 
         header('location:index.php?uc=formulaire&action=main');
     }
@@ -41,20 +41,20 @@ switch ($action){
     case "displayDocuments":
     {
         FileHeader::headerJson();
-        $documentsGeneraux = $documentGeneralManager->findAll();
+        $documentsGeneraux    = $documentGeneralManager->findAll();
         $documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation($_POST['code']);
 
-        $response = array();
-        $general = array();
+        $response   = array();
+        $general    = array();
         $specifique = array();
 
-        foreach ($documentsGeneraux as $documentGeneral){
+        foreach ($documentsGeneraux as $documentGeneral) {
             $general[] = $documentGeneral->getNom();
         }
-        foreach ($documentsSpecifiques as $documentSpecifique){
+        foreach ($documentsSpecifiques as $documentSpecifique) {
             $specifique[] = array($documentSpecifique->getNom(), $documentSpecifique->getUrl());
         }
-        $response['general'] = $general;
+        $response['general']    = $general;
         $response['specifique'] = $specifique;
         echo(json_encode($response));
     }
@@ -63,55 +63,52 @@ switch ($action){
     {
         // Chargement des voeux
         $formation = $formationManager->find($_SESSION['choisie']);
-        $voeux = $voeuManager->findAllByFormation($formation);
-        foreach ($voeux as $voeu){
+        $voeux     = $voeuManager->findAllByFormation($formation);
+        foreach ($voeux as $voeu) {
             $voeu->setVilles($voeuManager->getVilles($voeu));
         }
         $nbVoeux = count($voeux);
 
         // Chargement des informations supplémentaires
         $structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formation));
-        $form = $translatorStructureToForm->translate($structure);
-        $formHTML = $form->getHTML();
+        $form      = $translatorStructureToForm->translate($structure);
+        $formHTML  = $form->getHTML();
 
         // Chargement des documents généraux et spécifiques
-        $documentsGeneraux = $documentGeneralManager->findAll();
+        $documentsGeneraux    = $documentGeneralManager->findAll();
         $documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation($_SESSION['choisie']);
 
         myMkdirIne($_SESSION['choisie'] . '/Candidatures/' . $_SESSION['ine']);
 
         echo $twig->render('formulaire/mainFormulaire.html.twig', array(
-            'formation' => $formation,
-            'voeux' => $voeux,
-            'nbVoeux' => $nbVoeux,
-            'form' => $formHTML,
-            'documentsGeneraux' => $documentsGeneraux,
+            'formation'           => $formation,
+            'voeux'               => $voeux,
+            'nbVoeux'             => $nbVoeux,
+            'form'                => $formHTML,
+            'documentsGeneraux'   => $documentsGeneraux,
             'documentsSpecifique' => $documentsSpecifiques,
-            'typedossier' => 'CA'
+            'typedossier'         => 'CA'
         ));
     }
         break;
     case "traiterMainFormulaire":
     {
-        //var_dump($_POST, count($_POST));
         $postInformations = array_slice($_POST, 69);
-        $structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find($_SESSION['choisie'])));
-        $json = $translatorFormToJson->translate($structure, $postInformations);
+        $structure        = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find($_SESSION['choisie'])));
+        $json             = $translatorFormToJson->translate($structure, $postInformations);
 
         // Changer le code formation !!
         $dossier = new Dossier($_POST["ine"], $_SESSION['choisie'], "", $_POST["nom"], $_POST["prenom"], $_POST["adresse"], $_POST["complement"], $_POST["code_postal"], $_POST["ville"], $_POST["date_naissance"], $_POST["lieu_naissance"], $_POST["fixe"], $_POST["portable"], $_POST["mail"], $_POST["genre"], $_POST["langues"], $_POST["nationalite"], $_POST["serie_bac"], $_POST["annee_bac"], $_POST["etablissement_bac"], $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["autre"], $_POST["titulaire"], $_POST["ville_preferee"], $_POST["autres_elements"], $json, NULL);
-        //var_dump($dossier);
-        if (!$etudiantManager->ifExists(new Etudiant($_POST["ine"], 1))){
+
+        if (!$etudiantManager->ifExists(new Etudiant($_POST["ine"], 1))) {
             $etudiantManager->insert(new Etudiant($_POST["ine"], 1));
-        } else{
-            $etudiant = $etudiantManager->find($_POST["ine"]);
+        } else {
+            $etudiant     = $etudiantManager->find($_POST["ine"]);
             $nombreDepots = $etudiant->getNombreDepots();
             $nombreDepots = $nombreDepots + 1;
             $etudiantManager->update($etudiant);
         }
         $dossierManager->insert($dossier);
-
-        //var_dump($_POST);
 
         $cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-1'], $_POST['anneeFinCursus-1'], $_POST['cursus-1'], $_POST['etablissement-1'], $_POST['valide-1']));
         $cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-2'], $_POST['anneeFinCursus-2'], $_POST['cursus-2'], $_POST['etablissement-2'], $_POST['valide-2']));
@@ -124,7 +121,7 @@ switch ($action){
         $experienceManager->insert(new Experience(0, $_POST["ine"], $_SESSION['choisie'], $_POST['moisDebut-3'], $_POST['anneeDebut-3'], $_POST['moisFin-3'], $_POST['anneeFin-3'], $_POST['entreprise-3'], $_POST['fonction-3']));
 
         $i = 1;
-        foreach ($_POST['voeu'] as $codeEtape){
+        foreach ($_POST['voeu'] as $codeEtape) {
             $faireManager->insert(new Faire($codeEtape, $_POST["ine"], $_SESSION['choisie'], $i));
             ++$i;
         }
@@ -140,6 +137,7 @@ switch ($action){
         var_dump("titualaire", $titulaire);
 
         $cursus = $cursusManager->findAllByDossier($dossier);
+
         var_dump("cursus", $cursus);
 
         $experiences = $experienceManager->findAllByDossier($dossier);
@@ -148,30 +146,24 @@ switch ($action){
         $faires = $faireManager->findAllByDossier($dossier);
         var_dump("faire manager", $faires);
 
-        //$documentsGeneraux    = $documentGeneralManager->findAll();
-        //$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation($_SESSION['choisie']);
-
-        $etapes = array();
+        $etapes          = array();
         $villesPossibles = array();
 
-        // Récupère l'ordre des voeux et les villes où la formatin a lieu
-        foreach ($faires as $faire){
-            $voeu = $voeuManager->find($faire->getCodeEtape());
-            $lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
+        // Récupère l'ordre des voeux et les villes où la formation a lieu
+        foreach ($faires as $faire) {
+            $voeu                       = $voeuManager->find($faire->getCodeEtape());
+            $lesSeDerouler              = $seDeroulerManager->findAllByVoeu($voeu);
             $etapes[$faire->getOrdre()] = $voeu->getEtape();
 
-            //echo $voeu->getEtape() . ' ' . $faire->getOrdre();
-            foreach ($lesSeDerouler as $unSeDerouler){
-                $ville = $villeManager->find($unSeDerouler->getCodeVet());
-                // echo ' - ' . $ville->getNom();
+            foreach ($lesSeDerouler as $unSeDerouler) {
+                $ville = $villeManager->find($unSeDerouler->getId());
             }
-            // echo '<br>';
+
             $villesPossibles[] = $ville->getNom();
         }
         // Supprime les doublons des villes
         $villesPossibles = array_unique($villesPossibles);
 
-        //var_dump($villesPossibles);
 
         $rs = $conn->query('SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
                             FROM `information`
@@ -179,7 +171,7 @@ switch ($action){
                             LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
                             ORDER BY `information`.`ordre`;')->fetchAll();
 
-        $structure = $translatorResultsetToStructure->translate($rs);
+        $structure               = $translatorResultsetToStructure->translate($rs);
         $informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
 
         require_once './classes/Pdf/PagePdf.class.php';
@@ -216,7 +208,7 @@ switch ($action){
 
         // convert in PDF
         require_once 'classes/Pdf/html2pdf/html2pdf.class.php';
-        try{
+        try {
             $html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
             //$html2pdf->setModeDebug();
             //$html2pdf->pdf->addFont('verdana', '', './classes/html2pdf/_tcpdf_5.0.002/fonts/verdana.php');
@@ -228,7 +220,7 @@ switch ($action){
             $html2pdf->Output('./dossiers/' . $_SESSION['choisie'] . '/Candidatures/' . $_SESSION['ine'] . '/Candidature-' . $_SESSION['ine'] . '.pdf', 'F');
             echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
 
-        } catch (HTML2PDF_exception $e){
+        } catch (HTML2PDF_exception $e) {
             echo $e;
             exit;
         }
@@ -238,7 +230,7 @@ switch ($action){
     {
         echo $twig->render('formulaire/recapitulatif.html.twig', array(
             'code' => $_SESSION['choisie'],
-            'ine' => $_SESSION['ine']
+            'ine'  => $_SESSION['ine']
         ));
     }
         break;

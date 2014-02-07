@@ -365,7 +365,7 @@ class PagePdf{
                 <td text-align="center">' . $cpb->getAnneeDebut() . '-' . $cpb->getAnneeFin() . '</td>
                 <td text-align="center">' . $cpb->getEtablissement() . '</td>
                 <td text-align="center">' . $cpb->getCursus() . '</td>
-                <td text-align="center">' . $cpb->getValide() . '</td>
+                <td text-align="center">' . $cpb->getNote() . '</td>
             </tr>';
         }
         return $postBac;

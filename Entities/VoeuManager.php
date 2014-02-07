@@ -55,11 +55,11 @@ class VoeuManager {
 	
 	public function getVilles(Voeu $voeu) {
 		$villes = array();
-		$q = $this->db->prepare("SELECT * FROM `VILLE` INNER JOIN `SE_DEROULER` ON `VILLE`.`CODE_VET` = `SE_DEROULER`.`CODE_VET` WHERE `SE_DEROULER`.`CODE_ETAPE` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `VILLE` INNER JOIN `SE_DEROULER` ON `VILLE`.`ID` = `SE_DEROULER`.`ID` WHERE `SE_DEROULER`.`CODE_ETAPE` = ?;");
 		$q->execute(array($voeu->getCodeEtape()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $ville) {
-			$villes[] = new Ville($ville['CODE_VET'], $ville['NOM']);
+			$villes[] = new Ville($ville['ID'], $ville['NOM']);
 		}
 		return $villes;
 		
