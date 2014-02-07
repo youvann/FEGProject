@@ -1,24 +1,24 @@
 <?php
 
 class SeDerouler {
-	private $codeVet;
+	private $id;
 	private $codeEtape;
 	
-	function __construct($codeVet, $codeEtape) {
-		$this->codeVet = $codeVet;
+	function __construct($id, $codeEtape) {
+		$this->id = $id;
 		$this->codeEtape = $codeEtape;
 	}
 
-	public function getCodeVet() {
-		return $this->codeVet;
+	public function getId() {
+		return $this->id;
 	}
 
 	public function getCodeEtape() {
 		return $this->codeEtape;
 	}
 
-	public function setCodeVet($codeVet) {
-		$this->codeVet = $codeVet;
+	public function setId($id) {
+		$this->id = $id;
 	}
 
 	public function setCodeEtape($codeEtape) {

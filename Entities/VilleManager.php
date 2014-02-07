@@ -15,30 +15,30 @@ class VilleManager {
 		$q = $this->db->prepare("SELECT * FROM `ville` WHERE `CODE_VET` = ?;");
 		$q->execute(array($codeVet));
         $rs = $q->fetch();
-		return new Ville($rs['CODE_VET'], $rs['NOM']);
+		return new Ville($rs['ID'], $rs['NOM']);
 	}
 	
 	public function findAll() {
 		$villes = array();
 		$rs = $this->db->query("SELECT * FROM `ville`;")->fetchAll();
 		foreach ($rs as $ville) {
-			$villes[] = new Ville($ville['CODE_VET'], $ville['NOM']);
+			$villes[] = new Ville($ville['ID'], $ville['NOM']);
 		}
 		return $villes;
 	}
 	
 	public function insert(Ville $ville) {
-		return $this->db->prepare("INSERT INTO `ville` (`CODE_VET`, `NOM`) VALUES (?, ?);")
-				->execute(array($ville->getCodeVet(), $ville->getNom()));
+		return $this->db->prepare("INSERT INTO `ville` (`NOM`) VALUES (?);")
+				->execute(array($ville->getNom()));
 	}
 	
 	public function update(Ville $ville) {
-		return $this->db->prepare("UPDATE `ville` SET `NOM`= ? WHERE `CODE_VET` = ?);")
-				->execute(array($ville->getNom(), $ville->getCodeVet()));
+		return $this->db->prepare("UPDATE `ville` SET `NOM`= ? WHERE `ID` = ?);")
+				->execute(array($ville->getNom(), $ville->getId()));
 	}
 	
 	public function delete(Ville $ville) {
-		return $this->db->prepare("DELETE FROM `ville` WHERE `CODE_VET` = ?);")
-				->execute(array($ville->getCodeVet()));
+		return $this->db->prepare("DELETE FROM `ville` WHERE `ID` = ?);")
+				->execute(array($ville->getId()));
 	}
 }

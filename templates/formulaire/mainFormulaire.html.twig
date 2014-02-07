@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <h2 class="titre_rubrique">
                 {% if typedossier == 'CA' %}Candidature{% elseif typedossier == 'PI' %}Pré-inscription{% endif %}
-                en {{ formation.mention }} pour l'année scolaire 2014-2015
+                en {{ formation.mention }} pour l'année scolaire {{ anneeBasse }}-{{ anneeHaute }}
             </h2>
 
             <form role="form" id="mainFormulaire" action="index.php?uc=formulaire&action=traiterMainFormulaire"

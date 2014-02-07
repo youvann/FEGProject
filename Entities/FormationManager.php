@@ -16,14 +16,14 @@ class FormationManager {
 		$q = $this->db->prepare("SELECT * FROM `formation` WHERE `CODE_FORMATION` = ?;");
 		$q->execute(array($code));
 		$rs = $q->fetch();
-		return new Formation($rs['CODE_FORMATION'], $rs['MENTION'], $rs['MODALITES'], $rs['OUVERTE'], $rs['FACULTE']);
+		return new Formation($rs['CODE_FORMATION'], $rs['MENTION'], $rs['INFORMATIONS'], $rs['MODALITES'], $rs['OUVERTE'], $rs['FACULTE']);
 	}
 
 	public function findAll() {
 		$formations = array();
 		$rs = $this->db->query("SELECT * FROM `formation`;")->fetchAll();
 		foreach ($rs as $formation) {
-			$formations[] = new Formation($formation['CODE_FORMATION'], $formation['MENTION'], $formation['MODALITES'], $formation['OUVERTE'], $formation['FACULTE']);
+			$formations[] = new Formation($formation['CODE_FORMATION'], $formation['MENTION'], $voeu['INFORMATIONS'], $formation['MODALITES'], $formation['OUVERTE'], $formation['FACULTE']);
 		}
 		return $formations;
 	}
@@ -33,10 +33,11 @@ class FormationManager {
 	}
 
 	public function insert(Formation $formation) {
-		return $this->db->prepare("insert into formation (`CODE_FORMATION`, `MENTION`, `MODALITES`,`OUVERTE`, `FACULTE`) VALUES (?, ?, ?, ?, ?);")
+		return $this->db->prepare("insert into formation (`CODE_FORMATION`, `MENTION`, `INFORMATIONS, `MODALITES`,`OUVERTE`, `FACULTE`) VALUES (?, ?, ?, ?, ?, ?);")
 						->execute(array(
 							$formation->getCodeFormation(),
 							$formation->getMention(),
+							$formation->getInformations(),
 							$formation->getModalites(),
 							$formation->getOuverte(),
 							$formation->getFaculte()
@@ -44,9 +45,10 @@ class FormationManager {
 	}
 
 	public function update(Formation $formation) {
-		return $this->db->prepare("UPDATE `formation` SET `MENTION` = ?, `MODALITES` = ?, `OUVERTE` = ?, `FACULTE` = ? WHERE `CODE_FORMATION` = ?;")
+		return $this->db->prepare("UPDATE `formation` SET `MENTION` = ?, `INFORMATIONS` = ?, `MODALITES` = ?, `OUVERTE` = ?, `FACULTE` = ? WHERE `CODE_FORMATION` = ?;")
 						->execute(array(
 							$formation->getMention(),
+							$formation->getInformations(),
 							$formation->getModalites(),
 							$formation->getOuverte(),
 							$formation->getFaculte(),

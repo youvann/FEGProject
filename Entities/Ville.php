@@ -1,24 +1,20 @@
 <?php
 
 class Ville {
-	private $codeVet;
+	private $id;
 	private $nom;
 
-	function __construct($codeVet, $nom) {
-		$this->codeVet = $codeVet;
+	function __construct($id, $nom) {
+		$this->id = $id;
 		$this->nom = $nom;
 	}
 
-	public function getCodeVet() {
+	public function getId() {
 		return $this->codeVet;
 	}
 
 	public function getNom() {
 		return $this->nom;
-	}
-
-	public function setCodeVet($codeVet) {
-		$this->codeVet = $codeVet;
 	}
 
 	public function setNom($nom) {
