@@ -131,13 +131,22 @@ switch ($action){
 
         /* GENERATION PDF HERE */
         $formation = $formationManager->find($_SESSION['choisie']);
+        var_dump("formation", $formation);
+
         $dossier = $dossierManager->find($_SESSION['ine'], $_SESSION['choisie']);
-        //var_dump($dossier);
+        var_dump("dossier", $dossier);
+
         $titulaire = $titulaireManager->findAll();
+        var_dump("titualaire", $titulaire);
+
         $cursus = $cursusManager->findAllByDossier($dossier);
-        //var_dump($cursus);
+        var_dump("cursus", $cursus);
+
         $experiences = $experienceManager->findAllByDossier($dossier);
+        var_dump("expériences", $experiences);
+
         $faires = $faireManager->findAllByDossier($dossier);
+        var_dump("faire manager", $faires);
 
         //$documentsGeneraux    = $documentGeneralManager->findAll();
         //$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation($_SESSION['choisie']);
@@ -191,6 +200,7 @@ switch ($action){
         $pagePdf->setPhotoPath('./classes/Pdf/img/photo/github.png');
         $pagePdf->setPlanFormation($etapes, $villesPossibles);
 
+        var_dump($cursus);
         $pagePdf->setPrevFormation($dossier->getSerieBac(), $dossier->getAnneeBac(), $dossier->getEtablissementBac(), $dossier->getDepartementBac(), $dossier->getPaysBac(), $cursus);
         $pagePdf->setProExperience($experiences);
         $pagePdf->setOther($dossier->getLangues(), $dossier->getAutresElements());

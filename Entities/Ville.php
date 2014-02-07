@@ -10,7 +10,7 @@ class Ville {
 	}
 
 	public function getId() {
-		return $this->codeVet;
+		return $this->id;
 	}
 
 	public function getNom() {

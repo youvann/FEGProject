@@ -12,7 +12,7 @@ class VilleManager {
 	}
 	
 	public function find($codeVet) {
-		$q = $this->db->prepare("SELECT * FROM `ville` WHERE `CODE_VET` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `ville` WHERE `ID` = ?;");
 		$q->execute(array($codeVet));
         $rs = $q->fetch();
 		return new Ville($rs['ID'], $rs['NOM']);

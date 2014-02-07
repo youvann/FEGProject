@@ -23,7 +23,7 @@ class FormationManager {
 		$formations = array();
 		$rs = $this->db->query("SELECT * FROM `formation`;")->fetchAll();
 		foreach ($rs as $formation) {
-			$formations[] = new Formation($formation['CODE_FORMATION'], $formation['MENTION'], $voeu['INFORMATIONS'], $formation['MODALITES'], $formation['OUVERTE'], $formation['FACULTE']);
+			$formations[] = new Formation($formation['CODE_FORMATION'], $formation['MENTION'], $formation['INFORMATIONS'], $formation['MODALITES'], $formation['OUVERTE'], $formation['FACULTE']);
 		}
 		return $formations;
 	}

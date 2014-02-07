@@ -25,7 +25,7 @@ class CursusManager {
 	}
 
 	public function insert(Cursus $cursus) {
-		return $this->db->prepare("INSERT INTO `cursus` (`INE`, `CODE_FORMATION`, `ANNEE_DEBUT`, `ANNEE_FIN`, `cursus`, `ETABLISSEMENT`, `NOTE`) VALUES (?, ?, ?, ?, ?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `cursus` (`INE`, `CODE_FORMATION`, `ANNEE_DEBUT`, `ANNEE_FIN`, `CURSUS`, `ETABLISSEMENT`, `NOTE`) VALUES (?, ?, ?, ?, ?, ?, ?);")
 						->execute(array(
 							$cursus->getIne(),
 							$cursus->getCodeFormation(),
