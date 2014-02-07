@@ -1,47 +1,47 @@
 <fieldset>
     <legend>Cursus antérieur</legend>
-<div class="well well-fg">
 
-    <h4>1. Cursus post-bac</h4>
-    <br/>
+    <h4>1. Cursus post-bac </h4>
+    <p>Veuillez détailler votre parcours post-bac.</p>
     {% for i in 1..5 %}
+    {% if i != 1 %}<h4><div class="label label-info">Optionnel</div></h4>{% endif %}
+    <div class="well well-fg">
         <div class="form-group">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label for="anneeDebutCursus-{{ i }}">Année de début</label>
-                    <input type="text" class="form-control required" id="anneeDebutCursus-{{ i }}"
-                           name="anneeDebutCursus-{{ i }}" data-validation="required"/>
+                    <input type="text" class="form-control {% if i == 1 %}required{% endif %}" id="anneeDebutCursus-{{ i }}"
+                           name="anneeDebutCursus-{{ i }}" {% if i == 1 %}data-validation="required"{% endif %}/>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label for="anneeFinCursus-{{ i }}">Année de fin</label>
-                    <input type="text" class="form-control required" id="anneeFinCursus-{{ i }}"
-                           name="anneeFinCursus-{{ i }}" data-validation="required"/>
+                    <input type="text" class="form-control {% if i == 1 %}required{% endif %}" id="anneeFinCursus-{{ i }}"
+                           name="anneeFinCursus-{{ i }}" {% if i == 1 %}data-validation="required"{% endif %}/>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <label for="etablissement-{{ i }}">Etablissement</label>
-                    <input type="text" class="form-control required" id="etablissement-{{ i }}"
-                           name="etablissement-{{ i }}" data-validation="required"/>
+                    <input type="text" class="form-control {% if i == 1 %}required{% endif %}" id="etablissement-{{ i }}"
+                           name="etablissement-{{ i }}" {% if i == 1 %}data-validation="required"{% endif %}/>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="row">
-
-                <div class="col-md-6">
-                    <label for="cursus-{{ i }}">Cursus suivi</label>
-                    <input type="text" class="form-control required" id="cursus-{{ i }}" name="cursus-{{ i }}"
-                           data-validation="required"/>
+                <div class="col-md-4">
+                    <label for="valide-{{ i }}">Note (résultat) {% if i == 1 %}<span class="label label-info">Optionnel</span>{% endif %}</label>
+                    <input type="text" class="form-control" id="valide-{{ i }}" name="valide-{{ i }}"/>
                 </div>
-                <div class="col-md-6">
-                    <label for="valide-{{ i }}">Note/Mention</label>
-                    <input type="text" class="form-control required" id="valide-{{ i }}" name="valide-{{ i }}"
-                           data-validation="required"/>
+                <div class="col-md-8">
+                    <label for="cursus-{{ i }}">Cursus suivi</label>
+                    <input type="text" class="form-control {% if i == 1 %}required{% endif %}" id="cursus-{{ i }}" name="cursus-{{ i }}"
+                           {% if i == 1 %}data-validation="required"{% endif %}/>
                 </div>
             </div>
             <hr/>
         </div>
+    </div>
     {% endfor %}
-</div>
+
 </fieldset>
 
 <div class="well well-fg">
