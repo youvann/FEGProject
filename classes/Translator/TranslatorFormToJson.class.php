@@ -49,12 +49,10 @@ class TranslatorFormToJson extends Translator
 				if (array_key_exists("elem-" . $j, $post)) {
 					// Si au moins une case est cochée, on récupères les informations
 					$json[] = $this->checkBoxGroupPostToJson($structure[$i][0], $post[$keys[$j]], $structure[$i][3]);
-					var_dump("Je ne devrais pas passer par là");
 				} else {
 					// Si aucune case n'est cochée, on récupère les informations mises toutes à "Non"
 					$json[] = $this->checkBoxGroupPostToJsonNo($structure[$i][0], $structure[$i][3]);
 					--$j;
-					var_dump("Je devrais passer par là");
 				}
 			}
 				break;

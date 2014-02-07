@@ -35,7 +35,7 @@ switch ($action) {
 			echo $twig->render('voeu/ajouterVoeu.html.twig', array('code' => $_GET['code'], 'villes' => $villes));
 		} break;
 	case "ajout": {
-			$voeuManager->insert(new Voeu($_POST['code_etape'], $_POST['code_formation'], $_POST['etape'], $_POST['responsable']));
+			$voeuManager->insert(new Voeu($_POST['code_etape'], $_POST['code_formation'], $_POST['etape'], $_POST['responsable'], $_POST['mailResponsable']));
 
 			foreach ($_POST['villes'] as $ville) {
 				$seDeroulerManager->insert(new SeDerouler($ville, $_POST['code_etape']));

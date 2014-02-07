@@ -85,6 +85,4 @@ class Cursus {
 	public function setNote($note) {
 		$this->note = $note;
 	}
-
-
 }

@@ -93,14 +93,13 @@ switch ($action){
         break;
     case "traiterMainFormulaire":
     {
-        //var_dump($_POST, count($_POST));
         $postInformations = array_slice($_POST, 69);
         $structure = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find($_SESSION['choisie'])));
         $json = $translatorFormToJson->translate($structure, $postInformations);
 
         // Changer le code formation !!
         $dossier = new Dossier($_POST["ine"], $_SESSION['choisie'], "", $_POST["nom"], $_POST["prenom"], $_POST["adresse"], $_POST["complement"], $_POST["code_postal"], $_POST["ville"], $_POST["date_naissance"], $_POST["lieu_naissance"], $_POST["fixe"], $_POST["portable"], $_POST["mail"], $_POST["genre"], $_POST["langues"], $_POST["nationalite"], $_POST["serie_bac"], $_POST["annee_bac"], $_POST["etablissement_bac"], $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["autre"], $_POST["titulaire"], $_POST["ville_preferee"], $_POST["autres_elements"], $json, NULL);
-        //var_dump($dossier);
+
         if (!$etudiantManager->ifExists(new Etudiant($_POST["ine"], 1))){
             $etudiantManager->insert(new Etudiant($_POST["ine"], 1));
         } else{
@@ -109,19 +108,17 @@ switch ($action){
             $nombreDepots = $nombreDepots + 1;
             $etudiantManager->update($etudiant);
         }
-        $dossierManager->insert($dossier);
+		$dossierManager->insert($dossier);
 
-        //var_dump($_POST);
+		$cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-1'], $_POST['anneeFinCursus-1'], $_POST['cursus-1'], $_POST['etablissement-1'], $_POST['valide-1']));
+		$cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-2'], $_POST['anneeFinCursus-2'], $_POST['cursus-2'], $_POST['etablissement-2'], $_POST['valide-2']));
+		$cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-3'], $_POST['anneeFinCursus-3'], $_POST['cursus-3'], $_POST['etablissement-3'], $_POST['valide-3']));
+		$cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-4'], $_POST['anneeFinCursus-4'], $_POST['cursus-4'], $_POST['etablissement-4'], $_POST['valide-4']));
+		$cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-5'], $_POST['anneeFinCursus-5'], $_POST['cursus-5'], $_POST['etablissement-5'], $_POST['valide-5']));
 
-        $cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-1'], $_POST['anneeFinCursus-1'], $_POST['cursus-1'], $_POST['etablissement-1'], $_POST['valide-1']));
-        $cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-2'], $_POST['anneeFinCursus-2'], $_POST['cursus-2'], $_POST['etablissement-2'], $_POST['valide-2']));
-        $cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-3'], $_POST['anneeFinCursus-3'], $_POST['cursus-3'], $_POST['etablissement-3'], $_POST['valide-3']));
-        $cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-4'], $_POST['anneeFinCursus-4'], $_POST['cursus-4'], $_POST['etablissement-4'], $_POST['valide-4']));
-        $cursusManager->insert(new Cursus(0, $_POST["ine"], $_SESSION['choisie'], $_POST['anneeDebutCursus-5'], $_POST['anneeFinCursus-5'], $_POST['cursus-5'], $_POST['etablissement-5'], $_POST['valide-5']));
-
-        $experienceManager->insert(new Experience(0, $_POST["ine"], $_SESSION['choisie'], $_POST['moisDebut-1'], $_POST['anneeDebut-1'], $_POST['moisFin-1'], $_POST['anneeFin-1'], $_POST['entreprise-1'], $_POST['fonction-1']));
-        $experienceManager->insert(new Experience(0, $_POST["ine"], $_SESSION['choisie'], $_POST['moisDebut-2'], $_POST['anneeDebut-2'], $_POST['moisFin-2'], $_POST['anneeFin-2'], $_POST['entreprise-2'], $_POST['fonction-2']));
-        $experienceManager->insert(new Experience(0, $_POST["ine"], $_SESSION['choisie'], $_POST['moisDebut-3'], $_POST['anneeDebut-3'], $_POST['moisFin-3'], $_POST['anneeFin-3'], $_POST['entreprise-3'], $_POST['fonction-3']));
+		$experienceManager->insert(new Experience(0, $_POST["ine"], $_SESSION['choisie'], $_POST['moisDebut-1'], $_POST['anneeDebut-1'], $_POST['moisFin-1'], $_POST['anneeFin-1'], $_POST['entreprise-1'], $_POST['fonction-1']));
+		$experienceManager->insert(new Experience(0, $_POST["ine"], $_SESSION['choisie'], $_POST['moisDebut-2'], $_POST['anneeDebut-2'], $_POST['moisFin-2'], $_POST['anneeFin-2'], $_POST['entreprise-2'], $_POST['fonction-2']));
+		$experienceManager->insert(new Experience(0, $_POST["ine"], $_SESSION['choisie'], $_POST['moisDebut-3'], $_POST['anneeDebut-3'], $_POST['moisFin-3'], $_POST['anneeFin-3'], $_POST['entreprise-3'], $_POST['fonction-3']));
 
         $i = 1;
         foreach ($_POST['voeu'] as $codeEtape){
@@ -132,37 +129,31 @@ switch ($action){
         /* GENERATION PDF HERE */
         $formation = $formationManager->find($_SESSION['choisie']);
         $dossier = $dossierManager->find($_SESSION['ine'], $_SESSION['choisie']);
-        //var_dump($dossier);
+
         $titulaire = $titulaireManager->findAll();
         $cursus = $cursusManager->findAllByDossier($dossier);
-        //var_dump($cursus);
+
         $experiences = $experienceManager->findAllByDossier($dossier);
         $faires = $faireManager->findAllByDossier($dossier);
-
-        //$documentsGeneraux    = $documentGeneralManager->findAll();
-        //$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation($_SESSION['choisie']);
 
         $etapes = array();
         $villesPossibles = array();
 
-        // Récupère l'ordre des voeux et les villes où la formatin a lieu
+        // Récupère l'ordre des voeux et les villes où la formation a lieu
         foreach ($faires as $faire){
             $voeu = $voeuManager->find($faire->getCodeEtape());
             $lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
             $etapes[$faire->getOrdre()] = $voeu->getEtape();
 
-            //echo $voeu->getEtape() . ' ' . $faire->getOrdre();
             foreach ($lesSeDerouler as $unSeDerouler){
                 $ville = $villeManager->find($unSeDerouler->getCodeVet());
-                // echo ' - ' . $ville->getNom();
             }
-            // echo '<br>';
+
             $villesPossibles[] = $ville->getNom();
         }
         // Supprime les doublons des villes
         $villesPossibles = array_unique($villesPossibles);
 
-        //var_dump($villesPossibles);
 
         $rs = $conn->query('SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
                             FROM `information`
