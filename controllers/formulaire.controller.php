@@ -127,24 +127,12 @@ switch ($action) {
         }
 
         /* GENERATION PDF HERE */
-        $formation = $formationManager->find($_SESSION['choisie']);
-        var_dump("formation", $formation);
-
-        $dossier = $dossierManager->find($_SESSION['ine'], $_SESSION['choisie']);
-        var_dump("dossier", $dossier);
-
-        $titulaire = $titulaireManager->findAll();
-        var_dump("titualaire", $titulaire);
-
-        $cursus = $cursusManager->findAllByDossier($dossier);
-
-        var_dump("cursus", $cursus);
-
+        $formation   = $formationManager->find($_SESSION['choisie']);
+        $dossier     = $dossierManager->find($_SESSION['ine'], $_SESSION['choisie']);
+        $titulaire   = $titulaireManager->findAll();
+        $cursus      = $cursusManager->findAllByDossier($dossier);
         $experiences = $experienceManager->findAllByDossier($dossier);
-        var_dump("expériences", $experiences);
-
-        $faires = $faireManager->findAllByDossier($dossier);
-        var_dump("faire manager", $faires);
+        $faires      = $faireManager->findAllByDossier($dossier);
 
         $etapes          = array();
         $villesPossibles = array();

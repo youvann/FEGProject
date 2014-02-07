@@ -173,4 +173,7 @@ p, label{
     transition: width 10s ease-in-out;
 }
 
+.en{
+    color : gray;
+}
 

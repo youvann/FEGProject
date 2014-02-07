@@ -1,7 +1,7 @@
 <fieldset>
-    <legend>Cursus antérieur</legend>
+    <legend>Cursus antérieur <span class="en">Previous formation</span></legend>
 
-    <h4>1. Cursus post-bac </h4>
+    <h4>1. Cursus post-bac <span class="en">Address & contact</span></h4>
     <p>Veuillez détailler votre parcours post-bac.</p>
     {% for i in 1..5 %}
     {% if i != 1 %}<h4><div class="label label-info">Optionnel</div></h4>{% endif %}
@@ -28,11 +28,12 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-4">
-                    <label for="valide-{{ i }}">Note (résultat) {% if i == 1 %}<span class="label label-info">Optionnel</span>{% endif %}</label>
+                    <label for="valide-{{ i }}">Note (résultat){% if i == 1 %}<span class="label label-info">Optionnel</span>{% endif %}</label>
+                    <span class="en">Mark</span>
                     <input type="text" class="form-control" id="valide-{{ i }}" name="valide-{{ i }}"/>
                 </div>
                 <div class="col-md-8">
-                    <label for="cursus-{{ i }}">Cursus suivi</label>
+                    <label for="cursus-{{ i }}">Cursus suivi</label> <span class="en">Followed formation</span>
                     <input type="text" class="form-control {% if i == 1 %}required{% endif %}" id="cursus-{{ i }}" name="cursus-{{ i }}"
                            {% if i == 1 %}data-validation="required"{% endif %}/>
                 </div>
