@@ -1,7 +1,7 @@
 {% extends 'intranet.html.twig' %}
 
 {% block content %}
-    <h2 class="titre_rubrique">Options</h2>
+    <h2 class="titre_rubrique">Options répertoire {{ dirName }}</h2>
     <div class="alert alert-info">
         <ul>
             <li>Cliquer sur <b>télécharger</b> pour obtenir le répertoire compressé.</li>
@@ -15,7 +15,7 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <a href="{{ path }}" class="btn btn-primary  btn-block">Télécharger {{ dirName }}</a>
+            <a href="{{ path }}" class="btn btn-primary btn-block" {% if (zip or empty) %}disabled="disabled"{% endif %}>Télécharger {{ dirName }}</a>
             <a href="#" class="btn btn-danger btn-block" {% if empty %}disabled="disabled"{% endif %}>Supprimer le
                 contenu de {{ dirName }}</a>
         </div>

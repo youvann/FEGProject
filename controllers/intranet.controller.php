@@ -2,9 +2,9 @@
 
 /**
  * @Project: FEG Project
- * @File: /controllers/informationSupp.controller.php
+ * @File   : /controllers/informationSupp.controller.php
  * @Purpose:
- * @Author:
+ * @Author :
  */
 if (!isset($_GET['action'])) {
     $action = "accueil";
@@ -41,23 +41,28 @@ switch ($action) {
     {
         // Récupère le chemin complet du répertoire à télécharger
         $pathFolder = $_GET['folder'];
-        $dirName = explode("/", $pathFolder);
+        $dirName    = explode("/", $pathFolder);
         // Récupère le nom du répertoire à télécharger
-        $dirName = $dirName[sizeof($dirName) - 2];
-        // Vérifie si les répertoires candidatures et préinscriptions sont vides ou non
-        if($dirName === "Candidatures" || $dirName === "Preinscriptions"){
-            $empty = dirIsEmpty($pathFolder);
-        }else{
-            $empty = dirIsEmpty($pathFolder . "/Candidatures") && dirIsEmpty($pathFolder . "/Preinscriptions");
+        $dirName    = $dirName[sizeof($dirName) - 2];
+
+        $zip = false;
+        if ($dirName !== 'ZIP') {
+            // Vérifie si le répertoire et les sous répertoires sont vides
+            $empty = IsEmptySubFolders($pathFolder);
+            // Chemin où se trouve le zip à télécharger
+            $path = Zip($pathFolder, './dossiers/ZIP/' . $dirName . "-" . time() . '.zip');
+        } else {
+            $path  = '#';
+            $empty = IsEmptySubFolders($pathFolder);
+            $zip   = true;
         }
 
-        // Chemin où se trouve le zip à télécharger
-        $path = Zip($pathFolder, './dossiers/ZIP/' . $dirName . "-" . time() . '.zip');
         echo $twig->render('intranet/telechargerDossier.html.twig', array(
-            'path' => $path,
-            'dirName' => $dirName,
+            'path'       => $path,
+            'dirName'    => $dirName,
             'pathFolder' => $pathFolder,
-            'empty' => $empty
+            'empty'      => $empty,
+            'zip'        => $zip
         ));
     }
         break;
@@ -71,20 +76,19 @@ switch ($action) {
         break;
     case "generationPdfCandidature" :
     {
-        $formation = $formationManager->find($_SESSION['choisie']);
-        $dossier = $dossierManager->find($_SESSION['ine'], $_SESSION['choisie']);
-        $titulaire = $titulaireManager->findAll();
-        $cursus = $cursusManager->findAllByDossier($dossier);
-        $experiences = $experienceManager->findAllByDossier($dossier);
-        $faires = $faireManager->findAllByDossier($dossier);
-
-        $etapes = array();
+        $formation       = $formationManager->find($_SESSION['choisie']);
+        $dossier         = $dossierManager->find($_SESSION['ine'], $_SESSION['choisie']);
+        $titulaire       = $titulaireManager->findAll();
+        $cursus          = $cursusManager->findAllByDossier($dossier);
+        $experiences     = $experienceManager->findAllByDossier($dossier);
+        $faires          = $faireManager->findAllByDossier($dossier);
+        $etapes          = array();
         $villesPossibles = array();
 
         // Récupère l'ordre des voeux et les villes où la formatin a lieu
         foreach ($faires as $faire) {
-            $voeu = $voeuManager->find($faire->getCodeEtape());
-            $lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
+            $voeu                       = $voeuManager->find($faire->getCodeEtape());
+            $lesSeDerouler              = $seDeroulerManager->findAllByVoeu($voeu);
             $etapes[$faire->getOrdre()] = $voeu->getEtape();
 
             //echo $voeu->getEtape() . ' ' . $faire->getOrdre();
@@ -106,7 +110,7 @@ switch ($action) {
                             LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
                             ORDER BY `information`.`ordre`;')->fetchAll();
 
-        $structure = $translatorResultsetToStructure->translate($rs);
+        $structure               = $translatorResultsetToStructure->translate($rs);
         $informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
         //$informationsSpecifiques = "";
         //$structure = "";

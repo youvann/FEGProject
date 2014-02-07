@@ -93,11 +93,21 @@ function dirIsEmpty($path) {
     $empty = true;
     $dir   = opendir($path);
     while ($file = readdir($dir)) {
+
         if ($file !== '.' && $file !== '..') {
+
             $empty = false;
             break;
         }
     }
     closedir($dir);
+    return $empty;
+}
+
+function IsEmptySubFolders($path) {
+    $empty = true;
+    foreach (glob($path . DIRECTORY_SEPARATOR . "*") as $file) {
+        $empty &= is_dir($file) && IsEmptySubFolders($file);
+    }
     return $empty;
 }
