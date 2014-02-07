@@ -13,13 +13,14 @@
                     <legend>Formation souhaitée</legend>
                     <div class="well well-fg">
                         <div id="textboxIne" class="form-group has-success">
-                            <label for="ine">Votre numéro INE </label> <span class="label label-danger">Requis</span>
+                            <label for="ine">Votre numéro INE </label> <span class="en">INE number</span> <span class="label label-danger">Requis</span>
                             <input class="form-control" type="text" id="ine" name="ine" placeholder="123456789A"
                                    data-validation="required"
                                    data-validation-error-msg="Veuillez entrer un numéro d'INE valide"/>
                         </div>
                         <div class="form-group">
                             <label for="derniere">Sélectionnez votre dernière formation effectuée</label>
+                            <span class="en">Training followed</span>
                             <select class="form-control" id="derniere" name="derniere">
                                 <option value="">&mdash; Sélectionnez &mdash;</option>
                                 {% for formation in formations %}
@@ -32,6 +33,7 @@
                             <div class="form-group">
                                 <label for="nomAutreFormation">Veuillez entrer le nom de la dernière
                                     formation que vous avez effectuée</label>
+
                                 <input type="text" class="form-control" id="nomAutreFormation"
                                        name="nomAutreFormation">
                             </div>
@@ -39,6 +41,7 @@
                         <div class="form-group">
                             <label for="choisie">Sélectionnez la formation souhaitée pour l'année scolaire
                                 2014-2015</label>
+                            <span class="en">Whish training</span>
                             <select class="form-control" id="choisie" name="choisie">
                                 <option value="">&mdash; Sélectionnez &mdash;</option>
                                 {% for formation in formations %}
