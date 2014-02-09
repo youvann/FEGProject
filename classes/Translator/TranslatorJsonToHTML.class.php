@@ -52,7 +52,7 @@ class TranslatorJsonToHTML extends Translator {
 	 * @return string Donnée avec son libellé au format HTML
 	 */
 	private function textBoxJsonToHTML($data, $idInfo, $label) {
-		return $label . " : " . $data[$idInfo] . "<br />";
+		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . "<br /><br />";
 	}
 
 	/**
@@ -64,7 +64,7 @@ class TranslatorJsonToHTML extends Translator {
 	 * @return string Donnée avec son libellé au format HTML
 	 */
 	private function textAreaJsonToHTML($data, $idInfo, $label) {
-		return $label . " : " . $data[$idInfo] . "<br />";
+		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . "<br /><br />";
 	}
 	
 	/**
@@ -76,7 +76,7 @@ class TranslatorJsonToHTML extends Translator {
 	 * @return string Donnée avec son libellé au format HTML
 	 */
 	private function checkBoxJsonToHTML($data, $idInfo, $label) {
-		return $label . " : " . $data[$idInfo] . '<br />';
+		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . '<br /><br />';
 	}
 	
 	/**
@@ -89,10 +89,10 @@ class TranslatorJsonToHTML extends Translator {
 	 * @return string Données avec leurs libellés au format HTML
 	 */
 	private function checkBoxGroupJsonToHTML($datas, $idInfo, $label, $labels) {
-		$return = $label . " : ";
+		$return = "<span class='bold'>" .$label . " : </span>";
 		// Pour chaque réponse possible, on met Oui ou Non
 		for ($i = 0; $i < count($datas[$idInfo]); ++$i) {
-			$return .= $labels[$i] . ' : ' . $datas[$idInfo][$i] . ($i === count($datas[$idInfo]) - 1 ? '.<br />' : ', ');
+			$return .= "<span class='bold'>" . $labels[$i] . ' : </span>' . $datas[$idInfo][$i] . ($i === count($datas[$idInfo]) - 1 ? '.<br /><br />' : ', ');
 		}
 		return $return;
 	}
@@ -106,6 +106,6 @@ class TranslatorJsonToHTML extends Translator {
 	 * @return string Donnée avec son libellé au format HTML
 	 */
 	private function radioButtonGroupJsonToHTML($data, $idInfo, $label) {
-		return $label . " : " . $data[$idInfo] . '<br />';
+		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . '<br /><br />';
 	}
 }

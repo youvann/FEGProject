@@ -1,0 +1,95 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+	<li class="active">Ajouter une formation</li>
+</ol>
+
+<h2 class="titre_rubrique">Ajouter une formation</h2>
+
+<form action="index.php?uc=formation&action=ajout" method="POST">
+
+	<div class="form-group">
+		<label for="code">Code</label>
+		<input class="form-control" type="text" id="code_formation" name="code_formation" />
+	</div>
+	<div class="form-group">
+		<label for="mention">Mention</label>
+		<input class="form-control" type="text" id="mention" name="mention" />
+	</div>
+	<div class="form-group">
+		<label for="modalites">Modalités</label>
+		<textarea class="form-control" id="modalites" name="modalites"></textarea>
+	</div>
+
+    <div class="form-group">
+        <label for="informations">Informations</label>
+        <textarea class="form-control" id="informations" name="informations"></textarea>
+    </div>
+
+	<div class="form-group">
+		<label>Ouverte</label>
+		<div class="radio">
+			<label for="ouverte_oui">
+				<input type="radio" id="ouverte_oui" name="ouverte" value="1" checked /> Oui
+			</label>
+		</div>
+		<div class="radio">
+			<label for="ouverte_non">
+				<input type="radio" id="ouverte_non" name="ouverte" value="0" /> Non
+			</label>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="faculte">Faculté</label>
+		<select class="form-control" id="faculte" name="faculte">
+			{% for faculte in facultes %}
+			<option value="{{ faculte.id}}">{{ faculte.nom}}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<button class="btn btn-primary" type="submit">
+		<span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer
+	</button>
+</form>
+
+<hr />
+
+<a href="index.php?uc=formation&action=grille" class="btn btn-primary">
+	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+</a>
+
+{% endblock %}
+
+{% block scripts %}
+{{ parent() }}
+<script src="./public/js/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+    });
+    $(function() {
+        $('#code_formation').on('input', function() {
+            $.ajax({
+                url: 'index.php?uc=formation&action=codeFormationPossible',
+                type: 'post',
+                data: 'code=' +  $('#code_formation').val(),
+                dataType: 'json',
+                success: function (json) {
+                    console.log(json);
+                }
+            });
+        });
+    });
+
+</script>
+{% endblock %}

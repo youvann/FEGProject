@@ -4,10 +4,18 @@
         <meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FEGProject</title>
+		{% block css %}
 		<link rel="stylesheet" href="./public/css/bootstrap.css" />
 		<link rel="stylesheet" href="./public/js/jqueryFileTree/jqueryFileTree.css" />
+
+        <link href="./public/js/jquery-upload/uploadfile.css" rel="stylesheet">
+        <link href="./public/css/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.2/css/font-awesome.min.css" rel="stylesheet">
+
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oswald:400,300,700">
 		<link rel="stylesheet" href="./public/css/feg.css" />
+
+		{% endblock %}
     </head>
 
     <body>
@@ -16,11 +24,10 @@
 		{% endblock %}
 
 		{% block scripts %}
-		<script type="text/javascript" src="./public/js/jquery-2.0.3.min.js"></script>
-		<script type="text/javascript" src="./public/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="./public/js/jquery-form-validator/jquery.form-validator.min.js"></script>
-		<script type="text/javascript" src="./public/js/feg.js"></script>
-		<script type="text/javascript" src="./public/js/jqueryFileTree/jqueryFileTree.js"></script>
+            <script type="text/javascript" src="./public/js/jquery-2.0.3.min.js?r={{ random }}"></script>
+            <script type="text/javascript" src="./public/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="./public/js/jquery-form-validator/jquery.form-validator.min.js"></script>
+            <script type="text/javascript" src="./public/js/feg.js"></script>
 		{% endblock %}
     </body>
 </html>

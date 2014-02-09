@@ -11,5 +11,5 @@
  * @Author: Lionel Guissani
  */
 abstract class Translator {
-
+	
 }

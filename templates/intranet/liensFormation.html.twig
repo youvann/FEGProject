@@ -1,0 +1,12 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+    <h2 class="titre_rubrique">Liens des formations</h2>
+    <ul class="list-group">
+        {% for lien in liens %}
+            <li class="list-group-item">{{ lien.lien }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

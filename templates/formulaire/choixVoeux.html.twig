@@ -1,0 +1,29 @@
+<fieldset>
+    <legend>Choix de la spécialité</legend>
+<div class="well well-fg">
+    {% set nbListes = 3 %}
+    {% if nbVoeux < 3 %}
+        {% set nbListes = nbVoeux %}
+    {% endif %}
+    {% for i in 1..nbListes %}
+        <div class="form-group">
+            <label for="voeu-{{ i }}">Sélectionnez votre voeu n°{{ i }}</label>
+            <select class="form-control" id="voeu-{{ i }}" name="voeu[]">
+                {% for voeu in voeux %}
+                    {% set villes = voeu.villes %}
+                    <option value="{{ voeu.codeEtape }}">{{ voeu.etape }}
+                        {% for ville in villes %}
+                            - ({{ ville.nom }})
+                        {% endfor %}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    {% endfor %}
+    <div class="form-group required">
+        <label>Ville préférée</label>
+        <input class="form-control required" type="text" id="ville_preferee" name="ville_preferee"
+               data-validation="required"/>
+    </div>
+</div>
+</fieldset>

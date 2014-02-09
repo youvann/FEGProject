@@ -1,0 +1,40 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
+	<li><a href="index.php?uc=documentSpecifique&action=grille&code={{ code }}">Liste des documents à joindre</a></li>
+	<li class="active">Modifier un document à joindre</li>
+</ol>
+
+<h2 class="titre_rubrique">Modifier un document à joindre</h2>
+
+<form action="index.php?uc=documentSpecifique&action=ajout" method="POST">
+	<input type="hidden" id="code" name="code" value="{{ documentSpecifique.id }}" />
+	<input type="hidden" id="code" name="code" value="{{ documentSpecifique.code }}" />
+	<div class="form-group">
+		<label for="nom">Nom</label>
+		<input class="form-control" type="text" id="nom" name="nom" value="{{ documentSpecifique.nom }}" />
+	</div>
+	<div class="form-group">
+		<label for="url">Adresse URL</label>
+		<input class="form-control" type="text" id="url" name="url" value="{{ documentSpecifique.url }}" />
+	</div>
+	<button class="btn btn-primary" type="submit">
+		<span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer
+	</button>
+</form>
+
+<hr />
+
+<a href="index.php?uc=documentSpecifique&action=grille&code={{ code }}"  class="btn btn-primary">
+	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+</a>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

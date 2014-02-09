@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <h2 class="titre_rubrique">Espace réservé au personnel</h2>
+
+
+            <form role="form" action="index.php?uc=utilisateur&action=connexion" method="post">
+                <fieldset>
+                    <legend>Connectez-vous</legend>
+                    <div class="well well-fg">
+                    <div class="form-group">
+                        <label for="login">Identifiant :</label>
+                        <input class="form-control" type="text" id="login" name="login"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe :</label>
+                        <input class="form-control" type="password" id="password" name="password"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-log-in"></span> Se connecter
+                    </button>
+                    </div>
+                </fieldset>
+            </form>
+                
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+	<li><a href="index.php?uc=intranet&action">Accueil</a></li>
+	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
+	<li class="active">Liste des voeux</li>
+</ol>
+
+<h2 class="titre_rubrique">Liste des voeux</h2>
+
+<a href="index.php?uc=voeu&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
+	<span class="glyphicon glyphicon-plus-sign"></span> Ajouter un voeu
+</a>
+
+{% if voeux is not empty %}
+
+<table style="margin-top: 1em;" class="table table-hover table-bordered table-striped">
+	<tr>
+		<th class="col-md-6">Etape</th>
+		<th class="col-md-2">Responsable</th>
+		<th class="col-md-4">Options</th>
+	</tr>
+        {% for voeu in voeux %}
+	<tr>
+		<td>{{ voeu.etape }}</td>
+		<td>{{ voeu.responsable }}</td>
+		<td>
+			<div class="btn-group">
+				<a href="index.php?uc=voeu&action=consulter&codeetape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-info">
+					<span class="glyphicon glyphicon-check"></span> Consulter
+				</a>
+				<a href="index.php?uc=voeu&action=modifier&codeetape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-warning">
+					<span class="glyphicon glyphicon-check"></span> Modifier
+				</a>
+				<a href="index.php?uc=voeu&action=suppression&codeetape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-danger">
+					<span class="glyphicon glyphicon-trash"></span> Supprimer
+				</a>
+			</div>
+		</td>
+	</tr>
+        {% endfor %}
+</table>
+
+{% endif %}
+<hr />
+<a href="index.php?uc=formation&action=consulter&code={{ code }}"  class="btn btn-primary">
+	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+</a>
+
+{% endblock %}

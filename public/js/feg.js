@@ -1,11 +1,10 @@
 $(document).ready(function() {
-    
     /*****************
      ** Formulaires **
      *****************/
 
     // Formulaire formation 
-    $("#formFormation").submit(function() {
+    $("#formCandidatFormation").submit(function() {
         $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("action"),
@@ -24,6 +23,113 @@ $(document).ready(function() {
         return false;
     });
 
+    // Ajout d'une étoile rouge pour tous les champs obligatoires
+    /*$(".required").each(function(){
+        var span = $("<span />");
+        span.attr("class", "obligatory").text(" *");
+        span.appendTo($(this).prev());
+        // Etoile rouge
+        span.css("color", "red");
+    });*/
+
+    // Ajout/Suppression d'une textbox
+    var error  = $("#error");
+    var add    = $("#add");
+    var remove = $("#remove");
+
+    // Cache le message d'erreur par défaut
+    error.hide();
+
+    function numOrder (){
+        // Compte le nombre de input compris dans balise #textbox
+        var cpt = $('#textbox-group > input').length;
+        return parseInt(cpt + 1);
+    }
+
+    // Récupère le dernier input
+    var lastInput = $("#textbox-group").last();
+
+    add.click(function() {
+        if (numOrder() <= 10){
+            var label = $("<label />");
+            label.attr("for", "tb" + numOrder())
+                 .attr("for", "tb" + numOrder())
+                 .html("Choix "    + numOrder())
+                 .hide().appendTo(lastInput).fadeIn("normal");
+
+            var input = $("<input />");
+            input.attr("type", "text")
+                 .attr("class", "form-control")
+                 .attr("id", "tb" + numOrder())
+                 .attr("name", "tb[]")
+                .hide().appendTo(lastInput).fadeIn("normal");
+        }else{
+            error.html("<br>Vous ne pouvez pas insérez plus de 10 champs.").fadeIn("normal");
+            setTimeout(function(){
+                error.fadeOut("slow");
+            }, 5000);
+        }
+    });
+
+    remove.click(function(){
+        if(numOrder() > 3){
+            $('#textbox-group input:last').fadeOut("normal", function(){
+                $(this).remove();
+            });
+            $('#textbox-group label:last').fadeOut("normal", function(){
+                $(this).remove();
+            });
+
+        }else{
+            error.html("<br>Vous ne pouvez pas avoir moins de deux champs.").fadeIn("normal");
+            setTimeout(function(){
+                error.fadeOut("slow");
+            }, 5000);
+        }
+    });
+
+    // Ajout/Supression d'un champ d'upload
+    /*
+    var buttonAddUpload = $(".buttonAddUpload");
+    var buttonRemoveUpload = $(".buttonRemoveUpload");
+    var messageError  = $(".messageError");
+
+    messageError.hide();
+
+    buttonAddUpload.click(function(){
+        var newInput= $("<input />");
+        var lastInput = $(this).parent().prev();
+        var formGroup = $("<div />");
+        var cpt = $(this).parent().prev().children().length;
+        //Obtention de la position courante
+        var rowPosition = $(this).parent().prev().children().children("input")[0].getAttribute("id");
+        //Suppression du dernier caractère
+        rowPosition = rowPosition.replace(/(\s+)?.$/, '')
+
+        if(cpt < 10){
+            formGroup.attr("class", "form-group");
+            formGroup.prepend(
+                newInput.attr("id", rowPosition + parseInt(cpt + 1))
+                    .attr("name", "file[]")
+                    .attr("type", "file")
+            ).hide().appendTo(lastInput).fadeIn("normal");
+        }else{
+            $('#myModaAdd').modal('show');
+        }
+    });
+
+    buttonRemoveUpload.click(function(){
+        cpt = $(this).parent().prev().children().length;
+        if(cpt > 1){
+            $(this).parent().prev().children(".form-group:last").fadeOut("fast", function(){
+                $(this).remove();
+            });
+        }else{
+            $('#myModaDel').modal('show');
+        }
+    });*/
+
+    /*
     var myLanguageFR = {
         errorTitle : 'Form submission failed!',
         requiredFields : 'Ce champ est obligatoire.',
@@ -57,20 +163,12 @@ $(document).ready(function() {
     };
 
     $.validate({
-        form : "#formInfoPerso",
+        form : "#formInfoPerso, #formPostBac, #formCandidatFormation",
         language : myLanguageFR
         // borderColorOnError : '#FF0000'
         // addValidClassOnAll : true    
     });
-
-    // Ajout d'une étoile rouge pour tous les champs obligatoires
-    $(".required").each(function(){
-        var span = $("<span />");
-        span.attr("class", "obligatory").text(" *");
-        span.appendTo($(this).prev());
-        // Etoile rouge
-        span.css("color", "red");
-    });
+    */
 
     /*/ Explorateur de fichiers
     $('#explorateur').fileTree({

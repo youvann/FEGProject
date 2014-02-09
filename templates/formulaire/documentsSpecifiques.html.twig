@@ -1,0 +1,94 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Documents spécifiques à joindre</h3>
+                    <br/>
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            <span class="sr-only">100% Complete</span>
+                        </div>
+                    </div>
+                </div><!-- /panel-heading -->
+
+                <div class="panel-body">
+
+                    <!-- Modal pour Erreur ajouter-->
+                    <div class="modal fade" id="myModaAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Erreur</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Vous ne pouvez pas ajouter plus de 10 pièces.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+
+                    <!-- Modal pour Erreur supprimer -->
+                    <div class="modal fade" id="myModaDel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Erreur</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Vous devez ajoutez au moins une pièce.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+
+                    <form role="form" action="index.php?uc=formulaire&action=traiteDocumentsSpecifiques" id="formDocumentsSpecifiques" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="MAX_FILE_SIZE" value="50000" />
+                        <fieldset>
+                            <legend>Pour les titulaires de diplômes de l'union européenne</legend>
+
+                            <table class="table table-bordered documentTable">
+                                <tr>
+                                    <th>Pièces à joindre</th>
+                                    <th>Options</th>
+                                </tr>
+
+                                {% for documentSpecifique in documentsSpecifique %}
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="uploadRow{{ loop.index }}-1">{{ documentSpecifique.nom }}</label>
+                                                <input id="uploadRow{{ loop.index }}-1" name="file[]" type="file" />
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {% if (documentSpecifique.multiple) == 0 %}
+                                                <button type="button" class="btn btn-primary buttonAddUpload" id=""><span class="glyphicon glyphicon-plus-sign"></span></button>
+                                                <button type="button" class="btn btn-danger buttonRemoveUpload" id=""><span class="glyphicon glyphicon-minus-sign"></span></button>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+
+                        </fieldset>
+                        <input type="submit" value="Enregistrer" class="btn btn-primary"/>
+                    </form>
+                </div> <!-- panel-body -->
+            </div><!-- panel panel-primary -->
+        </div>
+    </div>
+
+{% endblock %}

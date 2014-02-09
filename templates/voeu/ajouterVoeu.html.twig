@@ -1,0 +1,71 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
+	<li><a href="index.php?uc=voeu&action=grille&code={{ code }}">Liste des voeux</a></li>
+	<li class="active">Ajouter un voeu</li>
+</ol>
+
+<h2 class="titre_rubrique">Ajouter un voeu</h2>
+
+<form action="index.php?uc=voeu&action=ajout" method="POST">
+	<input type="hidden" id="code_formation" name="code_formation" value="{{ code }}" />
+	<div class="form-group">
+		<label for="code_etape">Code étape</label>
+		<input class="form-control" type="text" id="code_etape" name="code_etape" />
+	</div>
+	<div class="form-group">
+		<label for="etape">Etape</label>
+		<input class="form-control" type="text" id="etape" name="etape" />
+	</div>
+	<div class="form-group">
+		<label for="responsable">Responsable</label>
+		<input class="form-control" type="text" id="responsable" name="responsable" />
+	</div>
+	<div class="form-group">
+		<label>Ville(s)</label>
+		{% if villes is not empty %}
+			{% for ville in villes %}
+				<div class="checkbox">
+					<label for="ville-{{ ville.codevet }}">
+						<input type="checkbox" id="ville-{{ ville.codevet }}" name="villes[]" value="{{ ville.codevet }}" /> {{ ville.nom }}
+					</label>
+				</div>
+			{% endfor %}
+		{% endif %}
+	</div>
+	<button class="btn btn-primary" type="submit">
+		<span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer
+	</button>
+</form>
+
+<hr />
+
+<a href="index.php?uc=voeu&action=grille&code={{ code }}"  class="btn btn-primary">
+	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+</a>
+
+{% endblock %}
+
+{% block scripts %}
+{{ parent() }}
+<script type="text/javascript">
+    $(function() {
+        $('#code_etape').on('input', function() {
+            $.ajax({
+                url: 'index.php?uc=voeu&action=codeEtapePossible',
+                type: 'post',
+                data: 'code=' +  $('#code_etape').val(),
+                dataType: 'json',
+                success: function (json) {
+                    console.log(json);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

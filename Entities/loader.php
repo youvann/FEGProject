@@ -1,0 +1,52 @@
+<?php
+
+require_once(__DIR__ . '/Choix.php');
+require_once(__DIR__ . '/ChoixManager.php');
+require_once(__DIR__ . '/Cursus.php');
+require_once(__DIR__ . '/CursusManager.php');
+require_once(__DIR__ . '/DocumentGeneral.php');
+require_once(__DIR__ . '/DocumentGeneralManager.php');
+require_once(__DIR__ . '/DocumentSpecifique.php');
+require_once(__DIR__ . '/DocumentSpecifiqueManager.php');
+require_once(__DIR__ . '/Dossier.php');
+require_once(__DIR__ . '/DossierManager.php');
+require_once(__DIR__ . '/Etudiant.php');
+require_once(__DIR__ . '/EtudiantManager.php');
+require_once(__DIR__ . '/Experience.php');
+require_once(__DIR__ . '/ExperienceManager.php');
+require_once(__DIR__ . '/Faculte.php');
+require_once(__DIR__ . '/FaculteManager.php');
+require_once(__DIR__ . '/Faire.php');
+require_once(__DIR__ . '/FaireManager.php');
+require_once(__DIR__ . '/Formation.php');
+require_once(__DIR__ . '/FormationManager.php');
+require_once(__DIR__ . '/Information.php');
+require_once(__DIR__ . '/InformationManager.php');
+require_once(__DIR__ . '/SeDerouler.php');
+require_once(__DIR__ . '/SeDeroulerManager.php');
+require_once(__DIR__ . '/Titulaire.php');
+require_once(__DIR__ . '/TitulaireManager.php');
+require_once(__DIR__ . '/Type.php');
+require_once(__DIR__ . '/TypeManager.php');
+require_once(__DIR__ . '/Ville.php');
+require_once(__DIR__ . '/VilleManager.php');
+require_once(__DIR__ . '/Voeu.php');
+require_once(__DIR__ . '/VoeuManager.php');
+
+// Instanciations des Managers
+$choixManager = new ChoixManager($conn);
+$cursusManager = new CursusManager($conn);
+$documentGeneralManager = new DocumentGeneralManager($conn);
+$documentSpecifiqueManager = new DocumentSpecifiqueManager($conn);
+$dossierManager = new DossierManager($conn);
+$etudiantManager = new EtudiantManager($conn);
+$experienceManager = new ExperienceManager($conn);
+$faculteManager = new FaculteManager($conn);
+$faireManager = new FaireManager($conn);
+$formationManager = new FormationManager($conn);
+$informationManager = new InformationManager($conn);
+$seDeroulerManager = new SeDeroulerManager($conn);
+$titulaireManager = new TitulaireManager($conn);
+$typeManager = new TypeManager($conn);
+$villeManager = new VilleManager($conn);
+$voeuManager = new VoeuManager($conn);

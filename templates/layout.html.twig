@@ -2,30 +2,81 @@
 
 {% block body %}
 
-<div class="container">
-	<div id="header"></div>
+    <div class="container">
 
-    <div class="row">
-        <div class="col-md-2 menu">
-            <ul>
-                <li>Lien 1</li>
-                <li>Lien 2</li>
-                <li>Lien 3</li>
-                <li>Lien 4</li>
-            </ul>
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="brand" href="index.php?uc=intranet&action=accueil"><img src="./public/img/layout/amu.png"
+                                                                                      width="100"
+                                                                                      style="margin-top: 10px;"></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.php?uc=formulaire&action=choixFormation">Formation souhaitée</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if session.grade > 1 %}
+                            <li><a href="index.php?uc=intranet&action=accueil">Intranet</a></li>
+                        {% else %}
+                            <li><a href="index.php?uc=utilisateur&action=connecter">Intranet</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
         </div>
-        <div class="col-md-10">
-            <h2 class="titre_rubrique">{{ titre2 }}</h2>
+
+        <!-- <div class="row">
+            <div class="col-md-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading nav-title">Formations</div>
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <a href="index.php?uc=formulaire&action=choixFormation">Formation souhaitée</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {% if session.grade > 1 %}
+                                    <a href="index.php?uc=intranet&action=accueil">Espace réservé au personnel</a>
+                                {% else %}
+                                    <a href="index.php?uc=utilisateur&action=connecter">Espace réservé au personnel</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>-->
+        <div id="content" class="col-md-12 well-feg">
+
             {% block content %}{% endblock %}
+
+            <footer style="margin-top: 2em; margin-bottom: 2em;">
+                <p class="text-muted text-center">© 2014 FEG PROJECT | MADE BY COHEN-GUISSANI-KARAGOZ-MEAS | WE <3
+                    BOOTSTRAP</p>
+
+            </footer>
+
         </div>
     </div>
+    <div style="margin-bottom: 15em;"></div>
 
-    <div id="footer">
-        <div class="footer_mention">
-            © 2014 COHEN-GUISSANI-KARAGOZ-MEAS
-        </div>
-    </div>
-
-</div><!-- container -->
+    </div><!-- container -->
 
 {% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+
+{% endblock %}
+
+

@@ -35,4 +35,14 @@ class Form {
 		return $return . '<input class="btn btn-primary" type="submit" /></form>';
 	}
 
+	public function getHTML() {
+		$return = '';
+		if (is_null($this->formElements)) {
+			return null;
+		}
+		foreach ($this->formElements as $formElement) {
+			$return .= '<div class="form-group">' . $formElement . '</div>';
+		}
+		return $return;
+	}
 }

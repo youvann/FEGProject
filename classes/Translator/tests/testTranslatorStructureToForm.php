@@ -15,24 +15,43 @@
 					<?php
 					require_once '../../FormElements/loader.php';
 					require_once '../loader.php';
-					
-					$structure = array(
-							array("i123", "Nom", "TextBox"),
-							array("i234", "Prénom", "TextBox"),
-							array("i345", "Travaille en plus des études", "CheckBox"),
-							array("i456", "Décrivez-vous", "TextArea"),
-							array("i567", "Compétences", "CheckBoxGroup", array("Php", "Java", "Sql")),
-							array("i678", "Système d'exploitation", "RadioButtonGroup", array("Windows", "Linux", "Mac OS X"))
-						);
-					
-					
-					
+
+					require_once '../../../model/PDO.php';
+
+					$rs = $conn->query("SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
+						FROM `information` 
+							INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
+							LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`) 
+						WHERE `information`.`code_formation` = '3BAS'
+						ORDER BY `information`.`ordre`;")->fetchAll();
+
+					$structure = array();
+
+					$i = 0;
+					while ($i < count($rs)) {
+						$array = array();
+						$array[] = $rs[$i]['idInfo'];
+						$array[] = $rs[$i]['libelleInfo'];
+						$array[] = $rs[$i]['typeInfo'];
+						if ($rs[$i]['typeInfo'] == 'CheckBoxGroup' || $rs[$i]['typeInfo'] == 'RadioButtonGroup') {
+							$idInfo = $rs[$i]['idInfo'];
+							$libellesInfo = array();
+							while ($i < count($rs) && $rs[$i]['idInfo'] === $idInfo) {
+								$libellesInfo[] = $rs[$i]['libellesInfo'];
+								++$i;
+							}
+							$array[] = $libellesInfo;
+							$i = $i - 1;
+						}
+						++$i;
+						$structure[] = $array;
+					}
 					// Faire gaffe aux true et false entoures ou non de guillemets pour passer du php a json et inversement
 					$translator = new TranslatorStructureToForm();
 					echo $translator->translate($structure);
 					?>
 				</div><!-- col-md-12 -->
-			</div><!-- /row -->
+			</div><!-- row -->
 		</div><!-- container -->
 
 		<script type="text/javascript" src="../../../public/js/jquery-2.0.3.min.js"></script>

@@ -27,13 +27,36 @@
 					$json1 = '{"i123":"Meas","i234":"Kevin","i345":"Non","i456":"Fan de PHP","i567":["Oui","Oui","Non"],"i678":"Windows"}';
 					$json2 = '[{"i123":"Meas"},{"i234":"Kevin"},{"i345":"Non"},{"i456":"Fan de PHP"},{"i567":["Oui","Non","Non"]},{"i678":"Windows"}]';
 
-					$structure = array(
-						array("i123", "Nom", "TextBox"),
-						array("i234", "Prénom", "TextBox"),
-						array("i345", "Travaille en plus des études", "CheckBox"),
-						array("i456", "Décrivez-vous", "TextArea"),
-						array("i567", "Compétences", "CheckBoxGroup", array("Php", "Java", "Sql")),
-						array("i678", "Système d'exploitation", "RadioButtonGroup", array("Windows", "Linux", "Mac OS X")));
+					require_once '../../../model/PDO.php';
+
+					$rs = $conn->query('SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
+						FROM `information` 
+							INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
+							LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`) 
+						ORDER BY `information`.`ordre`;')->fetchAll();
+
+					$structure = array();
+
+					$i = 0;
+					while ($i < count($rs)) {
+						$array = array();
+						$array[] = $rs[$i]['idInfo'];
+						$array[] = $rs[$i]['libelleInfo'];
+						$array[] = $rs[$i]['typeInfo'];
+						if ($rs[$i]['typeInfo'] == 'CheckBoxGroup' || $rs[$i]['typeInfo'] == 'RadioButtonGroup') {
+							$idInfo = $rs[$i]['idInfo'];
+							$libellesInfo = array();
+							while ($i < count($rs) && $rs[$i]['idInfo'] === $idInfo) {
+								$libellesInfo[] = $rs[$i]['libellesInfo'];
+								++$i;
+							}
+							$array[] = $libellesInfo;
+							$i = $i - 1;
+						}
+						++$i;
+						$structure[] = $array;
+					}
+					var_dump($structure);
 
 					if (!empty($_POST)) {
 						$translator = new TranslatorJsonToHTML();
