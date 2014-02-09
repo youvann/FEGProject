@@ -4,6 +4,8 @@ require_once(__DIR__ . '/Choix.php');
 require_once(__DIR__ . '/ChoixManager.php');
 require_once(__DIR__ . '/Cursus.php');
 require_once(__DIR__ . '/CursusManager.php');
+require_once(__DIR__ . '/Dependre.php');
+require_once(__DIR__ . '/DependreManager.php');
 require_once(__DIR__ . '/DocumentGeneral.php');
 require_once(__DIR__ . '/DocumentGeneralManager.php');
 require_once(__DIR__ . '/DocumentSpecifique.php');
@@ -36,6 +38,7 @@ require_once(__DIR__ . '/VoeuManager.php');
 // Instanciations des Managers
 $choixManager = new ChoixManager($conn);
 $cursusManager = new CursusManager($conn);
+$dependreManager = new DependreManager($conn);
 $documentGeneralManager = new DocumentGeneralManager($conn);
 $documentSpecifiqueManager = new DocumentSpecifiqueManager($conn);
 $dossierManager = new DossierManager($conn);

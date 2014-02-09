@@ -10,11 +10,34 @@
     </ol>
 
     <h2 class="titre_rubrique">Domaines de compatibilité</h2>
-
-    Toto
-
+    <form method="POST" action="index.php?uc=formation&action=modificationDependances">
+        <input type="hidden" id="formation" name="formation" value="{{ code }}" />
+        <div class="form-group">
+            <label for="voeux">Etapes</label> <i>Restez appuyé sur la touche &lt;Ctrl&gt;</i>
+            <select class="form-control" id="voeux" name="voeux[]" multiple>
+            {% for formation in formations %}
+                <optgroup label="{{ formation.mention }}">
+                {% for voeu in voeux %}
+                    {% if formation.codeFormation == voeu.codeFormation %}
+                        <option
+                        {% for mere in meres %}
+                            {% if mere.codeEtapeMere == voeu.codeEtape %}
+                                selected="selected"
+                            {% endif %}
+                        {% endfor %}
+                        value="{{ voeu.codeEtape }}">{{ voeu.etape }}</option>
+                    {% endif %}
+                {% endfor %}
+                </optgroup>
+            {% endfor %}
+            </select>
+        </div>
+    <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-floppy-save"></span> Enregistrer
+    </button>
+    </form>
     <hr />
-
+    </ul>
     <a href="index.php?uc=formation&action=consulter&code={{ code }}" class="btn btn-primary">
         <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
     </a>

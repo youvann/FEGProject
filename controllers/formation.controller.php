@@ -73,9 +73,29 @@ switch ($action) {
         break;
     case "dependances":
     {
-        echo $twig->render('formation/dependances.html.twig', array('code' => $_GET['code']));
+		$meres = $dependreManager->findMeres($formationManager->find($_GET['code']));
+		$formations = $formationManager->findAll();
+		$voeux = $voeuManager->findAll();
+
+        echo $twig->render('formation/dependances.html.twig', array(
+			'meres' => $meres,
+			'formations' => $formations,
+			'voeux' => $voeux,
+			'code' => $_GET['code'])
+		);
     }
         break;
+	case "modificationDependances":
+	{
+		$dependreManager->deleteAllMeres($formationManager->find($_POST['formation']));
+
+		foreach($_POST['voeux'] as $voeu) {
+			$unVoeu = $voeuManager->find($voeu);
+			$dependreManager->insert(new Dependre($unVoeu->getCodeFormation(), $unVoeu->getCodeEtape(), $_POST['formation']));
+		}
+		header('location:index.php?uc=formation&action=dependances&code='.$_POST['formation']);
+	}
+		break;
     case "syntheseCsv":
     {
         $csvFileName = 'dossiers/' . $_GET['code'] . '/Synthese.csv';

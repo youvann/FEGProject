@@ -45,6 +45,7 @@ $droits = array(
 		array("formation", "modification"),
 		array("formation", "codeFormationPossible"),
 		array("formation", "dependances"),
+		array("formation", "modificationDependances"),
 		array("information", "ajouter"),
 		array("information", "ajout"),
 		array("information", "suppression"),

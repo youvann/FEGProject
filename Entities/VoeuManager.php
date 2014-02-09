@@ -22,7 +22,7 @@ class VoeuManager {
 		$voeux = array();
 		$rs = $this->db->query("SELECT * FROM `voeu`;")->fetchAll();
 		foreach ($rs as $voeu) {
-			$voeux[] = Voeu($voeu['CODE_ETAPE'], $voeu['CODE_FORMATION'], $voeu['ETAPE'], $voeu['RESPONSABLE'], $voeu['MAIL_RESPONSABLE']);
+			$voeux[] = new Voeu($voeu['CODE_ETAPE'], $voeu['CODE_FORMATION'], $voeu['ETAPE'], $voeu['RESPONSABLE'], $voeu['MAIL_RESPONSABLE']);
 		}
 		return $voeux;
 	}
