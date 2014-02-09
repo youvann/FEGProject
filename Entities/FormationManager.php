@@ -33,7 +33,7 @@ class FormationManager {
 	}
 
 	public function insert(Formation $formation) {
-		return $this->db->prepare("insert into formation (`CODE_FORMATION`, `MENTION`, `INFORMATIONS, `MODALITES`,`OUVERTE`, `FACULTE`) VALUES (?, ?, ?, ?, ?, ?);")
+		return $this->db->prepare("insert into formation (`CODE_FORMATION`, `MENTION`, `INFORMATIONS`, `MODALITES`,`OUVERTE`, `FACULTE`) VALUES (?, ?, ?, ?, ?, ?);")
 						->execute(array(
 							$formation->getCodeFormation(),
 							$formation->getMention(),
