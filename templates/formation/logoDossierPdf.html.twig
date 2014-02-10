@@ -1,0 +1,17 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+        <li><a href="index.php?uc=formation&action=grille">Liste des formations</a>
+        </li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche
+                formation</a></li>
+        <li class="active">Synthèse Excel</li>
+    </ol>
+
+    <h2 class="titre_rubrique">Synthèse Excel</h2>
+
+{% endblock %}
+
