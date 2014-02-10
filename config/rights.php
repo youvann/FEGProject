@@ -2,6 +2,7 @@
 
 $droits = array(
 	array(// Anonymous
+		array("formulaire", "typeDossier"),
 		array("formulaire", "candidaturePossible"),
 		array("formulaire", "choixFormation"),
 		array("formulaire", "traiterChoixFormation"),
