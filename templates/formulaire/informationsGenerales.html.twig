@@ -1,22 +1,31 @@
-<input type="hidden" id="autre" name="autre" value=""/>
-<fieldset>
-    <legend>Candidat</legend>
-    <div class="well well-lg">
+{% set mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"] %}
 
-        <div class="radio"><label for="titulaire_1"><input type="radio" name="titulaire" id="titulaire_1" value="1"
-                                                           checked><b>Titulaire
-                    d'un diplôme français - Date de limite dépôt du dossier le {{ limitDate }}</b></label></div>
-        <div class="radio"><label for="titulaire_2"><input type="radio" name="titulaire" id="titulaire_2" value="2"><b>Titulaire
-                    d'un diplôme de l'Union Européenne - Date de limite dépôt du dossier le {{ limitDate }}</b></label>
+<input type="hidden" id="autre" name="autre" value=""/>
+<div class="panel panel-primary">
+    <div class="panel-heading">Candidat</div>
+    <div class="panel-body">
+        <div class="radio">
+            <label for="titulaire_1">
+                <input type="radio" name="titulaire" id="titulaire_1" value="1" checked>
+                <b>Titulaire d'un diplôme français - Date de limite dépôt du dossier le {{ limitDate }}</b>
+            </label>
         </div>
-        <div class="radio"><label for="titulaire_3"><input type="radio" name="titulaire" id="titulaire_3" value="3"><b>Titulaire
-                    d'un diplôme hors Union Européenne * - Date de limite dépôt du dossier
-                    le {{ limitDate }}</b></label>
+        <div class="radio">
+            <label for="titulaire_2">
+                <input type="radio" name="titulaire" id="titulaire_2" value="2">
+                <b>Titulaire d'un diplôme de l'Union Européenne - Date de limite dépôt du dossier le {{ limitDate }}</b></label>
         </div>
-        <p class=""><i>* Dossier à utiliser si vous résidez dans l’Espace européen, ou dans un pays où il n’existe pas
+        <div class="radio">
+            <label for="titulaire_3">
+                <input type="radio" name="titulaire" id="titulaire_3" value="3">
+                <b>Titulaire d'un diplôme hors Union Européenne * - Date de limite dépôt du dossier le {{ limitDate }}</b>
+            </label>
+        </div>
+        <p class="">
+            <i>* Dossier à utiliser si vous résidez dans l’Espace européen, ou dans un pays où il n’existe pas
                 d’espace Campus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne
-                sera
-                pas examiné.</i></p>
+                sera pas examiné.</i>
+        </p>
         <hr/>
         <div class="radio">
             <label>
@@ -31,58 +40,78 @@
             </label>
         </div>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="nom">Nom</label> <span class="en">Last name</span>
-                    <input type="text" class="form-control required" id="nom" name="nom" placeholder="Votre nom"
-                           data-validation="required" data-validation="length" data-validation-length="min4"/>
-                </div>
-                <div class="col-md-6">
-                    <label for="prenom">Prénom</label> <span class="en">First name</span>
-                    <input type="text" class="form-control required" id="prenom" name="prenom"
-                           placeholder="Votre prenom" data-validation="required"/>
-                </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="nom">Nom</label> <span class="en">Last name</span>
+                <input type="text" class="form-control required" id="nom" name="nom" placeholder="Votre nom"
+                       data-validation="required" data-validation="length" data-validation-length="min4"/>
+            </div>
+            <div class="col-md-6">
+                <label for="prenom">Prénom</label> <span class="en">First name</span>
+                <input type="text" class="form-control required" id="prenom" name="prenom"
+                       placeholder="Votre prenom" data-validation="required"/>
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="date_naissance">Date de naissance</label> <span class="en">Birthdate</span>
-                    <input type="text" class="form-control required" id="date_naissance" name="date_naissance"
-                           placeholder="aaaa-mm-jj" data-validation="required"
-                           data-validation-error-msg="Veuillez entrer une date valide"/>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="annee_date_naissance">Date de naissance</label> <span class="en">Birthdate</span>
+                    <select class="form-control required" id="jour_date_naissance" name="jour_date_naissance">
+                        {% for i in 1..31 %}
+                            <option value="{% if i < 10 %}0{% endif %}{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-                <div class="col-md-4">
-                    <label for="lieu_naissance">Lieu de naissance</label> <span class="en">Brith place</span>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <select class="form-control required" id="mois_date_naissance" name="mois_date_naissance">
+                        {% for unMois in mois %}
+                            <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <select class="form-control required" id="annee_date_naissance" name="annee_date_naissance">
+                        {%  set ecart = anneeBasse - 60 %}
+                        {% for i in ecart..anneeBasse %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="lieu_naissance">Lieu de naissance</label> <span class="en">Birth place</span>
                     <input type="text" class="form-control required" id="lieu_naissance" name="lieu_naissance"
-                           placeholder="Votre lieu de naissance" data-validation="required"/>
+                       placeholder="Votre lieu de naissance" data-validation="required"/>
                 </div>
-                <div class="col-md-4">
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
                     <label for="nationalite">Nationalité</label> <span class="en">Citizenship</span>
                     <input type="text" class="form-control required" id="nationalite" name="nationalite"
-                           placeholder="Votre nationalité" data-validation="required"/>
+                       placeholder="Votre nationalité" data-validation="required"/>
                 </div>
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="ine">N° INE (pour étudiants en France)</label> <span class="en">INE number (only for students already in Frane)</span>
-                    <input type="text" class="form-control required" id="ine" name="ine" placeholder="Ex : 1234567891A"
-                           data-validation="required" data-validation-error-msg="Veuillez entrer un numéro d'INE valide"/>
-                </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="ine">N° INE (pour étudiants en France)</label> <span class="en">INE number (only for students already in Frane)</span>
+                <input type="text" class="form-control required" id="ine" name="ine" placeholder="Ex : 1234567891A"
+                       data-validation="required" data-validation-error-msg="Veuillez entrer un numéro d'INE valide"/>
             </div>
         </div>
     </div>
-</fieldset>
+</div>
 
-<fieldset>
-    <legend>Coordonnées & contact <span class="en">Address & contact</span></legend>
-    <div class="well well-lg">
-
+<div class="panel panel-primary">
+    <div class="panel-heading">Coordonnées & contact <span class="en">Address & contact</span></div>
+    <div class="panel-body">
         <div class="form-group">
             <div class="row">
                 <div class="col-md-4">
@@ -137,11 +166,11 @@
             </div>
         </div>
     </div>
-</fieldset>
+</div>
 
-<fieldset>
-    <legend>Baccalauréat ou équivalent <span class="en">High school diploma</span></legend>
-    <div class="well well-lg">
+<div class="panel panel-primary">
+    <div class="panel-heading">Baccalauréat ou équivalent <span class="en">High school diploma</span></div>
+    <div class="panel-body">
         <div class="form-group">
             <div class="row">
                 <div class="col-md-4">
@@ -162,26 +191,24 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="departement_bac">Département</label> <span class="en">Department</span>
-                    <input type="text" class="form-control required" id="departement_bac" name="departement_bac"
-                           placeholder="Votre département" data-validation="required"/>
-                </div>
-                <div class="col-md-6">
-                    <label for="pays_bac">Pays</label> <span class="en">Country</span>
-                    <input type="text" class="form-control required" id="pays_bac" name="pays_bac"
-                           placeholder="Votre pays" data-validation="required"/>
-                </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="departement_bac">Département</label> <span class="en">Department</span>
+                <input type="text" class="form-control required" id="departement_bac" name="departement_bac"
+                       placeholder="Votre département" data-validation="required"/>
+            </div>
+            <div class="col-md-6">
+                <label for="pays_bac">Pays</label> <span class="en">Country</span>
+                <input type="text" class="form-control required" id="pays_bac" name="pays_bac"
+                       placeholder="Votre pays" data-validation="required"/>
             </div>
         </div>
     </div>
-</fieldset>
+</div>
 
-<fieldset>
-    <legend>Langues étrangères <span class="en">Foreign languages</span></legend>
-    <div class="well well-lg">
+<div class="panel panel-primary">
+    <div class="panel-heading">Langues étrangères <span class="en">Foreign languages</span></div>
+    <div class="panel-body">
         <div class="form-group">
             <div class="row">
                 <div class="col-md-12">
@@ -192,11 +219,11 @@
             </div>
         </div>
     </div>
-</fieldset>
+</div>
 
-<fieldset>
-    <legend>Autres <span class="en">Others</span></legend>
-    <div class="well well-lg">
+<div class="panel panel-primary">
+    <div class="panel-heading">Autres <span class="en">Others</span></div>
+    <div class="panel-body">
         <div class="form-group">
             <div class="row">
                 <div class="col-md-12">
@@ -216,16 +243,13 @@
                     <br>
 
                     <p><i>* Vous êtes salarié, vous souhaitez bénéficier d'un congé individuel de formation (CIF, DIF)
-                            ou
-                            d'une période professionnalisation, vous êtes demandeur d'emploi, bénéficiaire du RSA, vous
-                            souhaitez effectuer une procédure de VAE ou de VAP, vous avez cessé vos études depuis au
-                            moins 2
-                            ans, vous avez suivi un cursus de formation en alternance, vous avez plus de 28 ans :
-                            Contactez
-                            rapidement le secrétariat de la formation afin que votre dossier et les possibilités de
-                            financement vous concernant soient examinés au plus tôt.</i></p>
+                            ou  d'une période professionnalisation, vous êtes demandeur d'emploi, bénéficiaire du RSA,
+                            vous souhaitez effectuer une procédure de VAE ou de VAP, vous avez cessé vos études depuis
+                            au moins 2 ans, vous avez suivi un cursus de formation en alternance, vous avez plus de 28
+                            ans : Contactez rapidement le secrétariat de la formation afin que votre dossier et les
+                            possibilités de financement vous concernant soient examinés au plus tôt.</i></p>
                 </div>
             </div>
         </div>
     </div>
-</fieldset>
+</div>

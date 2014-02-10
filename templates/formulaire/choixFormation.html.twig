@@ -9,6 +9,8 @@
 
             <form role="form" action="index.php?uc=formulaire&action=traiterChoixFormation"
                   id="formChoixFormation" method="post">
+                <input type="hidden" id="typeDossier" name="typeDossier"  />
+
                 <fieldset>
                     <legend>Formation souhaitée</legend>
                     <div class="well well-fg">
@@ -92,6 +94,43 @@
             $('#divAllDocuments').hide();
             $('#msgError').hide();
 
+            var checkCreationDossierPossible = function () {
+                var ine = $('#ine').val();
+                var codeFormation = $('#choisie').val();
+                $.ajax({
+                    url: 'index.php?uc=formulaire&action=candidaturePossible',
+                    type: 'post',
+                    data: 'ine=' + ine + '&code_formation=' + codeFormation,
+                    dataType: 'json',
+                    success: function (json) {
+                        if (json.response == 0) {
+                            if ($('#textboxIne').hasClass('has-success')) {
+                                $('#textboxIne').removeClass('has-success').addClass('has-error');
+                            }
+                        } else {
+                            if ($('#textboxIne').hasClass('has-error')) {
+                                $('#textboxIne').removeClass('has-error').addClass('has-success');
+                            }
+                        }
+                    }
+                });
+            };
+
+            var getTypeDossier = function() {
+                var codeEtape = $('#derniere').val();
+                var codeFormation = $('#choisie').val();
+
+                $.ajax({
+                    url: 'index.php?uc=formulaire&action=typeDossier',
+                    type: 'post',
+                    data: 'code_etape=' + codeEtape + '&code_formation=' + codeFormation,
+                    dataType: 'json',
+                    success: function (json) {
+                        $('#typeDossier').val(json.type);
+                    }
+                });
+            };
+
             //var choixFormation = $("select[name='derniere'] > option:selected").val();
             var choixFormation = $('#derniere').val();
             var autreFormation = $("#autre_formation");
@@ -101,6 +140,7 @@
             $('#derniere').on('change', function () {
                 choixFormation = $(this).val();
                 (choixFormation === "0000") ? autreFormation.fadeIn("slow") : autreFormation.fadeOut("fast");
+                getTypeDossier();
             });
 
             $('input[type=radio]').on('change', function () {
@@ -117,6 +157,7 @@
             $('#choisie').on('change', function () {
                 $('#divAllDocuments').show();
                 checkCreationDossierPossible();
+                getTypeDossier();
                 $.ajax({
                     url: 'index.php?uc=formulaire&action=displayDocuments',
                     type: 'post',
@@ -172,27 +213,7 @@
                     }
                 });
             });
-            function checkCreationDossierPossible() {
-                var ine = $('#ine').val();
-                var codeFormation = $('#choisie').val();
-                $.ajax({
-                    url: 'index.php?uc=formulaire&action=candidaturePossible',
-                    type: 'post',
-                    data: 'ine=' + ine + '&code_formation=' + codeFormation,
-                    dataType: 'json',
-                    success: function (json) {
-                        if (json.response == 0) {
-                            if ($('#textboxIne').hasClass('has-success')) {
-                                $('#textboxIne').removeClass('has-success').addClass('has-error');
-                            }
-                        } else {
-                            if ($('#textboxIne').hasClass('has-error')) {
-                                $('#textboxIne').removeClass('has-error').addClass('has-success');
-                            }
-                        }
-                    }
-                });
-            }
+
 
             // Vérification formulaire
             $.validate({

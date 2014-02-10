@@ -25,7 +25,12 @@ switch ($action) {
         break;
 	case "typeDossier" :
 	{
-
+		FileHeader::headerJson();
+		$q = $conn->prepare("SELECT IF(count(*), 'PI', 'CA') as type FROM `dependre` WHERE `CODE_ETAPE_MERE` = ? AND `CODE_FORMATION_FILLE` = ?;");
+		$q->execute(array($_POST['code_etape'], $_POST['code_formation']));
+		$rs = $q->fetch();
+		$response['type'] = $rs['type'];
+		echo json_encode($response);
 	}
 		break;
     case "choixFormation" :

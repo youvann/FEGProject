@@ -1,6 +1,6 @@
-<fieldset>
-    <legend>Choix de la spécialité</legend>
-<div class="well well-fg">
+<div class="panel panel-primary">
+    <div class="panel-heading">Choix de la spécialité</div>
+    <div class="panel-body">
     {% set nbListes = 3 %}
     {% if nbVoeux < 3 %}
         {% set nbListes = nbVoeux %}
@@ -26,4 +26,4 @@
                data-validation="required"/>
     </div>
 </div>
-</fieldset>
+</div>
