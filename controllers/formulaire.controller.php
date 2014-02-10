@@ -161,11 +161,14 @@ switch ($action) {
         $villesPossibles = array_unique($villesPossibles);
 
 
-        $rs = $conn->query('SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
+        $q = $conn->prepare('SELECT `information`.`ID` as idInfo, `information`.`LIBELLE` as libelleInfo, `type`.`ID` as typeInfo, `choix`.`TEXTE` as libellesInfo
                             FROM `information`
-                            INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
-                            LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
-                            ORDER BY `information`.`ordre`;')->fetchAll();
+                            INNER JOIN `type` ON (`information`.`TYPE` = `type`.`ID`)
+                            LEFT JOIN `choix` ON (`information`.`ID` = `choix`.`INFORMATION`)
+                            WHERE `information`.`CODE_FORMATION` = ?
+                            ORDER BY `information`.`ORDRE`;');
+        $q->execute(array($formation->getCodeFormation()));
+        $rs = $q->fetchAll ();
 
         $structure               = $translatorResultsetToStructure->translate($rs);
         $informationsSpecifiques = $translatorJsonToHTML->translate($dossier->getInformations(), $structure);
