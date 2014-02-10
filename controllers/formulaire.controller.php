@@ -23,10 +23,18 @@ switch ($action) {
         echo json_encode($response);
     }
         break;
+	case "typeDossier" :
+	{
+
+	}
+		break;
     case "choixFormation" :
     {
+		$voeux = $voeuManager->findAll();
         $formations = $formationManager->findAll();
-        echo $twig->render('formulaire/choixFormation.html.twig', array('formations' => $formations));
+        echo $twig->render('formulaire/choixFormation.html.twig', array(
+			'formations' => $formations,
+			'voeux' => $voeux));
     }
         break;
     case "traiterChoixFormation":

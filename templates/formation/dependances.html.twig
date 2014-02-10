@@ -6,7 +6,7 @@
         <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
         <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
         <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
-        <li class="active">Synthèse Excel</li>
+        <li class="active">Domaines de compatibilité</li>
     </ol>
 
     <h2 class="titre_rubrique">Domaines de compatibilité</h2>
@@ -14,7 +14,7 @@
         <input type="hidden" id="formation" name="formation" value="{{ code }}" />
         <div class="form-group">
             <label for="voeux">Etapes</label> <i>Restez appuyé sur la touche &lt;Ctrl&gt;</i>
-            <select class="form-control" id="voeux" name="voeux[]" multiple>
+            <select style="height: 300px;" class="form-control" id="voeux" name="voeux[]" multiple>
             {% for formation in formations %}
                 <optgroup label="{{ formation.mention }}">
                 {% for voeu in voeux %}

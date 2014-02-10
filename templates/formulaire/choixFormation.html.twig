@@ -16,7 +16,7 @@
                             <label for="ine">Votre numéro INE </label> <span class="en">INE number</span> <span class="label label-danger">Requis</span>
                             <input class="form-control" type="text" id="ine" name="ine" placeholder="123456789A"
                                    data-validation="required"
-                                   data-validation-error-msg="Veuillez entrer un numéro d'INE valide"/>
+                                   data-validation-error-msg="Veuillez entrer un numéro d'INE valide" />
                         </div>
                         <div class="form-group">
                             <label for="derniere">Sélectionnez votre dernière formation effectuée</label>
@@ -24,7 +24,13 @@
                             <select class="form-control" id="derniere" name="derniere">
                                 <option value="">&mdash; Sélectionnez &mdash;</option>
                                 {% for formation in formations %}
-                                    <option value="{{ formation.codeformation }}">{{ formation.mention }}</option>
+                                    <optgroup label="{{ formation.mention }}">
+                                    {% for voeu in voeux %}
+                                        {% if voeu.codeFormation == formation.codeFormation %}
+                                            <option value="{{ voeu.codeEtape }}">{{ voeu.etape }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </optgroup>
                                 {% endfor %}
                             </select>
                         </div>
