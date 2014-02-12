@@ -11,11 +11,14 @@
 
             <form role="form" id="mainFormulaire" action="index.php?uc=formulaire&action=traiterMainFormulaire"
                   method="post" autocomplete="on">
-                <legend>Modalités</legend>
-                <div class="alert alert-info">
-                    {{ formation.modalites|raw }}
-                </div>
-
+                {% if formation.modalites is not empty %}
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Modalités</div>
+                        <div class="panel-body">
+                            {{ formation.modalites|raw }}
+                        </div>
+                    </div>
+                {% endif %}
                 {% include 'formulaire/informationsGenerales.html.twig' %}
                 {% if typedossier == 'CA' %}
                     {% include 'formulaire/postBacExperiences.html.twig' %}
@@ -26,8 +29,8 @@
                     {% include 'formulaire/documentsGeneraux.html.twig' %}
                 {% endif %}
             </form>
-            <button id="customSubmit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span>
-                Envoyer
+            <button id="customSubmit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-ok"></span> Envoyer
             </button>
             <br/><br/>
             <div class="alert alert-warning">Le traitement du formulaire peut prendre plusieurs secondes. Veuillez patienter et ne pas recharger la page.</div>
