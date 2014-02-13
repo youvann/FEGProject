@@ -10,6 +10,8 @@ $droits = array(
 		array("formulaire", "main"),
 		array("formulaire", "traiterMainFormulaire"),
         array("formulaire", "recapitulatif"),
+		array("formulaire", "getTemplateCursus"),
+		array("formulaire", "getTemplateExperience"),
 		array("utilisateur", "connecter"),
 		array("utilisateur", "connexion"),
 		array("intranet", "generationPdfCandidature"),
