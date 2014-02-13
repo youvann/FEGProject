@@ -189,6 +189,14 @@ switch ($action) {
         $pagePdf->setPagePdfFooterText("Page [[page_cu]]/[[page_nb]]");
 
         // Corps du pdf
+        $logoPath = "./public/img/logos/" . $formation->getCodeFormation ();
+        $empty    = is_dir_empty ($logoPath);
+        $logoName = $empty ? "" : getFileName ($logoPath);
+        if (!$empty) {
+            $pagePdf->setLogoPath ($logoPath . "/" . $logoName);
+        } else {
+            $pagePdf->setLogoPath ("");
+        }
         $pagePdf->setTitle("Institut supérieur en sciences de Gestion", $formation->getMention());
         $pagePdf->setHolder(' ' . $titulaire[0]->getLibelle(), ' ' . $titulaire[1]->getLibelle(), ' ' . $titulaire[2]->getLibelle(), $dossier->getTitulaire());
         //$pagePdf->setNote("* Dossier à utiliser si vous résidez dans l'Espace européen, ou dans un pays où il n'existe pas d'espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.");

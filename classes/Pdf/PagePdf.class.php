@@ -23,6 +23,7 @@ class PagePdf {
     // Titre
     private $title1;
     private $title2;
+    private $logoPath = "";
 
     // Titulaire
     private $holder1;
@@ -221,6 +222,18 @@ class PagePdf {
         $this->note = $note;
     }
 
+    public function setLogoPath($logoPath){
+        $this->logoPath = $logoPath;
+    }
+
+    public function getLogo(){
+        if($this->logoPath == ""){
+            return '<td></td>';
+        }else{
+            return '<td class="border-left-none"><img style:"width=200; height=auto;" src=" ' . $this->logoPath . '" /></td>';
+        }
+    }
+
     public function getFormationTitle () {
         // <td class="fifty_width_table border-left-none border-top-none titre2"><img src="./pdf/img/miage.png" alt=""></td>
         return '<table class="t_title">
@@ -228,9 +241,9 @@ class PagePdf {
                         <td colspan="2" class="full_width_table titre3 bold">' . $this->title1 . '</td>
                     </tr>
                     <tr>
-                        <td class="fifty_width_table titre1">' . $this->title2 . '</td>
+                        <td class="fifty_width_table titre1 border-right-none">' . $this->title2 . '</td>
+                        ' . $this->getLogo() . '
                     </tr>
-
                 </table>';
     }
 
