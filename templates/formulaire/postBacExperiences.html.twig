@@ -8,58 +8,72 @@
         </h4>
         <div class="well">
             <div class="row">
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="anneeDebutCursus-1">Année de début</label>
-                        <select class="form-control required"
-                                id="anneeDebutCursus-1"
-                                name="anneeDebutCursus-1"
-                                data-validation="required">
-                            {% set ecart = anneeBasse - 60 %}
-                            {% for i in ecart..anneeBasse %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="anneeFinCursus-1">Année de fin</label>
-                        <select class="form-control required"
-                                id="anneeFinCursus-1"
-                                name="anneeFinCursus-1" data-validation="required">
-                            {% set ecart = anneeBasse - 60 %}
-                            {% for i in ecart..anneeBasse %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label for="etablissement-1">Etablissement</label>
-                        <input type="text" class="form-control required"
-                               id="etablissement-1"
-                               name="etablissement-1" data-validation="required"/>
+                <div class="col-md-12">
+                    <div class="btn-group">
+                        <button type="button" id="addCursus" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-plus-sign"></span> Ajouter
+                        </button>
+                        <button type="button" id="removeCursus" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-minus-sign"></span> Retirer
+                        </button>
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="valide-1">Note (résultat) <span class="label label-info">Optionnel</span>
-                        </label>
-                        <span class="en">Mark</span>
-                        <input type="text" class="form-control" id="valide-1" name="valide-1"/>
+            <hr/>
+            <div id="blockCursus-1">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="anneeDebutCursus-1">Année de début</label>
+                            <select class="form-control required"
+                                    id="anneeDebutCursus-1"
+                                    name="anneeDebutCursus-1"
+                                    data-validation="required">
+                                {% set ecart = anneeBasse - 60 %}
+                                {% for i in ecart..anneeBasse %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="anneeFinCursus-1">Année de fin</label>
+                            <select class="form-control required"
+                                    id="anneeFinCursus-1"
+                                    name="anneeFinCursus-1" data-validation="required">
+                                {% set ecart = anneeBasse - 60 %}
+                                {% for i in ecart..anneeBasse %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="etablissement-1">Etablissement</label>
+                            <input type="text" class="form-control required"
+                                   id="etablissement-1"
+                                   name="etablissement-1" data-validation="required"/>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label for="cursus-1">Cursus suivi</label> <span class="en">Followed formation</span>
-                        <input type="text" class="form-control required"
-                               id="cursus-1" name="cursus-1"
-                               data-validation="required"/>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="valide-1">Note (résultat) <span class="label label-info">Optionnel</span>
+                            </label>
+                            <span class="en">Mark</span>
+                            <input type="text" class="form-control" id="valide-1" name="valide-1"/>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="cursus-1">Cursus suivi</label> <span class="en">Followed formation</span>
+                            <input type="text" class="form-control required"
+                                   id="cursus-1" name="cursus-1"
+                                   data-validation="required"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,61 +87,76 @@
     <div class="panel-body">
         <div class="well">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="moisDebut-1">Mois de début</label>
-                        <select class="form-control" id="moisDebut-1" name="moisDebut-1">
-                            {% for unMois in mois %}
-                                <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="anneeDebut-1">Année de début</label>
-                        <select class="form-control" id="anneeDebut-1" name="anneeDebut-1">
-                            {% set ecart = anneeBasse - 60 %}
-                            {% for i in ecart..anneeBasse %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="moisFin-1">Mois de fin</label>
-                        <select class="form-control" id="moisFin-1" name="moisFin-1">
-                            {% for unMois in mois %}
-                                <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="anneeFin-1">Année de fin</label>
-                        <select class="form-control" id="anneeFin-1" name="anneeFin-1">
-                            {% set ecart = anneeBasse - 60 %}
-                            {% for i in ecart..anneeBasse %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
+                <div class="col-md-12">
+                    <div class="btn-group">
+                        <button type="button" id="addExperience" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-plus-sign"></span> Ajouter
+                        </button>
+                        <button type="button" id="removeExperience" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-minus-sign"></span> Retirer
+                        </button>
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="entreprise-1">Entreprise</label>
-                        <input type="text" class="form-control" id="entreprise-1" name="entreprise-1"/>
+            <hr/>
+            <div id="blockExperience-1">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="moisDebut-1">Mois de début</label>
+                            <select class="form-control" id="moisDebut-1" name="moisDebut-1">
+                                {% for unMois in mois %}
+                                    <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="anneeDebut-1">Année de début</label>
+                            <select class="form-control" id="anneeDebut-1" name="anneeDebut-1">
+                                {% set ecart = anneeBasse - 60 %}
+                                {% for i in ecart..anneeBasse %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="moisFin-1">Mois de fin</label>
+                            <select class="form-control" id="moisFin-1" name="moisFin-1">
+                                {% for unMois in mois %}
+                                    <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="anneeFin-1">Année de fin</label>
+                            <select class="form-control" id="anneeFin-1" name="anneeFin-1">
+                                {% set ecart = anneeBasse - 60 %}
+                                {% for i in ecart..anneeBasse %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="emploi1">Fonction</label>
-                        <input type="text" class="form-control" id="fonction-1" name="fonction-1"/>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="entreprise-1">Entreprise</label>
+                            <input type="text" class="form-control" id="entreprise-1" name="entreprise-1"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="emploi1">Fonction</label>
+                            <input type="text" class="form-control" id="fonction-1" name="fonction-1"/>
+                        </div>
                     </div>
                 </div>
             </div>

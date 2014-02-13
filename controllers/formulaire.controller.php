@@ -239,16 +239,15 @@ switch ($action) {
         break;
 	case "getTemplateCursus" :
 	{
-		FileHeader::headerXml();
 		echo $twig->render('formulaire/template.cursus.html.twig', array(
-			'indice' => 1//$_POST['indice']
+			'indice' => $_GET['indice']
 		));
 	}
 		break;
 	case "getTemplateExperience" :
 	{
 		echo $twig->render('formulaire/template.experience.html.twig', array(
-			'indice' => $_POST['indice']
+			'indice' => $_GET['indice']
 		));
 	}
 		break;

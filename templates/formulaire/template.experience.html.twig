@@ -1,61 +1,62 @@
-<root>
-<div class="row">
-    <div class="col-md-3">
-        <div class="form-group">
-            <label for="moisDebut-{{ indice }}">Mois de début</label>
-            <select class="form-control" id="moisDebut-{{ indice }}" name="moisDebut-{{ indice }}">
-                {% for unMois in mois %}
-                    <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
-                {% endfor %}
-            </select>
+<div id="blockExperience-{{ indice }}">
+    <hr/>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="moisDebut-{{ indice }}">Mois de début</label>
+                <select class="form-control" id="moisDebut-{{ indice }}" name="moisDebut[]">
+                    {% for unMois in mois %}
+                        <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="anneeDebut-{{ indice }}">Année de début</label>
+                <select class="form-control" id="anneeDebut-{{ indice }}" name="anneeDebut[]">
+                    {% set ecart = anneeBasse - 60 %}
+                    {% for i in ecart..anneeBasse %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="moisFin-{{ indice }}">Mois de fin</label>
+                <select class="form-control" id="moisFin-{{ indice }}" name="moisFin-[]">
+                    {% for unMois in mois %}
+                        <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="anneeFin-{{ indice }}">Année de fin</label>
+                <select class="form-control" id="anneeFin-{{ indice }}" name="anneeFin[]">
+                    {% set ecart = anneeBasse - 60 %}
+                    {% for i in ecart..anneeBasse %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label for="anneeDebut-{{ indice }}">Année de début</label>
-            <select class="form-control" id="anneeDebut-{{ indice }}" name="anneeDebut-{{ indice }}">
-                {% set ecart = anneeBasse - 60 %}
-                {% for i in ecart..anneeBasse %}
-                    <option value="{{ i }}">{{ i }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label for="moisFin-{{ indice }}">Mois de fin</label>
-            <select class="form-control" id="moisFin-{{ indice }}" name="moisFin-{{ indice }}">
-                {% for unMois in mois %}
-                    <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label for="anneeFin-{{ indice }}">Année de fin</label>
-            <select class="form-control" id="anneeFin-{{ indice }}" name="anneeFin-{{ indice }}">
-                {% set ecart = anneeBasse - 60 %}
-                {% for i in ecart..anneeBasse %}
-                    <option value="{{ i }}">{{ i }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="entreprise-{{ indice }}">Entreprise</label>
-            <input type="text" class="form-control" id="entreprise-{{ indice }}" name="entreprise-{{ indice }}"/>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="entreprise-{{ indice }}">Entreprise</label>
+                <input type="text" class="form-control" id="entreprise-{{ indice }}" name="entreprise[]" data-validation="required"/>
+            </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="emploi1">Fonction</label>
-            <input type="text" class="form-control" id="fonction-{{ indice }}" name="fonction-{{ indice }}"/>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="emploi1">Fonction</label>
+                <input type="text" class="form-control" id="fonction-{{ indice }}" name="fonction[]" data-validation="required"/>
+            </div>
         </div>
     </div>
 </div>
-</root>

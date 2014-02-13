@@ -33,7 +33,10 @@
                 <span class="glyphicon glyphicon-ok"></span> Envoyer
             </button>
             <br/><br/>
-            <div class="alert alert-warning">Le traitement du formulaire peut prendre plusieurs secondes. Veuillez patienter et ne pas recharger la page.</div>
+
+            <div class="alert alert-warning">Le traitement du formulaire peut prendre plusieurs secondes. Veuillez
+                patienter et ne pas recharger la page.
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -137,6 +140,66 @@
 
             $("#startUpload").click(function () {
                 uploadObj.startUpload();
+            });
+
+            // TESTS LIONEL CURSUS ET EXPERIENCES
+            var nbCursus = 1, nbExperiences = 1;
+
+            $("#addCursus").click(function () {
+                if (nbCursus === 10) {
+                    alert('NON'); // remplacer par un modal
+                } else {
+                    $(this).attr("disabled", "disabled");
+                    $.ajax({
+                        url: 'index.php?uc=formulaire&action=getTemplateCursus',
+                        type: 'get',
+                        data: 'indice=' + (nbCursus + 1),
+                        dataType: 'html',
+                        success: function (html) {
+                            $("#blockCursus-" + nbCursus).after().append(html);
+                            $("#addCursus").removeAttr("disabled");
+                            nbCursus = nbCursus + 1;
+                        }
+                    });
+                }
+            });
+            $("#removeCursus").click(function () {
+                if (nbCursus === 1) {
+                    alert('NON'); // remplacer par un modal
+                } else {
+                    $(this).attr("disabled", "disabled");
+                    $("#blockCursus-" + nbCursus).remove();
+                    nbCursus = nbCursus - 1;
+                    $(this).removeAttr("disabled");
+                }
+            });
+            $("#addExperience").click(function () {
+                if (nbExperiences === 10) {
+                    alert('NON'); // remplacer par un modal
+                } else {
+                    $(this).attr("disabled", "disabled");
+                    $.ajax({
+                        url: 'index.php?uc=formulaire&action=getTemplateExperience',
+                        type: 'get',
+                        data: 'indice=' + (nbExperiences + 1),
+                        dataType: 'html',
+                        success: function (html) {
+                            $("#blockExperience-" + nbExperiences).after().append(html);
+                            $("#addExperience").removeAttr("disabled");
+                            nbExperiences = nbExperiences + 1;
+                        }
+                    });
+                }
+            });
+            $("#removeExperience").click(function () {
+                if (nbExperiences === 1) {
+                    alert('NON'); // remplacer par un modal
+                } else {
+                    $(this).attr("disabled", "disabled");
+                    $("#blockExperience-" + nbExperiences).remove();
+                    nbExperiences = nbExperiences - 1;
+                    $(this).removeAttr("disabled");
+                }
             });
         });
     </script>
