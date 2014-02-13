@@ -27,6 +27,7 @@ class PagePdfHeader {
 	public function __toString (){
 		return '<page_header> 
 			        <table class="t_header">
+			        <col style="width: 49%">
 			            <tr>
 			                <td><img src="' . $this->imgPath . '" alt="image"></td>
 			                <td class="bold titre4">' . $this->headerText .'</td>

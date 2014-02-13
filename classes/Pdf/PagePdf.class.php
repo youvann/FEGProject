@@ -1,15 +1,15 @@
 <?php
 /**
  * @Project: FEG Project
- * @File: /classes/Pdf/PagePdf.class.php
+ * @File   : /classes/Pdf/PagePdf.class.php
  * @Purpose: Construit la page d'un document HTML qui va être transformé en PDF
- * @Author: Kevin Meas & Hasan Karakoz
+ * @Author : Kevin Meas & Hasan Karakoz
  */
 
 require_once 'PagePdfHeader.class.php';
 require_once 'PagePdfFooter.class.php';
 
-class PagePdf{
+class PagePdf {
     private $pagePdfHeader;
     private $pagePdfFooter;
 
@@ -47,7 +47,7 @@ class PagePdf{
     private $photoPath;
 
     // Formation envisagé
-    private $etapes = array();
+    private $etapes = array ();
     private $villesPossibles = array ();
 
     // Cursus antérieur
@@ -69,7 +69,7 @@ class PagePdf{
     private $informationsSpecifiques;
 
     private $rowAdmin;
-    private $tableauVoeux  = array();
+    private $tableauVoeux = array ();
     private $voeuxMultiple;
 
     // Documents généraux
@@ -78,7 +78,7 @@ class PagePdf{
     // Documents spécifiques
     //private $documentsSpecifiques = array ();
 
-    public function __construct($cssPath, $backTop = "30mm", $backBottom = "7mm", $backLeft = "0mm", $backRight = "10mm") {
+    public function __construct ($cssPath, $backTop = "30mm", $backBottom = "7mm", $backLeft = "0mm", $backRight = "10mm") {
         $this->pagePdfHeader = new PagePdfHeader();
         $this->pagePdfFooter = new PagePdfFooter();
 
@@ -87,176 +87,184 @@ class PagePdf{
         $this->backLeft   = $backLeft;
         $this->backRight  = $backRight;
         $this->cssPath    = $cssPath;
-        $this->css        = '<link type="text/css" href="' . DIRNAME(__FILE__) . '/' . $cssPath . '" rel="stylesheet" >';
+        $this->css        = '<link type="text/css" href="' . DIRNAME (__FILE__) . '/' . $cssPath . '" rel="stylesheet" >';
         //$this->css = '<link type="text/css" href="' . $cssPath . '" rel="stylesheet" >';
     }
 
-    public function setPagePdfHeaderImgPath ($imgPath){
-        $this->pagePdfHeader->setImgPath($imgPath);
+    public function setPagePdfHeaderImgPath ($imgPath) {
+        $this->pagePdfHeader->setImgPath ($imgPath);
     }
 
-    public function setPagePdfHeaderText ($headerText){
-        $this->pagePdfHeader->setHeadertext($headerText);
+    public function setPagePdfHeaderText ($headerText) {
+        $this->pagePdfHeader->setHeadertext ($headerText);
     }
 
-    public function setPagePdfFooterText ($footerText){
-        $this->pagePdfFooter->setFooterText($footerText);
+    public function setPagePdfFooterText ($footerText) {
+        $this->pagePdfFooter->setFooterText ($footerText);
     }
 
-    public function getPageBegin(){
+    public function getPageBegin () {
         return '<page backtop="' . $this->backTop . '" backbottom="' . $this->backBottom . '" backleft="' . $this->backLeft . '" backright="' . $this->backRight . '"> ';
     }
 
-    public function getNewPage (){
+    public function getNewPage () {
         return '<page pageset="old">';
     }
 
-    public function getPageEnd (){
+    public function getPageEnd () {
         return "</page> ";
     }
 
-    public function getCssPath (){
-        return
-        '<style type="text/css">
-        table { border-collapse: collapse; }
+    public function getCssPath () {
+        return '<style type="text/css">
+            table { border-collapse: collapse; }
 
-        .full_width_table{ width: 690px; font-size : 18px; }
+            .full_width_table{ width: 700px; font-size : 18px; }
 
-        .t_title .full_width_table{ width: 690px; font-size : 18px; }
+            .t_title .full_width_table{ width: 690px; font-size : 18px; }
 
-        .fifty_width_table{ width: 339px; }
+            .fifty_width_table{ width: 339px; }
 
-        td, th { border: 1px solid black; padding-left: 3px; padding-right: 3px; }
+            td, th { border: 1px solid black; padding-left: 3px; padding-right: 3px; }
 
-        .t_header img{ height: 80px; width: 300px; }
+            .t_header img{ height: 80px; width: 300px; }
 
-        .t_title img{ height: 85px; width: 200px; }
+            .t_title img{ height: 85px; width: 200px; }
 
-        .border-top-none{ border-top: none; }
+            .border-top-none{ border-top: none; }
 
-        .border-right-none{ border-right: none; }
+            .border-right-none{ border-right: none; }
 
-        .border-left-none{ border-left: none; }
+            .border-left-none{ border-left: none; }
 
-        .border-bottom-none{ border-bottom: none; }
+            .border-bottom-none{ border-bottom: none; }
 
-        .no-border{ border: none; }
+            .no-border{ border: none; }
 
-        .bold{ font-family: verdanab; }
+            .bold{ font-weight: bold; }
 
-        .titre1{ font-size: 40px; }
+            .titre1{ font-size: 40px; }
 
-        .titre2{ font-size: 30px; }
+            .titre2{ font-size: 30px; }
 
-        .titre3{ font-size: 20px; }
+            .titre3{ font-size: 20px; }
 
-        .titre4{ font-size: 18px; }
+            .titre4{ font-size: 18px; }
 
-        page{ font-size: 13px; }
+            page{ font-size: 13px; }
 
-        .note{ font-size: 12px; text-align: justify; }
+            .note{ font-size: 12px; text-align: justify; }
 
-        .titre_encadre { padding: 3px; border: 1px solid black; width: 701px; font-family: verdanab; background-color: #F1F1F1; }
+            .titre_encadre { padding: 3px; border: 1px solid black;  width: 700px; font-family: verdanab; background-color: #F1F1F1; }
 
-        .cadre{ padding: 5px; border: 1px solid black; width: 700px; }
+            .cadre{ padding: 5px; border: 1px solid black; width: 700px; }
 
-        .localisation_parcours{ padding: 5px; border: 1px solid black; width: 190px; font-family: verdanab; }
+            .localisation_parcours{ padding: 5px; border: 1px solid black; width: 190px; font-family: verdanab; }
 
-        .center{ text-align: center; }
+            .center{ text-align: center; }
 
-        .planFormation{ width:490px; }
+            .planFormation{ width:490px; }
 
-        .t_postBac .col2{ width: 75px; }
-        .t_postBac .col3{ width: 100px; }
-        .t_postBac .col4{ width: 180px; }
-        .t_postBac .col5{ width: 240px; }
-        .t_postBac .col6{ width: 270px; }
-        .t_postBac2 .col3{ width: 100px; }
-        .t_postBac2 .col4{ width: 130px; }
-        .t_postBac2 .col6{ width: 130px; }
-        .t_postBac2 .col7{ width: 140px; }
+            .t_postBac .col2{ width: 75px; }
+            .t_postBac .col3{ width: 100px; }
+            .t_postBac .col4{ width: 180px; }
+            .t_postBac .col5{ width: 240px; }
+            .t_postBac .col6{ width: 270px; }
+            .t_postBac2 .col3{ width: 100px; }
+            .t_postBac2 .col4{ width: 130px; }
+            .t_postBac2 .col6{ width: 130px; }
+            .t_postBac2 .col7{ width: 140px; }
 
-        .bold_underline{ text-decoration: underline; font-weight: bold; }
+            .bold_underline{ text-decoration: underline; font-weight: bold; }
 
-        .underline{ text-decoration: underline; }
+            .underline{ text-decoration: underline; }
 
-        .italic_underline{ font-style: italic; text-decoration: underline; }
+            .italic_underline{ font-style: italic; text-decoration: underline; }
 
-        .italic{ font-style: italic; }
+            .italic{ font-style: italic; }
 
-        .addressFac{ padding: 5px; border: 1px solid black; font-size: 20px; text-align: center; font-weight: bold; }
+            .addressFac{ padding: 5px; border: 1px solid black; font-size: 20px; text-align: center; font-weight: bold; }
 
-        .text_align{ text-align: right; }
+            .text_align{ text-align: right; }
 
-        .alinea{ margin-left: 20px; padding-left: 20px; }
+            .alinea{ margin-left: 20px; padding-left: 20px; }
 
-        .cadreDate{ padding: 5px; border: 1px solid black; width: 120px; }
+            .cadreDate{ padding: 5px; border: 1px solid black; width: 120px; }
 
-        .cadreRouge { border-top: 20px solid red; border-bottom: 20px solid red; border-right: 10px solid red; border-left: 10px solid red; padding: 3px; }
-         </style>';
+            .cadreRouge { border-top: 20px solid red; border-bottom: 20px solid red; border-right: 10px solid red; border-left: 10px solid red; padding: 3px; }
+
+            .largeur{width:700px;}
+
+            </style>';
+
+
     }
 
-    public function setCssPath ($cssPath){
+    public function setCssPath ($cssPath) {
         $this->cssPath = $cssPath;
         $this->css     = '<link type="text/css" href="' . $this->cssPath . '" rel="stylesheet" >';
     }
 
-    public function setTitle ($title1, $title2){
+    public function setTitle ($title1, $title2) {
         $this->title1 = $title1;
         $this->title2 = $title2;
     }
 
-    public function setHolder ($holder1, $holder2, $holder3, $checkboxHolder){
-        $this->holder1 = $holder1;
-        $this->holder2 = $holder2;
-        $this->holder3 = $holder3;
+    public function setHolder ($holder1, $holder2, $holder3, $checkboxHolder) {
+        $this->holder1        = $holder1;
+        $this->holder2        = $holder2;
+        $this->holder3        = $holder3;
         $this->checkboxHolder = $checkboxHolder;
     }
 
-    public function setNote ($note){
+    public function setNote ($note) {
         $this->note = $note;
     }
 
-    public function getFormationTitle(){
-        // <td class="fifty_width_table border-left-none border-top-none titre2 bold"><img src="./pdf/img/miage.png" alt=""></td>
+    public function getFormationTitle () {
+        // <td class="fifty_width_table border-left-none border-top-none titre2"><img src="./pdf/img/miage.png" alt=""></td>
         return '<table class="t_title">
                     <tr>
                         <td colspan="2" class="full_width_table titre3 bold">' . $this->title1 . '</td>
                     </tr>
                     <tr>
-                        <td class="fifty_width_table titre1 bold">' . $this->title2 . '</td>
+                        <td class="fifty_width_table titre1">' . $this->title2 . '</td>
                     </tr>
 
                 </table>';
     }
 
-    public function numHolder($num){
-        switch($num){
-            case 1 : {
+    public function numHolder ($num) {
+        switch ($num) {
+            case 1 :
+            {
                 return $this->holder1;
-            }break;
-            case 2 : {
+            }
+                break;
+            case 2 :
+            {
                 return $this->holder2;
-            }break;
-            case 3 : {
+            }
+                break;
+            case 3 :
+            {
                 return $this->holder3;
-            }break;
-            default: break;
+            }
+                break;
+            default:
+                break;
         }
     }
 
-    public function getDegreeHolder(){
-        $checkbox = '<br/><span class="bold note">' . $this->numHolder($this->checkboxHolder) . '</span><br/><br/>';
-        if($this->checkboxHolder == 3){
+    public function getDegreeHolder () {
+        $checkbox = '<br/><span class="note bold">' . $this->numHolder ($this->checkboxHolder) . '</span><br/><br/>';
+        if ($this->checkboxHolder == 3) {
             $checkbox .= '<p class="note">' . $this->note . '</p>';
         }
         return $checkbox;
     }
 
-    public function setApplicant($applicantSex, $applicantName, $applicantFirstName, $applicantBirthDate,
-                                 $applicantBirthPlace, $applicantIne, $applicantAdress,
-                                 $applicantFixNumber, $applicantPortNumber, $applicantMail,
-                                 $applicantActivity) {
+    public function setApplicant ($applicantSex, $applicantName, $applicantFirstName, $applicantBirthDate, $applicantBirthPlace, $applicantIne, $applicantAdress, $applicantFixNumber, $applicantPortNumber, $applicantMail, $applicantActivity) {
         $this->applicantSex        = $applicantSex;
         $this->applicantName       = $applicantName;
         $this->applicantFirstName  = $applicantFirstName;
@@ -270,22 +278,24 @@ class PagePdf{
         $this->applicantActivity   = $applicantActivity;
     }
 
-    public function setPhotoPath($photoPath){
+    public function setPhotoPath ($photoPath) {
         $this->photoPath = $photoPath;
     }
 
-    public function getPhotoPath(){
+    public function getPhotoPath () {
         return '<img src="' . $this->photoPath . '" alt="cadre_administration" style="width: 150px"/>';
     }
 
-    public function getApplicant(){
+
+    public function getApplicant () {
         return '<div class="titre_encadre">CANDIDAT</div>
                 <br>
                 <span class="bold">' . $this->applicantSex . '</span>
                 <br><br>
                 <table>
+                    <col style="width: 105%">
                     <tr>
-                        <td width="535">
+                        <td>
                             <span class="bold">Nom :</span> ' . $this->applicantName . '<br><br>
                             <span class="bold">Prénom :</span> ' . $this->applicantFirstName . '<br><br>
                             <span class="bold">Date de naissance :</span> ' . $this->applicantBirthPlace . '<br><br>
@@ -304,52 +314,51 @@ class PagePdf{
                 </div>';
     }
 
-    public function setPlanFormation ($etapes, $villesPossibles){
+    public function setPlanFormation ($etapes, $villesPossibles) {
         $this->etapes          = $etapes;
         $this->villesPossibles = $villesPossibles;
     }
 
-    public function printVillesPossibles (){
+    public function printVillesPossibles () {
         $villes = '';
-        foreach($this->villesPossibles as $villePossible){
+        foreach ($this->villesPossibles as $villePossible) {
             $villes .= $villePossible . ' ';
         }
         return $villes;
     }
 
-    public function printPlanFormation (){
+    public function printPlanFormation () {
         $nomEtapeOrdre = '';
         foreach ($this->etapes as $ordre => $etape) {
-            $nomEtapeOrdre .= '<tr><td text-align="center">' . $ordre . '</td>' .
-                                   '<td>' . $etape . '</td>
+            $nomEtapeOrdre .= '<tr><td text-align="center">' . $ordre . '</td>' . '<td>' . $etape . '</td>
                                     <td text-align="center"></td>
-                              </tr>' ;
+                              </tr>';
         }
         return $nomEtapeOrdre;
     }
 
-    public function getPlanFormation(){
+    public function getPlanFormation () {
         return '<br/><div class="titre_encadre">FORMATION ENVISAGE</div><br>
                 <table>
                     <col style="width: 8%">
-                    <col style="width: 70%">
-                    <col style="width: 28%">
+                    <col style="width: 68%">
+                    <col style="width: 29%">
 
                     <thead>
                         <tr>
                             <th text-align="center">Ordre</th>
                             <th text-align="center">Parcours</th>
-                            <th text-align="center"> Localisation : ' . $this->printVillesPossibles() . '</th>
+                            <th text-align="center"> Localisation : ' . $this->printVillesPossibles () . '</th>
                         </tr>
                     </thead>
-                    ' . $this->printPlanFormation() . '
+                    ' . $this->printPlanFormation () . '
                 </table>';
     }
 
     // <td class="planFormation" text-align="center">' . $this->formationName . '</td>
     // <td text-align="center"> ' . $this->formationPlace . '</td>
 
-    public function setPrevFormation ($serie, $yearAcquisition, $establishment, $departement, $country, $cursusPostBac){
+    public function setPrevFormation ($serie, $yearAcquisition, $establishment, $departement, $country, $cursusPostBac) {
         $this->serie           = $serie;
         $this->yearAcquisition = $yearAcquisition;
         $this->establishment   = $establishment;
@@ -358,20 +367,20 @@ class PagePdf{
         $this->cursusPostBac   = $cursusPostBac;
     }
 
-    public function printPostBac (){
+    public function printPostBac () {
         $postBac = '';
-        foreach($this->cursusPostBac as $cpb){
+        foreach ($this->cursusPostBac as $cpb) {
             $postBac .= '<tr>
-                <td text-align="center">' . $cpb->getAnneeDebut() . '-' . $cpb->getAnneeFin() . '</td>
-                <td text-align="center">' . $cpb->getEtablissement() . '</td>
-                <td text-align="center">' . $cpb->getCursus() . '</td>
-                <td text-align="center">' . $cpb->getNote() . '</td>
+                <td text-align="center">' . $cpb->getAnneeDebut () . '-' . $cpb->getAnneeFin () . '</td>
+                <td text-align="center">' . $cpb->getEtablissement () . '</td>
+                <td text-align="center">' . $cpb->getCursus () . '</td>
+                <td text-align="center">' . $cpb->getNote () . '</td>
             </tr>';
         }
         return $postBac;
     }
 
-    public function getPrevFormation (){
+    public function getPrevFormation () {
         return '
                 <div class="titre_encadre">CURSUS ANTÉRIEUR</div><br>
                 <div class="cadre" width="685">
@@ -399,30 +408,28 @@ class PagePdf{
                             <th class="center">Établissement</th>
                             <th class="center">Cursus suivi</th>
                             <th class="center">Validé</th>
-                        </tr>'
-        . $this->printPostBac() .
-        '</table>
+                        </tr>' . $this->printPostBac () . '</table>
     </div>';
     }
 
-    public function setProExperience ($proExperience){
+    public function setProExperience ($proExperience) {
         $this->proExperience = $proExperience;
     }
 
-    public function printProExperience (){
+    public function printProExperience () {
         $proExperience = '';
-        foreach ($this->proExperience as $proExp){
+        foreach ($this->proExperience as $proExp) {
             $proExperience .= '<tr>
-                <td text-align="center">' . $proExp->getMoisDebut() . '-' . $proExp->getAnneeDebut() . '</td>
-                <td text-align="center">' . $proExp->getMoisFin() . '-' . $proExp->getAnneeFin() . '</td>
-                <td text-align="center">' . $proExp->getEntreprise() . '</td>
-                <td text-align="center">' . $proExp->getFonction() . '</td>
+                <td text-align="center">' . $proExp->getMoisDebut () . '-' . $proExp->getAnneeDebut () . '</td>
+                <td text-align="center">' . $proExp->getMoisFin () . '-' . $proExp->getAnneeFin () . '</td>
+                <td text-align="center">' . $proExp->getEntreprise () . '</td>
+                <td text-align="center">' . $proExp->getFonction () . '</td>
             </tr>';
         }
         return $proExperience;
     }
 
-    public function getProExperience (){
+    public function getProExperience () {
         return '<br/><div class="bold_underline">Expérience professionnelle (emplois, stages, jobs étdudiants):</div><br/>
                 <table class="t_postBac">
                     <col style="width: 15%">
@@ -434,84 +441,81 @@ class PagePdf{
                         <th class="col3 center">Date fin</th>
                         <th class="col4 center">Entreprise</th>
                         <th class="col6 center">Fonction</th>
-                    </tr> '.
-        $this->printProExperience()
-        . '</table>';
+                    </tr> ' . $this->printProExperience () . '</table>';
     }
 
-    public function setOther ($foreignLanguage, $otherElements){
-        $this->foreignLanguage      = $foreignLanguage;
-        $this->otherElements        = $otherElements;
+    public function setOther ($foreignLanguage, $otherElements) {
+        $this->foreignLanguage = $foreignLanguage;
+        $this->otherElements   = $otherElements;
     }
 
-    public function getOther (){
+    public function getOther () {
         return '<br/>
         <div class="bold_underline">Langues étrangères (lu, écrit, parlé) :</div><br/>' . $this->foreignLanguage . '<br/><br/>
         <div class="bold_underline">Autres éléments appuyant votre candidature :</div><br/>' . $this->otherElements . '<br/>';
     }
 
-    public function setInformationsSpecifiques($informationsSpecifiques ){
+    public function setInformationsSpecifiques ($informationsSpecifiques) {
         $this->informationsSpecifiques = $informationsSpecifiques;
     }
 
-    public function getInformationsSpecifiques (){
+    public function getInformationsSpecifiques () {
         return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES</div><br/>' . $this->informationsSpecifiques;
     }
 
-    public function setDocumentsGeneraux ($documentsGeneraux){
+    public function setDocumentsGeneraux ($documentsGeneraux) {
         $this->documentsGeneraux = $documentsGeneraux;
     }
 
-    public function printDocumentsGeneraux (){
+    public function printDocumentsGeneraux () {
         $doc = '<ul>';
-        foreach($this->documentsGeneraux as $documentGeneral){
-            $doc .= '<li>' . $documentGeneral->getNom() . '<br><br></li>';
+        foreach ($this->documentsGeneraux as $documentGeneral) {
+            $doc .= '<li>' . $documentGeneral->getNom () . '<br><br></li>';
         }
         $doc .= '</ul>';
         return $doc;
     }
 
-    public function getDocumentsGeneraux (){
-        return '<div class="titre_encadre">PIECES A JOINDRE GENERALES</div><br/>'
-        . $this->printDocumentsGeneraux();
+    public function getDocumentsGeneraux () {
+        return '<div class="titre_encadre">PIECES A JOINDRE GENERALES</div><br/>' . $this->printDocumentsGeneraux ();
     }
 
-    public function setDocumentsSpecifiques($documentsSpecifiques){
+    public function setDocumentsSpecifiques ($documentsSpecifiques) {
         $this->documentsSpecifiques = $documentsSpecifiques;
     }
 
-    public function printDocumentsSpecifiques (){
+    public function printDocumentsSpecifiques () {
         $doc = '<ul>';
-        foreach($this->documentsSpecifiques as $documentSpecifique){
-            $doc .= '<li>' . $documentSpecifique->getNom() . '<br><br></li>';
+        foreach ($this->documentsSpecifiques as $documentSpecifique) {
+            $doc .= '<li>' . $documentSpecifique->getNom () . '<br><br></li>';
         }
         $doc .= '</ul>';
         return $doc;
     }
 
-    public function getDocumentsSpecifiques (){
-        return '<div class="titre_encadre">PIECES A JOINDRE SPECIFIQUES</div><br/>'
-        . $this->printDocumentsSpecifiques();
+    public function getDocumentsSpecifiques () {
+        return '<div class="titre_encadre">PIECES A JOINDRE SPECIFIQUES</div><br/>' . $this->printDocumentsSpecifiques ();
     }
 
-    public function setRowAdmin($rowAdmin){
+    public function setRowAdmin ($rowAdmin) {
         $this->rowAdmin = $rowAdmin;
     }
 
-    public function getRowAdmin($rowAdmin){
-        if ($rowAdmin){
+    public function getRowAdmin ($rowAdmin) {
+        if ($rowAdmin) {
             return '<input type="checkbox" name="suggestion">Proposition admission en niveau inférieur<br/>
-                    ………………………………………………………………………………………………………………………………………………………………………<br/>
-                    ………………………………………………………………………………………………………………………………………………………………………<br/><br/>';
+                    ………………………………………………………………………………………………………………………………………<br/>
+                    ………………………………………………………………………………………………………………………………………<br/><br/>';
+
         }
     }
 
-    public function getCadreSemester (){
+    public function getCadreSemester () {
         return $this->voeuxMultiple . '<br><br><input type="checkbox"> S1
                 <input type="checkbox"> S2';
     }
 
-    public function getCadreAdministration(){
+    public function getCadreAdministration () {
         return '<div class="cadreRouge"><span class="titre3 bold_underline">CADRE RESERVE A L’ADMINISTRATION</span><br/><br/><br/>
                 <div class="bold_underline">AVIS DU RESPONSABLE PEDAGOGIQUE DE LA FORMATION :</div><br/>
                 <form method="POST" action="">
@@ -520,7 +524,7 @@ class PagePdf{
                             <th style="border-top:none;border-left:none;" colspan="2"></th>
                             <th class="center">UE bénéficiant de la dispense</th>
                         </tr>
-                        ' . $this->getVoeux($this->tableauVoeux, $this->voeuxMultiple) . '
+                        ' . $this->getVoeux ($this->tableauVoeux, $this->voeuxMultiple) . '
                         <tr>
                             <td class="center bold" colspan="2">Motif du refus</td>
                             <td>
@@ -532,14 +536,14 @@ class PagePdf{
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3">' . $this->getRowAdmin($this->rowAdmin) . '</td>
+                            <td colspan="3">' . $this->getRowAdmin ($this->rowAdmin) . '</td>
                         </tr>
                         <tr>
                             <td colspan="3">
                             <input type="checkbox" name="suggestion">Suggestion éventuelle de réorientation<br/>
-                                ………………………………………………………………………………………………………………………………………………………………………<br/>
-                                ………………………………………………………………………………………………………………………………………………………………………<br/>
-                                ………………………………………………………………………………………………………………………………………………………………………
+                                ………………………………………………………………………………………………………………………………………<br/>
+                                ………………………………………………………………………………………………………………………………………<br/>
+                                ………………………………………………………………………………………………………………………………………
                             </td>
                         </tr>
                         <tr>
@@ -553,13 +557,13 @@ class PagePdf{
                             <col style="width: 33%">
                             <col style="width: 33%">
                             <tr>
-                                <td class="bold no-border">
-                                    <input type="checkbox" class="bold">ADMIS
+                                <td class=no-border bold">
+                                    <input type="checkbox">ADMIS
                                 </td>
-                                <td class="bold no-border">
-                                    <input type="checkbox" class="bold">REFUSE
+                                <td class="no-border bold">
+                                    <input type="checkbox">REFUSE
                                 </td>
-                                <td class="bold no-border">
+                                <td class="no-border bold">
                                     <input type="checkbox">LISTE D’ATTENTE
                                 </td>
                             </tr>
@@ -576,22 +580,22 @@ class PagePdf{
                 </div>';
     }
 
-    public function setVoeuxMultiple ($voeuxMultiple){
+    public function setVoeuxMultiple ($voeuxMultiple) {
         $this->voeuxMultiple = $voeuxMultiple;
     }
 
-    public function getVoeux($voeux, $voeuxMultiple){
+    public function getVoeux ($voeux, $voeuxMultiple) {
         $voeuxFormation = '';
-        if($voeuxMultiple){
-            foreach($voeux as $element){
-                $voeuxFormation.=  '  <tr>
+        if ($voeuxMultiple) {
+            foreach ($voeux as $element) {
+                $voeuxFormation .= '  <tr>
                         <td><input type="checkbox" name="nom">Admis<br/>
                         <input type="checkbox" name="nom">Refusé</td>
                         <td style="width:110px;>' . $element . '<br/><br/></td>
                         <td></td>
                         </tr>';
             }
-        }else{
+        } else {
             $voeuxFormation = '<tr>
                             <td width="100">
                                 <input type="checkbox" name="nom">Admis
@@ -602,36 +606,32 @@ class PagePdf{
                             <td class="border-bottom-none"></td>
                         </tr>
                         <tr>
-                            <td colspan="2" width="200">' . $this->getCadreSemester() . '<br/></td>
+                            <td colspan="2" width="200">' . $this->getCadreSemester () . '<br/></td>
                             <td></td>
                         </tr>';
         }
         return $voeuxFormation;
     }
 
-    public function setCadreAdministrationVoeux($tableauVoeux){
+    public function setCadreAdministrationVoeux ($tableauVoeux) {
         $this->tableauVoeux = $tableauVoeux;
     }
 
-    public function getFicheCommissionPeda(){
+    public function getFicheCommissionPeda () {
         return '<div class="titre_encadre">FICHE COMMISSION PEDAGOGIQUE</div><br/>
                 <div class="text_align">Commission pédagogique du :………………………………………</div><br/>
                 <div>Nom et Prénom du candidat : ' . $this->applicantName . ' ' . $this->applicantFirstName . '</div>
                 <br/><div>Demande l’autorisation de s’inscrire en : ' . $this->title2 . '<br/></div><br/>
                 <div>Dernier diplôme obtenu : </div><br/>
-                <div>Date et lieu : le ' . date("d/m/Y") . ' à </div><br/><br/>';
+                <div>Date et lieu : le ' . date ("d/m/Y") . ' à </div><br/><br/>';
     }
 
-    public function __toString (){
-        return $this->getCssPath() .
-        $this->getPageBegin() . $this->pagePdfHeader . $this->pagePdfFooter . $this->getFormationTitle() . $this->getDegreeHolder() . $this->getApplicant() . $this->getPlanFormation() . $this->getPageEnd() .
-        $this->getNewPage() . $this->getPrevFormation() . $this->getProExperience() . $this->getOther() . $this->getPageEnd() .
-        //$this->getNewPage() . $this->getOther() . $this->getPageEnd() .
-        $this->getNewPage() . $this->getInformationsSpecifiques() . $this->getPageEnd() .
-        // $this->getNewPage() . $this->getDocumentsGeneraux() . $this->getPageEnd() .
+    public function __toString () {
+        return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->getFormationTitle () . $this->getDegreeHolder () . $this->getApplicant () . $this->getPlanFormation () . $this->getPageEnd () . $this->getNewPage () . $this->getPrevFormation () . $this->getProExperience () . $this->getOther () . $this->getPageEnd () . //$this->getNewPage() . $this->getOther() . $this->getPageEnd() .
+        $this->getNewPage () . $this->getInformationsSpecifiques () . $this->getPageEnd () . // $this->getNewPage() . $this->getDocumentsGeneraux() . $this->getPageEnd() .
         //$this->getNewPage() . $this->getDocumentsSpecifiques() . $this->getPageEnd() .
         //$this->getNewPage() . $this->getDossierModalite() . $this->getPageEnd() .
-        $this->getNewPage() . $this->getFicheCommissionPeda() . $this->getCadreAdministration() . $this->getPageEnd();
+        $this->getNewPage () . $this->getFicheCommissionPeda () . $this->getCadreAdministration () . $this->getPageEnd ();
     }
 }
 
