@@ -76,33 +76,35 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <label for="annee_date_naissance">Date de naissance</label> <span class="en">Birthdate</span>
-                        <select class="form-control required" id="jour_date_naissance" name="jour_date_naissance">
-                            {% for i in 1..31 %}
-                                <option value="{% if i < 10 %}0{% endif %}{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <select class="form-control required" id="mois_date_naissance" name="mois_date_naissance">
-                            {% for unMois in mois %}
-                                <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <select class="form-control required" id="annee_date_naissance" name="annee_date_naissance">
-                            {% set ecart = anneeBasse - 60 %}
-                            {% for i in ecart..anneeBasse %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
+                        <div class="col-md-12">
+                            <label for="annee_date_naissance">Date de naissance</label> <span
+                                    class="en">Birthdate</span>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control required" id="jour_date_naissance" name="jour_date_naissance">
+                                {% for i in 1..31 %}
+                                    <option value="{% if i < 10 %}0{% endif %}{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <select class="form-control required" id="mois_date_naissance" name="mois_date_naissance">
+                                {% for unMois in mois %}
+                                    <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control required" id="annee_date_naissance" name="annee_date_naissance">
+                                {% set ecart = anneeBasse - 60 %}
+                                {% for i in ecart..anneeBasse %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -144,7 +146,7 @@
                     <div class="form-group">
                         <label for="adresses">Adresse</label> <span class="en">Adresse</span>
                         <input type="text" class="form-control required" id="adresse" name="adresse"
-                               placeholder="Votre adresse" data-validation="required"/>
+                               placeholder="Votre adresse" data-validation="required" />
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -152,7 +154,7 @@
                         <label for="complement">Complément d'adresse</label>
                         <span class="label label-info">Optionnel</span>
                         <input type="text" class="form-control" id="complement" name="complement"
-                               placeholder="Bâtiment, étage, appartement ..."/>
+                               placeholder="Bâtiment, étage, appartement ..." />
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -161,7 +163,7 @@
                         <input type="text" class="form-control required" id="code_postal" name="code_postal"
                                placeholder="Votre code postal" data-validation="custom"
                                data-validation-regexp="(^[0-9]{5}$)"
-                               data-validation-error-msg="Veuillez entrer un code postal valide"/>
+                               data-validation-error-msg="Veuillez entrer un code postal valide" />
                     </div>
                 </div>
             </div>
@@ -171,7 +173,7 @@
                         <label for="ville">Ville</label> <span class="en">City</span>
                         <input type="text" class="form-control required" id="ville" name="ville"
                                placeholder="Votre ville"
-                               data-validation="required"/>
+                               data-validation="required" />
                     </div>
                 </div>
             </div>
@@ -189,14 +191,14 @@
                         <input type="tel" class="form-control required" id="portable" name="portable"
                                placeholder="Votre numéro" data-validation="custom"
                                data-validation-regexp="(^(06|07)[0-9]{8}$)"
-                               data-validation-error-msg="Veuillez entrer un numéro valide"/>
+                               data-validation-error-msg="Veuillez entrer un numéro valide" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="mail">Adresse électronique</label> <span class="en">E-mail</span>
                         <input type="email" class="form-control required" id="mail" name="mail" placeholder="Votre mail"
-                               data-validation="email"/>
+                               data-validation="email" />
                     </div>
                 </div>
             </div>
@@ -213,21 +215,21 @@
                     <div class="form-group">
                         <label for="serie_bac">Série</label> <span class="en">Type</span>
                         <input type="text" class="form-control required" id="serie_bac" name="serie_bac"
-                               placeholder="Votre série" data-validation="required"/>
+                               placeholder="Votre série" data-validation="required" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="annee_bac">Année d'obtention du bac</label> <span class="en">Year</span>
                         <input type="text" class="form-control required" id="annee_bac" name="annee_bac"
-                               placeholder="Votre année d'obtention" data-validation="required"/>
+                               placeholder="Votre année d'obtention" data-validation="required" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="etablissement_bac">Etablissement</label> <span class="en">Establishment</span>
                         <input type="text" class="form-control required" id="etablissement_bac" name="etablissement_bac"
-                               placeholder="Votre établissement" data-validation="required"/>
+                               placeholder="Votre établissement" data-validation="required" />
                     </div>
                 </div>
             </div>
@@ -235,15 +237,24 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="departement_bac">Département</label> <span class="en">Department</span>
-                        <input type="text" class="form-control required" id="departement_bac" name="departement_bac"
-                               placeholder="Votre département" data-validation="required"/>
+                        <select class="form-control required" id="departement_bac" name="departement_bac"
+                               placeholder="Votre département">
+                            <option value="">Autre</option>
+                        {% for num,departement in departements %}
+                            <option value="{{ num }}">{{ departement }}</option>
+                        {% endfor %}
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="pays_bac">Pays</label> <span class="en">Country</span>
-                        <input type="text" class="form-control required" id="pays_bac" name="pays_bac"
-                               placeholder="Votre pays" data-validation="required"/>
+                        <select class="form-control required" id="pays_bac" name="pays_bac"
+                               placeholder="Votre pays" data-validation="required">
+                        {% for num,unPaysUe in paysUe %}
+                            <option {% if num == 'FR' %}selected="selected"{% endif %} value="{{ num }}">{{ unPaysUe }} ({{ num }})</option>
+                        {% endfor %}
+                        </select>
                     </div>
                 </div>
             </div>
