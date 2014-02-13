@@ -2,7 +2,7 @@
 
 <input type="hidden" id="autre" name="autre" value=""/>
 <div class="panel panel-primary">
-    <div class="panel-heading">Candidat</div>
+    <div class="panel-heading">Candidat <span class="en_cadre"> / Applicant</span></div>
     <div class="panel-body">
         <div class="well">
             <div class="row">
@@ -63,6 +63,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="nom">Nom</label> <span class="en">Last name</span>
+                        <span class="label label-danger">Requis</span>
                         <input type="text" class="form-control required" id="nom" name="nom" placeholder="Votre nom"
                                data-validation="required" data-validation="length" data-validation-length="min4"/>
                     </div>
@@ -70,6 +71,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="prenom">Prénom</label> <span class="en">First name</span>
+                        <span class="label label-danger">Requis</span>
                         <input type="text" class="form-control required" id="prenom" name="prenom"
                                placeholder="Votre prenom" data-validation="required"/>
                     </div>
@@ -79,10 +81,12 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="col-md-12">
-                            <label for="annee_date_naissance">Date de naissance</label> <span
-                                    class="en">Birthdate</span>
+                            <label for="annee_date_naissance">Date de naissance</label> 
+                            <span class="en">Birthdate</span>
+                            <span class="label label-danger">Requis</span>
                         </div>
                         <div class="col-md-4">
+                           
                             <select class="form-control required" id="jour_date_naissance" name="jour_date_naissance">
                                 {% for i in 1..31 %}
                                     <option value="{% if i < 10 %}0{% endif %}{{ i }}">{{ i }}</option>
@@ -110,6 +114,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="lieu_naissance">Lieu de naissance</label> <span class="en">Birth place</span>
+                        <span class="label label-danger">Requis</span>
                         <input type="text" class="form-control required" id="lieu_naissance" name="lieu_naissance"
                                placeholder="Votre lieu de naissance" data-validation="required"/>
                     </div>
@@ -117,6 +122,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="nationalite">Nationalité</label> <span class="en">Citizenship</span>
+                        <span class="label label-danger">Requis</span>
                         <input type="text" class="form-control required" id="nationalite" name="nationalite"
                                placeholder="Votre nationalité" data-validation="required"/>
                     </div>
@@ -138,13 +144,14 @@
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Coordonnées & contact <span class="en">Address & contact</span></div>
+    <div class="panel-heading">Coordonnées & contact <span class="en_cadre"> / Address & contact</span></div>
     <div class="panel-body">
         <div class="well">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="adresses">Adresse</label> <span class="en">Adresse</span>
+                        <span class="label label-danger">Requis</span>
                         <input type="text" class="form-control required" id="adresse" name="adresse"
                                placeholder="Votre adresse" data-validation="required" />
                     </div>
@@ -152,7 +159,6 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="complement">Complément d'adresse</label>
-                        <span class="label label-info">Optionnel</span>
                         <input type="text" class="form-control" id="complement" name="complement"
                                placeholder="Bâtiment, étage, appartement ..." />
                     </div>
@@ -160,6 +166,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="code_postal">Code postal</label> <span class="en">Zip code</span>
+                        <span class="label label-danger">Requis</span>
                         <input type="text" class="form-control required" id="code_postal" name="code_postal"
                                placeholder="Votre code postal" data-validation="custom"
                                data-validation-regexp="(^[0-9]{5}$)"
@@ -171,6 +178,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="ville">Ville</label> <span class="en">City</span>
+                        <span class="label label-danger">Requis</span>
                         <input type="text" class="form-control required" id="ville" name="ville"
                                placeholder="Votre ville"
                                data-validation="required" />
@@ -181,7 +189,6 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="fixe">Téléphone fixe</label> <span class="en">Phone number</span>
-                        <span class="label label-info">Optionnel</span>
                         <input type="tel" class="form-control" id="fixe" name="fixe" placeholder="Votre numéro"/>
                     </div>
                 </div>
@@ -197,6 +204,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="mail">Adresse électronique</label> <span class="en">E-mail</span>
+                        <span class="label label-danger">Requis</span>
                         <input type="email" class="form-control required" id="mail" name="mail" placeholder="Votre mail"
                                data-validation="email" />
                     </div>
@@ -207,13 +215,14 @@
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Baccalauréat ou équivalent <span class="en">High school diploma</span></div>
+    <div class="panel-heading">Baccalauréat ou équivalent <span class="en_cadre"> / High school diploma</span></div>
     <div class="panel-body">
         <div class="well">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="serie_bac">Série</label> <span class="en">Type</span>
+                        <span class="label label-danger">Requis</span>
                         <input type="text" class="form-control required" id="serie_bac" name="serie_bac"
                                placeholder="Votre série" data-validation="required" />
                     </div>
@@ -221,6 +230,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="annee_bac">Année d'obtention du bac</label> <span class="en">Year</span>
+                        <span class="label label-danger">Requis</span>
                         <input type="text" class="form-control required" id="annee_bac" name="annee_bac"
                                placeholder="Votre année d'obtention" data-validation="required" />
                     </div>
@@ -228,6 +238,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="etablissement_bac">Etablissement</label> <span class="en">Establishment</span>
+                        <span class="label label-danger">Requis</span>
                         <input type="text" class="form-control required" id="etablissement_bac" name="etablissement_bac"
                                placeholder="Votre établissement" data-validation="required" />
                     </div>
@@ -263,12 +274,13 @@
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Langues étrangères <span class="en">Foreign languages</span></div>
+    <div class="panel-heading">Langues étrangères <span class="en_cadre"> / Foreign languages</span></div>
     <div class="panel-body">
         <div class="col-md-12">
             <div class="form-group">
                 <label for="langues">Lue(s), écrite(s), parlée(s)</label> <span
                         class="en">reading, writing, speaking</span>
+                <span class="label label-danger">Requis</span>
                 <textarea class="form-control required" id="langues" name="langues"
                           data-validation="required"></textarea>
             </div>
@@ -277,7 +289,7 @@
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Autres <span class="en">Others</span></div>
+    <div class="panel-heading">Autres <span class="en_cadre"> / Others</span></div>
     <div class="panel-body">
         <div class="well">
             <div class="row">
@@ -285,7 +297,6 @@
                     <div class="form-group">
                         <label for="autres_elements">Autres éléments appuyant votre candidature</label> <span
                                 class="en">More informations</span>
-                        <span class="label label-info">Optionnel</span>
                         <textarea class="form-control" id="autres_elements" name="autres_elements"></textarea>
                     </div>
                 </div>
@@ -294,6 +305,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="activite">Activité actuelle *</label> <span class="en">Current situation (student, employee, other)</span>
+                        <span class="label label-danger">Requis</span>
                         <textarea class="form-control required" id="activite" name="activite"
                                   data-validation="required"></textarea>
 
