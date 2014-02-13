@@ -273,9 +273,33 @@ $villesPossibles = array_unique($villesPossibles);
         break;
     case 'logoDossierPdf' :
     {
+        $code     = $_GET['code'];
+        $logoPath = "./public/img/logos/" . $code;
+        $empty    = is_dir_empty($logoPath);
+        $logoName = $empty ? "" : getFileName($logoPath);
+        //var_dump($logoName);
+
         echo $twig->render ('formation/logoDossierPdf.html.twig', array (
-            'code' => $_GET['code']
+            'code' => $code,
+            'empty' => $empty,
+            'logoName' => $logoName
         ));
+    }
+        break;
+    case 'suppressionLogo' :
+    {
+        $code     = $_GET['code'];
+        $logoName = $_GET['logoName'];
+        $logoPathName = "./public/img/logos/" . $code . "/" . $logoName;
+        //chmod ('./public/img/logos/' . $code . '/' . $logoName . "/", 0777);
+        unlink ($logoPathName);
+    }
+        break;
+    case 'uploadLogo' :
+    {
+        $code = $_GET['code'];
+        //$logoName = $empty ? "" : getFileName ($logoPath);
+        upload('./public/img/logos/' . $code . '/');
     }
         break;
     default:
