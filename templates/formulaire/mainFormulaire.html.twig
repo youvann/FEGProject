@@ -178,7 +178,7 @@
                         data: 'indice=' + (nbCursus + 1),
                         dataType: 'html',
                         success: function (html) {
-                            $("#blockCursus-" + nbCursus).after().append(html);
+                            $("#blockCursus-" + nbCursus).after(html);
                             $("#addCursus").removeAttr("disabled");
                             nbCursus = nbCursus + 1;
                         }
@@ -208,7 +208,7 @@
                         data: 'indice=' + (nbExperiences + 1),
                         dataType: 'html',
                         success: function (html) {
-                            $("#blockExperience-" + nbExperiences).after().append(html);
+                            $("#blockExperience-" + nbExperiences).after(html);
                             $("#addExperience").removeAttr("disabled");
                             nbExperiences = nbExperiences + 1;
                         }
