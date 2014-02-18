@@ -122,7 +122,18 @@
             };
 
             $.validate({
-                language: myLanguageFR
+                language: myLanguageFR,
+                onError: function () {
+                    alert('Validation failed');
+                },
+                onSuccess: function () {
+                    alert('The form is valid!');
+                    return false; // Will stop the submission of the form
+                }
+            });
+
+            $('.error').each(function(){
+               $(this).addClass('.has-error');
             });
 
             // Envoi du formulaire
