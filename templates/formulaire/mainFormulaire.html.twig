@@ -39,6 +39,27 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sûr(e) de vouloir réaliser cette action ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 {% endblock %}
 
 {% block scripts %}
@@ -147,7 +168,8 @@
 
             $("#addCursus").click(function () {
                 if (nbCursus === 10) {
-                    alert('NON'); // remplacer par un modal
+                    $('.modal-body').html('Vous ne pouvez pas renseigner plus de 10 cursus.');
+                    $('#myModal').modal('show');
                 } else {
                     $(this).attr("disabled", "disabled");
                     $.ajax({
@@ -165,7 +187,8 @@
             });
             $("#removeCursus").click(function () {
                 if (nbCursus === 1) {
-                    alert('NON'); // remplacer par un modal
+                    $('.modal-body').html('Vous devez renseigner au moins un cursus.');
+                    $('#myModal').modal('show');
                 } else {
                     $(this).attr("disabled", "disabled");
                     $("#blockCursus-" + nbCursus).remove();
@@ -175,7 +198,8 @@
             });
             $("#addExperience").click(function () {
                 if (nbExperiences === 10) {
-                    alert('NON'); // remplacer par un modal
+                    $('.modal-body').html('Vous ne pouvez pas renseigner plus de 10 expériences.');
+                    $('#myModal').modal('show');
                 } else {
                     $(this).attr("disabled", "disabled");
                     $.ajax({
@@ -193,7 +217,8 @@
             });
             $("#removeExperience").click(function () {
                 if (nbExperiences === 1) {
-                    alert('NON'); // remplacer par un modal
+                    $('.modal-body').html('Vous devez renseigner au moins une expérience professionnelle.');
+                    $('#myModal').modal('show');
                 } else {
                     $(this).attr("disabled", "disabled");
                     $("#blockExperience-" + nbExperiences).remove();
