@@ -118,7 +118,7 @@
                             name="annee_date_naissance" style="width: 200px;">
                         {% set ecart = anneeBasse - 60 %}
                         {% for i in ecart..anneeBasse %}
-                            <option value="{{ i }}">{{ i }}</option>
+                            <option {% if i == "now" | date('Y') %}selected="selected" {% endif %} value="{{ i }}">{{ i }}</option>
                         {% endfor %}
                     </select>
 
@@ -292,9 +292,9 @@
                 <div class="form-group">
                     <label for="pays_bac">Pays</label> <span
                             class="en">Country</span>
-                    <select class="form-control required" id="pays_bac"
+                    <select class="form-control" id="pays_bac"
                             name="pays_bac"
-                            placeholder="Votre pays" data-validation="required">
+                            placeholder="Votre pays">
                         {% for num,unPaysUe in paysUe %}
                             <option {% if num == 'FR' %}selected="selected"{% endif %}
                                     value="{{ num }}">{{ unPaysUe }} ({{ num }})

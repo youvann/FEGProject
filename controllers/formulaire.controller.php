@@ -106,12 +106,15 @@ switch ($action) {
         break;
     case "traiterMainFormulaire":
     {
+//        var_dump($_POST);
+//        var_dump(formatString($_POST['nom']));
+//        var_dump (formatString ($_POST['code_postal']));
         $postInformations = array_slice($_POST, 69);
         $structure        = $translatorResultsetToStructure->translate($informationManager->getResultset($formationManager->find($_SESSION['choisie'])));
         $json             = $translatorFormToJson->translate($structure, $postInformations);
 
         // Changer le code formation !!
-        $dossier = new Dossier($_POST["ine"], $_SESSION['choisie'], "", $_POST["nom"], $_POST["prenom"], $_POST["adresse"], $_POST["complement"], $_POST["code_postal"], $_POST["ville"], $_POST["date_naissance"], $_POST["lieu_naissance"], $_POST["fixe"], $_POST["portable"], $_POST["mail"], $_POST["genre"], $_POST["langues"], $_POST["nationalite"], $_POST["serie_bac"], $_POST["annee_bac"], $_POST["etablissement_bac"], $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["autre"], $_POST["titulaire"], $_POST["ville_preferee"], $_POST["autres_elements"], $json, NULL);
+        $dossier = new Dossier($_POST["ine"], $_SESSION['choisie'], "", formatString($_POST["nom"]), formatString($_POST["prenom"]), formatString($_POST["adresse"]), $_POST["complement"], formatString($_POST["code_postal"]), formatString($_POST["ville"]), $_POST["date_naissance"], formatString($_POST["lieu_naissance"]), $_POST["fixe"], $_POST["portable"], $_POST["mail"], $_POST["genre"], formatString($_POST["langues"]), formatString($_POST["nationalite"]), $_POST["serie_bac"], $_POST["annee_bac"], formatString($_POST["etablissement_bac"]), $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["autre"], $_POST["titulaire"], $_POST["ville_preferee"], formatString($_POST["autres_elements"]), $json, NULL);
 
         if (!$etudiantManager->ifExists(new Etudiant($_POST["ine"], 1))) {
             $etudiantManager->insert(new Etudiant($_POST["ine"], 1));
@@ -140,7 +143,6 @@ switch ($action) {
         }
 
         /* GENERATION PDF HERE */
-
         $formation       = $formationManager->find($_SESSION['choisie']);
         $dossier         = $dossierManager->find($_SESSION['ine'], $_SESSION['choisie']);
         $titulaire       = $titulaireManager->findAll();

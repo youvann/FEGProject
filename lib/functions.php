@@ -158,3 +158,11 @@ function upload ($output_dir) {
         echo json_encode ($ret);
     }
 }
+
+function formatString($string){
+    $mot = ltrim($string);
+    $mot = rtrim($mot);
+    $mot = strtolower($mot);
+    $mot = ucfirst($mot);
+    return $mot;
+}

@@ -8,7 +8,7 @@
     {% endif %}
     {% for i in 1..nbListes %}
         <div class="form-group">
-            <label for="voeu-{{ i }}">Sélectionnez votre voeu n°{{ i }}</label> <span
+            <label for="voeu-{{ i }}">Sélectionnez votre voeu n°{{ i }}</label> <span></span>
             <select class="form-control" id="voeu-{{ i }}" name="voeu[]">
                 {% for voeu in voeux %}
                     {% set villes = voeu.villes %}
@@ -28,3 +28,4 @@
     </div>
 </div>
 </div>
+

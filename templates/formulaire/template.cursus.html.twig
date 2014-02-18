@@ -1,57 +1,61 @@
 <div id="blockCursus-{{ indice }}">
-    <hr />
-    <div class="row">
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="anneeDebutCursus-{{ indice }}">Année de début</label>
-                <select class="form-control required"
-                        id="anneeDebutCursus-{{ indice }}"
-                        name="anneeDebutCursus[]"
-                        data-validation="required">
-                    {% set ecart = anneeBasse - 60 %}
-                    {% for i in ecart..anneeBasse %}
-                        <option value="{{ i }}">{{ i }}</option>
-                    {% endfor %}
-                </select>
+    <div class="well well-lg">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="anneeDebutCursus-{{ indice }}">Année de début</label>
+                    <select class="form-control required"
+                            id="anneeDebutCursus-{{ indice }}"
+                            name="anneeDebutCursus[]">
+                        {% set ecart = anneeBasse - 60 %}
+                        {% for i in ecart..anneeBasse %}
+                            <option {% if i == "now" | date('Y') - 1 %}selected="selected" {% endif %} value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="anneeFinCursus-{{ indice }}">Année de fin</label>
+                    <select class="form-control required"
+                            id="anneeFinCursus-{{ indice }}"
+                            name="anneeFinCursus[]">
+                        {% set ecart = anneeBasse - 60 %}
+                        {% for i in ecart..anneeBasse %}
+                            <option {% if i == "now" | date('Y') %}selected="selected" {% endif %} value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="etablissement-{{ indice }}">Etablissement</label> <span
+                            class="en">Establishment</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control required"
+                           id="etablissement-{{ indice }}"
+                           name="etablissement[]" data-validation="required"/>
+                </div>
             </div>
         </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="anneeFinCursus-{{ indice }}">Année de fin</label>
-                <select class="form-control required"
-                        id="anneeFinCursus-{{ indice }}"
-                        name="anneeFinCursus[]" data-validation="required">
-                    {% set ecart = anneeBasse - 60 %}
-                    {% for i in ecart..anneeBasse %}
-                        <option value="{{ i }}">{{ i }}</option>
-                    {% endfor %}
-                </select>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="valide-{{ indice }}">Note (résultat)</label>
+                    <span class="en">Mark</span>
+                    <input type="text" class="form-control" id="valide-{{ indice }}"
+                           name="valide[]"/>
+                </div>
             </div>
-        </div>
-        <div class="col-md-8">
-            <div class="form-group">
-                <label for="etablissement-{{ indice }}">Etablissement</label>
-                <input type="text" class="form-control required"
-                       id="etablissement-{{ indice }}"
-                       name="etablissement[]" data-validation="required"/>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="valide-{{ indice }}">Note (résultat) <span class="label label-info">Optionnel</span>
-                </label>
-                <span class="en">Mark</span>
-                <input type="text" class="form-control" id="valide-{{ indice }}" name="valide[]" />
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="form-group">
-                <label for="cursus-{{ indice }}">Cursus suivi</label> <span class="en">Followed formation</span>
-                <input type="text" class="form-control required"
-                       id="cursus-{{ indice }}" name="cursus[]"
-                       data-validation="required"/>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="cursus-{{ indice }}">Cursus suivi</label> <span
+                            class="en">Followed formation</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control required"
+                           id="cursus-{{ indice }}" name="cursus[]"
+                           data-validation="required"/>
+                </div>
             </div>
         </div>
     </div>

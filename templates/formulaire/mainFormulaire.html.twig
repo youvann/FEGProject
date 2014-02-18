@@ -2,23 +2,17 @@
 
 {% block content %}
 
-    <div class="row" style="margin-top: 1em;">
+    <div class="row">
         <div class="col-md-12">
             <h2 class="titre_rubrique">
                 {% if typedossier == 'CA' %}Candidature{% elseif typedossier == 'PI' %}Pré-inscription{% endif %}
-                en {{ formation.mention }} pour l'année scolaire {{ anneeBasse }}-{{ anneeHaute }}
+                en {{ formation.mention }} pour l'année scolaire {{ anneeBasse }}
+                -{{ anneeHaute }}
             </h2>
 
-            <form role="form" id="mainFormulaire" action="index.php?uc=formulaire&action=traiterMainFormulaire"
+            <form role="form" id="mainFormulaire"
+                  action="index.php?uc=formulaire&action=traiterMainFormulaire"
                   method="post" autocomplete="on">
-                {% if formation.modalites is not empty %}
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Modalités</div>
-                        <div class="panel-body">
-                            {{ formation.modalites|raw }}
-                        </div>
-                    </div>
-                {% endif %}
                 {% include 'formulaire/informationsGenerales.html.twig' %}
                 {% if typedossier == 'CA' %}
                     {% include 'formulaire/postBacExperiences.html.twig' %}
@@ -28,17 +22,49 @@
                     {% endif %}
                     {% include 'formulaire/documentsGeneraux.html.twig' %}
                 {% endif %}
-            </form>
-            <button id="customSubmit" class="btn btn-primary">
-                <span class="glyphicon glyphicon-ok"></span> Envoyer
-            </button>
-            <br/><br/>
 
-            <div class="alert alert-warning">Le traitement du formulaire peut prendre plusieurs secondes. Veuillez
-                patienter et ne pas recharger la page.
-            </div>
+                {% if formation.modalites is not empty %}
+                    <div class="well well-fg">
+                        {{ formation.modalites | raw }}
+                    </div>
+                {% endif %}
+                {% if formation.informations is not empty %}
+                    <div class="well well-fg">
+                        {{ formation.informations | raw }}
+                    </div>
+                {% endif %}
+
+                <button id="customSubmit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-ok"></span> Envoyer
+                </button>
+            </form>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sûr(e) de vouloir réaliser cette action ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">Ok
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 {% endblock %}
 
 {% block scripts %}
@@ -73,18 +99,16 @@
                 cancelStr: "Annuler",
                 deletelStr: "Supprimer",
                 showDone: false,
-                deleteCallback: function (data, pd) {
-                    for (var i = 0; i < data.length; i++) {
-                        $.post("upload/delete.php", {op: "Supprimer", name: data[i]},
-                                function (resp, textStatus, jqXHR) {
-                                    //Show Message
-                                    $('#myModal').modal('show')
-                                });
-                    }
-                    pd.statusbar.hide(); //You choice.
-                },
                 afterUploadAll: function () {
                     $('#mainFormulaire').submit();
+                    var traitement = $('<div/>');
+                    traitement.attr('class', 'alert alert-warning')
+                              .html('<br><br>Le traitement du formulaire peut prendre plusieurs secondes, veuillez patienter.');
+                    $('form').after(traitement);
+                },
+                onError: function (files, status, errMsg) {
+                    $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées.');
+                    $('#myModal').modal('show');
                 }
             });
 
@@ -121,36 +145,26 @@
                 groupCheckedEnd: ' item(s)'
             };
 
+            var isValid = false;
             $.validate({
                 language: myLanguageFR,
                 onError: function () {
-                    alert('Validation failed');
+                    isValid = false;
                 },
                 onSuccess: function () {
+                    isValid = true;
                     alert('The form is valid!');
-                    return false; // Will stop the submission of the form
                 }
-            });
-
-            $('.error').each(function(){
-               $(this).addClass('.has-error');
             });
 
             // Envoi du formulaire
             $("#customSubmit").click(function () {
-                // On lance la validation du formulaire ici
-                uploadObj.startUpload();
-            });
-
-            $('#mainFormulaire').submit(function () {
-                var choix = [];
-                $('select').each(function () {
-                    choix.push($(this).val());
-                });
-            });
-
-            $("#startUpload").click(function () {
-                uploadObj.startUpload();
+                if (isValid) {
+                    uploadObj.startUpload();
+                } else {
+                    $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
+                    $('#myModal').modal('show');
+                }
             });
 
             // TESTS LIONEL CURSUS ET EXPERIENCES
@@ -158,7 +172,8 @@
 
             $("#addCursus").click(function () {
                 if (nbCursus === 10) {
-                    alert('NON'); // remplacer par un modal
+                    $('.modal-body').html('Vous ne pouvez pas renseigner plus de 10 cursus.');
+                    $('#myModal').modal('show');
                 } else {
                     $(this).attr("disabled", "disabled");
                     $.ajax({
@@ -167,16 +182,18 @@
                         data: 'indice=' + (nbCursus + 1),
                         dataType: 'html',
                         success: function (html) {
-                            $("#blockCursus-" + nbCursus).after().append(html);
+                            $("#blockCursus-" + nbCursus).after(html);
                             $("#addCursus").removeAttr("disabled");
                             nbCursus = nbCursus + 1;
                         }
                     });
                 }
             });
+
             $("#removeCursus").click(function () {
                 if (nbCursus === 1) {
-                    alert('NON'); // remplacer par un modal
+                    $('.modal-body').html('Vous devez renseigner au moins un cursus.');
+                    $('#myModal').modal('show');
                 } else {
                     $(this).attr("disabled", "disabled");
                     $("#blockCursus-" + nbCursus).remove();
@@ -184,9 +201,11 @@
                     $(this).removeAttr("disabled");
                 }
             });
+
             $("#addExperience").click(function () {
                 if (nbExperiences === 10) {
-                    alert('NON'); // remplacer par un modal
+                    $('.modal-body').html('Vous ne pouvez pas renseigner plus de 10 expériences.');
+                    $('#myModal').modal('show');
                 } else {
                     $(this).attr("disabled", "disabled");
                     $.ajax({
@@ -195,16 +214,18 @@
                         data: 'indice=' + (nbExperiences + 1),
                         dataType: 'html',
                         success: function (html) {
-                            $("#blockExperience-" + nbExperiences).after().append(html);
+                            $("#blockExperience-" + nbExperiences).after(html);
                             $("#addExperience").removeAttr("disabled");
                             nbExperiences = nbExperiences + 1;
                         }
                     });
                 }
             });
+
             $("#removeExperience").click(function () {
                 if (nbExperiences === 1) {
-                    alert('NON'); // remplacer par un modal
+                    $('.modal-body').html('Vous devez renseigner au moins une expérience professionnelle.');
+                    $('#myModal').modal('show');
                 } else {
                     $(this).attr("disabled", "disabled");
                     $("#blockExperience-" + nbExperiences).remove();
