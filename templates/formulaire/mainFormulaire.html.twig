@@ -34,8 +34,8 @@
                     </div>
                 {% endif %}
 
-                <button id="customSubmit" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-ok"></span> Envoyer
+                <button type="input" id="customSubmit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-cloud-upload"></span> Envoyer
                 </button>
             </form>
         </div>
@@ -70,7 +70,7 @@
 {% block scripts %}
     {{ parent() }}
     <script src="./public/js/jquery-upload/jquery.uploadfile.js"></script>
-    <script src="./public/js/jquery-form-validator/jquery.form-validator.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.38/jquery.form-validator.min.js"></script>
     <script src="./public/js/jq.progress-bar.js"></script>
     <script type="text/javascript">
         Array.prototype.allValuesAreDifferent = function () {
@@ -84,6 +84,25 @@
         };
 
         $(document).ready(function () {
+            uploadGlobal = false;
+
+            $('#nom').val('Meas');
+            $('#prenom').val('Kévin');
+            $('#lieu_naissance').val('Caen');
+            $('#nationalite').val('Française');
+            $('#adresse').val('4 place coimbra Bat B');
+            $('#code_postal').val('13100');
+            $('#ville').val('Aix-en-Provence');
+            $('#mail').val('measkevin@gmail.com ');
+            $('#serie_bac').val('Scientifique');
+            $('#annee_bac').val('2010');
+            $('#etablissement_bac').val('Lycée Roland Garros');
+            $('#langues').val('Anglais');
+            $('#activite').val('Etudiant');
+            $('#etablissement-1').val('IUT Aix-en-Provence');
+            $('#cursus-1').val('DUT Informatique');
+            $('#ville_preferee').val('Aix-en-Provence');
+
             // Progress Bar
             $('#mainFormulaire').showProgress({ message: { '10': 'You\'re off to a great start!', '25': 'You\'re doing great so far!', '50': 'You\'re halfway there!', '75': 'Look at that, you\'re nearly done already!', '100': 'All done! Just click <strong>Submit</strong> to continue!' } });
             var uploadObj = $("#upload").uploadFile({
@@ -91,7 +110,6 @@
                 dragDrop: true,
                 fileName: "myfile",
                 returnType: "json",
-                showDelete: true,
                 multiple: true,
                 autoSubmit: false,
                 dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
@@ -100,11 +118,13 @@
                 deletelStr: "Supprimer",
                 showDone: false,
                 afterUploadAll: function () {
-                    $('#mainFormulaire').submit();
                     var traitement = $('<div/>');
                     traitement.attr('class', 'alert alert-warning')
-                              .html('<br><br>Le traitement du formulaire peut prendre plusieurs secondes, veuillez patienter.');
+                            .html('<br><br>Le traitement du formulaire peut prendre plusieurs secondes, veuillez patienter.');
                     $('form').after(traitement);
+                    uploadGlobal = true;
+                    alert("upload after all");
+                    $('#mainFormulaire').submit();
                 },
                 onError: function (files, status, errMsg) {
                     $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées.');
@@ -145,26 +165,27 @@
                 groupCheckedEnd: ' item(s)'
             };
 
-            var isValid = false;
             $.validate({
                 language: myLanguageFR,
                 onError: function () {
-                    isValid = false;
+                    $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
+                    $('#myModal').modal('show');
                 },
                 onSuccess: function () {
-                    isValid = true;
                     alert('The form is valid!');
+                    if(!uploadGlobal){
+                        uploadObj.startUpload();
+                        alert('return false');
+                        return false;
+                    }
                 }
             });
 
+            $('.form-group').addClass('has-feedback');
+
             // Envoi du formulaire
             $("#customSubmit").click(function () {
-                if (isValid) {
-                    uploadObj.startUpload();
-                } else {
-                    $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
-                    $('#myModal').modal('show');
-                }
+
             });
 
             // TESTS LIONEL CURSUS ET EXPERIENCES

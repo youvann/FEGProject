@@ -118,7 +118,8 @@
                             name="annee_date_naissance" style="width: 200px;">
                         {% set ecart = anneeBasse - 60 %}
                         {% for i in ecart..anneeBasse %}
-                            <option {% if i == "now" | date('Y') %}selected="selected" {% endif %} value="{{ i }}">{{ i }}</option>
+                            <option {% if i == "now" | date('Y') %}selected="selected" {% endif %}
+                                    value="{{ i }}">{{ i }}</option>
                         {% endfor %}
                     </select>
 
@@ -244,7 +245,7 @@
     </div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="serie_bac">Série</label> <span class="en">Type</span>
                     <input type="text" class="form-control required" id="serie_bac"
@@ -252,17 +253,7 @@
                            placeholder="Votre série" data-validation="required"/>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="annee_bac">Année d'obtention du bac</label> <span
-                            class="en">Year</span>
-                    <input type="text" class="form-control required" id="annee_bac"
-                           name="annee_bac"
-                           placeholder="Votre année d'obtention"
-                           data-validation="required"/>
-                </div>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="etablissement_bac">Etablissement</label> <span
                             class="en">Establishment</span>
@@ -272,9 +263,10 @@
                            data-validation="required"/>
                 </div>
             </div>
+
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="departement_bac">Département</label> <span
                             class="en">Department</span>
@@ -288,7 +280,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="pays_bac">Pays</label> <span
                             class="en">Country</span>
@@ -302,6 +294,24 @@
                         {% endfor %}
                     </select>
                 </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label for="annee_bac">Année d'obtention du bac</label> <span
+                            class="en">Year</span>
+                    <select class="form-control required"
+                            id="annee_bac"
+                            name="annee_bac">
+                        {% set ecart = anneeBasse - 60 %}
+                        {% for i in ecart..anneeBasse %}
+                            <option {% if i == "now" | date('Y') %}selected="selected" {% endif %}
+                                    value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
             </div>
         </div>
     </div>
