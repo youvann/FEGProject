@@ -2,23 +2,17 @@
 
 {% block content %}
 
-    <div class="row" style="margin-top: 1em;">
+    <div class="row">
         <div class="col-md-12">
             <h2 class="titre_rubrique">
                 {% if typedossier == 'CA' %}Candidature{% elseif typedossier == 'PI' %}Pré-inscription{% endif %}
-                en {{ formation.mention }} pour l'année scolaire {{ anneeBasse }}-{{ anneeHaute }}
+                en {{ formation.mention }} pour l'année scolaire {{ anneeBasse }}
+                -{{ anneeHaute }}
             </h2>
 
-            <form role="form" id="mainFormulaire" action="index.php?uc=formulaire&action=traiterMainFormulaire"
+            <form role="form" id="mainFormulaire"
+                  action="index.php?uc=formulaire&action=traiterMainFormulaire"
                   method="post" autocomplete="on">
-                {% if formation.modalites is not empty %}
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Modalités</div>
-                        <div class="panel-body">
-                            {{ formation.modalites|raw }}
-                        </div>
-                    </div>
-                {% endif %}
                 {% include 'formulaire/informationsGenerales.html.twig' %}
                 {% if typedossier == 'CA' %}
                     {% include 'formulaire/postBacExperiences.html.twig' %}
@@ -28,31 +22,42 @@
                     {% endif %}
                     {% include 'formulaire/documentsGeneraux.html.twig' %}
                 {% endif %}
-            </form>
-            <button id="customSubmit" class="btn btn-primary">
-                <span class="glyphicon glyphicon-ok"></span> Envoyer
-            </button>
-            <br/><br/>
 
-            <div class="alert alert-warning">Le traitement du formulaire peut prendre plusieurs secondes. Veuillez
-                patienter et ne pas recharger la page.
-            </div>
+                {% if formation.modalites is not empty %}
+                    <div class="well well-fg">
+                        {{ formation.modalites | raw }}
+                    </div>
+                {% endif %}
+                {% if formation.informations is not empty %}
+                    <div class="well well-fg">
+                        {{ formation.informations | raw }}
+                    </div>
+                {% endif %}
+
+                <button type="input" id="customSubmit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-cloud-upload"></span> Envoyer
+                </button>
+            </form>
         </div>
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content panel-danger">
                 <div class="modal-header panel-heading">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">Attention !</h4>
                 </div>
                 <div class="modal-body">
                     Etes-vous sûr(e) de vouloir réaliser cette action ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">Ok
+                    </button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -65,7 +70,7 @@
 {% block scripts %}
     {{ parent() }}
     <script src="./public/js/jquery-upload/jquery.uploadfile.js"></script>
-    <script src="./public/js/jquery-form-validator/jquery.form-validator.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.38/jquery.form-validator.min.js"></script>
     <script src="./public/js/jq.progress-bar.js"></script>
     <script type="text/javascript">
         Array.prototype.allValuesAreDifferent = function () {
@@ -79,14 +84,34 @@
         };
 
         $(document).ready(function () {
+            uploadGlobal = false;
+            isFileAjouterGlobal = false;
+
+            $('#nom').val('Meas');
+            $('#prenom').val('Kévin');
+            $('#lieu_naissance').val('Caen');
+            $('#nationalite').val('Française');
+            $('#adresse').val('4 place coimbra Bat B');
+            $('#code_postal').val('13100');
+            $('#ville').val('Aix-en-Provence');
+            $('#mail').val('measkevin@gmail.com ');
+            $('#serie_bac').val('Scientifique');
+            $('#annee_bac').val('2010');
+            $('#etablissement_bac').val('Lycée Roland Garros');
+            $('#langues').val('Anglais');
+            $('#activite').val('Etudiant');
+            $('#etablissement-1').val('IUT Aix-en-Provence');
+            $('#cursus-1').val('DUT Informatique');
+            $('#ville_preferee').val('Aix-en-Provence');
+
             // Progress Bar
             $('#mainFormulaire').showProgress({ message: { '10': 'You\'re off to a great start!', '25': 'You\'re doing great so far!', '50': 'You\'re halfway there!', '75': 'Look at that, you\'re nearly done already!', '100': 'All done! Just click <strong>Submit</strong> to continue!' } });
+
             var uploadObj = $("#upload").uploadFile({
-                url: "upload/upload.php",
+                url: "index.php?uc=formulaire&action=uploadDocuments",
                 dragDrop: true,
                 fileName: "myfile",
                 returnType: "json",
-                showDelete: true,
                 multiple: true,
                 autoSubmit: false,
                 dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
@@ -94,18 +119,23 @@
                 cancelStr: "Annuler",
                 deletelStr: "Supprimer",
                 showDone: false,
-                deleteCallback: function (data, pd) {
-                    for (var i = 0; i < data.length; i++) {
-                        $.post("upload/delete.php", {op: "Supprimer", name: data[i]},
-                                function (resp, textStatus, jqXHR) {
-                                    //Show Message
-                                    $('#myModal').modal('show')
-                                });
-                    }
-                    pd.statusbar.hide(); //You choice.
+                dynamicFormData: function () {
+                    var data = { nom: $('#nom').val(), prenom: $('#prenom').val() }
+                    return data;
                 },
                 afterUploadAll: function () {
+                    uploadGlobal = true;
+                    alert("upload after all");
                     $('#mainFormulaire').submit();
+                },
+                onSelect: function (files) {
+                    isFileAjouterGlobal = true;
+                    return true; //to allow file submission.
+                },
+                onError: function (files, status, errMsg) {
+                    alert("status : " + status + " errLsg : " + errMsg);
+                    $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées.');
+                    $('#myModal').modal('show');
                 }
             });
 
@@ -143,24 +173,29 @@
             };
 
             $.validate({
-                language: myLanguageFR
+                language: myLanguageFR,
+                onError: function () {
+                    $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
+                    $('#myModal').modal('show');
+                },
+                onSuccess: function () {
+                    alert('The form is valid!');
+                    if (!uploadGlobal) {
+                        uploadObj.startUpload();
+                        alert('return false');
+                        return false;
+                    }
+                }
             });
+
+            $('.form-group').addClass('has-feedback');
 
             // Envoi du formulaire
             $("#customSubmit").click(function () {
-                // On lance la validation du formulaire ici
-                uploadObj.startUpload();
-            });
-
-            $('#mainFormulaire').submit(function () {
-                var choix = [];
-                $('select').each(function () {
-                    choix.push($(this).val());
-                });
-            });
-
-            $("#startUpload").click(function () {
-                uploadObj.startUpload();
+                if (!isFileAjouterGlobal) {
+                    $('.modal-body').html('Veuillez ajouter les documents à joindre');
+                    $('#myModal').modal('show');
+                }
             });
 
             // TESTS LIONEL CURSUS ET EXPERIENCES
@@ -185,6 +220,7 @@
                     });
                 }
             });
+
             $("#removeCursus").click(function () {
                 if (nbCursus === 1) {
                     $('.modal-body').html('Vous devez renseigner au moins un cursus.');
@@ -196,6 +232,7 @@
                     $(this).removeAttr("disabled");
                 }
             });
+
             $("#addExperience").click(function () {
                 if (nbExperiences === 10) {
                     $('.modal-body').html('Vous ne pouvez pas renseigner plus de 10 expériences.');
@@ -215,6 +252,7 @@
                     });
                 }
             });
+
             $("#removeExperience").click(function () {
                 if (nbExperiences === 1) {
                     $('.modal-body').html('Vous devez renseigner au moins une expérience professionnelle.');

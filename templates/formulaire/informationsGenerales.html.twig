@@ -2,7 +2,7 @@
 
 <input type="hidden" id="autre" name="autre" value=""/>
 <div class="panel panel-primary">
-    <div class="panel-heading">Candidat <span class="en_cadre"> / Applicant</span>
+    <div class="panel-heading">Candidat <span class="en_cadre"> | Applicant</span>
     </div>
     <div class="panel-body">
         <div class="row">
@@ -118,7 +118,8 @@
                             name="annee_date_naissance" style="width: 200px;">
                         {% set ecart = anneeBasse - 60 %}
                         {% for i in ecart..anneeBasse %}
-                            <option value="{{ i }}">{{ i }}</option>
+                            <option {% if i == "now" | date('Y') %}selected="selected" {% endif %}
+                                    value="{{ i }}">{{ i }}</option>
                         {% endfor %}
                     </select>
 
@@ -163,7 +164,7 @@
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Coordonnées & contact <span class="en_cadre"> / Address & contact</span>
+    <div class="panel-heading">Coordonnées & contact <span class="en_cadre"> | Address & contact</span>
     </div>
     <div class="panel-body">
         <div class="row">
@@ -239,44 +240,33 @@
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Baccalauréat ou équivalent <span class="en_cadre"> / High school diploma</span>
+    <div class="panel-heading">Baccalauréat ou équivalent <span class="en_cadre"> | High school diploma</span> <span
+                class="label label-danger">Requis</span>
     </div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="serie_bac">Série</label> <span class="en">Type</span>
-                    <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="serie_bac"
                            name="serie_bac"
                            placeholder="Votre série" data-validation="required"/>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="annee_bac">Année d'obtention du bac</label> <span
-                            class="en">Year</span>
-                    <span class="label label-danger">Requis</span>
-                    <input type="text" class="form-control required" id="annee_bac"
-                           name="annee_bac"
-                           placeholder="Votre année d'obtention"
-                           data-validation="required"/>
-                </div>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="etablissement_bac">Etablissement</label> <span
                             class="en">Establishment</span>
-                    <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required"
                            id="etablissement_bac" name="etablissement_bac"
                            placeholder="Votre établissement"
                            data-validation="required"/>
                 </div>
             </div>
+
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="departement_bac">Département</label> <span
                             class="en">Department</span>
@@ -290,13 +280,13 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="pays_bac">Pays</label> <span
                             class="en">Country</span>
-                    <select class="form-control required" id="pays_bac"
+                    <select class="form-control" id="pays_bac"
                             name="pays_bac"
-                            placeholder="Votre pays" data-validation="required">
+                            placeholder="Votre pays">
                         {% for num,unPaysUe in paysUe %}
                             <option {% if num == 'FR' %}selected="selected"{% endif %}
                                     value="{{ num }}">{{ unPaysUe }} ({{ num }})
@@ -305,19 +295,37 @@
                     </select>
                 </div>
             </div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label for="annee_bac">Année d'obtention du bac</label> <span
+                            class="en">Year</span>
+                    <select class="form-control required"
+                            id="annee_bac"
+                            name="annee_bac">
+                        {% set ecart = anneeBasse - 60 %}
+                        {% for i in ecart..anneeBasse %}
+                            <option {% if i == "now" | date('Y') %}selected="selected" {% endif %}
+                                    value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+            </div>
         </div>
     </div>
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Langues étrangères <span class="en_cadre"> / Foreign languages</span>
+    <div class="panel-heading">Langues étrangères <span class="en_cadre"> | Foreign languages</span>
+        <span class="label label-danger">Requis</span>
     </div>
     <div class="panel-body">
         <div class="col-md-12">
             <div class="form-group">
                 <label for="langues">Lue(s), écrite(s), parlée(s)</label> <span
                         class="en">reading, writing, speaking</span>
-                <span class="label label-danger">Requis</span>
                 <textarea class="form-control required" id="langues" name="langues"
                           data-validation="required"></textarea>
             </div>
@@ -326,7 +334,7 @@
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Autres <span class="en_cadre"> / Others</span></div>
+    <div class="panel-heading">Autres <span class="en_cadre"> | Others</span></div>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">

@@ -60,6 +60,12 @@ function myMkdirIne ($dir) {
     }
 }
 
+function myMkdirBase ($dir) {
+    if (!file_exists ($dir)) {
+        mkdir ($dir, 0777);
+    }
+}
+
 function removeDir ($dir) {
     if (is_dir ($dir)) // si c'est un repertoire
         $dh = opendir ($dir); // on l'ouvre
@@ -146,7 +152,6 @@ function upload ($output_dir) {
             $fileName = $_FILES["myfile"]["name"];
             move_uploaded_file ($_FILES["myfile"]["tmp_name"], $output_dir . $fileName);
             $ret[] = $fileName;
-            //chmod($output_dir . $fileName, 0777);
         } else { //Multiple files, file[]
             $fileCount = count ($_FILES["myfile"]["name"]);
             for ($i = 0; $i < $fileCount; $i++) {
@@ -157,4 +162,12 @@ function upload ($output_dir) {
         }
         echo json_encode ($ret);
     }
+}
+
+function formatString($string){
+    $mot = ltrim($string);
+    $mot = rtrim($mot);
+    $mot = strtolower($mot);
+    $mot = ucfirst($mot);
+    return $mot;
 }
