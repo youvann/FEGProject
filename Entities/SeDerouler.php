@@ -3,10 +3,15 @@
 class SeDerouler {
 	private $id;
 	private $codeEtape;
+	private $responsable;
+	private $mailResponsable;
+
 	
-	function __construct($id, $codeEtape) {
+	function __construct($id, $codeEtape, $responsable, $mailResponsable) {
 		$this->id = $id;
 		$this->codeEtape = $codeEtape;
+		$this->responsable = $responsable;
+		$this->mailResponsable = $mailResponsable;
 	}
 
 	public function getId() {
@@ -23,6 +28,26 @@ class SeDerouler {
 
 	public function setCodeEtape($codeEtape) {
 		$this->codeEtape = $codeEtape;
+	}
+
+	public function setResponsable($responsable)
+	{
+		$this->responsable = $responsable;
+	}
+
+	public function getResponsable()
+	{
+		return $this->responsable;
+	}
+
+	public function setMailResponsable($mailResponsable)
+	{
+		$this->mailResponsable = $mailResponsable;
+	}
+
+	public function getMailResponsable()
+	{
+		return $this->mailResponsable;
 	}
 
 

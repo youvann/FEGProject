@@ -12,38 +12,33 @@ if (!isset($_GET['action'])) {
     $action = $_GET['action'];
 }
 
-/* autorisations
-  $pageAction = array("ordonner", "ajouter", "ajout", "modifier", "modification", "suppression");
-
-  if (in_array($action, $pageAction) && !$utilisateur->isConnected()) {
-  header('location:index.php?uc=utilisateur&action=connecter');
-  } */
-
 switch ($action) {
     case "grille": {
-	$documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation($_GET['code']);
-        echo $twig->render('documentSpecifique/grilleDocumentSpecifique.html.twig', array('documentsSpecifiques' => $documentsSpecifiques, 'code' => $_GET['code']));
+		$dossierPdf = $dossierPdfManager->find($_GET['dossierPdf']);
+		$documentsSpecifiques = $documentSpecifiqueManager->findAllByDossierPdf($dossierPdf);
+        echo $twig->render('documentSpecifique/grilleDocumentSpecifique.html.twig', array('documentsSpecifiques' => $documentsSpecifiques, 'dossierPdf' => $dossierPdf));
     } break;
     case "ajouter": {
-        echo $twig->render('documentSpecifique/ajouterDocumentSpecifique.html.twig', array('code' => $_GET['code']));
+		$dossierPdf = $dossierPdfManager->find($_GET['dossierPdf']);
+        echo $twig->render('documentSpecifique/ajouterDocumentSpecifique.html.twig', array('dossierPdf' => $dossierPdf));
     } break;
     case "ajout": {
-        $documentSpecifiqueManager->insert(new DocumentSpecifique(0, $_POST['code_formation'], $_POST['nom'], $_POST['url']));
-        header('location:index.php?uc=documentSpecifique&action=grille&code='.$_POST['code_formation']);
+        $documentSpecifiqueManager->insert(new DocumentSpecifique(0, $_POST['dossier_pdf'], $_POST['nom'], $_POST['url']));
+        header('location:index.php?uc=documentSpecifique&action=grille&dossierPdf='.$_POST['dossier_pdf']);
     } break;
     case "modifier": {
         $documentSpecifique = $documentSpecifiqueManager->find($_GET['id']);
-        echo $twig->render('documentSpecifique/modifierDocumentSpecifique.html.twig', array('documentSpecifique' => $documentSpecifique, "code" => $_GET['code']));
+        echo $twig->render('documentSpecifique/modifierDocumentSpecifique.html.twig', array('documentSpecifique' => $documentSpecifique));
     } break;
     case "modification": {
-        $documentSpecifique = new $documentSpecifique($_POST['id'], $_POST['code'], $_POST['nom'], $_POST['url'], $_POST['multiple']);
+        $documentSpecifique = new documentSpecifique($_POST['id'], $_POST['dossier_pdf'], $_POST['nom'], $_POST['url'], $_POST['multiple']);
         $documentSpecifiqueManager->update($documentSpecifique);
-        header('location:index.php?uc=documentSpecifique&action=grille&code='.$_POST['code']);
+        header('location:index.php?uc=documentSpecifique&action=grille&dossierPdf='.$_POST['dossier_pdf']);
     } break;
     case "suppression": {
         $documentSpecifique = $documentSpecifiqueManager->find($_GET['id']);
 		$documentSpecifiqueManager->delete($documentSpecifique);
-        header('location:index.php?uc=documentSpecifique&action=grille&code='.$_GET['code']);
+        header('location:index.php?uc=documentSpecifique&action=grille&dossierPdf='.$dossierPdf->getId());
     } break;
     default: break;
 }

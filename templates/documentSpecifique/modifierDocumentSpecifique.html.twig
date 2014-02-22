@@ -12,9 +12,9 @@
 
 <h2 class="titre_rubrique">Modifier un document à joindre</h2>
 
-<form action="index.php?uc=documentSpecifique&action=ajout" method="POST">
-	<input type="hidden" id="code" name="code" value="{{ documentSpecifique.id }}" />
-	<input type="hidden" id="code" name="code" value="{{ documentSpecifique.code }}" />
+<form action="index.php?uc=documentSpecifique&action=modification" method="POST">
+	<input type="hidden" id="id" name="id" value="{{ documentSpecifique.id }}" />
+	<input type="hidden" id="dossier_pdf" name="dossier_pdf" value="{{ documentSpecifique.dossierPdf }}" />
 	<div class="form-group">
 		<label for="nom">Nom</label>
 		<input class="form-control" type="text" id="nom" name="nom" value="{{ documentSpecifique.nom }}" />
@@ -30,7 +30,7 @@
 
 <hr />
 
-<a href="index.php?uc=documentSpecifique&action=grille&code={{ code }}"  class="btn btn-primary">
+<a href="index.php?uc=documentSpecifique&action=grille&dossierPdf={{ documentSpecifique.dossierPdf }}"  class="btn btn-primary">
 	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
 </a>
 {% endblock %}

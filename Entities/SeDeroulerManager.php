@@ -16,7 +16,7 @@ class SeDeroulerManager {
 		$lesSeDerouler = array();
 		$rs = $this->db->query("SELECT * FROM `se_derouler`;")->fetchAll();
 		foreach ($rs as $unSeDerouler) {
-			$lesSeDerouler[] = new SeDerouler($unSeDerouler['ID'], $unSeDerouler['CODE_ETAPE']);
+			$lesSeDerouler[] = new SeDerouler($unSeDerouler['ID'], $unSeDerouler['CODE_ETAPE'], $unSeDerouler['RESPONSABLE'], $unSeDerouler['MAIL_RESPONSABLE']);
 		}
 		return $lesSeDerouler;
 	}
@@ -27,14 +27,14 @@ class SeDeroulerManager {
 		$q->execute(array($voeu->getCodeEtape()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $unSeDerouler) {
-			$lesSeDerouler[] = new SeDerouler($unSeDerouler['ID'], $unSeDerouler['CODE_ETAPE']);
+			$lesSeDerouler[] = new SeDerouler($unSeDerouler['ID'], $unSeDerouler['CODE_ETAPE'], $unSeDerouler['RESPONSABLE'], $unSeDerouler['MAIL_RESPONSABLE']);
 		}
 		return $lesSeDerouler;
 	}
 
 	public function insert(SeDerouler $SeDerouler) {
-		return $this->db->prepare("INSERT INTO `se_derouler` (`ID`, `CODE_ETAPE`) VALUES (?, ?);")
-						->execute(array($SeDerouler->getId(), $SeDerouler->getCodeEtape()));
+		return $this->db->prepare("INSERT INTO `se_derouler` (`ID`, `CODE_ETAPE`, `RESPONSABLE`, `MAIL_RESPONSABLE`) VALUES (?, ?, ?, ?);")
+						->execute(array($SeDerouler->getId(), $SeDerouler->getCodeEtape(), $SeDerouler->getResponsable(), $SeDerouler->getMailResponsable()));
 	}
 
 	public function delete(SeDerouler $SeDerouler) {

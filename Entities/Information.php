@@ -3,15 +3,15 @@
 class Information {
 	private $id;
 	private $type;
-	private $codeFormation;
+	private $dossierPdf;
 	private $libelle;
 	private $explications;
 	private $ordre;
 	
-	function __construct($id, $type, $codeFormation, $libelle, $explications, $ordre) {
+	function __construct($id, $type, $dossierPdf, $libelle, $explications, $ordre) {
 		$this->id = $id;
 		$this->type = $type;
-		$this->codeFormation = $codeFormation;
+		$this->dossierPdf = $dossierPdf;
 		$this->libelle = $libelle;
 		$this->explications = $explications;
 		$this->ordre = $ordre;
@@ -25,8 +25,8 @@ class Information {
 		return $this->type;
 	}
 
-	public function getCodeFormation() {
-		return $this->codeFormation;
+	public function getDossierPdf() {
+		return $this->dossierPdf;
 	}
 
 	public function getLibelle() {
@@ -49,8 +49,8 @@ class Information {
 		$this->type = $type;
 	}
 
-	public function setCode($codeFormation) {
-		$this->codeFormation = $codeFormation;
+	public function setDossierPdf($dossierPdf) {
+		$this->dossierPdf = $dossierPdf;
 	}
 
 	public function setLibelle($libelle) {

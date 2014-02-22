@@ -14,28 +14,30 @@ if (!isset($_GET['action'])) {
 
 switch ($action) {
 	case "grille": {
-			$formation = $formationManager->find($_GET['code']);
-			$informations = $informationManager->findAllByFormation($formation);
-			echo $twig->render('information/grilleInformation.html.twig', array('informations' => $informations, 'code' => $_GET['code']));
+			$dossierPdf = $dossierPdfManager->find($_GET['dossierPdf']);
+			$informations = $informationManager->findAllByDossierPdf($dossierPdf);
+			echo $twig->render('information/grilleInformation.html.twig', array('informations' => $informations, 'dossierPdf' => $dossierPdf, 'code' => $dossierPdf->getCodeFormation()));
 		} break;
 	case "consulter": {
 			$information = $informationManager->find($_GET['id']);
+			$dossierPdf = $dossierPdfManager->find($_GET['dossierPdf']);
 			$choix = $choixManager->findAllByInformation($information);
-			echo $twig->render('information/consulterInformation.html.twig', array('information' => $information, 'choix' => $choix, 'code' => $_GET['code']));
+			echo $twig->render('information/consulterInformation.html.twig', array('information' => $information, 'choix' => $choix, 'dossierPdf' => $dossierPdf, 'code' => $dossierPdf->getCodeFormation()));
 		} break;
 	case "ajouter": {
+		$dossierPdf = $dossierPdfManager->find($_GET['dossierPdf']);
 			$types = $typeManager->findAll();
-			echo $twig->render('information/ajouterInformation.html.twig', array('types' => $types, 'code' => $_GET['code']));
+			echo $twig->render('information/ajouterInformation.html.twig', array('types' => $types, 'dossierPdf' => $dossierPdf,'code' => $dossierPdf->getCodeFormation()));
 		} break;
 	case "ajout": {
-			$informationManager->insert(new Information(0, $_POST["type"], $_POST["code_formation"], $_POST["libelle"], $_POST["explications"], 0));
+			var_dump($informationManager->insert(new Information(0, $_POST["type"], $_POST["dossier_pdf"], $_POST["libelle"], $_POST["explications"], 0)));
 			if ($_POST["type"] === 'RadioButtonGroup' || $_POST["type"] === 'CheckBoxGroup') {
 				$lastInsertId = $informationManager->maxId();
 				foreach ($_POST['tb'] as $tb) {
 					$choixManager->insert(new Choix(0, $lastInsertId, $tb));
 				}
 			}
-			header('location:index.php?uc=information&action=grille&code=' . $_POST['code_formation']);
+			header('location:index.php?uc=information&action=grille&dossierPdf=' . $_POST['dossier_pdf']);
 		} break;
 	case "suppression": {
 			$information = $informationManager->find($_GET['id']);

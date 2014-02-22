@@ -12,70 +12,99 @@ if (!isset($_GET['action'])) {
 	$action = $_GET['action'];
 }
 
-/* autorisations
-  $pageAction = array("ordonner", "ajouter", "ajout", "modifier", "modification", "suppression");
-
-  if (in_array($action, $pageAction) && !$utilisateur->isConnected()) {
-  header('location:index.php?uc=utilisateur&action=connecter');
-  } */
-
 switch ($action) {
-	case "consulter": {
-			$voeu = $voeuManager->find($_GET['codeetape']);
-			$voeu->setVilles($voeuManager->getVilles($voeu));
-			echo $twig->render('voeu/consulterVoeu.html.twig', array('voeu' => $voeu, 'code' => $_GET['code']));
-		} break;
-	case "grille": {
-			$formation = $formationManager->find($_GET['code']);
-			$voeux = $voeuManager->findAllByFormation($formation);
-			echo $twig->render('voeu/grilleVoeu.html.twig', array('voeux' => $voeux, 'code' => $_GET['code']));
-		} break;
-	case "ajouter": {
-			$villes = $villeManager->findAll();
-			echo $twig->render('voeu/ajouterVoeu.html.twig', array('code' => $_GET['code'], 'villes' => $villes));
-		} break;
-	case "ajout": {
-			$voeuManager->insert(new Voeu($_POST['code_etape'], $_POST['code_formation'], $_POST['etape'], $_POST['responsable'], $_POST['mailResponsable']));
+	case "consulter":
+	{
+		$voeu = $voeuManager->find($_GET['codeetape']);
+		$lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
+		$villes = $villeManager->findAll();
+		echo $twig->render('voeu/consulterVoeu.html.twig', array('voeu' => $voeu, 'villes' => $villes, 'lesSeDerouler' => $lesSeDerouler, 'code' => $_GET['code']));
+	}
+		break;
+	case "grille":
+	{
+		$formation = $formationManager->find($_GET['code']);
+		$voeux = $voeuManager->findAllByFormation($formation);
+		echo $twig->render('voeu/grilleVoeu.html.twig', array('voeux' => $voeux, 'code' => $_GET['code']));
+	}
+		break;
+	case "ajouter":
+	{
+		$villes = $villeManager->findAll();
+		echo $twig->render('voeu/ajouterVoeu.html.twig', array('code' => $_GET['code'], 'villes' => $villes));
+	}
+		break;
+	case "ajout":
+	{
+		$voeuManager->insert(new Voeu($_POST['code_etape'], $_POST['code_formation'], $_POST['etape'], $_POST['responsable'], $_POST['mailResponsable']));
 
-			foreach ($_POST['villes'] as $ville) {
-				$seDeroulerManager->insert(new SeDerouler($ville, $_POST['code_etape']));
-			}
-			header('location:index.php?uc=voeu&action=grille&code=' . $_POST['code_formation']);
-		} break;
-	case "modifier": {
-			$voeu = $voeuManager->find($_GET['codeetape']);
-			$voeu->setVilles($voeuManager->getVilles($voeu));
-			$lesVilles = $villeManager->findAll();
-			echo $twig->render('voeu/modifierVoeu.html.twig', array('voeu' => $voeu, 'lesvilles' => $lesVilles, 'code' => $_GET['code']));
-		} break;
-	case "modification": {
-			$voeu = $voeuManager->find($_POST['code_etape']);
-			$voeu->setEtape($_POST['etape']);
-			$voeu->setResponsable($_POST['responsable']);
-			
-			//$voeuManager->update($voeu);
-			$lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
-			
-			foreach ($lesSeDerouler as $unSeDerouler) {
-				$seDeroulerManager->delete($unSeDerouler);
-			}
-			
-			foreach ($_POST['villes'] as $ville) {
-				$seDeroulerManager->insert(new SeDerouler($ville, $voeu->getCodeEtape()));
-			}
-			header('location:index.php?uc=voeu&action=consulter&codeetape='.$_POST['code_etape'].'&code=' . $_POST['code_formation']);
-		} break;
-	case "suppression": {
-			$voeu = $voeuManager->find($_GET['codeEtape']);
-			$voeuManager->delete($voeu);
-			header('location:index.php?uc=formation&action=grille' . $voeu->getCode());
-		} break;
-	case "codeEtapePossible": {
+		foreach ($_POST['villes'] as $ville) {
+			$seDeroulerManager->insert(new SeDerouler($ville, $_POST['code_etape'], $_POST['responsable'], $_POST['mail_responsable']));
+		}
+		header('location:index.php?uc=voeu&action=grille&code=' . $_POST['code_formation']);
+	}
+		break;
+	case "modifier":
+	{
+		$voeu = $voeuManager->find($_GET['codeetape']);
+		$lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
+		$villes = $villeManager->findAll();
+		echo $twig->render('voeu/modifierVoeu.html.twig', array('voeu' => $voeu, 'villes' => $villes, 'lesSeDerouler' => $lesSeDerouler, 'code' => $_GET['code']));
+	}
+		break;
+	case "modification":
+	{
+		$voeu = $voeuManager->find($_POST['code_etape']);
+		$lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
+		foreach($lesSeDerouler as $unSeDerouler) {
+			$seDeroulerManager->delete($unSeDerouler);
+		}
+
+		$postSeDerouler = array(
+			'ville' => $_POST['ville'],
+			'responsable' => $_POST['responsable'],
+			'mail_responsable' => $_POST['mail_responsable']
+		);
+		for ($i = 0; $i < count($postSeDerouler['ville']); ++$i) {
+			$seDeroulerManager->insert(new SeDerouler($postSeDerouler['ville'][$i],
+				$_POST['code_etape'],
+				$postSeDerouler['responsable'][$i],
+				$postSeDerouler['mail_responsable'][$i]));
+		}
+
+		$voeu->setEtape($_POST['etape']);
+		$voeuManager->update($voeu);
+		header('location:index.php?uc=voeu&action=consulter&codeetape='.$_POST['code_etape'].'&code=' . $_POST['code']);
+	}
+		break;
+	case "suppression":
+	{
+		$voeu = $voeuManager->find($_GET['codeEtape']);
+		$voeuManager->delete($voeu);
+		header('location:index.php?uc=formation&action=grille' . $voeu->getCode());
+	}
+		break;
+	case "codeEtapePossible":
+	{
 		$q = $conn->prepare("SELECT IF(count(*) = 1, FALSE, TRUE) as ok FROM `voeu` WHERE `code_etape` = ?;");
 		$q->execute(array($_POST['code']));
 		$rs = $q->fetch();
 		$response['response'] = $rs['ok'];
 		echo json_encode($response);
-	} break;
-	default: break;
+	}
+		break;
+	case "deplacerVoeuDansDossier":
+	{
+		$voeu = $voeuManager->find($_POST['etape']);
+		if ($_POST['dossierPdf'] === "0") {
+			$voeu->setDossierPdf(NULL);
+		} else {
+			$voeu->setDossierPdf(intval($_POST['dossierPdf']));
+		}
+		$response['response'] = $voeuManager->update($voeu);
+		echo json_encode($response);
+	}
+		break;
+	default:
+		break;
 }

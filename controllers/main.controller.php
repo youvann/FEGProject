@@ -47,6 +47,11 @@ switch ($uc){
     {
         require_once 'controllers/formulaire.controller.php';
     }
+		break;
+	case "dossierPdf":
+	{
+		require_once 'controllers/dossierPdf.controller.php';
+	}
         break;
     case "utilisateur":
     {

@@ -20,13 +20,11 @@
 <table style="margin-top: 1em;" class="table table-hover table-bordered table-striped">
 	<tr>
 		<th class="col-md-6">Etape</th>
-		<th class="col-md-2">Responsable</th>
 		<th class="col-md-4">Options</th>
 	</tr>
         {% for voeu in voeux %}
 	<tr>
 		<td>{{ voeu.etape }}</td>
-		<td>{{ voeu.responsable }}</td>
 		<td>
 			<div class="btn-group">
 				<a href="index.php?uc=voeu&action=consulter&codeetape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-info">

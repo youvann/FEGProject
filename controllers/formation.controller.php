@@ -105,7 +105,7 @@ switch ($action) {
 
         $csv = fopen ($csvFileName, 'w');
 
-        fwrite ($csv, 'Ine;Nom;Prenom;Mail;Telephone;Date de naissance;Code formation precedente;Code formation choisie;Annee du Bac\n');
+        fwrite ($csv, 'Ine;Nom;Prenom;Mail;Telephone;Date de naissance;Code formation precedente;Code formation choisie;Annee du Bac\\r\\n');
 
         foreach ($rs as $row) {
             fwrite ($csv, $row['INE'] . ';');
@@ -117,7 +117,7 @@ switch ($action) {
             fwrite ($csv, $row['CODE_FORMATION_PRECEDENTE'] . ';');
             fwrite ($csv, $row['CODE_FORMATION'] . ';');
             fwrite ($csv, $row['ANNEE_BAC']);
-            fwrite ($csv, '\r\n');
+            fwrite ($csv, '\\r\\n');
         }
 
         echo $twig->render ('formation/syntheseCsv.html.twig', array ('code' => $_GET['code']));
@@ -311,6 +311,26 @@ $villesPossibles = array_unique($villesPossibles);
         upload('./public/img/logos/' . $code . '/');
     }
         break;
+	case 'dossier' :
+	{
+        $code = $_GET['code'];
+		$formation = $formationManager->find($code);
+		$voeux = $voeuManager->findAllByFormation($formation);
+		$dossiersPdf = $dossierPdfManager->findAllByFormation($formation);
+
+		echo $twig->render ('formation/dossier.html.twig', array (
+			'code' => $code,
+			'voeux' => $voeux,
+			'dossiersPdf' => $dossiersPdf
+		));
+	}
+		break;
+	case 'ajouterDossier' :
+	{
+		$dossierPdfManager->insert(new DossierPdf(0, $_POST['nom'], $_POST['code_formation']));
+		header('location:index.php?uc=formation&action=dossier&code='.$_POST['code_formation']);
+	}
+		break;
     default:
         break;
 }

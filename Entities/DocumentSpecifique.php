@@ -2,13 +2,13 @@
 
 class DocumentSpecifique {
 	private $id;
-	private $codeFormation;
+	private $dossierPdf;
 	private $nom;
 	private $url;
 	
-	function __construct($id, $codeFormation, $nom, $url) {
+	function __construct($id, $dossierPdf, $nom, $url) {
 		$this->id = $id;
-		$this->codeFormation = $codeFormation;
+		$this->dossierPdf = $dossierPdf;
 		$this->nom = $nom;
 		$this->url = $url;
 	}
@@ -17,8 +17,8 @@ class DocumentSpecifique {
 		return $this->id;
 	}
 
-	public function getCodeFormation() {
-		return $this->codeFormation;
+	public function getDossierPdf() {
+		return $this->dossierPdf;
 	}
 
 	public function getNom() {
@@ -33,8 +33,8 @@ class DocumentSpecifique {
 		$this->id = $id;
 	}
 
-	public function setCodeFormation($codeFormation) {
-		$this->codeFormation = $codeFormation;
+	public function setDossierPdf($dossierPdf) {
+		$this->dossierPdf = $dossierPdf;
 	}
 
 	public function setNom($nom) {
