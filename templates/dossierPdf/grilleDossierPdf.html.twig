@@ -42,17 +42,22 @@
                         {% endfor %}
                     </div>
                     <div class="panel-footer">
-                        <button id="btnModifierDossier-{{ dossierPdf.id }}" class="btn btn-xs btn-warning btnModifierDossier">
-                            <span class="glyphicon glyphicon-edit"></span> Modifier
-                        </button>
-                        <button id="btnSupprimerDossier-{{ dossierPdf.id }}" class="btn btn-xs btn-danger btnSupprimerDossier">
-                            <span class="glyphicon glyphicon-trash"></span> Supprimer
-                        </button>
+
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                 Gestion du dossier <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#" id="btnModifierDossier-{{ dossierPdf.id }}" class="btnModifierDossier">
+                                        <span class="glyphicon glyphicon-edit"></span> Modifier
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="btnSupprimerDossier-{{ dossierPdf.id }}" class="btnSupprimerDossier">
+                                        <span class="glyphicon glyphicon-trash"></span> Supprimer
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="index.php?uc=information&action=grille&dossierPdf={{ dossierPdf.id }}">
                                         <span class="glyphicon glyphicon-info-sign"></span> Informations spécifiques
@@ -60,7 +65,7 @@
                                 </li>
                                 <li>
                                     <a href="index.php?uc=documentSpecifique&action=grille&dossierPdf={{ dossierPdf.id }}">
-                                        <span class="glyphicon glyphicon-info-sign"></span> Documents spécifiques
+                                        <span class="glyphicon glyphicon-briefcase"></span> Documents spécifiques
                                     </a>
                                 </li>
                             </ul>
@@ -111,6 +116,7 @@
                 $('#id').attr('value', '0');
                 $('#nom').attr('value', '');
                 $('#modalNewEdit').modal('show');
+                return false;
             });
 
             $('.btnModifierDossier').click(function() {
@@ -127,6 +133,7 @@
                         $('#modalNewEdit').modal('show');
                     }
                 });
+                return false;
             });
 
 

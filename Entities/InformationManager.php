@@ -71,15 +71,14 @@ class InformationManager {
 		return $rs['ID'];
 	}
 
-	public function getResultset(Formation $formation) {
+	public function getResultset(DossierPdf $dossierPdf) {
 		$q = $this->db->prepare('SELECT `information`.`ID` as idInfo, `information`.`LIBELLE` as libelleInfo, `type`.`ID` as typeInfo, `choix`.`TEXTE` as libellesInfo
 			FROM `information` 
 			INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
 			LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
 			WHERE `information`.`code_formation` = ?
 			ORDER BY `information`.`ordre`;');
-		$q->execute(array($formation->getDossierPdf()));
+		$q->execute(array($dossierPdf->getId()));
 		return $q->fetchAll();
 	}
-
 }
