@@ -68,10 +68,15 @@ class PagePdf {
 
     // Informations spécifiques
     private $informationsSpecifiques;
-
     private $rowAdmin;
     private $tableauVoeux = array ();
     private $voeuxMultiple;
+
+    // Modalités
+    private $modalites;
+
+    // Informations
+    private $informations;
 
     // Documents généraux
     //private $documentsGeneraux = array();
@@ -510,6 +515,22 @@ class PagePdf {
         return '<div class="titre_encadre">PIECES A JOINDRE SPECIFIQUES</div><br/>' . $this->printDocumentsSpecifiques ();
     }
 
+    public function getDossierModalites (){
+        return '<div class="titre_encadre">Modalités</div><br/>' . $this->modalites;
+    }
+
+    public function setDossierModalites ($modalites){
+        $this->modalites = $modalites;
+    }
+
+    public function getDossierInformations (){
+        return '<div class="titre_encadre">Informations</div><br/>' . $this->informations;
+    }
+
+    public function setDossierInformations ($informations){
+        $this->informations = $informations;
+    }
+
     public function setRowAdmin ($rowAdmin) {
         $this->rowAdmin = $rowAdmin;
     }
@@ -641,9 +662,9 @@ class PagePdf {
 
     public function __toString () {
         return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->getFormationTitle () . $this->getDegreeHolder () . $this->getApplicant () . $this->getPlanFormation () . $this->getPageEnd () . $this->getNewPage () . $this->getPrevFormation () . $this->getProExperience () . $this->getOther () . $this->getPageEnd () . //$this->getNewPage() . $this->getOther() . $this->getPageEnd() .
-        $this->getNewPage () . $this->getInformationsSpecifiques () . $this->getPageEnd () . // $this->getNewPage() . $this->getDocumentsGeneraux() . $this->getPageEnd() .
-        //$this->getNewPage() . $this->getDocumentsSpecifiques() . $this->getPageEnd() .
-        //$this->getNewPage() . $this->getDossierModalite() . $this->getPageEnd() .
+        $this->getNewPage () . $this->getInformationsSpecifiques () . $this->getPageEnd () .
+        $this->getNewPage() . $this->getDossierModalites() . $this->getPageEnd() .
+        $this->getNewPage () . $this->getDossierInformations() . $this->getPageEnd () .
         $this->getNewPage () . $this->getFicheCommissionPeda () . $this->getCadreAdministration () . $this->getPageEnd ();
     }
 }

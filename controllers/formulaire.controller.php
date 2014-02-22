@@ -98,8 +98,9 @@ switch ($action) {
     {
         $_SESSION['nom']    = formatString ($_POST['nom']);
         $_SESSION['prenom'] = formatString ($_POST['prenom']);
-        myMkdirBase ("./dossiers/" . $_SESSION['choisie'] . "/Candidatures/" . $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['timeStamp'] . "/");
-        upload ("./dossiers/" . $_SESSION['choisie'] . "/Candidatures/" . $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['timeStamp'] . "/");
+        $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['timeStamp'];
+        myMkdirBase ("./dossiers/" . $_SESSION['choisie'] . "/Candidatures/" . $dirName . "/");
+        upload ("./dossiers/" . $_SESSION['choisie'] . "/Candidatures/" . $dirName . "/");
     }
         break;
     case "traiterMainFormulaire":
@@ -178,14 +179,21 @@ switch ($action) {
         require_once './classes/Pdf/PagePdf.class.php';
         $pagePdf = new PagePdf("./classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
 
-        // En-tête du pdf
+        /*
+         * En-tête du pdf
+         */
         $pagePdf->setPagePdfHeaderImgPath ("./classes/Pdf/img/feg.png");
         $pagePdf->setPagePdfHeaderText ("DOSSIER DE CANDIDATURE<br />ANNÉE UNIVERSITAIRE 2013-2014<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
-        // Pied du pdf
+        /*
+         * Pied de page du pdf
+         */
         $pagePdf->setPagePdfFooterText ("Page [[page_cu]]/[[page_nb]]");
 
-        // Corps du pdf
+        /*
+         * Corps du pdf
+         */
+        // Chemin du logo
         $logoPath = "./public/img/logos/" . $formation->getCodeFormation ();
         $empty    = is_dir_empty ($logoPath);
         $logoName = $empty ? "" : getFileName ($logoPath);
@@ -194,9 +202,10 @@ switch ($action) {
         } else {
             $pagePdf->setLogoPath ("");
         }
+        // Mention de la formation
         $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $formation->getMention ());
         $pagePdf->setHolder (' ' . $titulaire[0]->getLibelle (), ' ' . $titulaire[1]->getLibelle (), ' ' . $titulaire[2]->getLibelle (), $dossier->getTitulaire ());
-        //$pagePdf->setNote("* Dossier à utiliser si vous résidez dans l'Espace européen, ou dans un pays où il n'existe pas d'espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.");
+
         $pagePdf->setApplicant ($dossier->getGenre (), $dossier->getNom (), $dossier->getPrenom (), $dossier->getLieuNaissance (), $dossier->getDateNaissance (), $dossier->getIne (), $dossier->getAdresse () . ' ' . $dossier->getComplement () . ' ' . $dossier->getVille () . ' ' . $dossier->getCodePostal (), $dossier->getFixe (), $dossier->getPortable (), $dossier->getMail (), $dossier->getActivite ());
         $pagePdf->setPhotoPath ('./classes/Pdf/img/photo/github.png');
         $pagePdf->setPlanFormation ($etapes, $villesPossibles);

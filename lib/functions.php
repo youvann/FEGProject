@@ -54,11 +54,12 @@ function myMkdir ($dir) {
     }
 }
 
+/*
 function myMkdirIne ($dir) {
     if (!file_exists ("./dossiers/" . $dir)) {
         mkdir ("./dossiers/" . $dir, 0777);
     }
-}
+}*/
 
 function myMkdirBase ($dir) {
     if (!file_exists ($dir)) {
