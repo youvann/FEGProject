@@ -310,26 +310,6 @@ $villesPossibles = array_unique($villesPossibles);
         upload ('./public/img/logos/' . $code . '/');
     }
         break;
-	case 'dossier' :
-	{
-        $code = $_GET['code'];
-		$formation = $formationManager->find($code);
-		$voeux = $voeuManager->findAllByFormation($formation);
-		$dossiersPdf = $dossierPdfManager->findAllByFormation($formation);
-
-		echo $twig->render ('formation/dossier.html.twig', array (
-			'code' => $code,
-			'voeux' => $voeux,
-			'dossiersPdf' => $dossiersPdf
-		));
-	}
-		break;
-	case 'ajouterDossier' :
-	{
-		$dossierPdfManager->insert(new DossierPdf(0, $_POST['nom'], $_POST['code_formation']));
-		header('location:index.php?uc=formation&action=dossier&code='.$_POST['code_formation']);
-	}
-		break;
     default:
         break;
 }

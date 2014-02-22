@@ -51,7 +51,7 @@ class DossierPdfManager {
     public function delete(DossierPdf $dossierPdf) {
         return $this->db->prepare("DELETE FROM `dossier_pdf` WHERE `ID` = ?;")
             ->execute(array(
-                $dossier->getId()
+                $dossierPdf->getId()
             ));
     }
 
