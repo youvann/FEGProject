@@ -5,12 +5,13 @@
         <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
         <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
         <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
+        <li><a href="index.php?uc=formation&action=dossier&code={{ code }}">Liste des dossiers</a></li>
         <li class="active">Liste des informations</li>
     </ol>
 
     <h2 class="titre_rubrique">Liste des informations</h2>
 
-    <a href="index.php?uc=information&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
+    <a href="index.php?uc=information&action=ajouter&dossierPdf={{ dossierPdf.id }}" class="btn btn-lg btn-primary">
         <span class="glyphicon glyphicon-plus-sign"></span> Ajouter une information
     </a>
 
@@ -32,10 +33,10 @@
 
                     <div class="col-md-4">
                         <div class="btn-group">
-                            <a href="index.php?uc=information&action=consulter&id={{ information.id }}&code={{ code }}" type="button" class="btn btn-info">
+                            <a href="index.php?uc=information&action=consulter&id={{ information.id }}&dossierPdf={{ dossierPdf.id }}" type="button" class="btn btn-info">
                                 <span class="glyphicon glyphicon-check"></span> Consulter
                             </a>
-                            <a href="index.php?uc=information&action=suppression&id={{ information.id }}&code={{ code }}" type="button" class="btn btn-danger">
+                            <a href="index.php?uc=information&action=suppression&id={{ information.id }}&dossierPdf={{ dossierPdf.id }}" type="button" class="btn btn-danger">
                                 <span class="glyphicon glyphicon-trash"></span> Supprimer
                             </a>
                         </div>

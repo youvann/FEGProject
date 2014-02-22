@@ -15,14 +15,14 @@ class VoeuManager {
 		$q = $this->db->prepare("SELECT * FROM `voeu` WHERE `CODE_ETAPE` = ?;");
 		$q->execute(array($codeEtape));
 		$rs = $q->fetch();
-		return new Voeu($rs['CODE_ETAPE'], $rs['CODE_FORMATION'], $rs['ETAPE'], $rs['RESPONSABLE'], $rs['MAIL_RESPONSABLE']);
+		return new Voeu($rs['CODE_ETAPE'], $rs['CODE_FORMATION'], $rs['ETAPE'], $rs['DOSSIER_PDF']);
 	}
 
 	public function findAll() {
 		$voeux = array();
 		$rs = $this->db->query("SELECT * FROM `voeu`;")->fetchAll();
 		foreach ($rs as $voeu) {
-			$voeux[] = new Voeu($voeu['CODE_ETAPE'], $voeu['CODE_FORMATION'], $voeu['ETAPE'], $voeu['RESPONSABLE'], $voeu['MAIL_RESPONSABLE']);
+			$voeux[] = new Voeu($voeu['CODE_ETAPE'], $voeu['CODE_FORMATION'], $voeu['ETAPE'], $voeu['DOSSIER_PDF']);
 		}
 		return $voeux;
 	}
@@ -33,19 +33,19 @@ class VoeuManager {
 		$q->execute(array($formation->getCodeFormation()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $voeu) {
-			$voeux[] = new Voeu($voeu['CODE_ETAPE'], $voeu['CODE_FORMATION'], $voeu['ETAPE'], $voeu['RESPONSABLE'], $voeu['MAIL_RESPONSABLE']);
+			$voeux[] = new Voeu($voeu['CODE_ETAPE'], $voeu['CODE_FORMATION'], $voeu['ETAPE'], $voeu['DOSSIER_PDF']);
 		}
 		return $voeux;
 	}
 
 	public function insert(Voeu $voeu) {
-		return $this->db->prepare("INSERT INTO `voeu` (`CODE_ETAPE`, `CODE_FORMATION`, `ETAPE`, `RESPONSABLE`, `MAIL_RESPONSABLE`) VALUES (?, ?, ?, ?, ?);")
-						->execute(array($voeu->getCodeEtape(), $voeu->getCodeFormation(), $voeu->getEtape(), $voeu->getResponsable(), $voeu->getMailResponsable()));
+		return $this->db->prepare("INSERT INTO `voeu` (`CODE_ETAPE`, `CODE_FORMATION`, `ETAPE`, `DOSSIER_PDF`) VALUES (?, ?, ?, NULL);")
+						->execute(array($voeu->getCodeEtape(), $voeu->getCodeFormation(), $voeu->getEtape(), ));
 	}
 
 	public function update(Voeu $voeu) {
-		return $this->db->prepare("UPDATE `voeu` SET `CODE_FORMATION` = ?, `ETAPE` = ?, `RESPONSABLE` = ?, `MAIL_RESPONSABLE` = ? WHERE `CODE_ETAPE` = ?;")
-						->execute(array($voeu->getCodeFormation(), $voeu->getEtape(), $voeu->getResponsable(), $voeu->getMailResponsable(), $voeu->getCodeEtape()));
+		return $this->db->prepare("UPDATE `voeu` SET `CODE_FORMATION` = ?, `ETAPE` = ?, `DOSSIER_PDF` = ? WHERE `CODE_ETAPE` = ?;")
+						->execute(array($voeu->getCodeFormation(), $voeu->getEtape(), $voeu->getDossierPdf(), $voeu->getCodeEtape()));
 	}
 	
 	public function delete(Voeu $voeu) {
@@ -62,6 +62,5 @@ class VoeuManager {
 			$villes[] = new Ville($ville['ID'], $ville['NOM']);
 		}
 		return $villes;
-		
 	}
 }

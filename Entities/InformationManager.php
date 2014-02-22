@@ -17,32 +17,32 @@ class InformationManager {
 		$q = $this->db->prepare("SELECT * FROM `information` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
-		return new Information($rs['ID'], $rs['TYPE'], $rs['CODE_FORMATION'], $rs['LIBELLE'], $rs['EXPLICATIONS'], $rs['ORDRE']);
+		return new Information($rs['ID'], $rs['TYPE'], $rs['DOSSIER_PDF'], $rs['LIBELLE'], $rs['EXPLICATIONS'], $rs['ORDRE']);
 	}
 
-	public function findAllByFormation(Formation $formation) {
+	public function findAllByDossierPdf(DossierPdf $dossierPdf) {
 		$informations = array();
-		$q = $this->db->prepare("SELECT * FROM `information` WHERE `CODE_FORMATION` = ? ORDER BY `ORDRE`;");
-		$q->execute(array($formation->getCodeFormation()));
+		$q = $this->db->prepare("SELECT * FROM `information` WHERE `DOSSIER_PDF` = ? ORDER BY `ORDRE`;");
+		$q->execute(array($dossierPdf->getId()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $information) {
-			$informations[] = new Information($information['ID'], $information['TYPE'], $information['CODE_FORMATION'], $information['LIBELLE'], $information['EXPLICATIONS'], $information['ORDRE']);
+			$informations[] = new Information($information['ID'], $information['TYPE'], $information['DOSSIER_PDF'], $information['LIBELLE'], $information['EXPLICATIONS'], $information['ORDRE']);
 		}
 		return $informations;
 	}
 
 	public function insert(Information $information) {
-		$q = $this->db->prepare("SELECT (SELECT ifnull(max(`id`),'i00000')  FROM `information`) as id, (SELECT ifnull(max(`ordre`),'0') FROM `information` WHERE `information`.`code_formation` = ?) as ordre;");
-		$q->execute(array($information->getCodeFormation()));
+		$q = $this->db->prepare("SELECT (SELECT ifnull(max(`id`),'i00000')  FROM `information`) as id, (SELECT ifnull(max(`ordre`),'0') FROM `information` WHERE `information`.`dossier_pdf` = ?) as ordre;");
+		$q->execute(array($information->getDossierPdf()));
 		$rs = $q->fetch();
 		$id = $rs['id'];
 		$ordre = $rs['ordre'];
 
-		return $this->db->prepare("INSERT INTO `information` (`ID`, `TYPE`, `CODE_FORMATION`, `LIBELLE`, `EXPLICATIONS`, `ORDRE`) VALUES (?, ?, ?, ?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `information` (`ID`, `TYPE`, `DOSSIER_PDF`, `LIBELLE`, `EXPLICATIONS`, `ORDRE`) VALUES (?, ?, ?, ?, ?, ?);")
 						->execute(array(
 							++$id,
 							$information->getType(),
-							$information->getCodeFormation(),
+							$information->getDossierPdf(),
 							$information->getLibelle(),
 							$information->getExplications(),
 							++$ordre
@@ -50,10 +50,10 @@ class InformationManager {
 	}
 
 	public function update(Information $information) {
-		return $this->db->prepare("UPDATE `information` SET `TYPE` = ?, `CODE_FORMATION` = ?, `LIBELLE` = ?, `EXPLICATIONS` = ?, `ORDRE` = ? WHERE `ID` = ?;")
+		return $this->db->prepare("UPDATE `information` SET `TYPE` = ?, `DOSSIER_PDF` = ?, `LIBELLE` = ?, `EXPLICATIONS` = ?, `ORDRE` = ? WHERE `ID` = ?;")
 						->execute(array(
 							$information->getType(),
-							$information->getCodeFormation(),
+							$information->getDossierPdf(),
 							$information->getLibelle(),
 							$information->getExplications(),
 							$information->getOrdre(),
@@ -78,7 +78,7 @@ class InformationManager {
 			LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
 			WHERE `information`.`code_formation` = ?
 			ORDER BY `information`.`ordre`;');
-		$q->execute(array($formation->getCodeFormation()));
+		$q->execute(array($formation->getDossierPdf()));
 		return $q->fetchAll();
 	}
 

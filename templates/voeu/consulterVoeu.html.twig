@@ -16,16 +16,29 @@
 <p class="text-info">{{ voeu.codeEtape }}</p>
 <p class="text-muted">Etape</p>
 <p class="text-info">{{ voeu.etape }}</p>
-<p class="text-muted">Responsable</p>
-<p class="text-info">{{ voeu.responsable }}</p>
 <p class="text-muted">Ville(s)</p>
-	{% if voeu.villes is not empty %}
-		<ul class="list-unstyled">
-			{% for ville in voeu.villes %}
-				<li class="text-info">{{ ville.nom }}</li>
-			{% endfor %}
-		</ul>
-	{% endif %}
+    {% if villes is not empty %}
+        <table class="table table-bordered">
+            <tr>
+                <th>Ville</th>
+                <th>Responsable</th>
+                <th>Mail</th>
+            </tr>
+        {% for ville in villes %}
+            {% for seDerouler in lesSeDerouler %}
+                {% if ville.id == seDerouler.id %}
+                    <tr>
+                        <td>{{ ville.nom }}</td>
+                        <td>{{ seDerouler.responsable }}</td>
+                        <td>
+                            <a href="mailto:{{ seDerouler.mailResponsable }}">{{ seDerouler.mailResponsable }}</a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </table>
+    {% endif %}
 <hr />
 
 <a href="index.php?uc=voeu&action=grille&code={{ code }}"  class="btn btn-primary">

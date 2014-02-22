@@ -2,54 +2,109 @@
 
 {% block content %}
 
-<ol class="breadcrumb">
-	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
-	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
-	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
-	<li><a href="index.php?uc=information&action=grille&code={{ code }}">Liste des voeux</a></li>
-	<li class="active">Ajouter un voeu</li>
-</ol>
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+        <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
+        <li><a href="index.php?uc=voeu&action=grille&code={{ code }}">Liste des voeux</a></li>
+        <li class="active">Modifier un voeu</li>
+    </ol>
 
-<h2 class="titre_rubrique">Ajouter un voeu</h2>
+    <h2 class="titre_rubrique">Modifier un voeu</h2>
 
-<form action="index.php?uc=voeu&action=modification" method="POST">
-	<input type="hidden" id="code" name="code" value="{{ code }}" />
-	<input type="hidden" id="code_etape" name="code_etape" value="{{ voeu.codeetape }}" />
-	<div class="form-group">
-		<label for="etape">Etape</label>
-		<input class="form-control" type="text" id="etape" name="etape" value="{{ voeu.etape }}" />
-	</div>
-	<div class="form-group">
-		<label for="responsable">Responsable</label>
-		<input class="form-control" type="text" id="responsable" name="responsable" value="{{ voeu.responsable }}" />
-	</div>
-	<div class="form-group">
-		<label>Ville(s)</label>
-		{% if lesvilles is not empty %}
-			{% for uneville in lesvilles %}
-				<div class="checkbox">
-					<label for="ville-{{ uneville.codevet }}">
-						<input type="checkbox" id="ville-{{ uneville.codevet }}" name="villes[]" value="{{ uneville.codevet }}" 
-						
-						{% for ville in voeu.villes %}
-						{% if uneville.codevet == ville.codevet %}checked{% endif %} 
-						{% endfor %}
-						
-						/> {{ uneville.nom }}
-					</label>
-				</div>
-			{% endfor %}
-		{% endif %}
-	</div>
-	<button class="btn btn-primary" type="submit">
-		<span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer
-	</button>
-</form>
+    <form action="index.php?uc=voeu&action=modification" method="POST">
+        <input type="hidden" id="code" name="code" value="{{ code }}"/>
+        <input type="hidden" id="code_etape" name="code_etape" value="{{ voeu.codeetape }}"/>
 
-<hr />
+        <div class="form-group">
+            <label for="etape">Etape</label>
+            <input class="form-control" type="text" id="etape" name="etape" value="{{ voeu.etape }}"/>
+        </div>
+        <label>Ville(s)</label>
+        {% if villes is not empty %}
+            {% set myLoopIndex = 0 %}{% set display = 0 %}
+            {% for ville in villes %}
 
-<a href="index.php?uc=voeu&action=grille&code={{ code }}"  class="btn btn-primary">
-	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
-</a>
+                {% for seDerouler in lesSeDerouler %}
 
+                    {% if ville.id == seDerouler.id %}
+                        {% set display = 1 %}
+                        <div class="form-group">
+                            <label for="ville-{{ myLoopIndex }}">{{ ville.nom }}</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" id="ville-{{ myLoopIndex }}"
+                                       name="ville[]" value="{{ ville.id }}" checked />
+                                </span>
+                                <input type="text" class="form-control" id="responsable-{{ myLoopIndex }}"
+                                       name="responsable[]" placeholder="Nom et prénom du responsable"
+                                       value="{{ seDerouler.responsable }}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">@</span>
+                                <input type="text" class="form-control" id="mail_responsable-{{ myLoopIndex }}"
+                                       name="mail_responsable[]" placeholder="Adresse mail du responsable"
+                                       value="{{ seDerouler.mailResponsable }}" />
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% if display == 0 %}
+                    <div class="form-group">
+                    <label for="ville-{{ myLoopIndex }}">{{ ville.nom }}</label>
+
+                    <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" id="ville-{{ myLoopIndex }}"
+                                       name="ville[]" value="{{ ville.id }}" />
+                            </span>
+                        <input type="text" class="form-control" disabled id="responsable-{{ myLoopIndex }}"
+                               name="responsable[]" placeholder="Nom et prénom du responsable" />
+                    </div>
+                </div>
+                    <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input type="text" class="form-control" disabled id="mail_responsable-{{ myLoopIndex }}"
+                               name="mail_responsable[]" placeholder="Adresse mail du responsable" />
+                    </div>
+                </div>
+                {% endif %}
+                {% set myLoopIndex = myLoopIndex + 1 %}
+                {% set display = 0 %}
+            {% endfor %}
+        {% endif %}
+        <button class="btn btn-primary" type="submit">
+            <span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer
+        </button>
+    </form>
+
+    <hr/>
+
+    <a href="index.php?uc=voeu&action=grille&code={{ code }}" class="btn btn-primary">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+    </a>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            $('input[type="checkbox"]').change(function () {
+                var idCb = this.id;
+                idCb = idCb.replace('ville-', '');
+                if ($(this).is(':checked')) {
+                    $('#responsable-' + idCb).removeAttr('disabled').attr('required','required');
+                    $('#mail_responsable-' + idCb).removeAttr('disabled').attr('required','required');
+                } else {
+                    $('#responsable-' + idCb).attr('disabled','disabled').removeAttr('required').val('');
+                    $('#mail_responsable-' + idCb).attr('disabled','disabled').removeAttr('required').addClass('disabled').val('');
+                }
+            });
+        });
+    </script>
 {% endblock %}

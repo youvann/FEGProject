@@ -4,17 +4,13 @@ class Voeu {
 	private $codeEtape;
 	private $codeFormation;
 	private $etape;
-	private $responsable;
-	private $mailResponsable;
-	private $villes;
+	private $dossierPdf;
 	
-	function __construct($codeEtape, $codeFormation, $etape, $responsable, $mailResponsable) {
+	function __construct($codeEtape, $codeFormation, $etape, $dossierPdf) {
 		$this->codeEtape = $codeEtape;
 		$this->codeFormation = $codeFormation;
 		$this->etape = $etape;
-		$this->responsable = $responsable;
-		$this->mailResponsable = $mailResponsable;
-		$this->villes = NULL;
+		$this->dossierPdf = $dossierPdf;
 	}
 
 	public function getCodeEtape() {
@@ -29,16 +25,9 @@ class Voeu {
 		return $this->etape;
 	}
 
-	public function getResponsable() {
-		return $this->responsable;
-	}
-
-	public function getMailResponsable() {
-		return $this->mailResponsable;
-	}
-	
-	public function getVilles() {
-		return $this->villes;
+	public function getDossierPdf()
+	{
+		return $this->dossierPdf;
 	}
 
 	public function setCodeEtape($codeEtape) {
@@ -53,15 +42,8 @@ class Voeu {
 		$this->etape = $etape;
 	}
 
-	public function setResponsable($responsable) {
-		$this->responsable = $responsable;
-	}
-
-	public function setMailResponsable($mailResponsable) {
-		$this->mailResponsable = $mailResponsable;
-	}
-
-	public function setVilles($villes) {
-		$this->villes = $villes;
+	public function setDossierPdf($dossierPdf)
+	{
+		$this->dossierPdf = $dossierPdf;
 	}
 }

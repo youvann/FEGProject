@@ -13,13 +13,13 @@
 <h2 class="titre_rubrique">Ajouter une information</h2>
 
 <form action="index.php?uc=information&action=ajout" method="POST">
-	<input type="hidden" id="code_formation" name="code_formation" value="{{ code }}" />
+	<input type="hidden" id="dossier_pdf" name="dossier_pdf" value="{{ dossierPdf.id }}" />
 	<div class="form-group">
 		<label for="type">Type</label>
 		<select class="form-control" id="type" name="type">
-				{% for type in types %}
-			<option value="{{ type.id }}">{{ type.libelle }}</option>
-				{% endfor %}
+			{% for type in types %}
+			    <option value="{{ type.id }}">{{ type.libelle }}</option>
+			{% endfor %}
 		</select>
 	</div>
 	<div class="form-group">
