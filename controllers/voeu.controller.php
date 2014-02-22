@@ -96,11 +96,14 @@ switch ($action) {
 	case "deplacerVoeuDansDossier":
 	{
 		$voeu = $voeuManager->find($_POST['etape']);
-		if ($_POST['dossierPdf'] === "0") {
+		if (intval($_POST['dossierPdf']) === 0) {
 			$voeu->setDossierPdf(NULL);
+			$response['dossier'] = NULL;
 		} else {
 			$voeu->setDossierPdf(intval($_POST['dossierPdf']));
+			$response['dossier'] = intval($_POST['dossierPdf']);
 		}
+
 		$response['response'] = $voeuManager->update($voeu);
 		echo json_encode($response);
 	}

@@ -11,7 +11,7 @@
 
     <h2 class="titre_rubrique">Gestion des dossiers</h2>
 
-    <button id="btnDisplayFormNew" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    <button id="btnToggleModalNewEdit" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus-sign"></span> Ajouter un dossier
     </button>
 
@@ -54,12 +54,12 @@
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a class="btn btn-default" href="index.php?uc=information&action=grille&dossierPdf={{ dossierPdf.id }}">
+                                    <a href="index.php?uc=information&action=grille&dossierPdf={{ dossierPdf.id }}">
                                         <span class="glyphicon glyphicon-info-sign"></span> Informations spécifiques
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="btn btn-default" href="index.php?uc=documentSpecifique&action=grille&dossierPdf={{ dossierPdf.id }}">
+                                    <a href="index.php?uc=documentSpecifique&action=grille&dossierPdf={{ dossierPdf.id }}">
                                         <span class="glyphicon glyphicon-info-sign"></span> Documents spécifiques
                                     </a>
                                 </li>
@@ -71,7 +71,7 @@
         {% endfor %}
     </div>
 
-    <div id="myModal" class="modal fade">
+    <div id="modalNewEdit" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -79,7 +79,18 @@
                     <h4 class="modal-title">Ajouter un dossier</h4>
                 </div>
                 <div class="modal-body">
-
+                    <form id="formNewEdit" method="post" action="index.php?uc=formation&action=ajouter">
+                        <input type="hidden" id="id" name="id" value="0" />
+                        <input type="hidden" id="code_formation" name="code_formation" value="{{ code }}" />
+                        <div class="form-group">
+                            <label for="nom">Nom</label>
+                            <input class="form-control" type="text" id="nom" name="nom" />
+                        </div>
+                        <button class="btn btn-primary" type="submit">
+                            <span class="glyphicon glyphicon-floppy-save"></span> Enregistrer
+                        </button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Annuler</button>
+                    </form>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -95,96 +106,30 @@
     <script type="text/javascript" src="public/js/jquery-ui-1.10.4.custom.min.js"></script>
     <script type="text/javascript">
         $(function () {
-
-            $("#btnDisplayFormNew").click(function() {
-                $('.modal-body').html('');
-                var form = $('<form></form>')
-                        .attr('method', 'post')
-                        .attr('action', 'index.php?uc=formation&action=ajouterDossier');
-                var hidden = $('<input />')
-                        .attr('type', 'hidden')
-                        .attr('id', 'code_formation')
-                        .attr('name', 'code_formation')
-                        .attr('value', '{{ code }}');
-                var formGroup = $('<div></div>').addClass('form-group');
-                var label = $('<label></label>').html('Nom');
-                var input = $('<input />')
-                        .addClass('form-control')
-                        .attr('type', 'text')
-                        .attr('id', 'nom')
-                        .attr('name', 'nom');
-                var span = $('<span></span>')
-                        .addClass('glyphicon')
-                        .addClass('glyphicon-floppy-save');
-                var submit = $('<button></button>')
-                        .attr('type', 'submit')
-                        .addClass('btn')
-                        .addClass('btn-primary');
-                var button = $('<button></button>')
-                        .attr('type', 'button')
-                        .attr('data-dismiss', 'modal')
-                        .addClass('btn')
-                        .addClass('btn-default')
-                        .html('Annuler');
-                formGroup.append(label).append(input);
-                submit.html(' Enregistrer');
-                form.append(hidden)
-                        .append(formGroup)
-                        .append(submit)
-                        .append(button);
-                $('.modal-body').append(form);
-                $('#myModal').modal('show');
+            $('#btnToggleModalNewEdit').click(function() {
+                $('#formNewEdit').attr('action', 'index.php?uc=formation&action=ajouter');
+                $('#id').attr('value', '0');
+                $('#nom').attr('value', '');
+                $('#modalNewEdit').modal('show');
             });
 
             $('.btnModifierDossier').click(function() {
-                var id = $(this).attr('id');
-                id = id.replace('btnModifierDossier-', '');
-
-                $('.modal-body').html('');
-                var form = $('<form></form>')
-                        .attr('method', 'post')
-                        .attr('action', 'index.php?uc=formation&action=modificationDossier');
-                var hiddenFormation = $('<input />')
-                        .attr('type', 'hidden')
-                        .attr('id', 'code_formation')
-                        .attr('name', 'code_formation')
-                        .attr('value', '{{ code }}');
-                var hiddenIdDossier = $('<input />')
-                        .attr('type', 'hidden')
-                        .attr('id', 'id')
-                        .attr('name', 'id')
-                        .attr('value', id);
-                var formGroup = $('<div></div>').addClass('form-group');
-                var label = $('<label></label>').html('Nom');
-                var input = $('<input />')
-                        .addClass('form-control')
-                        .attr('type', 'text')
-                        .attr('id', 'nom')
-                        .attr('name', 'nom')
-                        .val($('#panel-heading-' + id).html());
-                var span = $('<span></span>')
-                        .addClass('glyphicon')
-                        .addClass('glyphicon-floppy-save');
-                var submit = $('<button></button>')
-                        .attr('type', 'submit')
-                        .addClass('btn')
-                        .addClass('btn-primary');
-                var button = $('<button></button>')
-                        .attr('type', 'button')
-                        .attr('data-dismiss', 'modal')
-                        .addClass('btn')
-                        .addClass('btn-default')
-                        .html('Annuler');
-                formGroup.append(label).append(input);
-                submit.html('Enregistrer');
-                form.append(hiddenFormation)
-                        .append(hiddenIdDossier)
-                        .append(formGroup)
-                        .append(submit)
-                        .append(button);
-                $('.modal-body').append(form);
-                $('#myModal').modal('show');
+                var idDossierPdf = this.id.replace('btnModifierDossier-', '');
+                $.ajax({
+                    url: 'index.php?uc=dossierPdf&action=consulter',
+                    type: 'post',
+                    data: 'idDossierPdf=' + idDossierPdf,
+                    dataType: 'json',
+                    success: function (json) {
+                        $('#formNewEdit').attr('action', 'index.php?uc=formation&action=modification');
+                        $('#id').attr('value', json.dossierPdf.id);
+                        $('#nom').attr('value', json.dossierPdf.nom);
+                        $('#modalNewEdit').modal('show');
+                    }
+                });
             });
+
+
             var lastBtnSupprimerPushed = null;
             $('.btnSupprimerDossier').click(function() {
 
