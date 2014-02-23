@@ -38,7 +38,7 @@ switch ($action) {
     case "suppression": {
         $documentSpecifique = $documentSpecifiqueManager->find($_GET['id']);
 		$documentSpecifiqueManager->delete($documentSpecifique);
-        header('location:index.php?uc=documentSpecifique&action=grille&dossierPdf='.$dossierPdf->getId());
+        header('location:index.php?uc=documentSpecifique&action=grille&dossierPdf='.$documentSpecifique->getDossierPdf());
     } break;
     default: break;
 }
