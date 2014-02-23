@@ -14,8 +14,8 @@ class CursusManager {
 
 	public function findAllByDossier(Dossier $dossier) {
         $lesCursus = array();
-		$q = $this->db->prepare("SELECT * FROM `cursus` WHERE `cursus`.`INE` = ? AND `cursus`.`CODE_FORMATION` = ?;");
-        $q->execute(array($dossier->getIne(), $dossier->getCodeFormation()));
+		$q = $this->db->prepare("SELECT * FROM `cursus` WHERE `cursus`.`ID_ETUDIANT` = ? AND `cursus`.`CODE_FORMATION` = ?;");
+        $q->execute(array($dossier->getIdEtudiant(), $dossier->getCodeFormation()));
         $rs = $q->fetchAll();
 
         foreach($rs as $cursus){
@@ -25,9 +25,10 @@ class CursusManager {
 	}
 
 	public function insert(Cursus $cursus) {
-		return $this->db->prepare("INSERT INTO `cursus` (`INE`, `CODE_FORMATION`, `ANNEE_DEBUT`, `ANNEE_FIN`, `CURSUS`, `ETABLISSEMENT`, `NOTE`) VALUES (?, ?, ?, ?, ?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `cursus` (`ID`, `ID_ETUDIANT`, `CODE_FORMATION`, `ANNEE_DEBUT`, `ANNEE_FIN`, `CURSUS`, `ETABLISSEMENT`, `NOTE`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);")
 						->execute(array(
-							$cursus->getIne(),
+                            $cursus->getId(),
+							$cursus->getIdEtudiant(),
 							$cursus->getCodeFormation(),
 							$cursus->getAnneeDebut(),
 							$cursus->getAnneeFin(),

@@ -32,7 +32,7 @@ switch ($action) {
 			echo $twig->render('information/ajouterInformation.html.twig', array('types' => $types, 'dossierPdf' => $dossierPdf));
 		} break;
 	case "ajout": {
-			var_dump($informationManager->insert(new Information(0, $_POST["type"], $_POST["dossier_pdf"], $_POST["libelle"], $_POST["explications"], 0)));
+			//var_dump($informationManager->insert(new Information(0, $_POST["type"], $_POST["dossier_pdf"], $_POST["libelle"], $_POST["explications"], 0)));
 			if ($_POST["type"] === 'RadioButtonGroup' || $_POST["type"] === 'CheckBoxGroup') {
 				$lastInsertId = $informationManager->maxId();
 				foreach ($_POST['tb'] as $tb) {

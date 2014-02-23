@@ -2,13 +2,13 @@
 
 class Faire {
 	private $codeEtape;
-	private $ine;
+	private $idEtudiant;
 	private $codeFormation;
 	private $ordre;
 	
-	function __construct($codeEtape, $ine, $codeFormation, $ordre) {
+	function __construct($codeEtape, $idEtudiant, $codeFormation, $ordre) {
 		$this->codeEtape = $codeEtape;
-		$this->ine = $ine;
+		$this->idEtudiant = $idEtudiant;
 		$this->codeFormation = $codeFormation;
 		$this->ordre = $ordre;
 	}
@@ -17,8 +17,8 @@ class Faire {
 		return $this->codeEtape;
 	}
 
-	public function getIne() {
-		return $this->ine;
+	public function getIdEtudiant() {
+		return $this->idEtudiant;
 	}
 
 	public function getCodeFormation() {
@@ -33,8 +33,8 @@ class Faire {
 		$this->codeEtape = $codeEtape;
 	}
 
-	public function setIne($ine) {
-		$this->ine = $ine;
+	public function setIdEtudiant($idEtudiant) {
+		$this->idEtudiant = $idEtudiant;
 	}
 
 	public function setCodeFormation($codeFormation) {

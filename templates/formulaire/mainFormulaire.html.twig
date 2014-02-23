@@ -5,6 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="titre_rubrique">
+
                 {% if typedossier == 'CA' %}Candidature{% elseif typedossier == 'PI' %}Pré-inscription{% endif %}
                 en {{ formation.mention }} pour l'année scolaire {{ anneeBasse }}
                 -{{ anneeHaute }}
@@ -23,7 +24,7 @@
                     {% include 'formulaire/documentsGeneraux.html.twig' %}
                 {% endif %}
 
-                {% if formation.modalites is not empty %}
+                <!--{% if formation.modalites is not empty %}
                     <div class="well well-fg">
                         {{ formation.modalites | raw }}
                     </div>
@@ -32,7 +33,7 @@
                     <div class="well well-fg">
                         {{ formation.informations | raw }}
                     </div>
-                {% endif %}
+                {% endif %}-->
 
                 <button type="input" id="customSubmit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-cloud-upload"></span> Envoyer
@@ -124,7 +125,13 @@
                 showDone: false,
                 dynamicFormData: function () {
                     // Récupération des champs nom et prénom de l'étudiant
-                    var data = { nom: $('#nom').val(), prenom: $('#prenom').val() }
+                    var data = {
+                        nom: $('#nom').val(),
+                        prenom: $('#prenom').val(),
+                        voeu1: $('#voeu-1').val(),
+                        voeu2: $('#voeu-2').val(),
+                        voeu3: $('#voeu-3').val()
+                    }
                     return data;
                 },
                 afterUploadAll: function () {

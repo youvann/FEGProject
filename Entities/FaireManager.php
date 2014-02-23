@@ -14,8 +14,8 @@ class FaireManager {
 
 	public function findAllByDossier(Dossier $dossier) {
 		$faires = array();
-		$q = $this->db->prepare("SELECT * FROM `faire` WHERE `INE` = ? AND `CODE_FORMATION` = ? ORDER BY `ORDRE`;");
-        $q->execute(array($dossier->getIne(), $dossier->getCodeFormation()));
+		$q = $this->db->prepare("SELECT * FROM `faire` WHERE `ID_ETUDIANT` = ? AND `CODE_FORMATION` = ? ORDER BY `ORDRE`;");
+        $q->execute(array($dossier->getIdEtudiant(), $dossier->getCodeFormation()));
         $rs = $q->fetchAll();
 
 		foreach ($rs as $faire) {
@@ -25,10 +25,10 @@ class FaireManager {
 	}
 
 	public function insert(Faire $faire) {
-		return $this->db->prepare("INSERT INTO `faire` (`CODE_ETAPE`, `INE`, `CODE_FORMATION`, `ORDRE`) VALUES (?, ?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `faire` (`CODE_ETAPE`, `ID_ETUDIANT`, `CODE_FORMATION`, `ORDRE`) VALUES (?, ?, ?, ?);")
 						->execute(array(
 							$faire->getCodeEtape(),
-							$faire->getIne(),
+							$faire->getIdEtudiant(),
 							$faire->getCodeFormation(),
 							$faire->getOrdre()
 		));

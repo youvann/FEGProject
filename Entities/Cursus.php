@@ -3,7 +3,7 @@
 class Cursus {
 
 	private $id;
-	private $ine;
+	private $idEtudiant;
 	private $codeFormation;
 	private $anneeDebut;
 	private $anneeFin;
@@ -11,9 +11,9 @@ class Cursus {
 	private $etablissement;
 	private $note;
 
-	function __construct($id, $ine, $codeFormation, $anneeDebut, $anneeFin, $cursus, $etablissement, $note) {
+	function __construct($id, $idEtudiant, $codeFormation, $anneeDebut, $anneeFin, $cursus, $etablissement, $note) {
 		$this->id = $id;
-		$this->ine = $ine;
+		$this->idEtudiant = $idEtudiant;
 		$this->codeFormation = $codeFormation;
 		$this->anneeDebut = $anneeDebut;
 		$this->anneeFin = $anneeFin;
@@ -26,8 +26,8 @@ class Cursus {
 		return $this->id;
 	}
 
-	public function getIne() {
-		return $this->ine;
+	public function getIdEtudiant() {
+		return $this->idEtudiant;
 	}
 
 	public function getCodeFormation() {
@@ -58,8 +58,8 @@ class Cursus {
 		$this->id = $id;
 	}
 
-	public function setIne($ine) {
-		$this->ine = $ine;
+	public function setIdEtudiant($idEtudiant) {
+		$this->idEtudiant = $idEtudiant;
 	}
 	
 	public function setCodeFormation($codeFormation) {

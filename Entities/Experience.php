@@ -2,7 +2,7 @@
 
 class Experience {
 	private $id;
-	private $ine;
+	private $idEtudiant;
 	private $codeFormation;
 	private $moisDebut;
 	private $anneeDebut;
@@ -11,9 +11,9 @@ class Experience {
 	private $entreprise;
 	private $fonction;
 
-	function __construct($id, $ine, $codeFormation, $moisDebut, $anneeDebut, $moisFin, $anneeFin, $entreprise, $fonction) {
+	function __construct($id, $idEtudiant, $codeFormation, $moisDebut, $anneeDebut, $moisFin, $anneeFin, $entreprise, $fonction) {
 		$this->id = $id;
-		$this->ine = $ine;
+		$this->idEtudiant = $idEtudiant;
 		$this->codeFormation = $codeFormation;
 		$this->moisDebut = $moisDebut;
 		$this->anneeDebut = $anneeDebut;
@@ -27,8 +27,8 @@ class Experience {
 		return $this->id;
 	}
 
-	public function getIne() {
-		return $this->ine;
+	public function getIdEtudiant() {
+		return $this->idEtudiant;
 	}
 
 	public function getCodeFormation() {
@@ -63,8 +63,8 @@ class Experience {
 		$this->id = $id;
 	}
 
-	public function setIne($ine) {
-		$this->ine = $ine;
+	public function setIdEtudiant($idEtudiant) {
+		$this->idEtudiant = $idEtudiant;
 	}
 
 	public function setCodeFormation($codeFormation) {
