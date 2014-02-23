@@ -54,8 +54,8 @@
                             <span class="label label-danger">Requis</span>
                             <select class="form-control" id="choisie" name="choisie">
                                 <option value="">&mdash; Sélectionnez &mdash;</option>
-                                {% for formation in formations %}
-                                    <option value="{{ formation.codeformation }}">{{ formation.mention }}</option>
+                                {% for dossierPdf in dossiersPdf %}
+                                    <option value="{{ dossierPdf.id  }}">{{ dossierPdf.nom }}</option>
                                 {% endfor %}
                             </select>
                         </div>

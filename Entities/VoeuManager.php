@@ -38,6 +38,17 @@ class VoeuManager {
 		return $voeux;
 	}
 
+    public function findAllByDossierPdf (DossierPdf $dossierPdf) {
+        $voeux = array ();
+        $q     = $this->db->prepare ("SELECT * FROM `voeu` WHERE `DOSSIER_PDF` = ?;");
+        $q->execute (array ($dossierPdf->getId ()));
+        $rs = $q->fetchAll ();
+        foreach ($rs as $voeu) {
+            $voeux[] = new Voeu($voeu['CODE_ETAPE'], $voeu['CODE_FORMATION'], $voeu['ETAPE'], $voeu['DOSSIER_PDF']);
+        }
+        return $voeux;
+    }
+
 	public function insert(Voeu $voeu) {
 		return $this->db->prepare("INSERT INTO `voeu` (`CODE_ETAPE`, `CODE_FORMATION`, `ETAPE`, `DOSSIER_PDF`) VALUES (?, ?, ?, NULL);")
 						->execute(array($voeu->getCodeEtape(), $voeu->getCodeFormation(), $voeu->getEtape(), ));

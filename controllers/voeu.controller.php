@@ -82,7 +82,7 @@ switch ($action) {
 
 		$voeu->setEtape($_POST['etape']);
 		$voeuManager->update($voeu);
-		header('location:index.php?uc=voeu&action=consulter&codeetape='.$_POST['code_etape'].'&code=' . $_POST['code']);
+		header('location:index.php?uc=voeu&action=consulter&codeEtape='.$_POST['code_etape'].'&code=' . $_POST['code']);
 	}
 		break;
 	case "suppression":

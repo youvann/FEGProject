@@ -37,7 +37,13 @@ switch ($action) {
     {
         $voeux      = $voeuManager->findAll ();
         $formations = $formationManager->findAll ();
-        echo $twig->render ('formulaire/choixFormation.html.twig', array ('formations' => $formations, 'voeux' => $voeux));
+        $dossiersPdf = $dossierPdfManager->findAll();
+
+        echo $twig->render ('formulaire/choixFormation.html.twig', array (
+            'formations' => $formations,
+            'voeux' => $voeux,
+            'dossiersPdf' => $dossiersPdf
+        ));
     }
         break;
     case "traiterChoixFormation":
@@ -76,20 +82,23 @@ switch ($action) {
     {
         // Chargement des voeux
         $formation = $formationManager->find ($_SESSION['choisie']);
-        $voeux     = $voeuManager->findAllByFormation ($formation);
+
+        $dossierPdf = $dossierPdfManager->find($_SESSION['choisie']);
+        $voeux     = $voeuManager->findAllByDossierPdf($dossierPdf);
+
         foreach ($voeux as $voeu) {
             //$voeu->setVilles ($voeuManager->getVilles ($voeu));
         }
         $nbVoeux = count ($voeux);
 
         // Chargement des informations supplémentaires
-     /*   $structure = $translatorResultsetToStructure->translate ($informationManager->getResultset ($formation));
+        $structure = $translatorResultsetToStructure->translate ($informationManager->getResultset ($dossierPdf));
         $form      = $translatorStructureToForm->translate ($structure);
-        $formHTML  = $form->getHTML ();*/
+        $formHTML  = $form->getHTML ();
 
         // Chargement des documents généraux et spécifiques
-/*        $documentsGeneraux    = $documentGeneralManager->findAll ();
-        $documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation ($_SESSION['choisie']);*/
+        $documentsGeneraux    = $documentGeneralManager->findAll ();
+        $documentsSpecifiques = $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf);
 
         echo $twig->render ('formulaire/mainFormulaire.html.twig', array ('formation' => $formation, 'voeux' => $voeux, 'nbVoeux' => $nbVoeux, 'form' => $formHTML, 'documentsGeneraux' => $documentsGeneraux, 'documentsSpecifique' => $documentsSpecifiques, 'typedossier' => 'CA'));
     }
