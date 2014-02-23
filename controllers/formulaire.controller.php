@@ -142,14 +142,8 @@ switch ($action) {
         $dossierManager->insert ($dossier);
 
         $cursusManager->insert (new Cursus(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $_POST['anneeDebutCursus-1'], $_POST['anneeFinCursus-1'], $_POST['cursus-1'], $_POST['etablissement-1'], $_POST['valide-1']));
-        /*$cursusManager->insert(new Cursus(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $_POST['anneeDebutCursus-2'], $_POST['anneeFinCursus-2'], $_POST['cursus-2'], $_POST['etablissement-2'], $_POST['valide-2']));
-        $cursusManager->insert(new Cursus(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $_POST['anneeDebutCursus-3'], $_POST['anneeFinCursus-3'], $_POST['cursus-3'], $_POST['etablissement-3'], $_POST['valide-3']));
-        $cursusManager->insert(new Cursus(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $_POST['anneeDebutCursus-4'], $_POST['anneeFinCursus-4'], $_POST['cursus-4'], $_POST['etablissement-4'], $_POST['valide-4']));
-        $cursusManager->insert(new Cursus(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $_POST['anneeDebutCursus-5'], $_POST['anneeFinCursus-5'], $_POST['cursus-5'], $_POST['etablissement-5'], $_POST['valide-5']));*/
 
         $experienceManager->insert (new Experience(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $_POST['moisDebut-1'], $_POST['anneeDebut-1'], $_POST['moisFin-1'], $_POST['anneeFin-1'], $_POST['entreprise-1'], $_POST['fonction-1']));
-        /*$experienceManager->insert(new Experience(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $_POST['moisDebut-2'], $_POST['anneeDebut-2'], $_POST['moisFin-2'], $_POST['anneeFin-2'], $_POST['entreprise-2'], $_POST['fonction-2']));
-        $experienceManager->insert(new Experience(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $_POST['moisDebut-3'], $_POST['anneeDebut-3'], $_POST['moisFin-3'], $_POST['anneeFin-3'], $_POST['entreprise-3'], $_POST['fonction-3']));*/
 
         $i = 1;
         foreach ($_POST['voeu'] as $codeEtape) {
@@ -177,12 +171,12 @@ switch ($action) {
 
             foreach ($lesSeDerouler as $unSeDerouler) {
                 $ville = $villeManager->find ($unSeDerouler->getId ());
+				$villesPossibles[] = $ville->getNom();
             }
 
-            $villesPossibles[] = $ville->getNom ();
         }
         // Supprime les doublons des villes
-        $villesPossibles = array_unique ($villesPossibles);
+        $villesPossibles = array_unique($villesPossibles);
 
         /*
         $q = $conn->prepare ('SELECT `information`.`ID` as idInfo, `information`.`LIBELLE` as libelleInfo, `type`.`ID` as typeInfo, `choix`.`TEXTE` as libellesInfo
@@ -251,8 +245,9 @@ switch ($action) {
             $html2pdf->pdf->SetDisplayMode ('fullpage');
             $html2pdf->writeHTML ($content, isset($_GET['vuehtml']));
 
-            $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
-            $html2pdf->Output ('./dossiers/' . $_SESSION['codeFormation'] . '/Candidatures/' . $dirName . '/Candidature-' . $dirName . '.pdf', 'F');
+			$dirPath = "./dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
+			$dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
+			$html2pdf->Output ($dirPath . "/" . $dirName . '/Candidature-' . $dirName . '.pdf', 'F');
             //echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
 
         } catch (HTML2PDF_exception $e) {

@@ -58,8 +58,8 @@ class DossierManager {
                 $dossier->getDepartementBac(),
                 $dossier->getPaysBac(),
                 $dossier->getActivite(),
+				$dossier->getVillePreferee(),
                 $dossier->getTitulaire(),
-                $dossier->getVillePreferee(),
                 $dossier->getAutresElements(),
                 $dossier->getInformations()
             ));

@@ -19,7 +19,7 @@ class FaireManager {
         $rs = $q->fetchAll();
 
 		foreach ($rs as $faire) {
-			$faires[] = new Faire($faire['CODE_ETAPE'], $faire['INE'], $faire['CODE_FORMATION'], $faire['ORDRE']);
+			$faires[] = new Faire($faire['CODE_ETAPE'], $faire['ID_ETUDIANT'], $faire['CODE_FORMATION'], $faire['ORDRE']);
 		}
 		return $faires;
 	}
@@ -35,7 +35,7 @@ class FaireManager {
 	}
 
 	public function delete(Faire $faire) {
-		return $this->db->prepare("DELETE FROM `faire` WHERE `CODE_ETAPE` = ? AND `INE` = ?;")
+		return $this->db->prepare("DELETE FROM `faire` WHERE `CODE_ETAPE` = ? AND `ID_ETUDIANT` = ?;")
 						->execute(array(
 							$faire->CodeEtape(),
 							$faire->Ine()
