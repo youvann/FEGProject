@@ -20,8 +20,8 @@
             <label for="etape">Etape</label>
             <input class="form-control" type="text" id="etape" name="etape" value="{{ voeu.etape }}"/>
         </div>
-        <label>Ville(s)</label>
         {% if villes is not empty %}
+            <label>Ville(s)</label>
             {% set myLoopIndex = 0 %}{% set display = 0 %}
             {% for ville in villes %}
 
@@ -101,8 +101,8 @@
                     $('#responsable-' + idCb).removeAttr('disabled').attr('required','required');
                     $('#mail_responsable-' + idCb).removeAttr('disabled').attr('required','required');
                 } else {
-                    $('#responsable-' + idCb).attr('disabled','disabled').removeAttr('required').val('');
-                    $('#mail_responsable-' + idCb).attr('disabled','disabled').removeAttr('required').addClass('disabled').val('');
+                    $('#responsable-' + idCb).attr('disabled','disabled').removeAttr('required');
+                    $('#mail_responsable-' + idCb).attr('disabled','disabled').removeAttr('required').addClass('disabled');
                 }
             });
         });

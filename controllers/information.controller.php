@@ -15,19 +15,21 @@ if (!isset($_GET['action'])) {
 switch ($action) {
 	case "grille": {
 			$dossierPdf = $dossierPdfManager->find($_GET['dossierPdf']);
+
 			$informations = $informationManager->findAllByDossierPdf($dossierPdf);
-			echo $twig->render('information/grilleInformation.html.twig', array('informations' => $informations, 'dossierPdf' => $dossierPdf, 'code' => $dossierPdf->getCodeFormation()));
+			echo $twig->render('information/grilleInformation.html.twig', array('informations' => $informations, 'types' => $types, 'dossierPdf' => $dossierPdf));
 		} break;
 	case "consulter": {
 			$information = $informationManager->find($_GET['id']);
+			$types = $typeManager->findAll();
 			$dossierPdf = $dossierPdfManager->find($_GET['dossierPdf']);
 			$choix = $choixManager->findAllByInformation($information);
-			echo $twig->render('information/consulterInformation.html.twig', array('information' => $information, 'choix' => $choix, 'dossierPdf' => $dossierPdf, 'code' => $dossierPdf->getCodeFormation()));
+			echo $twig->render('information/consulterInformation.html.twig', array('information' => $information, 'choix' => $choix, 'dossierPdf' => $dossierPdf, 'types' => $types));
 		} break;
 	case "ajouter": {
 		$dossierPdf = $dossierPdfManager->find($_GET['dossierPdf']);
 			$types = $typeManager->findAll();
-			echo $twig->render('information/ajouterInformation.html.twig', array('types' => $types, 'dossierPdf' => $dossierPdf,'code' => $dossierPdf->getCodeFormation()));
+			echo $twig->render('information/ajouterInformation.html.twig', array('types' => $types, 'dossierPdf' => $dossierPdf));
 		} break;
 	case "ajout": {
 			var_dump($informationManager->insert(new Information(0, $_POST["type"], $_POST["dossier_pdf"], $_POST["libelle"], $_POST["explications"], 0)));

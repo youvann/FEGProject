@@ -84,7 +84,7 @@
                     <h4 class="modal-title">Ajouter un dossier</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="formNewEdit" method="post" action="index.php?uc=formation&action=ajouter">
+                    <form id="formNewEdit" method="post" action="index.php?uc=dossierPdf&action=ajout">
                         <input type="hidden" id="id" name="id" value="0" />
                         <input type="hidden" id="code_formation" name="code_formation" value="{{ code }}" />
                         <div class="form-group">
@@ -93,6 +93,27 @@
                         </div>
                         <button class="btn btn-primary" type="submit">
                             <span class="glyphicon glyphicon-floppy-save"></span> Enregistrer
+                        </button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Annuler</button>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="modalConfirmDelete" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Ajouter un dossier</h4>
+                </div>
+                <div class="modal-body">
+                        <p>Etes-vous sûr(e) de vouloir supprimer le dossier ?</p>
+                        <button id="btnSupprimerDossier" class="btn btn-primary" type="button">
+                            <span class="glyphicon glyphicon-trash"></span> Supprimer
                         </button>
                         <button class="btn btn-default" type="button" data-dismiss="modal">Annuler</button>
                     </form>
@@ -112,7 +133,7 @@
     <script type="text/javascript">
         $(function () {
             $('#btnToggleModalNewEdit').click(function() {
-                $('#formNewEdit').attr('action', 'index.php?uc=formation&action=ajouter');
+                $('#formNewEdit').attr('action', 'index.php?uc=dossierPdf&action=ajout');
                 $('#id').attr('value', '0');
                 $('#nom').attr('value', '');
                 $('#modalNewEdit').modal('show');
@@ -127,7 +148,7 @@
                     data: 'idDossierPdf=' + idDossierPdf,
                     dataType: 'json',
                     success: function (json) {
-                        $('#formNewEdit').attr('action', 'index.php?uc=formation&action=modification');
+                        $('#formNewEdit').attr('action', 'index.php?uc=dossierPdf&action=modification');
                         $('#id').attr('value', json.dossierPdf.id);
                         $('#nom').attr('value', json.dossierPdf.nom);
                         $('#modalNewEdit').modal('show');
@@ -139,30 +160,13 @@
 
             var lastBtnSupprimerPushed = null;
             $('.btnSupprimerDossier').click(function() {
-
                 lastBtnSupprimerPushed = $(this);
-                console.log(lastBtnSupprimerPushed);
-                $('.modal-body').html('');
-
-                var buttonOk = $('<button></button>')
-                        .attr('type', 'button')
-                        .addClass('btn')
-                        .addClass('btn-primary')
-                        .html('Ok').click(function() {
+                $('#btnSupprimerDossier').click(function() {
                     var id = lastBtnSupprimerPushed.attr('id');
                     id = id.replace('btnSupprimerDossier-', '');
-                    location.href = 'index.php?uc=formation&action=supprimerDossier&idDossier=' + id;
+                    location.href = 'index.php?uc=dossierPdf&action=suppression&idDossier=' + id;
                 });
-                var buttonCancel = $('<button></button>')
-                        .attr('type', 'button')
-                        .attr('data-dismiss', 'modal')
-                        .addClass('btn')
-                        .addClass('btn-default')
-                        .html('Annuler');
-                $('.modal-body').html('Voulez-vous vraiment supprimer ce dossier ?')
-                        .append(buttonOk)
-                        .append(buttonCancel);
-                $('#myModal').modal('show');
+                $('#modalConfirmDelete').modal('show');
                 return false;
             });
 

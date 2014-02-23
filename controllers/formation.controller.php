@@ -16,7 +16,8 @@ switch ($action) {
     case "consulter":
     {
         $formation = $formationManager->find ($_GET['code']);
-        echo $twig->render ('formation/consulterFormation.html.twig', array ('formation' => $formation));
+		$facultes = $faculteManager->findAll();
+        echo $twig->render ('formation/consulterFormation.html.twig', array ('formation' => $formation, 'facultes' => $facultes));
     }
         break;
     case "grille":
