@@ -28,7 +28,8 @@ switch ($action) {
     } break;
     case "modifier": {
         $documentSpecifique = $documentSpecifiqueManager->find($_GET['id']);
-        echo $twig->render('documentSpecifique/modifierDocumentSpecifique.html.twig', array('documentSpecifique' => $documentSpecifique));
+		$dossierPdf = $dossierPdfManager->find($documentSpecifique->getDossierPdf());
+        echo $twig->render('documentSpecifique/modifierDocumentSpecifique.html.twig', array('documentSpecifique' => $documentSpecifique, 'dossierPdf' => $dossierPdf));
     } break;
     case "modification": {
         $documentSpecifique = new documentSpecifique($_POST['id'], $_POST['dossier_pdf'], $_POST['nom'], $_POST['url'], $_POST['multiple']);

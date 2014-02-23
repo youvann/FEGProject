@@ -19,15 +19,15 @@ class CursusManager {
         $rs = $q->fetchAll();
 
         foreach($rs as $cursus){
-            $lesCursus[] = new Cursus($cursus['ID'], $cursus['INE'], $cursus['CODE_FORMATION'], $cursus['ANNEE_DEBUT'], $cursus['ANNEE_FIN'], $cursus['CURSUS'], $cursus['ETABLISSEMENT'], $cursus['NOTE']);
+            $lesCursus[] = new Cursus($cursus['ID'], $cursus['ID_ETUDIANT'], $cursus['CODE_FORMATION'], $cursus['ANNEE_DEBUT'], $cursus['ANNEE_FIN'], $cursus['CURSUS'], $cursus['ETABLISSEMENT'], $cursus['NOTE']);
         }
         return $lesCursus;
 	}
 
 	public function insert(Cursus $cursus) {
-		return $this->db->prepare("INSERT INTO `cursus` (`INE`, `CODE_FORMATION`, `ANNEE_DEBUT`, `ANNEE_FIN`, `CURSUS`, `ETABLISSEMENT`, `NOTE`) VALUES (?, ?, ?, ?, ?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `cursus` (`ID_ETUDIANT`, `CODE_FORMATION`, `ANNEE_DEBUT`, `ANNEE_FIN`, `CURSUS`, `ETABLISSEMENT`, `NOTE`) VALUES (?, ?, ?, ?, ?, ?, ?);")
 						->execute(array(
-							$cursus->getIne(),
+							$cursus->getIdEtudiant(),
 							$cursus->getCodeFormation(),
 							$cursus->getAnneeDebut(),
 							$cursus->getAnneeFin(),

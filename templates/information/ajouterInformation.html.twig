@@ -5,8 +5,9 @@
 <ol class="breadcrumb">
 	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
 	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
-	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Formation</a></li>
-	<li><a href="index.php?uc=information&action=grille&code={{ code }}">Liste des informations</a></li>
+	<li><a href="index.php?uc=formation&action=consulter&code={{ dossierPdf.codeFormation }}">Fiche formation</a></li>
+    <li><a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}">Liste des dossiers</a></li>
+	<li><a href="index.php?uc=information&action=grille&dossierPdf={{ dossierPdf.id }}">Liste des informations</a></li>
 	<li class="active">Ajouter une information</li>
 </ol>
 
@@ -60,7 +61,7 @@
 
 <hr />
 
-<a href="index.php?uc=information&action=grille&code={{ code }}"  class="btn btn-primary">
+<a href="index.php?uc=information&action=grille&dossierPdf={{ dossierPdf.id }}"  class="btn btn-primary">
 	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
 </a>
 {% endblock %}

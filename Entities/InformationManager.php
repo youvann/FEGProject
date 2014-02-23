@@ -76,7 +76,7 @@ class InformationManager {
 			FROM `information` 
 			INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
 			LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
-			WHERE `information`.`code_formation` = ?
+			WHERE `information`.`dossier_pdf` = ?
 			ORDER BY `information`.`ordre`;');
 		$q->execute(array($dossierPdf->getId()));
 		return $q->fetchAll();
