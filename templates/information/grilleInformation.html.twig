@@ -29,7 +29,13 @@
                 <div id="info-{{ information.id }}" class="well-feg col-md-12 tile">
                     <div class="col-md-4">{{ information.libelle }}</div>
                     <div class="col-md-2">{{ information.explications }}</div>
-                    <div class="col-md-2">{{ information.nom }}</div>
+                    <div class="col-md-2">
+                        {% for type in types %}
+                            {% if information.type == type.id %}
+                                {{ type.libelle }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
 
                     <div class="col-md-4">
                         <div class="btn-group">
@@ -47,7 +53,7 @@
     {% endif %}
 
     <hr />
-    <a href="index.php?uc=formation&action=consulter&code={{ code }}"  class="btn btn-primary">
+    <a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}"  class="btn btn-primary">
         <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
     </a>
 
