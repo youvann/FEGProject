@@ -33,10 +33,23 @@ switch ($action) {
 		echo json_encode($response);
 	}
 		break;
-	case 'ajouter' :
+	case 'ajout' :
 	{
 		$dossierPdfManager->insert(new DossierPdf(0, $_POST['nom'], $_POST['code_formation']));
-		header('location:index.php?uc=formation&action=dossier&code='.$_POST['code_formation']);
+		header('location:index.php?uc=dossierPdf&action=grille&code='.$_POST['code_formation']);
+	}
+		break;
+	case 'modification' :
+	{
+		$dossierPdfManager->update(new DossierPdf($_POST['id'], $_POST['nom'], $_POST['code_formation']));
+		header('location:index.php?uc=dossierPdf&action=grille&code='.$_POST['code_formation']);
+	}
+		break;
+	case 'suppression' :
+	{
+		$dossierPdf = $dossierPdfManager->find($_GET['idDossier']);
+		$dossierPdfManager->delete($dossierPdf);
+		header('location:index.php?uc=dossierPdf&action=grille&code='.$dossierPdf->getCodeFormation());
 	}
 		break;
 

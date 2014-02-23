@@ -15,7 +15,7 @@ if (!isset($_GET['action'])) {
 switch ($action) {
 	case "consulter":
 	{
-		$voeu = $voeuManager->find($_GET['codeetape']);
+		$voeu = $voeuManager->find($_GET['codeEtape']);
 		$lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
 		$villes = $villeManager->findAll();
 		echo $twig->render('voeu/consulterVoeu.html.twig', array('voeu' => $voeu, 'villes' => $villes, 'lesSeDerouler' => $lesSeDerouler, 'code' => $_GET['code']));
@@ -38,15 +38,23 @@ switch ($action) {
 	{
 		$voeuManager->insert(new Voeu($_POST['code_etape'], $_POST['code_formation'], $_POST['etape'], $_POST['responsable'], $_POST['mail_responsable']));
 
-		foreach ($_POST['villes'] as $ville) {
-			$seDeroulerManager->insert(new SeDerouler($ville, $_POST['code_etape'], $_POST['responsable'], $_POST['mail_responsable']));
+		$postSeDerouler = array(
+			'ville' => $_POST['ville'],
+			'responsable' => $_POST['responsable'],
+			'mail_responsable' => $_POST['mail_responsable']
+		);
+		for ($i = 0; $i < count($postSeDerouler['ville']); ++$i) {
+			$seDeroulerManager->insert(new SeDerouler($postSeDerouler['ville'][$i],
+				$_POST['code_etape'],
+				$postSeDerouler['responsable'][$i],
+				$postSeDerouler['mail_responsable'][$i]));
 		}
 		header('location:index.php?uc=voeu&action=grille&code=' . $_POST['code_formation']);
 	}
 		break;
 	case "modifier":
 	{
-		$voeu = $voeuManager->find($_GET['codeetape']);
+		$voeu = $voeuManager->find($_GET['codeEtape']);
 		$lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
 		$villes = $villeManager->findAll();
 		echo $twig->render('voeu/modifierVoeu.html.twig', array('voeu' => $voeu, 'villes' => $villes, 'lesSeDerouler' => $lesSeDerouler, 'code' => $_GET['code']));
@@ -81,7 +89,7 @@ switch ($action) {
 	{
 		$voeu = $voeuManager->find($_GET['codeEtape']);
 		$voeuManager->delete($voeu);
-		header('location:index.php?uc=formation&action=grille' . $voeu->getCode());
+		header('location:index.php?uc=voeu&action=grille&code=' . $voeu->getCodeFormation());
 	}
 		break;
 	case "codeEtapePossible":
