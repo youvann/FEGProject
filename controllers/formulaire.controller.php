@@ -78,18 +78,18 @@ switch ($action) {
         $formation = $formationManager->find ($_SESSION['choisie']);
         $voeux     = $voeuManager->findAllByFormation ($formation);
         foreach ($voeux as $voeu) {
-            $voeu->setVilles ($voeuManager->getVilles ($voeu));
+            //$voeu->setVilles ($voeuManager->getVilles ($voeu));
         }
         $nbVoeux = count ($voeux);
 
         // Chargement des informations supplémentaires
-        $structure = $translatorResultsetToStructure->translate ($informationManager->getResultset ($formation));
+     /*   $structure = $translatorResultsetToStructure->translate ($informationManager->getResultset ($formation));
         $form      = $translatorStructureToForm->translate ($structure);
-        $formHTML  = $form->getHTML ();
+        $formHTML  = $form->getHTML ();*/
 
         // Chargement des documents généraux et spécifiques
-        $documentsGeneraux    = $documentGeneralManager->findAll ();
-        $documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation ($_SESSION['choisie']);
+/*        $documentsGeneraux    = $documentGeneralManager->findAll ();
+        $documentsSpecifiques = $documentSpecifiqueManager->findAllByFormation ($_SESSION['choisie']);*/
 
         echo $twig->render ('formulaire/mainFormulaire.html.twig', array ('formation' => $formation, 'voeux' => $voeux, 'nbVoeux' => $nbVoeux, 'form' => $formHTML, 'documentsGeneraux' => $documentsGeneraux, 'documentsSpecifique' => $documentsSpecifiques, 'typedossier' => 'CA'));
     }
