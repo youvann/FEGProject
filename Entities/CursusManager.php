@@ -14,8 +14,8 @@ class CursusManager {
 
 	public function findAllByDossier(Dossier $dossier) {
         $lesCursus = array();
-		$q = $this->db->prepare("SELECT * FROM `cursus` WHERE `cursus`.`INE` = ? AND `cursus`.`CODE_FORMATION` = ?;");
-        $q->execute(array($dossier->getIne(), $dossier->getCodeFormation()));
+		$q = $this->db->prepare("SELECT * FROM `cursus` WHERE `cursus`.`ID_ETUDIANT` = ? AND `cursus`.`CODE_FORMATION` = ?;");
+        $q->execute(array($dossier->getIdEtudiant(), $dossier->getCodeFormation()));
         $rs = $q->fetchAll();
 
         foreach($rs as $cursus){

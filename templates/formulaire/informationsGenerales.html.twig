@@ -240,14 +240,14 @@
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Baccalauréat ou équivalent <span class="en_cadre"> | High school diploma</span> <span
-                class="label label-danger">Requis</span>
+    <div class="panel-heading">Baccalauréat ou équivalent <span class="en_cadre"> | High school diploma</span>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="serie_bac">Série</label> <span class="en">Type</span>
+                    <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="serie_bac"
                            name="serie_bac"
                            placeholder="Votre série" data-validation="required"/>
@@ -257,6 +257,7 @@
                 <div class="form-group">
                     <label for="etablissement_bac">Etablissement</label> <span
                             class="en">Establishment</span>
+                    <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required"
                            id="etablissement_bac" name="etablissement_bac"
                            placeholder="Votre établissement"
@@ -270,6 +271,7 @@
                 <div class="form-group">
                     <label for="departement_bac">Département</label> <span
                             class="en">Department</span>
+                    <span class="label label-danger">Requis</span>
                     <select class="form-control required" id="departement_bac"
                             name="departement_bac"
                             placeholder="Votre département">
@@ -284,6 +286,7 @@
                 <div class="form-group">
                     <label for="pays_bac">Pays</label> <span
                             class="en">Country</span>
+                    <span class="label label-danger">Requis</span>
                     <select class="form-control" id="pays_bac"
                             name="pays_bac"
                             placeholder="Votre pays">
@@ -300,6 +303,7 @@
                 <div class="form-group">
                     <label for="annee_bac">Année d'obtention du bac</label> <span
                             class="en">Year</span>
+                    <span class="label label-danger">Requis</span>
                     <select class="form-control required"
                             id="annee_bac"
                             name="annee_bac">
@@ -310,8 +314,6 @@
                         {% endfor %}
                     </select>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -319,13 +321,13 @@
 
 <div class="panel panel-primary">
     <div class="panel-heading">Langues étrangères <span class="en_cadre"> | Foreign languages</span>
-        <span class="label label-danger">Requis</span>
     </div>
     <div class="panel-body">
         <div class="col-md-12">
             <div class="form-group">
                 <label for="langues">Lue(s), écrite(s), parlée(s)</label> <span
                         class="en">reading, writing, speaking</span>
+                <span class="label label-danger">Requis</span>
                 <textarea class="form-control required" id="langues" name="langues"
                           data-validation="required"></textarea>
             </div>

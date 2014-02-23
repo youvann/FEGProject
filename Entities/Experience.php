@@ -28,7 +28,8 @@ class Experience {
 	}
 
 	public function getIdEtudiant() {
-		return $this->ine;
+
+		return $this->idEtudiant;
 	}
 
 	public function getCodeFormation() {
@@ -64,7 +65,8 @@ class Experience {
 	}
 
 	public function setIdEtudiant($idEtudiant) {
-		$this->ine = $idEtudiant;
+
+		$this->idEtudiant = $idEtudiant;
 	}
 
 	public function setCodeFormation($codeFormation) {

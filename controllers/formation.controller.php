@@ -200,12 +200,12 @@ $villesPossibles = array_unique($villesPossibles);
         $pagePdf->setPagePdfFooterText ("Page [[page_cu]]/[[page_nb]]");
 
         // Corps du pdf
-        $logoPath = "./public/img/logos/" . $formation->getCodeFormation();
+        $logoPath = "./public/img/logos/" . $formation->getCodeFormation ();
         $empty    = is_dir_empty ($logoPath);
         $logoName = $empty ? "" : getFileName ($logoPath);
-        if(!$empty){
+        if (!$empty) {
             $pagePdf->setLogoPath ($logoPath . "/" . $logoName);
-        }else{
+        } else {
             $pagePdf->setLogoPath ("");
         }
         $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $formation->getMention ());
@@ -217,6 +217,10 @@ $villesPossibles = array_unique($villesPossibles);
         $pagePdf->setInformationsSpecifiques ($informationsSpecifiques);
 
         $pagePdf->setCadreAdministrationVoeux (array ("voeux1", "voeux2"));
+
+        $pagePdf->setDossierModalites($formation->getModalites());
+        $pagePdf->setDossierInformations($formation->getInformations());
+
         $pagePdf->setVoeuxMultiple (true);
         $pagePdf->setRowAdmin (true);
 
@@ -285,21 +289,16 @@ $villesPossibles = array_unique($villesPossibles);
     {
         $code     = $_GET['code'];
         $logoPath = "./public/img/logos/" . $code;
-        $empty    = is_dir_empty($logoPath);
-        $logoName = $empty ? "" : getFileName($logoPath);
-        //var_dump($logoName);
+        $empty    = is_dir_empty ($logoPath);
+        $logoName = $empty ? "" : getFileName ($logoPath);
 
-        echo $twig->render ('formation/logoDossierPdf.html.twig', array (
-            'code' => $code,
-            'empty' => $empty,
-            'logoName' => $logoName
-        ));
+        echo $twig->render ('formation/logoDossierPdf.html.twig', array ('code' => $code, 'empty' => $empty, 'logoName' => $logoName));
     }
         break;
     case 'suppressionLogo' :
     {
-        $code     = $_GET['code'];
-        $logoName = $_GET['logoName'];
+        $code         = $_GET['code'];
+        $logoName     = $_GET['logoName'];
         $logoPathName = "./public/img/logos/" . $code . "/" . $logoName;
         //chmod ('./public/img/logos/' . $code . '/' . $logoName . "/", 0777);
         unlink ($logoPathName);
@@ -309,7 +308,7 @@ $villesPossibles = array_unique($villesPossibles);
     {
         $code = $_GET['code'];
         //$logoName = $empty ? "" : getFileName ($logoPath);
-        upload('./public/img/logos/' . $code . '/');
+        upload ('./public/img/logos/' . $code . '/');
     }
         break;
     default:

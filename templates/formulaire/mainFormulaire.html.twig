@@ -5,6 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="titre_rubrique">
+
                 {% if typedossier == 'CA' %}Candidature{% elseif typedossier == 'PI' %}Pré-inscription{% endif %}
                 en {{ formation.mention }} pour l'année scolaire {{ anneeBasse }}
                 -{{ anneeHaute }}
@@ -23,7 +24,7 @@
                     {% include 'formulaire/documentsGeneraux.html.twig' %}
                 {% endif %}
 
-                {% if formation.modalites is not empty %}
+                <!--{% if formation.modalites is not empty %}
                     <div class="well well-fg">
                         {{ formation.modalites | raw }}
                     </div>
@@ -32,7 +33,7 @@
                     <div class="well well-fg">
                         {{ formation.informations | raw }}
                     </div>
-                {% endif %}
+                {% endif %}-->
 
                 <button type="input" id="customSubmit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-cloud-upload"></span> Envoyer
@@ -84,9 +85,12 @@
         };
 
         $(document).ready(function () {
+            // L'upload a-t-il été fait ?
             uploadGlobal = false;
+            // y a-t-il un fichier qui a été ajouté dans la zone de drag & drop?
             isFileAjouterGlobal = false;
 
+            // Jeu d'essai formulaire
             $('#nom').val('Meas');
             $('#prenom').val('Kévin');
             $('#lieu_naissance').val('Caen');
@@ -120,7 +124,14 @@
                 deletelStr: "Supprimer",
                 showDone: false,
                 dynamicFormData: function () {
-                    var data = { nom: $('#nom').val(), prenom: $('#prenom').val() }
+                    // Récupération des champs nom et prénom de l'étudiant
+                    var data = {
+                        nom: $('#nom').val(),
+                        prenom: $('#prenom').val(),
+                        voeu1: $('#voeu-1').val(),
+                        voeu2: $('#voeu-2').val(),
+                        voeu3: $('#voeu-3').val()
+                    }
                     return data;
                 },
                 afterUploadAll: function () {
@@ -129,17 +140,17 @@
                     $('#mainFormulaire').submit();
                 },
                 onSelect: function (files) {
+                    // Au moins un fichier a été ajouté dans la zone de drag & drop
                     isFileAjouterGlobal = true;
                     return true; //to allow file submission.
                 },
                 onError: function (files, status, errMsg) {
-                    alert("status : " + status + " errLsg : " + errMsg);
                     $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées.');
                     $('#myModal').modal('show');
                 }
             });
 
-            // Vérification du formulaire
+            // Message d'erreurs champs formulaire
             var myLanguageFR = {
                 errorTitle: 'Form submission failed!',
                 requiredFields: 'Ce champ est obligatoire.',
@@ -172,6 +183,7 @@
                 groupCheckedEnd: ' item(s)'
             };
 
+            // Validateur du formulaire
             $.validate({
                 language: myLanguageFR,
                 onError: function () {

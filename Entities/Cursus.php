@@ -59,7 +59,8 @@ class Cursus {
 	}
 
 	public function setIdEtudiant($idEtudiant) {
-		$this->ine = $idEtudiant;
+
+		$this->idEtudiant = $idEtudiant;
 	}
 	
 	public function setCodeFormation($codeFormation) {

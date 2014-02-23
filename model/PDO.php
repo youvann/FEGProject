@@ -1,10 +1,10 @@
 <?php
 
 // Connexion PDO
-$dbname = 'fegtest2';
+$dbname = 'fegtest1';
 $host = 'localhost';
 $user = 'root';
-$password = '';
+$password = 'root';
 
 static $conn = null;
 

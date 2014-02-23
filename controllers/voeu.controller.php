@@ -36,7 +36,7 @@ switch ($action) {
 		break;
 	case "ajout":
 	{
-		$voeuManager->insert(new Voeu($_POST['code_etape'], $_POST['code_formation'], $_POST['etape'], $_POST['responsable'], $_POST['mailResponsable']));
+		$voeuManager->insert(new Voeu($_POST['code_etape'], $_POST['code_formation'], $_POST['etape'], $_POST['responsable'], $_POST['mail_responsable']));
 
 		$postSeDerouler = array(
 			'ville' => $_POST['ville'],
@@ -82,7 +82,7 @@ switch ($action) {
 
 		$voeu->setEtape($_POST['etape']);
 		$voeuManager->update($voeu);
-		header('location:index.php?uc=voeu&action=consulter&codeetape='.$_POST['code_etape'].'&code=' . $_POST['code']);
+		header('location:index.php?uc=voeu&action=consulter&codeEtape='.$_POST['code_etape'].'&code=' . $_POST['code']);
 	}
 		break;
 	case "suppression":

@@ -26,6 +26,7 @@ switch ($action) {
 		$information = $informationManager->find($_GET['id']);
 		$types = $typeManager->findAll();
 		$dossierPdf = $dossierPdfManager->find($_GET['dossierPdf']);
+<<<<<<< HEAD
 		$choix = $choixManager->findAllByInformation($information);
 		echo $twig->render('information/consulterInformation.html.twig', array('information' => $information, 'choix' => $choix, 'types' => $types, 'dossierPdf' => $dossierPdf));
 	}
@@ -69,3 +70,33 @@ switch ($action) {
 	default:
 		break;
 }
+=======
+			$types = $typeManager->findAll();
+			echo $twig->render('information/ajouterInformation.html.twig', array('types' => $types, 'dossierPdf' => $dossierPdf));
+		} break;
+	case "ajout": {
+			//var_dump($informationManager->insert(new Information(0, $_POST["type"], $_POST["dossier_pdf"], $_POST["libelle"], $_POST["explications"], 0)));
+			if ($_POST["type"] === 'RadioButtonGroup' || $_POST["type"] === 'CheckBoxGroup') {
+				$lastInsertId = $informationManager->maxId();
+				foreach ($_POST['tb'] as $tb) {
+					$choixManager->insert(new Choix(0, $lastInsertId, $tb));
+				}
+			}
+			header('location:index.php?uc=information&action=grille&dossierPdf=' . $_POST['dossier_pdf']);
+		} break;
+	case "suppression": {
+			$information = $informationManager->find($_GET['id']);
+			$informationManager->delete($information);
+			header('location:index.php?uc=information&action=grille&dossierPdf=' . $information->getDossierPdf());
+		} break;
+    case "ordonnancement": {
+        $i = 1;
+        foreach ($_POST['info'] as $id) {
+            $information = $informationManager->find($id);
+            $information->setOrdre($i++);
+            $informationManager->update($information);
+        }
+    } break;
+	default: break;
+}
+>>>>>>> 5e6ce9b156ab8edd4ec48bca2491dc0f5917348c
