@@ -2,56 +2,44 @@
 
 class Dependre {
 
-	private $codeFormationMere;
-	private $codeEtapeMere;
-	private $codeFormationFille;
+	private $idDossier;
+	private $codeEtape;
 
-	function __construct($codeFormationMere, $codeEtapeMere, $codeFormationFille) {
-		$this->codeFormationMere = $codeFormationMere;
-		$this->codeEtapeMere = $codeEtapeMere;
-		$this->codeFormationFille = $codeFormationFille;
+	function __construct($idDossier, $codeEtape) {
+		$this->idDossier = $idDossier;
+		$this->codeEtape = $codeEtape;
 	}
 
 	/**
-	 * @param mixed $codeEtapeMere
+	 * @param mixed $idDossier
 	 */
-	public function setCodeEtapeMere($codeEtapeMere) {
-		$this->codeEtapeMere = $codeEtapeMere;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getCodeEtapeMere() {
-		return $this->codeEtapeMere;
-	}
-
-	/**
-	 * @param mixed $codeFormationFille
-	 */
-	public function setCodeFormationFille($codeFormationFille) {
-		$this->codeFormationFille = $codeFormationFille;
+	public function setIdDossier($idDossier)
+	{
+		$this->idDossier = $idDossier;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function getCodeFormationFille() {
-		return $this->codeFormationFille;
+	public function getIdDossier()
+	{
+		return $this->idDossier;
 	}
 
 	/**
-	 * @param mixed $codeFormationMere
+	 * @param mixed $codeEtape
 	 */
-	public function setCodeFormationMere($codeFormationMere) {
-		$this->codeFormationMere = $codeFormationMere;
+	public function setCodeEtape($codeEtape)
+	{
+		$this->codeEtape = $codeEtape;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function getCodeFormationMere() {
-		return $this->codeFormationMere;
+	public function getCodeEtape()
+	{
+		return $this->codeEtape;
 	}
 
 

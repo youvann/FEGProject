@@ -4,8 +4,10 @@
     <ol class="breadcrumb">
         <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
         <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
-        <li><a href="index.php?uc=formation&action=consulter&code={{ dossierPdf.codeFormation }}">Fiche formation</a></li>
-        <li><a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}">Liste des dossiers</a></li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ dossierPdf.codeFormation }}">Fiche formation</a>
+        </li>
+        <li><a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}">Liste des dossiers</a>
+        </li>
         <li class="active">Liste des informations</li>
     </ol>
 
@@ -39,10 +41,12 @@
 
                     <div class="col-md-4">
                         <div class="btn-group">
-                            <a href="index.php?uc=information&action=consulter&id={{ information.id }}&dossierPdf={{ dossierPdf.id }}" type="button" class="btn btn-info">
+                            <a href="index.php?uc=information&action=consulter&id={{ information.id }}&dossierPdf={{ dossierPdf.id }}"
+                               type="button" class="btn btn-info">
                                 <span class="glyphicon glyphicon-check"></span> Consulter
                             </a>
-                            <a href="index.php?uc=information&action=suppression&id={{ information.id }}&dossierPdf={{ dossierPdf.id }}" type="button" class="btn btn-danger">
+                            <a href="index.php?uc=information&action=suppression&id={{ information.id }}&dossierPdf={{ dossierPdf.id }}"
+                               type="button" class="btn btn-danger">
                                 <span class="glyphicon glyphicon-trash"></span> Supprimer
                             </a>
                         </div>
@@ -52,32 +56,80 @@
         </div>
     {% endif %}
 
-    <hr />
-    <a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}"  class="btn btn-primary">
+    <hr/>
+    <a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}" class="btn btn-primary">
         <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
     </a>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sûr(e) de vouloir réaliser cette action ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnOk">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 {% endblock %}
 
 {% block scripts %}
     {{ parent() }}
     <script src="./public/js/jquery-ui-1.10.4.custom.min.js"></script>
-    <script>
+
+
+    <script type="text/javascript">
         $(function () {
+            var lastPushedButton = null;
+
+            $('.btn-danger').click(function () {
+                $('#myModal').modal('show');
+                lastPushedButton = $(this);
+                return false;
+            });
+            $('#btnOk').click(function () {
+                window.location.href = lastPushedButton.attr("href");
+            });
+
+            $('#prevPdf').click(function () {
+                $('#loadingModal').modal('show');
+                $('.progress .progress-bar').progressbar({
+                    display_text: 'fill',
+                    use_percentage: true,
+                    refresh_speed: 50
+                });
+                $.ajax({
+                    url: "index.php?uc=formation&action=previsualisationPdf&code={{ formation.codeformation }}",
+                    success: function (data) {
+                        window.location.replace("index.php?uc=formation&action=previsualiserPdf&code={{ formation.codeformation }}");
+                    }
+                });
+            });
+
             $(".grid").sortable({
                 tolerance: 'pointer',
                 revert: 'invalid',
                 placeholder: 'col-md-12 well placeholder tile',
                 forceHelperSize: true,
-                axis :'y',
-                stop: function(event, ui) {
+                axis: 'y',
+                stop: function (event, ui) {
                     var data = $(this).sortable('serialize');
                     console.log(data);
                     $.ajax({
                         data: data,
                         type: 'POST',
                         url: 'index.php?uc=information&action=ordonnancement',
-                        success: function(html) {
+                        success: function (html) {
                             console.log(html);
                         }
                     });

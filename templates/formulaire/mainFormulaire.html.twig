@@ -204,10 +204,20 @@
 
             // Envoi du formulaire
             $("#customSubmit").click(function () {
-                if (!isFileAjouterGlobal) {
-                    $('.modal-body').html('Veuillez ajouter les documents à joindre');
-                    $('#myModal').modal('show');
+                $('.modal-body').html('');
+                // Test si les voeux sont tous différents
+                var voeux = [];
+                $('select[name="voeu[]"]').each(function() {
+                    voeux.push($(this).val());
+                });
+                console.log(voeux);
+                if (!voeux.allValuesAreDifferent()) {
+                    $('.modal-body').html('Les voeux doivent être différents');
                 }
+                if (!isFileAjouterGlobal) {
+                    $('.modal-body').html($('.modal-body').html() + '<br>Veuillez ajouter les documents à joindre');
+                }
+                $('#myModal').modal('show');
             });
 
             // TESTS LIONEL CURSUS ET EXPERIENCES

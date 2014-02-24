@@ -14,39 +14,6 @@
                 <fieldset>
                     <legend>Formation souhaitée</legend>
                     <div class="well well-fg">
-                        <!--<div id="textboxIne" class="form-group has-success">
-                            <label for="ine">Votre numéro INE </label> <span class="en">INE number</span>
-                            <input class="form-control" type="text" id="ine" name="ine" placeholder="123456789A"
-                                   data-validation="required"
-                                   data-validation-error-msg="Veuillez entrer un numéro d'INE valide" />
-                        </div>-->
-                        <div class="form-group">
-                            <label for="derniere">Sélectionnez votre dernière formation effectuée</label>
-                            <span class="en">Training followed</span>
-                            <span class="label label-danger">Requis</span>
-                            <select class="form-control" id="derniere" name="derniere">
-                                <option value="">&mdash; Sélectionnez &mdash;</option>
-                                {% for formation in formations %}
-                                    <optgroup label="{{ formation.mention }}">
-                                    {% for voeu in voeux %}
-                                        {% if voeu.codeFormation == formation.codeFormation %}
-                                            <option value="{{ voeu.codeEtape }}">{{ voeu.etape }}</option>
-                                        {% endif %}
-                                    {% endfor %}
-                                    </optgroup>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <!-- /form-group -->
-                        <div id="autre_formation">
-                            <div class="form-group">
-                                <label for="nomAutreFormation">Veuillez entrer le nom de la dernière
-                                    formation que vous avez effectuée</label>
-                                <span class="label label-danger">Requis</span>
-                                <input type="text" class="form-control" id="nomAutreFormation"
-                                       name="nomAutreFormation">
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label for="choisie">Sélectionnez la formation souhaitée pour l'année scolaire
                                 2014-2015</label>
@@ -55,7 +22,7 @@
                             <select class="form-control" id="choisie" name="choisie">
                                 <option value="">&mdash; Sélectionnez &mdash;</option>
                                 {% for dossierPdf in dossiersPdf %}
-                                    <option value="{{ dossierPdf.id  }}">{{ dossierPdf.nom }}</option>
+                                    <option value="{{ dossierPdf.id }}">{{ dossierPdf.nom }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -96,43 +63,6 @@
             $('#divAllDocuments').hide();
             $('#msgError').hide();
 
-            var checkCreationDossierPossible = function () {
-                var ine = $('#ine').val();
-                var codeFormation = $('#choisie').val();
-                $.ajax({
-                    url: 'index.php?uc=formulaire&action=candidaturePossible',
-                    type: 'post',
-                    data: 'ine=' + ine + '&code_formation=' + codeFormation,
-                    dataType: 'json',
-                    success: function (json) {
-                        if (json.response == 0) {
-                            if ($('#textboxIne').hasClass('has-success')) {
-                                $('#textboxIne').removeClass('has-success').addClass('has-error');
-                            }
-                        } else {
-                            if ($('#textboxIne').hasClass('has-error')) {
-                                $('#textboxIne').removeClass('has-error').addClass('has-success');
-                            }
-                        }
-                    }
-                });
-            };
-
-            var getTypeDossier = function() {
-                var codeEtape = $('#derniere').val();
-                var codeFormation = $('#choisie').val();
-
-                $.ajax({
-                    url: 'index.php?uc=formulaire&action=typeDossier',
-                    type: 'post',
-                    data: 'code_etape=' + codeEtape + '&code_formation=' + codeFormation,
-                    dataType: 'json',
-                    success: function (json) {
-                        $('#typeDossier').val(json.type);
-                    }
-                });
-            };
-
             //var choixFormation = $("select[name='derniere'] > option:selected").val();
             var choixFormation = $('#derniere').val();
             var autreFormation = $("#autre_formation");
@@ -153,17 +83,12 @@
                 }
             });
 
-            $('#ine').on('input', function () {
-                checkCreationDossierPossible();
-            });
             $('#choisie').on('change', function () {
                 $('#divAllDocuments').show();
-                checkCreationDossierPossible();
-                getTypeDossier();
                 $.ajax({
                     url: 'index.php?uc=formulaire&action=displayDocuments',
                     type: 'post',
-                    data: 'code=' + $('#choisie').val(),
+                    data: 'idDossierPdf=' + $('#choisie').val(),
                     dataType: 'json',
                     success: function (json) {
                         $('#displayDocuments').empty();
