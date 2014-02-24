@@ -24,16 +24,18 @@
                     {% include 'formulaire/documentsGeneraux.html.twig' %}
                 {% endif %}
 
-                <!--{% if formation.modalites is not empty %}
+                {% if formation.modalites is not empty %}
+                    <h3>Modalités</h3>
                     <div class="well well-fg">
                         {{ formation.modalites | raw }}
                     </div>
                 {% endif %}
                 {% if formation.informations is not empty %}
+                    <h3>Informations</h3>
                     <div class="well well-fg">
                         {{ formation.informations | raw }}
                     </div>
-                {% endif %}-->
+                {% endif %}
 
                 <button type="input" id="customSubmit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-cloud-upload"></span> Envoyer
@@ -104,11 +106,11 @@
             $('#etablissement_bac').val('Lycée Roland Garros');
             $('#langues').val('Anglais');
             $('#activite').val('Etudiant');
-            $('#etablissement-1').val('IUT Aix-en-Provence');
-            $('#cursus-1').val('DUT Informatique');
+            $('#etablissement').eq(0).val('IUT Aix-en-Provence');
+            $('#cursus').eq(0).val('DUT Informatique');
             $('#ville_preferee').val('Aix-en-Provence');
-            $('#entreprise-1').val('Sporstec');
-            $('#fonction-1').val('Développeur PHP');
+            $('#entreprise').val('Sporstec');
+            $('#fonction').val('Développeur PHP');
 
             // Progress Bar
             $('#mainFormulaire').showProgress({ message: { '10': 'You\'re off to a great start!', '25': 'You\'re doing great so far!', '50': 'You\'re halfway there!', '75': 'Look at that, you\'re nearly done already!', '100': 'All done! Just click <strong>Submit</strong> to continue!' } });

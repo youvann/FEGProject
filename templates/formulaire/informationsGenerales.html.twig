@@ -275,9 +275,9 @@
                     <select class="form-control required" id="departement_bac"
                             name="departement_bac"
                             placeholder="Votre département">
-                        <option value="">Autre</option>
+                        <option value="Autre">Autre</option>
                         {% for num,departement in departements %}
-                            <option value="{{ num }}">{{ departement }}</option>
+                            <option value="{{ departement }}">{{ departement }}</option>
                         {% endfor %}
                     </select>
                 </div>
