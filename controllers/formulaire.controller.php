@@ -47,8 +47,8 @@ switch ($action) {
         // Récupère le code formation choisi grâce à l'id du dossier pdf
         $idDossierPdf    = $_POST['choisie'];
         $dossierPdf      = $dossierPdfManager->find ($idDossierPdf);
-        $codesFormations = $voeuManager->findAllByDossierPdf ($dossierPdf);
-        $codeFormation   = $codesFormations[0]->getCodeFormation ();
+        //$codesFormations = $voeuManager->findAllByDossierPdf ($dossierPdf);
+        //$codeFormation   = $codesFormations[0]->getCodeFormation ();
 
         //$derniere                 = $_POST['derniere'];
         $_SESSION['idDossierPdf']  = $idDossierPdf;
@@ -58,6 +58,26 @@ switch ($action) {
         header ('location:index.php?uc=formulaire&action=main');
     }
         break;
+	case "domainesDeCompatibilite":
+	{
+		FileHeader::headerJson ();
+		$response = array();
+		$dossierPdf = $dossierPdfManager->find($_POST['idDossierPdf']);
+		$dependances = $dependreManager->findEtapes($dossierPdf);
+		$voeuxCompatibles = array();
+		foreach($dependances as $dependance) {
+			$voeuxCompatibles[] = $voeuManager->find($dependance->getCodeEtape());
+		}
+
+		foreach($voeuxCompatibles as $voeuCompatible) {
+			$voeu = array();
+			$voeu['codeEtape'] = $voeuCompatible->getCodeEtape();
+			$voeu['etape'] = $voeuCompatible->getEtape();
+			$response[] = $voeu;
+		}
+		echo json_encode($response);
+	}
+		break;
     case "displayDocuments":
     {
         FileHeader::headerJson ();
