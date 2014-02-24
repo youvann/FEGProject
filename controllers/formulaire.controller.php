@@ -47,6 +47,7 @@ switch ($action) {
         // Récupère le code formation choisi grâce à l'id du dossier pdf
         $idDossierPdf    = $_POST['choisie'];
         $dossierPdf      = $dossierPdfManager->find ($idDossierPdf);
+        $codeFormation = $dossierPdf->getCodeFormation ();
         //$codesFormations = $voeuManager->findAllByDossierPdf ($dossierPdf);
         //$codeFormation   = $codesFormations[0]->getCodeFormation ();
 
