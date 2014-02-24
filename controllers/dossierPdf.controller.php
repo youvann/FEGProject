@@ -35,6 +35,7 @@ switch ($action) {
 		break;
 	case 'ajout' :
 	{
+
 		$dossierPdfManager->insert(new DossierPdf(0, $_POST['nom'], $_POST['code_formation']));
 		header('location:index.php?uc=dossierPdf&action=grille&code='.$_POST['code_formation']);
 	}

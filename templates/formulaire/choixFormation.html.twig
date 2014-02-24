@@ -7,7 +7,8 @@
 
             <h2 class="titre_rubrique">Votre parcours</h2>
 
-            <form role="form" action="index.php?uc=formulaire&action=traiterChoixFormation"
+            <form role="form"
+                  action="index.php?uc=formulaire&action=traiterChoixFormation"
                   id="formChoixFormation" method="post">
                 <input type="hidden" id="typeDossier" name="typeDossier"/>
 
@@ -15,12 +16,14 @@
                     <legend>Formation souhaitée</legend>
                     <div class="well well-fg">
                         <div id="divChoisie" class="form-group">
-                            <label for="choisie">Sélectionnez la formation souhaitée pour l'année scolaire
+                            <label for="choisie">Sélectionnez la formation souhaitée
+                                pour l'année scolaire
                                 2014-2015</label>
                             <span class="en">Whish training</span>
                             <span class="label label-danger">Requis</span>
                             <select class="form-control" id="choisie" name="choisie">
-                                <option value="">&mdash; Sélectionnez &mdash;</option>
+                                <option value="">&mdash;
+                                    Sélectionnez &mdash;</option>
                                 {% for dossierPdf in dossiersPdf %}
                                     <option value="{{ dossierPdf.id }}">{{ dossierPdf.nom }}</option>
                                 {% endfor %}
@@ -29,16 +32,19 @@
                         <div id="divDerniere" class="form-group"></div>
                         <div id="displayDocuments"></div>
                         <div id="divAllDocuments" class="form-group">
-                            <label>Etez-vous en possession de tous les documents demandés ?</label>
+                            <label>Etez-vous en possession de tous les documents
+                                demandés ?</label>
 
                             <div class="radio">
                                 <label for="oui">
-                                    <input type="radio" id="oui" name="allDocuments" value="oui"/> Oui
+                                    <input type="radio" id="oui" name="allDocuments"
+                                           value="oui"/> Oui
                                 </label>
                             </div>
                             <div class="radio">
                                 <label for="non">
-                                    <input type="radio" id="non" name="allDocuments" value="non" checked/> Non
+                                    <input type="radio" id="non" name="allDocuments"
+                                           value="non" checked/> Non
                                 </label>
                             </div>
                         </div>

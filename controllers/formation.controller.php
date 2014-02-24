@@ -35,9 +35,7 @@ switch ($action) {
 	case "ajout":
 	{
 		// Création du répertoire "code_formation"
-		myMkdir($_POST['code_formation']);
-
-
+        myMkdirBase("./dossiers/" . $_POST['code_formation']);
 		$formationManager->insert(new Formation($_POST['code_formation'], $_POST['mention'], $_POST['informations'], $_POST['modalites'], $_POST['faculte']));
 		header('location:index.php?uc=formation&action=grille');
 	}
