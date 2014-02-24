@@ -251,8 +251,11 @@ switch ($action) {
             $html2pdf->pdf->SetDisplayMode ('fullpage');
             $html2pdf->writeHTML ($content, isset($_GET['vuehtml']));
 
-            $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
-            $html2pdf->Output ('./dossiers/' . $_SESSION['codeFormation'] . '/Candidatures/' . $dirName . '/Candidature-' . $dirName . '.pdf', 'F');
+            $dirPath = "./dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
+            $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
+            $html2pdf->Output ($dirPath . "/" . $dirNameId . '/Candidature-' . $dirNameId . '.pdf', 'F');
+
+            //header ('location:index.php?uc=formulaire&action=recapitulatif');
             //echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
 
         } catch (HTML2PDF_exception $e) {

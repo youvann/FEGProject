@@ -17,7 +17,7 @@ require_once './model/PDO.php';
 require_once './Entities/loader.php';
 
 // Chargement des ressources francais/anglais
-$ressources = xml2array(simplexml_load_file('./ressources/ressources_1.xml'));
+//$ressources = xml2array(simplexml_load_file('./ressources/ressources_1.xml'));
 
 // Module connexion
 session_start();
