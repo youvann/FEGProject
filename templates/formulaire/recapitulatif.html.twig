@@ -7,11 +7,11 @@
             <h2 class="titre_rubrique">Récapitulatif</h2>
             <div class="alert alert-success">Votre demande de candidature a bien été prise en compte.</div>
             <div class="well well-lg">
-                Veuillez conserver le dossier de candidature PDF ci-dessous et les modalités de candidature (pas encore disponible).
+                Veuillez conserver le dossier de candidature PDF ci-dessous. Ce document contient des informations sur les modalités d'inscription.
                 (Si le PDF ne s'affiche pas correctement, veuillez recharger la page)
             </div>
             <div id="loading" style="text-align: center;"></div>
-            <object id="pdfPreview" data="./dossiers/{{ code }}/Candidatures/{{ dirName }}/Candidature-{{ dirName }}.pdf" type="application/pdf"
+            <object id="pdfPreview" data="{{ pathPdf }}.pdf" type="application/pdf"
                     width="100%"
                     height="700px">
                 <p>Si le PDF ne s'affiche pas, veuillez recharger la page.</p>

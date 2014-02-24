@@ -7,7 +7,7 @@
             <h2 class="titre_rubrique">
 
                 {% if typedossier == 'CA' %}Candidature{% elseif typedossier == 'PI' %}Pré-inscription{% endif %}
-                en {{ formation.mention }} pour l'année scolaire {{ anneeBasse }}
+                en {{ dossierPdf.nom }} pour l'année scolaire {{ anneeBasse }}
                 -{{ anneeHaute }}
             </h2>
 
@@ -24,16 +24,18 @@
                     {% include 'formulaire/documentsGeneraux.html.twig' %}
                 {% endif %}
 
-                <!--{% if formation.modalites is not empty %}
+                {% if formation.modalites is not empty %}
+                    <h3>Modalités</h3>
                     <div class="well well-fg">
                         {{ formation.modalites | raw }}
                     </div>
                 {% endif %}
                 {% if formation.informations is not empty %}
+                    <h3>Informations</h3>
                     <div class="well well-fg">
                         {{ formation.informations | raw }}
                     </div>
-                {% endif %}-->
+                {% endif %}
 
                 <button type="input" id="customSubmit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-cloud-upload"></span> Envoyer
@@ -95,7 +97,9 @@
             $('#prenom').val('Kévin');
             $('#lieu_naissance').val('Caen');
             $('#nationalite').val('Française');
-            $('#adresse').val('4 place coimbra Bat B');
+            $('#ine').val('100000000W');
+            $('#adresse').val('4 rue pierre paul jaques Bat B');
+            $('#complement').val('Res zion');
             $('#code_postal').val('13100');
             $('#ville').val('Aix-en-Provence');
             $('#mail').val('measkevin@gmail.com ');
@@ -104,9 +108,11 @@
             $('#etablissement_bac').val('Lycée Roland Garros');
             $('#langues').val('Anglais');
             $('#activite').val('Etudiant');
-            $('#etablissement-1').val('IUT Aix-en-Provence');
-            $('#cursus-1').val('DUT Informatique');
+            $('#etablissement').eq(0).val('IUT Aix-en-Provence');
+            $('#cursus').eq(0).val('DUT Informatique');
             $('#ville_preferee').val('Aix-en-Provence');
+            $('#entreprise').val('Sporstec');
+            $('#fonction').val('Développeur PHP');
 
             // Progress Bar
             $('#mainFormulaire').showProgress({ message: { '10': 'You\'re off to a great start!', '25': 'You\'re doing great so far!', '50': 'You\'re halfway there!', '75': 'Look at that, you\'re nearly done already!', '100': 'All done! Just click <strong>Submit</strong> to continue!' } });
@@ -136,7 +142,7 @@
                 },
                 afterUploadAll: function () {
                     uploadGlobal = true;
-                    alert("upload after all");
+                    //alert("upload after all");
                     $('#mainFormulaire').submit();
                 },
                 onSelect: function (files) {
@@ -191,10 +197,10 @@
                     $('#myModal').modal('show');
                 },
                 onSuccess: function () {
-                    alert('The form is valid!');
+                    //alert('The form is valid!');
                     if (!uploadGlobal) {
                         uploadObj.startUpload();
-                        alert('return false');
+                        //alert('return false');
                         return false;
                     }
                 }
@@ -204,20 +210,24 @@
 
             // Envoi du formulaire
             $("#customSubmit").click(function () {
-                $('.modal-body').html('');
+                var modal = $('.modal-body');
+                modal.html('');
                 // Test si les voeux sont tous différents
                 var voeux = [];
                 $('select[name="voeu[]"]').each(function() {
                     voeux.push($(this).val());
                 });
                 console.log(voeux);
-                if (!voeux.allValuesAreDifferent()) {
-                    $('.modal-body').html('Les voeux doivent être différents');
-                }
                 if (!isFileAjouterGlobal) {
                     $('.modal-body').html($('.modal-body').html() + '<br>Veuillez ajouter les documents à joindre');
                 }
-                $('#myModal').modal('show');
+                if (!voeux.allValuesAreDifferent()) {
+                    $('.modal-body').html('Les voeux doivent être différents');
+                }
+                if (!modal.html() == ''){
+                    $('#myModal').modal('show');
+                    return false;
+                }
             });
 
             // TESTS LIONEL CURSUS ET EXPERIENCES

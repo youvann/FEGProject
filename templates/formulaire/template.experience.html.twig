@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <label for="moisFin-{{ indice }}">Mois de fin</label>
                     <select class="form-control" id="moisFin-{{ indice }}"
-                            name="moisFin-[]">
+                            name="moisFin[]">
                         {% for unMois in mois %}
                             <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
                         {% endfor %}

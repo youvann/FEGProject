@@ -81,9 +81,9 @@ switch ($action) {
     case "displayDocuments":
     {
         FileHeader::headerJson ();
-		$dossierPdf = $dossierPdfManager->find($_POST['idDossierPdf']);
+        $dossierPdf           = $dossierPdfManager->find ($_POST['idDossierPdf']);
         $documentsGeneraux    = $documentGeneralManager->findAll ();
-        $documentsSpecifiques = $documentSpecifiqueManager->findAllByDossierPdf($dossierPdf);
+        $documentsSpecifiques = $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf);
 
         $response   = array ();
         $general    = array ();
@@ -103,7 +103,7 @@ switch ($action) {
     case "main":
     {
         // Chargement des voeux
-        //$formation = $formationManager->find ($_SESSION['codeFormation']);
+        $formation = $formationManager->find ($_SESSION['codeFormation']);
 
         $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
         $voeux      = $voeuManager->findAllByDossierPdf ($dossierPdf);
@@ -122,7 +122,7 @@ switch ($action) {
         $documentsGeneraux    = $documentGeneralManager->findAll ();
         $documentsSpecifiques = $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf);
 
-        echo $twig->render ('formulaire/mainFormulaire.html.twig', array ('formation' => '', 'voeux' => $voeux, 'nbVoeux' => $nbVoeux, 'form' => $formHTML, 'documentsGeneraux' => $documentsGeneraux, 'documentsSpecifique' => $documentsSpecifiques, 'typedossier' => 'CA'));
+        echo $twig->render ('formulaire/mainFormulaire.html.twig', array ('dossierPdf' => $dossierPdf, 'formation' => $formation, 'voeux' => $voeux, 'nbVoeux' => $nbVoeux, 'form' => $formHTML, 'documentsGeneraux' => $documentsGeneraux, 'documentsSpecifique' => $documentsSpecifiques, 'typedossier' => 'CA'));
     }
         break;
     case "uploadDocuments" :
@@ -144,8 +144,8 @@ switch ($action) {
         break;
     case "traiterMainFormulaire":
     {
-		var_dump($_POST, array_search('ville_preferee', array_keys($_POST)));
-		exit();
+        //var_dump ($_POST, array_search ('ville_preferee', array_keys ($_POST)));
+        //exit();
         // Récupère l'indice du champ qui se trouve juste avant les informations spécifiques, ici il s'agit de ville préférée
         $positionVillePreferee = 1;
         foreach ($_POST as $key => $value) {
@@ -160,13 +160,77 @@ switch ($action) {
         $structure        = $translatorResultsetToStructure->translate ($informationManager->getResultset ($dossierPdf));
         $json             = $translatorFormToJson->translate ($structure, $postInformations);
 
-        $dateDeNaissance  = $_POST['annee_date_naissance'] . "-" . $_POST["mois_date_naissance"] . "-" . $_POST["jour_date_naissance"];
-        $dossier          = new Dossier($_SESSION['idEtudiant'], $_POST['ine'], $_POST["genre"], $_SESSION['codeFormation'], $_POST["autre"], formatString ($_POST["nom"]), formatString ($_POST["prenom"]), formatString ($_POST["adresse"]), $_POST["complement"], formatString ($_POST["code_postal"]), formatString ($_POST["ville"]), $dateDeNaissance, formatString ($_POST["lieu_naissance"]), $_POST["fixe"], $_POST["portable"], $_POST["mail"], formatString ($_POST["langues"]), formatString ($_POST["nationalite"]), $_POST["serie_bac"], $_POST["annee_bac"], formatString ($_POST["etablissement_bac"]), $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["titulaire"], $_POST["ville_preferee"], formatString ($_POST["autres_elements"]), $json);
+        $dateDeNaissance = $_POST['annee_date_naissance'] . "-" . $_POST["mois_date_naissance"] . "-" . $_POST["jour_date_naissance"];
+        $dossier         = new Dossier($_SESSION['idEtudiant'], $_POST['ine'], $_POST["genre"], $_SESSION['codeFormation'], $_POST["autre"], formatString ($_POST["nom"]), formatString ($_POST["prenom"]), formatString ($_POST["adresse"]), $_POST["complement"], formatString ($_POST["code_postal"]), formatString ($_POST["ville"]), $dateDeNaissance, formatString ($_POST["lieu_naissance"]), $_POST["fixe"], $_POST["portable"], $_POST["mail"], formatString ($_POST["langues"]), formatString ($_POST["nationalite"]), $_POST["serie_bac"], $_POST["annee_bac"], formatString ($_POST["etablissement_bac"]), $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["titulaire"], $_POST["ville_preferee"], formatString ($_POST["autres_elements"]), $json);
         $dossierManager->insert ($dossier);
 
-        $cursusManager->insert (new Cursus(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $_POST['anneeDebutCursus-1'], $_POST['anneeFinCursus-1'], $_POST['cursus-1'], $_POST['etablissement-1'], $_POST['valide-1']));
+        // Récupère tous les cursus
+        $arrayCursus = array (); // Tableau à deux dimensions
+        $i           = 0;
+        foreach ($_POST['anneeDebutCursus'] as $anneeDebutCursus) {
+            $arrayCursus['cursus-' . $i]['anneeDebutCursus'] = $anneeDebutCursus;
+            $i++;
+        }
+        $i = 0;
+        foreach ($_POST['anneeFinCursus'] as $anneeFinCursus) {
+            $arrayCursus['cursus-' . $i]['anneeFinCursus'] = $anneeFinCursus;
+            $i++;
+        }
+        $i = 0;
+        foreach ($_POST['etablissement'] as $etablissement) {
+            $arrayCursus['cursus-' . $i]['etablissement'] = $etablissement;
+            $i++;
+        }
+        $i = 0;
+        foreach ($_POST['valide'] as $valide) {
+            $arrayCursus['cursus-' . $i]['valide'] = $valide;
+            $i++;
+        }
+        $i = 0;
+        foreach ($_POST['cursus'] as $cursus) {
+            $arrayCursus['cursus-' . $i]['cursus'] = $cursus;
+            $i++;
+        }
+        foreach ($arrayCursus as $cursus) {
+            // Ajout des cursus dans la table Cursus
+            $cursusManager->insert (new Cursus(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $cursus['anneeDebutCursus'], $cursus['anneeFinCursus'], $cursus['cursus'], $cursus['etablissement'], $cursus['valide']));
+        }
 
-        $experienceManager->insert (new Experience(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $_POST['moisDebut-1'], $_POST['anneeDebut-1'], $_POST['moisFin-1'], $_POST['anneeFin-1'], $_POST['entreprise-1'], $_POST['fonction-1']));
+        // Récupère toutes les expériences
+        $arrayExperiences = array (); // Tableau à deux dimensions
+        $i                = 0;
+        foreach ($_POST['moisDebut'] as $anneeFin) {
+            $arrayExperiences['experience-' . $i]['moisDebut'] = $anneeFin;
+            $i++;
+        }
+        $i = 0;
+        foreach ($_POST['anneeDebut'] as $anneeDebut) {
+            $arrayExperiences['experience-' . $i]['anneeDebut'] = $anneeDebut;
+            $i++;
+        }
+        $i = 0;
+        foreach ($_POST['moisFin'] as $moisFin) {
+            $arrayExperiences['experience-' . $i]['moisFin'] = $moisFin;
+            $i++;
+        }
+        $i = 0;
+        foreach ($_POST['anneeFin'] as $anneeFin) {
+            $arrayExperiences['experience-' . $i]['anneeFin'] = $anneeFin;
+            $i++;
+        }
+        $i = 0;
+        foreach ($_POST['entreprise'] as $entreprise) {
+            $arrayExperiences['experience-' . $i]['entreprise'] = $entreprise;
+            $i++;
+        }
+        $i = 0;
+        foreach ($_POST['fonction'] as $fonction) {
+            $arrayExperiences['experience-' . $i]['fonction'] = $fonction;
+            $i++;
+        }
+        foreach ($arrayExperiences as $experience) {
+            $experienceManager->insert (new Experience(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $experience['moisDebut'], $experience['anneeDebut'], $experience['moisFin'], $experience['anneeFin'], $experience['entreprise'], $experience['fonction']));
+        }
 
         $i = 1;
         foreach ($_POST['voeu'] as $codeEtape) {
@@ -177,30 +241,26 @@ switch ($action) {
         /*
          * Génération dossier PDF
          */
-        $formation       = $formationManager->find ($_SESSION['codeFormation']);
-        $dossier         = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
-        $titulaire       = $titulaireManager->findAll ();
-        $cursus          = $cursusManager->findAllByDossier ($dossier);
-        $experiences     = $experienceManager->findAllByDossier ($dossier);
-        $faires          = $faireManager->findAllByDossier ($dossier);
-        $etapes          = array ();
-        $villesPossibles = array ();
+        $dossier = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
 
-        // Récupère l'ordre des voeux et les villes où la formation a lieu
+        $formation   = $formationManager->find ($_SESSION['codeFormation']);
+        $titulaire   = $titulaireManager->findAll ();
+        $cursus      = $cursusManager->findAllByDossier ($dossier);
+        $experiences = $experienceManager->findAllByDossier ($dossier);
+        //$faires          = $faireManager->findAllByDossier ($dossier);
+        $etapes        = array ();
+        $villePreferee = $dossier->getVillePreferee ();
+
+        // Récupère les voeux par ordre croissant
+        $faires = $faireManager->findAllByDossier ($dossier);
+        $voeux  = array ();
         foreach ($faires as $faire) {
-            $voeu                        = $voeuManager->find ($faire->getCodeEtape ());
-            $lesSeDerouler               = $seDeroulerManager->findAllByVoeu ($voeu);
-            $etapes[$faire->getOrdre ()] = $voeu->getEtape ();
-
-            foreach ($lesSeDerouler as $unSeDerouler) {
-                $ville = $villeManager->find ($unSeDerouler->getId ());
-				$villesPossibles[] = $ville->getNom();
-            }
-
+            $voeu                       = $voeuManager->find ($faire->getCodeEtape ());
+            $voeu                       = $voeu->getEtape ();
+            $voeux[$faire->getOrdre ()] = $voeu;
         }
-        // Supprime les doublons des villes
-        $villesPossibles = array_unique($villesPossibles);
 
+        // Récupère les informations spécifiques
         /*
         $q = $conn->prepare ('SELECT `information`.`ID` as idInfo, `information`.`LIBELLE` as libelleInfo, `type`.`ID` as typeInfo, `choix`.`TEXTE` as libellesInfo
                             FROM `information`
@@ -214,13 +274,18 @@ switch ($action) {
         $structure               = $translatorResultsetToStructure->translate ($rs);
         $informationsSpecifiques = $translatorJsonToHTML->translate ($dossier->getInformations (), $structure);*/
 
+        $informationsSpecifiques = "";
+
         require_once './classes/Pdf/PagePdf.class.php';
         $pagePdf = new PagePdf("./classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
         /*
          * En-tête du pdf
          */
         $pagePdf->setPagePdfHeaderImgPath ("./classes/Pdf/img/feg.png");
-        $pagePdf->setPagePdfHeaderText ("DOSSIER DE CANDIDATURE<br />ANNÉE UNIVERSITAIRE 2013-2014<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
+        $currentYear = date ('Y');
+        $nextYear    = date ('Y');
+        $nextYear++;
+        $pagePdf->setPagePdfHeaderText ("DOSSIER DE CANDIDATURE<br />ANNÉE UNIVERSITAIRE " . $currentYear . "-" . $nextYear . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
         /*
          * Pied de page du pdf
@@ -238,18 +303,19 @@ switch ($action) {
         } else {
             $pagePdf->setLogoPath ("");
         }
+
         // Mention de la formation
         $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $formation->getMention ());
         $pagePdf->setHolder (' ' . $titulaire[0]->getLibelle (), ' ' . $titulaire[1]->getLibelle (), ' ' . $titulaire[2]->getLibelle (), $dossier->getTitulaire ());
-
         $pagePdf->setApplicant ($dossier->getGenre (), $dossier->getNom (), $dossier->getPrenom (), $dossier->getLieuNaissance (), $dossier->getDateNaissance (), $dossier->getIne (), $dossier->getAdresse () . ' ' . $dossier->getComplement () . ' ' . $dossier->getVille () . ' ' . $dossier->getCodePostal (), $dossier->getFixe (), $dossier->getPortable (), $dossier->getMail (), $dossier->getActivite ());
-        $pagePdf->setPhotoPath ('./classes/Pdf/img/photo/github.png');
-        $pagePdf->setPlanFormation ($etapes, $villesPossibles);
-
+        $pagePdf->setPlanFormation ($voeux, $villePreferee);
         $pagePdf->setPrevFormation ($dossier->getSerieBac (), $dossier->getAnneeBac (), $dossier->getEtablissementBac (), $dossier->getDepartementBac (), $dossier->getPaysBac (), $cursus);
         $pagePdf->setProExperience ($experiences);
         $pagePdf->setOther ($dossier->getLangues (), $dossier->getAutresElements ());
         $pagePdf->setInformationsSpecifiques ($informationsSpecifiques);
+
+        $pagePdf->setDossierModalites ($formation->getModalites ());
+        $pagePdf->setDossierInformations ($formation->getInformations ());
 
         $pagePdf->setCadreAdministrationVoeux (array ("voeux1", "voeux2"));
         $pagePdf->setVoeuxMultiple (true);
@@ -268,10 +334,10 @@ switch ($action) {
             $html2pdf->pdf->SetDisplayMode ('fullpage');
             $html2pdf->writeHTML ($content, isset($_GET['vuehtml']));
 
-			$dirPath = "./dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
-			$dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
-			$html2pdf->Output ($dirPath . "/" . $dirName . '/Candidature-' . $dirName . '.pdf', 'F');
-            //echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
+            $dirPath = "./dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
+            $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
+            $html2pdf->Output ($dirPath . "/" . $dirName . '/Candidature-' . $dirName . '.pdf', 'F');
+            echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
 
         } catch (HTML2PDF_exception $e) {
             echo $e;
@@ -282,7 +348,10 @@ switch ($action) {
     case "recapitulatif" :
     {
         $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
-        echo $twig->render ('formulaire/recapitulatif.html.twig', array ('code' => $_SESSION['codeFormation'], 'dirName' => $dirName));
+        $dirPath = "./dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
+        $pathPdf = $dirPath . "/" . $dirName . "/Candidature-" . $dirName;
+        $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
+        echo $twig->render ('formulaire/recapitulatif.html.twig', array ('dossierPdf' => $dossierPdf->getNom(), 'pathPdf' => $pathPdf));
     }
         break;
     case "getTemplateCursus" :

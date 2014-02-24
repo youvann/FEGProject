@@ -49,7 +49,7 @@ class PagePdf {
 
     // Formation envisagé
     private $etapes = array ();
-    private $villesPossibles = array ();
+    private $villePreferee;
 
     // Cursus antérieur
     private $serie;
@@ -78,11 +78,7 @@ class PagePdf {
     // Informations
     private $informations;
 
-    // Documents généraux
-    //private $documentsGeneraux = array();
 
-    // Documents spécifiques
-    //private $documentsSpecifiques = array ();
 
     public function __construct ($cssPath, $backTop = "30mm", $backBottom = "7mm", $backLeft = "0mm", $backRight = "10mm") {
         $this->pagePdfHeader = new PagePdfHeader();
@@ -161,7 +157,7 @@ class PagePdf {
 
             .note{ font-size: 12px; text-align: justify; }
 
-            .titre_encadre { padding: 3px; border: 1px solid black;  width: 700px; font-family: verdanab; background-color: #F1F1F1; }
+            .titre_encadre { padding: 3px; border: 1px solid black;  width: 699px; font-family: verdanab; background-color: #F1F1F1; }
 
             .cadre{ padding: 5px; border: 1px solid black; width: 700px; }
 
@@ -332,25 +328,23 @@ class PagePdf {
                 </div>';
     }
 
-    public function setPlanFormation ($etapes, $villesPossibles) {
+    public function setPlanFormation ($etapes, $villePreferee) {
         $this->etapes          = $etapes;
-        $this->villesPossibles = $villesPossibles;
+        $this->villePreferee = $villePreferee;
     }
 
-    public function printVillesPossibles () {
+    /*public function printVillesPossibles () {
         $villes = '';
         foreach ($this->villesPossibles as $villePossible) {
             $villes .= $villePossible . ' ';
         }
         return $villes;
-    }
+    }*/
 
     public function printPlanFormation () {
         $nomEtapeOrdre = '';
         foreach ($this->etapes as $ordre => $etape) {
-            $nomEtapeOrdre .= '<tr><td text-align="center">' . $ordre . '</td>' . '<td>' . $etape . '</td>
-                                    <td text-align="center"></td>
-                              </tr>';
+            $nomEtapeOrdre .= '<tr><td text-align="center">' . $ordre . '</td>' . '<td>' . $etape . '</td></tr>';
         }
         return $nomEtapeOrdre;
     }
@@ -359,18 +353,18 @@ class PagePdf {
         return '<br/><div class="titre_encadre">FORMATION ENVISAGE</div><br>
                 <table>
                     <col style="width: 8%">
-                    <col style="width: 68%">
-                    <col style="width: 29%">
+                    <col style="width: 97%">
 
                     <thead>
                         <tr>
                             <th text-align="center">Ordre</th>
                             <th text-align="center">Parcours</th>
-                            <th text-align="center"> Localisation : ' . $this->printVillesPossibles () . '</th>
                         </tr>
                     </thead>
                     ' . $this->printPlanFormation () . '
-                </table>';
+                </table>
+                <br/>
+                <span class="bold">Ville préférée :</span> ' . $this->villePreferee;
     }
 
     // <td class="planFormation" text-align="center">' . $this->formationName . '</td>
@@ -409,10 +403,6 @@ class PagePdf {
                     <span class="bold">Département : </span>' . $this->departement . ' <br><br>
                     <span class="bold">Pays : </span>' . $this->country . '<br><br>
                     <div class="titre3 bold" text-align="center">ENSEIGNEMENT SUPÉRIEUR</div><br>
-                    <div class="bold">Dernière inscription dans l\'enseignement supérieur : </div>
-                    <span>Année universitaire : .../...</span><br>
-                    <span>Formation suivie : </span><br><br>
-
                     <table class="t_postBac">
                         <col style="width: 13%">
                         <col style="width: 40%">
@@ -478,7 +468,7 @@ class PagePdf {
     }
 
     public function getInformationsSpecifiques () {
-        return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES</div><br/>' . $this->informationsSpecifiques;
+        return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $this->informationsSpecifiques;
     }
 
     public function setDocumentsGeneraux ($documentsGeneraux) {
@@ -516,7 +506,7 @@ class PagePdf {
     }
 
     public function getDossierModalites (){
-        return '<div class="titre_encadre">Modalités</div><br/>' . $this->modalites;
+        return '<div class="titre_encadre">MODALITES</div><br/>' . $this->modalites;
     }
 
     public function setDossierModalites ($modalites){
@@ -524,7 +514,7 @@ class PagePdf {
     }
 
     public function getDossierInformations (){
-        return '<div class="titre_encadre">Informations</div><br/>' . $this->informations;
+        return '<div class="titre_encadre">INFORMATIONS</div><br/>' . $this->informations;
     }
 
     public function setDossierInformations ($informations){
@@ -663,8 +653,7 @@ class PagePdf {
     public function __toString () {
         return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->getFormationTitle () . $this->getDegreeHolder () . $this->getApplicant () . $this->getPlanFormation () . $this->getPageEnd () . $this->getNewPage () . $this->getPrevFormation () . $this->getProExperience () . $this->getOther () . $this->getPageEnd () . //$this->getNewPage() . $this->getOther() . $this->getPageEnd() .
         $this->getNewPage () . $this->getInformationsSpecifiques () . $this->getPageEnd () .
-        $this->getNewPage() . $this->getDossierModalites() . $this->getPageEnd() .
-        $this->getNewPage () . $this->getDossierInformations() . $this->getPageEnd () .
+        $this->getNewPage() . $this->getDossierModalites() . $this->getDossierInformations () . $this->getPageEnd() .
         $this->getNewPage () . $this->getFicheCommissionPeda () . $this->getCadreAdministration () . $this->getPageEnd ();
     }
 }
