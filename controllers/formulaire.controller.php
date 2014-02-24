@@ -160,8 +160,10 @@ switch ($action) {
         /*
          * Génération dossier PDF
          */
-        $formation       = $formationManager->find ($_SESSION['codeFormation']);
+
         $dossier         = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
+
+        $formation = $formationManager->find ($_SESSION['codeFormation']);
         $titulaire       = $titulaireManager->findAll ();
         $cursus          = $cursusManager->findAllByDossier ($dossier);
         $experiences     = $experienceManager->findAllByDossier ($dossier);
@@ -170,7 +172,7 @@ switch ($action) {
         $villesPossibles = array ();
 
         // Récupère l'ordre des voeux et les villes où la formation a lieu
-        foreach ($faires as $faire) {
+        /*foreach ($faires as $faire) {
             $voeu                        = $voeuManager->find ($faire->getCodeEtape ());
             $lesSeDerouler               = $seDeroulerManager->findAllByVoeu ($voeu);
             $etapes[$faire->getOrdre ()] = $voeu->getEtape ();
@@ -180,7 +182,8 @@ switch ($action) {
             }
 
             $villesPossibles[] = $ville->getNom ();
-        }
+        }*/
+
         // Supprime les doublons des villes
         $villesPossibles = array_unique ($villesPossibles);
 
@@ -203,7 +206,10 @@ switch ($action) {
          * En-tête du pdf
          */
         $pagePdf->setPagePdfHeaderImgPath ("./classes/Pdf/img/feg.png");
-        $pagePdf->setPagePdfHeaderText ("DOSSIER DE CANDIDATURE<br />ANNÉE UNIVERSITAIRE 2013-2014<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
+        $currentYear = date('Y');
+        $nextYear = date('Y');
+        $nextYear++;
+        $pagePdf->setPagePdfHeaderText ("DOSSIER DE CANDIDATURE<br />ANNÉE UNIVERSITAIRE " . $currentYear . "-" . $nextYear . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
         /*
          * Pied de page du pdf
@@ -221,14 +227,20 @@ switch ($action) {
         } else {
             $pagePdf->setLogoPath ("");
         }
+
         // Mention de la formation
+        //ok
         $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $formation->getMention ());
+        //ok
         $pagePdf->setHolder (' ' . $titulaire[0]->getLibelle (), ' ' . $titulaire[1]->getLibelle (), ' ' . $titulaire[2]->getLibelle (), $dossier->getTitulaire ());
 
+        //ok
         $pagePdf->setApplicant ($dossier->getGenre (), $dossier->getNom (), $dossier->getPrenom (), $dossier->getLieuNaissance (), $dossier->getDateNaissance (), $dossier->getIne (), $dossier->getAdresse () . ' ' . $dossier->getComplement () . ' ' . $dossier->getVille () . ' ' . $dossier->getCodePostal (), $dossier->getFixe (), $dossier->getPortable (), $dossier->getMail (), $dossier->getActivite ());
-        $pagePdf->setPhotoPath ('./classes/Pdf/img/photo/github.png');
+        //$pagePdf->setPhotoPath ('./classes/Pdf/img/photo/github.png');
         $pagePdf->setPlanFormation ($etapes, $villesPossibles);
 
+        //ok
+        var_dump($cursus);
         $pagePdf->setPrevFormation ($dossier->getSerieBac (), $dossier->getAnneeBac (), $dossier->getEtablissementBac (), $dossier->getDepartementBac (), $dossier->getPaysBac (), $cursus);
         $pagePdf->setProExperience ($experiences);
         $pagePdf->setOther ($dossier->getLangues (), $dossier->getAutresElements ());
@@ -253,6 +265,7 @@ switch ($action) {
 
             $dirPath = "./dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
             $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
+
             $html2pdf->Output ($dirPath . "/" . $dirNameId . '/Candidature-' . $dirNameId . '.pdf', 'F');
 
             //header ('location:index.php?uc=formulaire&action=recapitulatif');

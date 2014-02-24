@@ -409,10 +409,6 @@ class PagePdf {
                     <span class="bold">Département : </span>' . $this->departement . ' <br><br>
                     <span class="bold">Pays : </span>' . $this->country . '<br><br>
                     <div class="titre3 bold" text-align="center">ENSEIGNEMENT SUPÉRIEUR</div><br>
-                    <div class="bold">Dernière inscription dans l\'enseignement supérieur : </div>
-                    <span>Année universitaire : .../...</span><br>
-                    <span>Formation suivie : </span><br><br>
-
                     <table class="t_postBac">
                         <col style="width: 13%">
                         <col style="width: 40%">
