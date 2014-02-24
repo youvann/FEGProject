@@ -7,7 +7,7 @@
             <h2 class="titre_rubrique">
 
                 {% if typedossier == 'CA' %}Candidature{% elseif typedossier == 'PI' %}Pré-inscription{% endif %}
-                en {{ formation.mention }} pour l'année scolaire {{ anneeBasse }}
+                en {{ dossierPdf.nom }} pour l'année scolaire {{ anneeBasse }}
                 -{{ anneeHaute }}
             </h2>
 
@@ -97,7 +97,9 @@
             $('#prenom').val('Kévin');
             $('#lieu_naissance').val('Caen');
             $('#nationalite').val('Française');
-            $('#adresse').val('4 place coimbra Bat B');
+            $('#ine').val('100000000W');
+            $('#adresse').val('4 rue pierre paul jaques Bat B');
+            $('#complement').val('Res zion');
             $('#code_postal').val('13100');
             $('#ville').val('Aix-en-Provence');
             $('#mail').val('measkevin@gmail.com ');
@@ -140,7 +142,7 @@
                 },
                 afterUploadAll: function () {
                     uploadGlobal = true;
-                    alert("upload after all");
+                    //alert("upload after all");
                     $('#mainFormulaire').submit();
                 },
                 onSelect: function (files) {
@@ -195,10 +197,10 @@
                     $('#myModal').modal('show');
                 },
                 onSuccess: function () {
-                    alert('The form is valid!');
+                    //alert('The form is valid!');
                     if (!uploadGlobal) {
                         uploadObj.startUpload();
-                        alert('return false');
+                        //alert('return false');
                         return false;
                     }
                 }
@@ -208,9 +210,23 @@
 
             // Envoi du formulaire
             $("#customSubmit").click(function () {
+                var modal = $('.modal-body');
+                modal.html('');
+                // Test si les voeux sont tous différents
+                var voeux = [];
+                $('select[name="voeu[]"]').each(function() {
+                    voeux.push($(this).val());
+                });
+                console.log(voeux);
                 if (!isFileAjouterGlobal) {
-                    $('.modal-body').html('Veuillez ajouter les documents à joindre');
+                    $('.modal-body').html($('.modal-body').html() + '<br>Veuillez ajouter les documents à joindre');
+                }
+                if (!voeux.allValuesAreDifferent()) {
+                    $('.modal-body').html('Les voeux doivent être différents');
+                }
+                if (!modal.html() == ''){
                     $('#myModal').modal('show');
+                    return false;
                 }
             });
 

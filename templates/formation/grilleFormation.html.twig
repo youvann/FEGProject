@@ -21,14 +21,12 @@
 	<tr>
 		<th>Code</th>
 		<th>Mention</th>
-		<th>Ouverte</th>
 		<th>Options</th>
 	</tr>
 	{% for formation in formations %}
 	<tr>
 		<td>{{ formation.codeformation }}</td>
 		<td>{{ formation.mention }}</td>
-		<td>{% if formation.ouverte == 1 %}Oui{% else %}Non{% endif %}</td>
 		<td>
 			<div class="btn-group">
 				<a href="index.php?uc=formation&action=consulter&code={{ formation.codeformation }}" class="btn btn-info">
@@ -69,7 +67,6 @@
 
 {% block scripts %}
     {{ parent() }}
-    <script type="text/javascript" src="./public/js/bootstrap-progressbar.min.js"></script>
     <script type="text/javascript">
         $(function () {
             var lastPushedButton = null;
@@ -77,28 +74,11 @@
             $('.btn-danger').click(function () {
                 $('#myModal').modal('show');
                 lastPushedButton = $(this);
-                console.log(lastPushedButton);
                 return false;
             });
             $('#btnOk').click(function () {
                 window.location.href = lastPushedButton.attr("href");
             });
-
-            $('#prevPdf').click(function () {
-                $('#loadingModal').modal('show');
-                $('.progress .progress-bar').progressbar({
-                    display_text: 'fill',
-                    use_percentage: true,
-                    refresh_speed: 50
-                });
-                $.ajax({
-                    url: "index.php?uc=formation&action=previsualisationPdf&code={{ formation.codeformation }}",
-                    success: function (data) {
-                        window.location.replace("index.php?uc=formation&action=previsualiserPdf&code={{ formation.codeformation }}");
-                    }
-                });
-            });
-
         });
     </script>
 {% endblock %}

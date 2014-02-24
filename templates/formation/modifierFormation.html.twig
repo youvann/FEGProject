@@ -25,20 +25,6 @@
         <textarea class="form-control" id="informations" name="informations">{{ formation.informations }}</textarea>
     </div>
 	<div class="form-group">
-		<label>Ouverte</label>
-		<div class="radio">
-			<label for="ouverte_oui">
-				<input type="radio" id="ouverte_oui" name="ouverte" value="1" {% if formation.ouverte == 1 %}checked{% endif %} /> Oui
-			</label>
-		</div>
-		<div class="radio">
-			<label for="ouverte_non">
-				<input type="radio" id="ouverte_non" name="ouverte" value="0" {% if formation.ouverte == 0 %}checked{% endif %} /> Non
-			</label>
-		</div>
-	</div>
-	
-	<div class="form-group">
 		<label for="faculte">Faculté</label>
 		<select class="form-control" id="faculte" name="faculte">
 			{% for faculte in facultes %}
