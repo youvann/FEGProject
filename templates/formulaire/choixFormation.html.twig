@@ -9,7 +9,7 @@
 
             <form role="form" action="index.php?uc=formulaire&action=traiterChoixFormation"
                   id="formChoixFormation" method="post">
-                <input type="hidden" id="typeDossier" name="typeDossier"  />
+                <input type="hidden" id="typeDossier" name="typeDossier"/>
 
                 <fieldset>
                     <legend>Formation souhaitée</legend>
@@ -26,7 +26,7 @@
                                 {% endfor %}
                             </select>
                         </div>
-
+                        <div id="divDerniere" class="form-group"></div>
                         <div id="displayDocuments"></div>
                         <div id="divAllDocuments" class="form-group">
                             <label>Etez-vous en possession de tous les documents demandés ?</label>
@@ -93,20 +93,16 @@
                     data: 'idDossierPdf=' + $('#choisie').val(),
                     dataType: 'json',
                     success: function (json) {
-                        //if (json.length > 0) {
-                            var divDerniere = $('<div></div>').attr('id', 'divDerniere').addClass('form-group');
-                            var label = $('<label></label>').attr('for', 'derniere').html('Etes-vous en possession d\'un diplôme parmi celui ou ceux proposés ?');
-                            var select = $('<select/>').attr('id', 'derniere').attr('name', 'derniere').addClass('form-control');
-                            select.append($('<option></option>').attr('value', '').html('Autre'));
-                            for (var i = 0; i < json.length; ++i) {
-                                select.append($('<option></option>').attr('value', json[i].codeEtape).html(json[i].etape));
-                            }
-                            divDerniere.append(label);
-                            divDerniere.append(select);
-                            $('#divChoisie').after(divDerniere);
-                        //}
-                        console.log(select);
-                        //console.log($('.form-group').length);
+                        var divDerniere = $('<div></div>').attr('id', 'divDerniere').addClass('form-group');
+                        var label = $('<label></label>').attr('for', 'derniere').html('Etes-vous en possession d\'un diplôme parmi celui ou ceux proposés ?');
+                        var select = $('<select/>').attr('id', 'derniere').attr('name', 'derniere').addClass('form-control');
+                        select.append($('<option></option>').attr('value', '').html('Autre'));
+                        for (var i = 0; i < json.length; ++i) {
+                            select.append($('<option></option>').attr('value', json[i].codeEtape).html(json[i].etape));
+                        }
+                        $('#divDerniere').html('');
+                        $('#divDerniere').append(label);
+                        $('#divDerniere').append(select);
                     }
                 });
 
@@ -167,21 +163,21 @@
             });
 
             /*
-            // Vérification formulaire
-            $.validate({
-                onError: function () {
-                    $('#msgErrorIne')
-                            .attr('class', 'alert alert-danger alert-dismissable')
-                            .append(
-                                    $('<button/>')
-                                            .attr('class', 'close')
-                                            .attr('data-dismiss', 'alert')
-                                            .attr('aria-hidden', 'true')
-                                            .html('&times;'))
-                            .append('<strong>Attention!</strong> Veuillez indiquer votre numéro INE.')
-                            .show('fast');
-                }
-            });*/
+             // Vérification formulaire
+             $.validate({
+             onError: function () {
+             $('#msgErrorIne')
+             .attr('class', 'alert alert-danger alert-dismissable')
+             .append(
+             $('<button/>')
+             .attr('class', 'close')
+             .attr('data-dismiss', 'alert')
+             .attr('aria-hidden', 'true')
+             .html('&times;'))
+             .append('<strong>Attention!</strong> Veuillez indiquer votre numéro INE.')
+             .show('fast');
+             }
+             });*/
         });
     </script>
 {% endblock %}
