@@ -14,7 +14,7 @@
                 <fieldset>
                     <legend>Formation souhaitée</legend>
                     <div class="well well-fg">
-                        <div class="form-group">
+                        <div id="divChoisie" class="form-group">
                             <label for="choisie">Sélectionnez la formation souhaitée pour l'année scolaire
                                 2014-2015</label>
                             <span class="en">Whish training</span>
@@ -26,6 +26,7 @@
                                 {% endfor %}
                             </select>
                         </div>
+
                         <div id="displayDocuments"></div>
                         <div id="divAllDocuments" class="form-group">
                             <label>Etez-vous en possession de tous les documents demandés ?</label>
@@ -85,6 +86,30 @@
 
             $('#choisie').on('change', function () {
                 $('#divAllDocuments').show();
+
+                $.ajax({
+                    url: 'index.php?uc=formulaire&action=domainesDeCompatibilite',
+                    type: 'post',
+                    data: 'idDossierPdf=' + $('#choisie').val(),
+                    dataType: 'json',
+                    success: function (json) {
+                        //if (json.length > 0) {
+                            var divDerniere = $('<div></div>').attr('id', 'divDerniere').addClass('form-group');
+                            var label = $('<label></label>').attr('for', 'derniere').html('Etes-vous en possession d\'un diplôme parmi celui ou ceux proposés ?');
+                            var select = $('<select/>').attr('id', 'derniere').attr('name', 'derniere').addClass('form-control');
+                            select.append($('<option></option>').attr('value', '').html('Autre'));
+                            for (var i = 0; i < json.length; ++i) {
+                                select.append($('<option></option>').attr('value', json[i].codeEtape).html(json[i].etape));
+                            }
+                            divDerniere.append(label);
+                            divDerniere.append(select);
+                            $('#divChoisie').after(divDerniere);
+                        //}
+                        console.log(select);
+                        //console.log($('.form-group').length);
+                    }
+                });
+
                 $.ajax({
                     url: 'index.php?uc=formulaire&action=displayDocuments',
                     type: 'post',
