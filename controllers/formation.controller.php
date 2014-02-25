@@ -247,7 +247,7 @@ $villesPossibles = array_unique($villesPossibles);
 			$html2pdf->setDefaultFont('arial');
 			$html2pdf->pdf->SetDisplayMode('fullpage');
 			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-			$html2pdf->Output('dossiers/' . $codeFormation . '/Dossier_Type/candidature_Type.pdf', 'F');
+			$html2pdf->Output('dossiers/' . $codeFormation . '/Dossier-type/candidature_Type.pdf', 'F');
 			//echo "PDF BIEN GENERE";
 		} catch (HTML2PDF_exception $e) {
 			echo $e;
@@ -289,7 +289,7 @@ $villesPossibles = array_unique($villesPossibles);
 			$html2pdf->setDefaultFont('arial');
 			$html2pdf->pdf->SetDisplayMode('fullpage');
 			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-			$html2pdf->Output('dossiers/' . $codeFormation . '/Dossier_Type/preinscription_Type.pdf', 'F');
+			$html2pdf->Output('dossiers/' . $codeFormation . '/Dossier-type/preinscription_Type.pdf', 'F');
 
 		} catch (HTML2PDF_exception $e) {
 			echo $e;

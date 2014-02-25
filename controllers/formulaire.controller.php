@@ -105,7 +105,6 @@ switch ($action) {
     {
         // Chargement des voeux
         $formation = $formationManager->find ($_SESSION['codeFormation']);
-
         $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
         $voeux      = $voeuManager->findAllByDossierPdf ($dossierPdf);
 
@@ -306,7 +305,7 @@ switch ($action) {
         }
 
         // Mention de la formation
-        $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $formation->getMention ());
+        $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $dossierPdf->getNom ());
         $pagePdf->setHolder (' ' . $titulaire[0]->getLibelle (), ' ' . $titulaire[1]->getLibelle (), ' ' . $titulaire[2]->getLibelle (), $dossier->getTitulaire ());
         $pagePdf->setApplicant ($dossier->getGenre (), $dossier->getNom (), $dossier->getPrenom (), $dossier->getLieuNaissance (), $dossier->getDateNaissance (), $dossier->getIne (), $dossier->getAdresse () . ' ' . $dossier->getComplement () . ' ' . $dossier->getVille () . ' ' . $dossier->getCodePostal (), $dossier->getFixe (), $dossier->getPortable (), $dossier->getMail (), $dossier->getActivite ());
         $pagePdf->setPlanFormation ($voeux, $villePreferee);
@@ -338,6 +337,16 @@ switch ($action) {
             $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
             $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
             $html2pdf->Output ($dirPath . "/" . $dirName . '/Candidature-' . $dirName . '.pdf', 'F');
+
+            // Copie du répertoire correspondant au voeu n°1 dans les deux autres répertoires
+            foreach ($faires as $faire) {
+                if ($faire->getOrdre () != 1) {
+                    myMkdirBase ("dossiers/" . $_SESSION['codeFormation'] . "/" . $faire->getCodeEtape () . "/Candidatures/" . $dirName);
+                    $source      = $dirPath . "/" . $dirName;
+                    $destination = "dossiers/" . $_SESSION['codeFormation'] . "/" . $faire->getCodeEtape () . "/Candidatures/" . $dirName;
+                    copyDir ($source, $destination);
+                }
+            }
             echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
 
         } catch (HTML2PDF_exception $e) {

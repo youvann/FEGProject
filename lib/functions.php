@@ -49,17 +49,10 @@ function myMkdir ($dir) {
     if (!file_exists ("dossiers/" . $dir)) {
         mkdir ("dossiers/" . $dir, 0777);
         mkdir ("dossiers/" . $dir . "/Candidatures", 0777);
-        mkdir ("dossiers/" . $dir . "/Preinscriptions", 0777);
-        mkdir ("dossiers/" . $dir . "/Dossier_Type", 0777);
+        mkdir ("dossiers/" . $dir . "/Pre-inscriptions", 0777);
+        mkdir ("dossiers/" . $dir . "/Dossier-type", 0777);
     }
 }
-
-/*
-function myMkdirIne ($dir) {
-    if (!file_exists ("./dossiers/" . $dir)) {
-        mkdir ("./dossiers/" . $dir, 0777);
-    }
-}*/
 
 function myMkdirBase ($dir) {
     if (!file_exists ($dir)) {
@@ -71,9 +64,24 @@ function myMkdirDossier ($dir) {
     if (!file_exists ("dossiers/" . $dir)) {
         mkdir ("dossiers/" . $dir, 0777);
         mkdir ("dossiers/" . $dir . "/Candidatures", 0777);
-        mkdir ("dossiers/" . $dir . "/Preinscriptions", 0777);
-        mkdir ("dossiers/" . $dir . "/Dossier_Type", 0777);
+        mkdir ("dossiers/" . $dir . "/Pre-inscriptions", 0777);
+        mkdir ("dossiers/" . $dir . "/Dossier-type", 0777);
     }
+}
+
+function copyDir ($src, $dst) {
+    $dir = opendir ($src);
+    @mkdir ($dst);
+    while (false !== ($file = readdir ($dir))) {
+        if (($file != '.') && ($file != '..')) {
+            if (is_dir ($src . '/' . $file)) {
+                copyDir ($src . '/' . $file, $dst . '/' . $file);
+            } else {
+                copy ($src . '/' . $file, $dst . '/' . $file);
+            }
+        }
+    }
+    closedir ($dir);
 }
 
 function removeDir ($dir) {
@@ -92,8 +100,8 @@ function removeDir ($dir) {
                 removeDir ($path); // appel recursif pour lire a l'interieur de ce sous-repertoire
                 //echo '</div><br />';
                 //echo "effacement du rép",$path,'<br />';
-                // ne pas supprimer les répertoires Candidatures et Preinscriptions
-                if ($file !== "Candidatures" && $file !== "Preinscriptions" && $file !== "Dossier_Type") {
+                // ne pas supprimer les répertoires Candidatures et Pre-inscriptions
+                if ($file !== "Candidatures" && $file !== "Pre-inscriptions" && $file !== "Dossier-type") {
                     rmdir ($path);
                 }
             } else {
