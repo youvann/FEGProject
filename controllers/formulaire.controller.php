@@ -136,7 +136,7 @@ switch ($action) {
         $_SESSION['voeu3'] = $_POST['voeu3'];
 
         // Chemin du répetoire qui contient le répertoire de l'étudiant
-        $dirPath = "./dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
+        $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
         // Nom du répertoire de l'étudiant
         $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
         myMkdirBase ($dirPath . "/" . $dirNameId . "/");
@@ -277,12 +277,12 @@ switch ($action) {
 
         $informationsSpecifiques = "";
 
-        require_once './classes/Pdf/PagePdf.class.php';
-        $pagePdf = new PagePdf("./classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
+        require_once 'classes/Pdf/PagePdf.class.php';
+        $pagePdf = new PagePdf("classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
         /*
          * En-tête du pdf
          */
-        $pagePdf->setPagePdfHeaderImgPath ("./classes/Pdf/img/feg.png");
+        $pagePdf->setPagePdfHeaderImgPath ("classes/Pdf/img/feg.png");
         $currentYear = date ('Y');
         $nextYear    = date ('Y');
         $nextYear++;
@@ -296,7 +296,7 @@ switch ($action) {
         /*
          * Corps du pdf
          */
-        $logoPath = "./public/img/logos/" . $formation->getCodeFormation ();
+        $logoPath = "public/img/logos/" . $formation->getCodeFormation ();
         $empty    = is_dir_empty ($logoPath);
         $logoName = $empty ? "" : getFileName ($logoPath);
         if (!$empty) {
@@ -335,7 +335,7 @@ switch ($action) {
             $html2pdf->pdf->SetDisplayMode ('fullpage');
             $html2pdf->writeHTML ($content, isset($_GET['vuehtml']));
 
-            $dirPath = "./dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
+            $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
             $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
             $html2pdf->Output ($dirPath . "/" . $dirName . '/Candidature-' . $dirName . '.pdf', 'F');
             echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
@@ -349,7 +349,7 @@ switch ($action) {
     case "recapitulatif" :
     {
         $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
-        $dirPath = "./dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
+        $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
         $pathPdf = $dirPath . "/" . $dirName . "/Candidature-" . $dirName;
         $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
         echo $twig->render ('formulaire/recapitulatif.html.twig', array ('dossierPdf' => $dossierPdf->getNom(), 'pathPdf' => $pathPdf));

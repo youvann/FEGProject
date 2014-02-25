@@ -35,7 +35,7 @@ switch ($action) {
 	case "ajout":
 	{
 		// Création du répertoire "code_formation"
-        myMkdirBase("./dossiers/" . $_POST['code_formation']);
+        myMkdirBase("dossiers/" . $_POST['code_formation']);
 		$formationManager->insert(new Formation($_POST['code_formation'], $_POST['mention'], $_POST['informations'], $_POST['modalites'], $_POST['faculte']));
 		header('location:index.php?uc=formation&action=grille');
 	}
@@ -201,18 +201,18 @@ $villesPossibles[] = $ville->getNom();
 $villesPossibles = array_unique($villesPossibles);
 */
 
-		require_once './classes/Pdf/PagePdf.class.php';
-		$pagePdf = new PagePdf("./classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
+		require_once 'classes/Pdf/PagePdf.class.php';
+		$pagePdf = new PagePdf("classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
 
 		// En-tête du pdf
-		$pagePdf->setPagePdfHeaderImgPath("./classes/Pdf/img/feg.png");
+		$pagePdf->setPagePdfHeaderImgPath("classes/Pdf/img/feg.png");
 		$pagePdf->setPagePdfHeaderText("DOSSIER DE CANDIDATURE<br />ANNÉE UNIVERSITAIRE 2013-2014<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
 		// Pied du pdf
 		$pagePdf->setPagePdfFooterText("Page [[page_cu]]/[[page_nb]]");
 
 		// Corps du pdf
-		$logoPath = "./public/img/logos/" . $formation->getCodeFormation();
+		$logoPath = "public/img/logos/" . $formation->getCodeFormation();
 		$empty = is_dir_empty($logoPath);
 		$logoName = $empty ? "" : getFileName($logoPath);
 		if (!$empty) {
@@ -223,7 +223,7 @@ $villesPossibles = array_unique($villesPossibles);
 		$pagePdf->setTitle("Institut supérieur en sciences de Gestion", $formation->getMention());
 
 		$pagePdf->setHolder(' ' . $titulaire[0]->getLibelle(), ' ' . $titulaire[1]->getLibelle(), ' ' . $titulaire[2]->getLibelle(), "titulaire");
-		$pagePdf->setPhotoPath('./classes/Pdf/img/photo/github.png');
+		$pagePdf->setPhotoPath('classes/Pdf/img/photo/github.png');
 		$pagePdf->setPlanFormation($etapes, array());
 		$pagePdf->setProExperience(array());
 		$pagePdf->setInformationsSpecifiques($informationsSpecifiques);
@@ -241,7 +241,7 @@ $villesPossibles = array_unique($villesPossibles);
 		$content = ob_get_clean();
 
 		// convert in PDF
-		require_once './classes/Pdf/html2pdf/html2pdf.class.php';
+		require_once 'classes/Pdf/html2pdf/html2pdf.class.php';
 		try {
 			$html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
 			$html2pdf->setDefaultFont('arial');
@@ -258,14 +258,14 @@ $villesPossibles = array_unique($villesPossibles);
 		break;
 	case 'previsualisationPdfPreinscription' :
 	{
-		require_once './classes/Pdf/PagePreinsriptionPdf.class.php';
+		require_once 'classes/Pdf/PagePreinsriptionPdf.class.php';
 		$codeFormation = $_GET['code'];
 		$typePdf = $_GET['typePdf'];
 
 		$pagePdfPreinscription = new PagePreinscriptionPdf("", "30mm", "7mm", "0mm", "10mm");
 
 		// En-tête du pdf
-		$pagePdfPreinscription->setPagePdfHeaderImgPath("./classes/Pdf/img/feg.png");
+		$pagePdfPreinscription->setPagePdfHeaderImgPath("classes/Pdf/img/feg.png");
 
 		// Pied du pdf
 		$pagePdfPreinscription->setPagePdfFooterText("Page [[page_cu]]/[[page_nb]]");
@@ -283,7 +283,7 @@ $villesPossibles = array_unique($villesPossibles);
 		$content = ob_get_clean();
 
 		// convert in PDF
-		require_once './classes/Pdf/html2pdf/html2pdf.class.php';
+		require_once 'classes/Pdf/html2pdf/html2pdf.class.php';
 		try {
 			$html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
 			$html2pdf->setDefaultFont('arial');
@@ -300,7 +300,7 @@ $villesPossibles = array_unique($villesPossibles);
 	case 'logoDossierPdf' :
 	{
 		$code = $_GET['code'];
-		$logoPath = "./public/img/logos/" . $code;
+		$logoPath = "public/img/logos/" . $code;
 		$empty = is_dir_empty($logoPath);
 		$logoName = $empty ? "" : getFileName($logoPath);
 
@@ -311,8 +311,7 @@ $villesPossibles = array_unique($villesPossibles);
 	{
 		$code = $_GET['code'];
 		$logoName = $_GET['logoName'];
-		$logoPathName = "./public/img/logos/" . $code . "/" . $logoName;
-		//chmod ('./public/img/logos/' . $code . '/' . $logoName . "/", 0777);
+		$logoPathName = "public/img/logos/" . $code . "/" . $logoName;
 		unlink($logoPathName);
 	}
 		break;
@@ -320,7 +319,7 @@ $villesPossibles = array_unique($villesPossibles);
 	{
 		$code = $_GET['code'];
 		//$logoName = $empty ? "" : getFileName ($logoPath);
-		upload('./public/img/logos/' . $code . '/');
+		upload('public/img/logos/' . $code . '/');
 	}
 		break;
 	default:

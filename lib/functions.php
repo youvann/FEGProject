@@ -46,11 +46,11 @@ function Zip ($source, $destination) {
 }
 
 function myMkdir ($dir) {
-    if (!file_exists ("./dossiers/" . $dir)) {
-        mkdir ("./dossiers/" . $dir, 0777);
-        mkdir ("./dossiers/" . $dir . "/Candidatures", 0777);
-        mkdir ("./dossiers/" . $dir . "/Preinscriptions", 0777);
-        mkdir ("./dossiers/" . $dir . "/Dossier_Type", 0777);
+    if (!file_exists ("dossiers/" . $dir)) {
+        mkdir ("dossiers/" . $dir, 0777);
+        mkdir ("dossiers/" . $dir . "/Candidatures", 0777);
+        mkdir ("dossiers/" . $dir . "/Preinscriptions", 0777);
+        mkdir ("dossiers/" . $dir . "/Dossier_Type", 0777);
     }
 }
 
@@ -68,11 +68,11 @@ function myMkdirBase ($dir) {
 }
 
 function myMkdirDossier ($dir) {
-    if (!file_exists ("./dossiers/" . $dir)) {
-        mkdir ("./dossiers/" . $dir, 0777);
-        mkdir ("./dossiers/" . $dir . "/Candidatures", 0777);
-        mkdir ("./dossiers/" . $dir . "/Preinscriptions", 0777);
-        mkdir ("./dossiers/" . $dir . "/Dossier_Type", 0777);
+    if (!file_exists ("dossiers/" . $dir)) {
+        mkdir ("dossiers/" . $dir, 0777);
+        mkdir ("dossiers/" . $dir . "/Candidatures", 0777);
+        mkdir ("dossiers/" . $dir . "/Preinscriptions", 0777);
+        mkdir ("dossiers/" . $dir . "/Dossier_Type", 0777);
     }
 }
 

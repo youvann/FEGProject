@@ -50,7 +50,7 @@ switch ($action) {
             // Vérifie si le répertoire et les sous répertoires sont vides
             $empty = IsEmptySubFolders($pathFolder);
             // Chemin où se trouve le zip à télécharger
-            $path = Zip($pathFolder, './dossiers/ZIP/' . $dirName . "-" . time() . '.zip');
+            $path = Zip($pathFolder, 'dossiers/ZIP/' . $dirName . "-" . time() . '.zip');
         } else {
             $path  = '#';
             $empty = IsEmptySubFolders($pathFolder);

@@ -17,13 +17,13 @@
 {% block scripts %}
     {{ parent() }}
 
-    <script type="text/javascript" src="./public/js/jqueryFileTree/jqueryFileTree.js"></script>
+    <script type="text/javascript" src="public/js/jqueryFileTree/jqueryFileTree.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('#explorateur').fileTree({
                 // root : ne pas oublier de mettre slash à la fin du chemin !
                 root: '{{ directory }}',
-                script: './public/js/jqueryFileTree/connectors/jqueryFileTree.php'
+                script: 'public/js/jqueryFileTree/connectors/jqueryFileTree.php'
             }, function(file) {
                 //window.open(file.replace("Applications/", ""));
             });
