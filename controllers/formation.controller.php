@@ -15,106 +15,106 @@ if (!isset($_GET['action'])) {
 switch ($action) {
 	case "consulter":
 	{
-		$formation = $formationManager->find($_GET['code']);
-		$facultes = $faculteManager->findAll();
-		echo $twig->render('formation/consulterFormation.html.twig', array('formation' => $formation, 'facultes' => $facultes));
+		$formation = $formationManager->find ($_GET['code']);
+		$facultes  = $faculteManager->findAll ();
+		echo $twig->render ('formation/consulterFormation.html.twig', array ('formation' => $formation, 'facultes' => $facultes));
 	}
 		break;
 	case "grille":
 	{
-		$formations = $formationManager->findAll();
-		echo $twig->render('formation/grilleFormation.html.twig', array('formations' => $formations));
+		$formations = $formationManager->findAll ();
+		echo $twig->render ('formation/grilleFormation.html.twig', array ('formations' => $formations));
 	}
 		break;
 	case "ajouter":
 	{
-		$facultes = $faculteManager->findAll();
-		echo $twig->render('formation/ajouterFormation.html.twig', array('facultes' => $facultes));
+		$facultes = $faculteManager->findAll ();
+		echo $twig->render ('formation/ajouterFormation.html.twig', array ('facultes' => $facultes));
 	}
 		break;
 	case "ajout":
 	{
 		// Création du répertoire "code_formation"
-		myMkdirBase("dossiers/" . $_POST['code_formation']);
+		myMkdirBase ("dossiers/" . $_POST['code_formation']);
 		// Création du répertoire code_formation/Dossier-type
-		myMkdirBase("dossiers/" . $_POST['code_formation'] . "/Dossier-type");
-		$formationManager->insert(new Formation($_POST['code_formation'], $_POST['mention'], $_POST['informations'], $_POST['modalites'], $_POST['faculte']));
-		header('location:index.php?uc=formation&action=grille');
+		myMkdirBase ("dossiers/" . $_POST['code_formation'] . "/Dossier-type");
+		$formationManager->insert (new Formation($_POST['code_formation'], $_POST['mention'], $_POST['informations'], $_POST['modalites'], $_POST['faculte']));
+		header ('location:index.php?uc=formation&action=grille');
 	}
 		break;
 	case "modifier":
 	{
-		$facultes = $faculteManager->findAll();
-		$formation = $formationManager->find($_GET['code']);
-		echo $twig->render('formation/modifierFormation.html.twig', array('facultes' => $facultes, 'formation' => $formation));
+		$facultes  = $faculteManager->findAll ();
+		$formation = $formationManager->find ($_GET['code']);
+		echo $twig->render ('formation/modifierFormation.html.twig', array ('facultes' => $facultes, 'formation' => $formation));
 	}
 		break;
 	case "modification":
 	{
 		$formation = new Formation($_POST['code_formation'], $_POST['mention'], $_POST['informations'], $_POST['modalites'], $_POST['faculte']);
-		$formationManager->update($formation);
-		header('location:index.php?uc=formation&action=grille');
+		$formationManager->update ($formation);
+		header ('location:index.php?uc=formation&action=grille');
 	}
 		break;
 	case "suppression":
 	{
-		$formation = $formationManager->find($_GET['code']);
-		$formationManager->delete($formation);
-		header('location:index.php?uc=formation&action=grille');
+		$formation = $formationManager->find ($_GET['code']);
+		$formationManager->delete ($formation);
+		header ('location:index.php?uc=formation&action=grille');
 	}
 		break;
 	case "codeFormationPossible":
 	{
-		$q = $conn->prepare("SELECT IF(count(*) = 1, FALSE, TRUE) as ok FROM `formation` WHERE `code_formation` = ?;");
-		$q->execute(array($_POST['code']));
-		$rs = $q->fetch();
+		$q = $conn->prepare ("SELECT IF(count(*) = 1, FALSE, TRUE) as ok FROM `formation` WHERE `code_formation` = ?;");
+		$q->execute (array ($_POST['code']));
+		$rs                   = $q->fetch ();
 		$response['response'] = $rs['ok'];
-		echo json_encode($response);
+		echo json_encode ($response);
 	}
 		break;
 	case "dependances":
 	{
-		$dossierPdf = $dossierPdfManager->find($_GET['dossierPdf']);
-		$dependances = $dependreManager->findEtapes($dossierPdf);
+		$dossierPdf  = $dossierPdfManager->find ($_GET['dossierPdf']);
+		$dependances = $dependreManager->findEtapes ($dossierPdf);
 
-		$formations = $formationManager->findAll();
-		$voeux = $voeuManager->findAll();
-		$voeuxCompatibles = array();
+		$formations       = $formationManager->findAll ();
+		$voeux            = $voeuManager->findAll ();
+		$voeuxCompatibles = array ();
 		foreach ($dependances as $dependance) {
-			$voeuxCompatibles[] = $voeuManager->find($dependance->getCodeEtape());
+			$voeuxCompatibles[] = $voeuManager->find ($dependance->getCodeEtape ());
 		}
 
-		echo $twig->render('formation/dependances.html.twig', array('dossierPdf' => $dossierPdf, 'formations' => $formations, 'voeuxCompatibles' => $voeuxCompatibles, 'voeux' => $voeux));
+		echo $twig->render ('formation/dependances.html.twig', array ('dossierPdf' => $dossierPdf, 'formations' => $formations, 'voeuxCompatibles' => $voeuxCompatibles, 'voeux' => $voeux));
 	}
 		break;
 	case "modificationDependances":
 	{
-		$dossierPdf = $dossierPdfManager->find($_POST['idDossier']);
+		$dossierPdf = $dossierPdfManager->find ($_POST['idDossier']);
 
-		$dependances = $dependreManager->findEtapes($dossierPdf);
+		$dependances = $dependreManager->findEtapes ($dossierPdf);
 
 		foreach ($dependances as $dependance) {
-			$dependreManager->delete($dependance);
+			$dependreManager->delete ($dependance);
 		}
 
 		if (isset($_POST['voeux'])) {
 			foreach ($_POST['voeux'] as $voeu) {
-				$unVoeu = $voeuManager->find($voeu);
-				$dependreManager->insert(new Dependre(intval($_POST['idDossier']), $unVoeu->getCodeEtape()));
+				$unVoeu = $voeuManager->find ($voeu);
+				$dependreManager->insert (new Dependre(intval ($_POST['idDossier']), $unVoeu->getCodeEtape ()));
 			}
 		}
-		header('location:index.php?uc=formation&action=dependances&dossierPdf=' . $_POST['idDossier']);
+		header ('location:index.php?uc=formation&action=dependances&dossierPdf=' . $_POST['idDossier']);
 	}
 		break;
 	case "syntheseCsv":
 	{
 		$csvFileName = 'dossiers/' . $_GET['code'] . '/Synthese.csv';
 
-		if (file_exists($csvFileName)) {
-			unlink($csvFileName);
+		if (file_exists ($csvFileName)) {
+			unlink ($csvFileName);
 		}
 
-		$q = $conn->prepare("SELECT DISTINCT d.`ID_ETUDIANT`,
+		$q = $conn->prepare ("SELECT DISTINCT d.`ID_ETUDIANT`,
 										`INE`,
 										d.`NOM`,
 										`PRENOM`,
@@ -133,53 +133,56 @@ switch ($action) {
 								WHERE `ANNEE_FIN` = (SELECT MAX(`ANNEE_FIN`) FROM `cursus` c2 WHERE c2.`ID_ETUDIANT` = c1.`ID_ETUDIANT`)
 								AND f.`ORDRE` = 1
 								GROUP BY d.`ID_ETUDIANT`;");
-		$q->execute(array($_GET['code']));
-		$rs = $q->fetchAll();
+		$q->execute (array ($_GET['code']));
+		$rs = $q->fetchAll ();
 
-		$csv = fopen($csvFileName, 'w');
+		$csv = fopen ($csvFileName, 'w');
 
-		fputcsv($csv, array('INE', 'Nom', utf8_decode('Prénom'), 'MAIL', utf8_decode('Téléphone'), 'Date de naissance', 'Dernier cursus', 'Formation choisie', 'Premier voeu', utf8_decode('Année du BAC')), ';');
+		fputcsv ($csv, array ('INE', 'Nom', utf8_decode ('Prénom'), 'MAIL', utf8_decode ('Téléphone'), 'Date de naissance', 'Dernier cursus', 'Formation choisie', 'Premier voeu', utf8_decode ('Année du BAC')), ';');
 
 		foreach ($rs as $row) {
-			fputcsv($csv, array(
-				$row['INE'],
-				utf8_decode($row['NOM']),
-				utf8_decode($row['PRENOM']),
-				$row['MAIL'],
-				$row['TEL'],
-				$row['DATE_NAISSANCE'],
-				utf8_decode($row['DERNIER_CURSUS']),
-				utf8_decode($row['DOSSIER_PDF_NOM']),
-				utf8_decode($row['PREMIER_VOEU']),
-				$row['ANNEE_BAC'],
-			), ';');
+			fputcsv ($csv, array ($row['INE'], utf8_decode ($row['NOM']), utf8_decode ($row['PRENOM']), $row['MAIL'], $row['TEL'], $row['DATE_NAISSANCE'], utf8_decode ($row['DERNIER_CURSUS']), utf8_decode ($row['DOSSIER_PDF_NOM']), utf8_decode ($row['PREMIER_VOEU']), $row['ANNEE_BAC'],), ';');
 		}
-		fclose($csv);
+		fclose ($csv);
 
-		echo $twig->render('formation/syntheseCsv.html.twig', array('code' => $_GET['code']));
+		echo $twig->render ('formation/syntheseCsv.html.twig', array ('code' => $_GET['code']));
 	}
 		break;
 	case "previsualiserPdf":
 	{
-		$codeFormation = $_GET['code'];
-		$typePdf = $_GET['typePdf'];
-		echo $twig->render('formation/previsualiserPdfFormation.html.twig', array('codeFormation' => $codeFormation, 'typePdf' => $typePdf));
+		$idDossierPdf = $_GET['idDossierPdf'];
+		$typePdf      = $_GET['typePdf'];
+		$dossierPdf   = $dossierPdfManager->find ($idDossierPdf);
+
+		$nomDossierPdf = $dossierPdf->getNom ();
+		$codeFormation = $dossierPdf->getCodeFormation ();
+		$type          = ($typePdf == "candidature") ? "Candidature" : "Pré-inscription";
+
+		echo $twig->render ('formation/previsualiserPdfFormation.html.twig', array (
+			'codeFormation' => $codeFormation,
+			'typePdf' => $type,
+			'nomDossierPdf' => $nomDossierPdf
+		));
 	}
 		break;
-	case "previsualisationPdfCandidature":
+	case "previsualisationPdf":
 	{
-		$idDossierPdf = $_GET['idDossierPdf'];
-		$typePdf = $_GET['typePdf'];
-		$dossierPdf = $dossierPdfManager->find($idDossierPdf);
-		$codeFormation = $dossierPdf->getCodeFormation();
-		$formation = $formationManager->find($codeFormation);
+		$idDossierPdf  = $_GET['idDossierPdf'];
+		$typePdf       = $_GET['typePdf'];
+		$dossierPdf    = $dossierPdfManager->find ($idDossierPdf);
+		$informations = $informationManager->findAllByDossierPdf($dossierPdf);
+
+		$codeFormation = $dossierPdf->getCodeFormation ();
+		$formation     = $formationManager->find ($codeFormation);
+		$type          = ($typePdf == "candidature") ? "Candidature" : "Pré-inscription";
+		$typeBool      = ($typePdf == "candidature") ? true : false;
 
 		// Récupère tous les voeux du dossier PDF
-		$voeux = $voeuManager->findAllByDossierPdf($dossierPdf);
-		$etapes = array();
+		$voeux  = $voeuManager->findAllByDossierPdf ($dossierPdf);
+		$etapes = array ();
 		$cpt = 1;
 		foreach ($voeux as $voeu) {
-			$etapes[$cpt++] = $voeu->getEtape();
+			$etapes[$cpt++] = $voeu->getEtape ();
 		}
 
 		require_once 'classes/Pdf/PagePdf.class.php';
@@ -188,99 +191,61 @@ switch ($action) {
 		/*
 		 * En-tête du pdf
 		 */
-		$pagePdf->setPagePdfHeaderImgPath("classes/Pdf/img/feg.png");
-		$currentYear = date('Y');
-		$nextYear = date('Y');
-		$nextYear++;
-		$pagePdf->setPagePdfHeaderText("DOSSIER DE " . strtoupper($typePdf) . "<br />ANNÉE UNIVERSITAIRE " . $currentYear . "-" . $nextYear . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
+		$pagePdf->setPagePdfHeaderImgPath ("classes/Pdf/img/feg.png");
+		$pagePdf->setPagePdfHeaderText ("DOSSIER DE " . strtoupper($type) . "<br />ANNÉE UNIVERSITAIRE " . $anneeBasse . "-" . $anneeHaute . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
 		/*
 		 * Pied de page du pdf
 		 */
-		$pagePdf->setPagePdfFooterText("Page [[page_cu]]/[[page_nb]]");
+		$pagePdf->setPagePdfFooterText ("Page [[page_cu]]/[[page_nb]]");
 
 		/*
 		 * Corps du pdf
 		 */
-		$logoPath = "public/img/logos/" . $formation->getCodeFormation();
-		$empty = is_dir_empty($logoPath);
-		$logoName = $empty ? "" : getFileName($logoPath);
+		$logoPath = "public/img/logos/" . $formation->getCodeFormation ();
+		$empty    = is_dir_empty ($logoPath);
+		$logoName = $empty ? "" : getFileName ($logoPath);
 		if (!$empty) {
-			$pagePdf->setLogoPath($logoPath . "/" . $logoName);
+			$pagePdf->setLogoPath ($logoPath . "/" . $logoName);
 		} else {
-			$pagePdf->setLogoPath("");
+			$pagePdf->setLogoPath ("");
 		}
 
-		$pagePdf->setTitle("Institut supérieur en sciences de Gestion", $dossierPdf->getNom());
+		$pagePdf->setIsCandidature($typeBool);
+		$pagePdf->setIsPrev(true);
+		$pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $dossierPdf->getNom ());
+		$pagePdf->setPlanFormation ($etapes, "");
+		$pagePdf->setProExperience (array ());
 
-		//$pagePdf->setHolder (' ' . $titulaire[0]->getLibelle (), ' ' . $titulaire[1]->getLibelle (), ' ' . $titulaire[2]->getLibelle (), "titulaire");
-		//$pagePdf->setPhotoPath ('classes/Pdf/img/photo/github.png');
-		$pagePdf->setPlanFormation($etapes, "");
-		$pagePdf->setProExperience(array());
-		//$pagePdf->setInformationsSpecifiques ($informationsSpecifiques);
+		$informationsSpecifiques = array ();
+		$typeInformations        = array ();
+		foreach ($informations as $information) {
+			$informationsSpecifiques[] = $information->getLibelle ();
+			$typeInformations[]        = $information->getType ();
+		}
+		$pagePdf->setTypeInformations($typeInformations);
+		$pagePdf->setInformationsSpecifiques ($informationsSpecifiques);
 
-		$pagePdf->setCadreAdministrationVoeux($etapes);
+		$pagePdf->setCadreAdministrationVoeux ($etapes);
 
-		$pagePdf->setDossierModalites($formation->getModalites());
-		$pagePdf->setDossierInformations($formation->getInformations());
+		$pagePdf->setDossierModalites ($formation->getModalites ());
+		$pagePdf->setDossierInformations ($formation->getInformations ());
 
-		$pagePdf->setVoeuxMultiple(true);
-		$pagePdf->setRowAdmin(true);
+		$pagePdf->setVoeuxMultiple (true);
+		$pagePdf->setRowAdmin (true);
 
-		ob_start();
+		ob_start ();
 		echo $pagePdf;
-		$content = ob_get_clean();
+		$content = ob_get_clean ();
 
 		// convert in PDF
 		require_once 'classes/Pdf/html2pdf/html2pdf.class.php';
 		try {
-			$html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
-			$html2pdf->setDefaultFont('arial');
-			$html2pdf->pdf->SetDisplayMode('fullpage');
-			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-			$html2pdf->Output('dossiers/' . $codeFormation . '/Dossier-type/Candidature.pdf', 'F');
-			//echo "PDF BIEN GENERE";
-		} catch (HTML2PDF_exception $e) {
-			echo $e;
-			exit;
-		}
-	}
-		break;
-	case 'previsualisationPdfPreinscription' :
-	{
-		require_once 'classes/Pdf/PagePreinsriptionPdf.class.php';
-		$codeFormation = $_GET['code'];
-		$typePdf = $_GET['typePdf'];
-
-		$pagePdfPreinscription = new PagePreinscriptionPdf("", "30mm", "7mm", "0mm", "10mm");
-
-		// En-tête du pdf
-		$pagePdfPreinscription->setPagePdfHeaderImgPath("classes/Pdf/img/feg.png");
-
-		// Pied du pdf
-		$pagePdfPreinscription->setPagePdfFooterText("Page [[page_cu]]/[[page_nb]]");
-
-		// Corps du pdf
-		$pagePdfPreinscription->setTitle("01/01/2014", "DOSSIER DE PRE-INSCRIPTION", "Réservé aux étudiants titulaires d’une licence du domaine de formation <br/> Sciences économiques, sciences de gestion et AES", "ANNEE UNIVERSITAIRE 2013/2014 <br/> Institut Supérieur de Management des Organisations (ISMO)", "MASTER Économie Appliquée", "Dossier à adresser avant le 3 Juillet 2013 <br/> Aimée FERRÉ - Secrétariat Master 1 Économie Appliquée <br/> Faculté d’Économie et de Gestion <br/> 14, avenue Jules Ferry – 13621 Aix-en-Provence Cedex");
-		$pagePdfPreinscription->setNote("Dossier à utiliser si vous résidez dans l'Espace européen, ou dans un pays où il n'existe pas d'espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.");
-		//$pagePdfPreinscription->setApplicant("", "", "", "", "", "", "", "", "", "", "", "");
-		$pagePdfPreinscription->setFormationDepuisBac("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
-		$pagePdfPreinscription->setStageExpPro("mai 2011 <br/> - <br/> juillet 2011", "mars 2009 <br/> - <br/> août 2009", "janvier 2005 <br/> - <br/> mars 2005", "janvier 2004 <br/> - <br/> décembre 2004", "juin 2003 <br/>-<br/> septembre 2003", "CMA CGM", "Airbus Helicopters", "Capgemini", "LogicielNet", "Sistema", "Marseille", "Marignane", "Marseille", "Aix en Provence", "Aix en Provence", "Info", "Info", "Info", "Info", "Info", "stage", "stage", "emploi", "emploi", "stage");
-		$pagePdfPreinscription->setPartieAdministration('checked', 'checked');
-
-		ob_start();
-		echo $pagePdfPreinscription;
-		$content = ob_get_clean();
-
-		// convert in PDF
-		require_once 'classes/Pdf/html2pdf/html2pdf.class.php';
-		try {
-			$html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array(12, 10, 10, 10));
-			$html2pdf->setDefaultFont('arial');
-			$html2pdf->pdf->SetDisplayMode('fullpage');
-			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-			$html2pdf->Output('dossiers/' . $codeFormation . '/Dossier-type/preinscription_Type.pdf', 'F');
-
+			$html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array (12, 10, 10, 10));
+			$html2pdf->setDefaultFont ('arial');
+			$html2pdf->pdf->SetDisplayMode ('fullpage');
+			$html2pdf->writeHTML ($content, isset($_GET['vuehtml']));
+			$html2pdf->Output ('dossiers/' . $codeFormation . '/Dossier-type/' . $type . '-' . $dossierPdf->getNom () . '.pdf', 'F');
 		} catch (HTML2PDF_exception $e) {
 			echo $e;
 			exit;
@@ -289,27 +254,27 @@ switch ($action) {
 		break;
 	case 'logoDossierPdf' :
 	{
-		$code = $_GET['code'];
-		$mention = $_GET['mention'];
+		$code     = $_GET['code'];
+		$mention  = $_GET['mention'];
 		$logoPath = "public/img/logos/" . $code;
-		$empty = is_dir_empty($logoPath);
-		$logoName = $empty ? "" : getFileName($logoPath);
+		$empty    = is_dir_empty ($logoPath);
+		$logoName = $empty ? "" : getFileName ($logoPath);
 
-		echo $twig->render('formation/logoDossierPdf.html.twig', array('code' => $code, 'empty' => $empty, 'logoName' => $logoName, 'mention' => $mention));
+		echo $twig->render ('formation/logoDossierPdf.html.twig', array ('code' => $code, 'empty' => $empty, 'logoName' => $logoName, 'mention' => $mention));
 	}
 		break;
 	case 'suppressionLogo' :
 	{
-		$code = $_GET['code'];
-		$logoName = $_GET['logoName'];
+		$code         = $_GET['code'];
+		$logoName     = $_GET['logoName'];
 		$logoPathName = "public/img/logos/" . $code . "/" . $logoName;
-		unlink($logoPathName);
+		unlink ($logoPathName);
 	}
 		break;
 	case 'uploadLogo' :
 	{
 		$code = $_GET['code'];
-		upload('public/img/logos/' . $code . '/');
+		upload ('public/img/logos/' . $code . '/');
 	}
 		break;
 	default:

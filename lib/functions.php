@@ -50,7 +50,6 @@ function myMkdir ($dir) {
         mkdir ("dossiers/" . $dir, 0777);
         mkdir ("dossiers/" . $dir . "/Candidatures", 0777);
         mkdir ("dossiers/" . $dir . "/Pre-inscriptions", 0777);
-        mkdir ("dossiers/" . $dir . "/Dossier-type", 0777);
     }
 }
 
@@ -65,7 +64,6 @@ function myMkdirDossier ($dir) {
         mkdir ("dossiers/" . $dir, 0777);
         mkdir ("dossiers/" . $dir . "/Candidatures", 0777);
         mkdir ("dossiers/" . $dir . "/Pre-inscriptions", 0777);
-        mkdir ("dossiers/" . $dir . "/Dossier-type", 0777);
     }
 }
 
@@ -111,21 +109,6 @@ function removeDir ($dir) {
         }
     }
     closedir ($dh); // on ferme le repertoire courant
-}
-
-function dirIsEmpty ($path) {
-    $empty = true;
-    $dir   = opendir ($path);
-    while ($file = readdir ($dir)) {
-
-        if ($file !== '.' && $file !== '..') {
-
-            $empty = false;
-            break;
-        }
-    }
-    closedir ($dir);
-    return $empty;
 }
 
 function IsEmptySubFolders ($path) {

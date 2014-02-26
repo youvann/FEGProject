@@ -144,16 +144,6 @@ switch ($action) {
         break;
     case "traiterMainFormulaire":
     {
-        /*/ Récupère l'indice du champ qui se trouve juste avant les informations spécifiques, ici il s'agit de ville préférée
-        $positionVillePreferee = 1;
-        foreach ($_POST as $key => $value) {
-            if ($key == "ville_preferee") {
-                break;
-            }
-            $positionVillePreferee++;
-        }
-
-        $postInformations = array_slice ($_POST, $positionVillePreferee);*/
         $dossierPdf       = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
         $structure        = $translatorResultsetToStructure->translate ($informationManager->getResultset ($dossierPdf));
         $json             = $translatorFormToJson->translate ($structure, array_slice ($_POST, array_search ('ville_preferee', array_keys ($_POST))+1));
@@ -239,13 +229,11 @@ switch ($action) {
         /*
          * Génération dossier PDF
          */
-        $dossier     = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
-        $formation   = $formationManager->find ($_SESSION['codeFormation']);
-        $titulaire   = $titulaireManager->findAll ();
-        $cursus      = $cursusManager->findAllByDossier ($dossier);
-        $experiences = $experienceManager->findAllByDossier ($dossier);
-        //$faires          = $faireManager->findAllByDossier ($dossier);
-        $etapes        = array ();
+        $dossier       = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
+        $formation     = $formationManager->find ($_SESSION['codeFormation']);
+        $titulaire     = $titulaireManager->findAll ();
+        $cursus        = $cursusManager->findAllByDossier ($dossier);
+        $experiences   = $experienceManager->findAllByDossier ($dossier);
         $villePreferee = $dossier->getVillePreferee ();
 
         // Récupère les voeux par ordre croissant
@@ -261,14 +249,12 @@ switch ($action) {
 
         require_once 'classes/Pdf/PagePdf.class.php';
         $pagePdf = new PagePdf("classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
+
         /*
          * En-tête du pdf
          */
         $pagePdf->setPagePdfHeaderImgPath ("classes/Pdf/img/feg.png");
-        $currentYear = date ('Y');
-        $nextYear    = date ('Y');
-        $nextYear++;
-        $pagePdf->setPagePdfHeaderText ("DOSSIER DE CANDIDATURE<br />ANNÉE UNIVERSITAIRE " . $currentYear . "-" . $nextYear . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
+        $pagePdf->setPagePdfHeaderText ("DOSSIER DE CANDIDATURE<br />ANNÉE UNIVERSITAIRE " . $anneeBasse . "-" . $anneeHaute . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
         /*
          * Pied de page du pdf
@@ -287,6 +273,9 @@ switch ($action) {
             $pagePdf->setLogoPath ("");
         }
 
+        $pagePdf->setIsCandidature (true);
+        $pagePdf->setIsPrev (false);
+
         // Mention de la formation
         $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $dossierPdf->getNom ());
         $pagePdf->setHolder (' ' . $titulaire[0]->getLibelle (), ' ' . $titulaire[1]->getLibelle (), ' ' . $titulaire[2]->getLibelle (), $dossier->getTitulaire ());
@@ -300,7 +289,7 @@ switch ($action) {
         $pagePdf->setDossierModalites ($formation->getModalites ());
         $pagePdf->setDossierInformations ($formation->getInformations ());
 
-        $pagePdf->setCadreAdministrationVoeux (array ("voeux1", "voeux2"));
+        $pagePdf->setCadreAdministrationVoeux ($voeux);
         $pagePdf->setVoeuxMultiple (true);
         $pagePdf->setRowAdmin (true);
 
