@@ -184,8 +184,12 @@ function upload ($output_dir) {
 
 function formatString($string){
     $mot = ltrim($string);
-    $mot = rtrim($mot);
-    $mot = strtolower($mot);
-    $mot = ucfirst($mot);
+	$mot = rtrim($mot);
+	$mot = strtolower($mot);
+	$mot = ucfirst($mot);
     return $mot;
+}
+
+function stripAccents($string) {
+	return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ', 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
 }

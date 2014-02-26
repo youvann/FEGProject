@@ -127,8 +127,8 @@ switch ($action) {
         break;
     case "uploadDocuments" :
     {
-        $_SESSION['nom']    = formatString ($_POST['nom']);
-        $_SESSION['prenom'] = formatString ($_POST['prenom']);
+        $_SESSION['nom']    = formatString (stripAccents($_POST['nom']));
+        $_SESSION['prenom'] = formatString (stripAccents($_POST['prenom']));
 
         $_SESSION['voeu1'] = $_POST['voeu1'];
         $_SESSION['voeu2'] = $_POST['voeu2'];
@@ -144,9 +144,7 @@ switch ($action) {
         break;
     case "traiterMainFormulaire":
     {
-        //var_dump ($_POST, array_search ('ville_preferee', array_keys ($_POST)));
-        //exit();
-        // Récupère l'indice du champ qui se trouve juste avant les informations spécifiques, ici il s'agit de ville préférée
+        /*/ Récupère l'indice du champ qui se trouve juste avant les informations spécifiques, ici il s'agit de ville préférée
         $positionVillePreferee = 1;
         foreach ($_POST as $key => $value) {
             if ($key == "ville_preferee") {
@@ -155,10 +153,10 @@ switch ($action) {
             $positionVillePreferee++;
         }
 
-        $postInformations = array_slice ($_POST, $positionVillePreferee);
+        $postInformations = array_slice ($_POST, $positionVillePreferee);*/
         $dossierPdf       = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
         $structure        = $translatorResultsetToStructure->translate ($informationManager->getResultset ($dossierPdf));
-        $json             = $translatorFormToJson->translate ($structure, $postInformations);
+        $json             = $translatorFormToJson->translate ($structure, array_slice ($_POST, array_search ('ville_preferee', array_keys ($_POST))+1));
 
         $dateDeNaissance = $_POST['annee_date_naissance'] . "-" . $_POST["mois_date_naissance"] . "-" . $_POST["jour_date_naissance"];
         $dossier         = new Dossier($_SESSION['idEtudiant'], $_POST['ine'], $_POST["genre"], $_SESSION['codeFormation'], $_POST["autre"], formatString ($_POST["nom"]), formatString ($_POST["prenom"]), formatString ($_POST["adresse"]), $_POST["complement"], formatString ($_POST["code_postal"]), formatString ($_POST["ville"]), $dateDeNaissance, formatString ($_POST["lieu_naissance"]), $_POST["fixe"], $_POST["portable"], $_POST["mail"], formatString ($_POST["langues"]), formatString ($_POST["nationalite"]), $_POST["serie_bac"], $_POST["annee_bac"], formatString ($_POST["etablissement_bac"]), $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["titulaire"], $_POST["ville_preferee"], formatString ($_POST["autres_elements"]), $json);
@@ -259,21 +257,7 @@ switch ($action) {
             $voeux[$faire->getOrdre ()] = $voeu;
         }
 
-        // Récupère les informations spécifiques
-        /*
-        $q = $conn->prepare ('SELECT `information`.`ID` as idInfo, `information`.`LIBELLE` as libelleInfo, `type`.`ID` as typeInfo, `choix`.`TEXTE` as libellesInfo
-                            FROM `information`
-                            INNER JOIN `type` ON (`information`.`TYPE` = `type`.`ID`)
-                            LEFT JOIN `choix` ON (`information`.`ID` = `choix`.`INFORMATION`)
-                            WHERE `information`.`CODE_FORMATION` = ?
-                            ORDER BY `information`.`ORDRE`;');
-        $q->execute (array ($formation->getCodeFormation ()));
-        $rs = $q->fetchAll ();
-
-        $structure               = $translatorResultsetToStructure->translate ($rs);
-        $informationsSpecifiques = $translatorJsonToHTML->translate ($dossier->getInformations (), $structure);*/
-
-        $informationsSpecifiques = "";
+        $informationsSpecifiques = $translatorJsonToHTML->translate ($json, $structure);
 
         require_once 'classes/Pdf/PagePdf.class.php';
         $pagePdf = new PagePdf("classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
