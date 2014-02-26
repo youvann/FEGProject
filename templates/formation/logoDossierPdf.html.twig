@@ -10,7 +10,7 @@
                 formation</a></li>
         <li class="active">Gestion du logo</li>
     </ol>
-    <h2 class="titre_rubrique">Gestion du logo {{ code }}</h2>
+    <h2 class="titre_rubrique">Gestion du logo {{ mention }} ({{ code }})</h2>
 
     <div class="msg-logo"></div>
 
@@ -41,7 +41,7 @@
 
 {% block scripts %}
     {{ parent() }}
-    <script src="./public/js/jquery-upload/jquery.uploadfile.js"></script>
+    <script src="public/js/jquery-upload/jquery.uploadfile.js"></script>
     <script type="text/javascript">
         var fileName = "";
         $(document).ready(function () {
@@ -56,7 +56,7 @@
                 dragDropStr: "<span><b>Déposez le logo ici</b></span>",
                 onSuccess: function (files, data, xhr) {
                     noLogo.hide();
-                    logo.attr("src", "./public/img/logos/" + "{{ code }}" + "/" + files);
+                    logo.attr("src", "public/img/logos/" + "{{ code }}" + "/" + files);
                     fileName = files;
                     logo.show().addClass('hasLogo');
                     btnAdd.attr('disabled', 'disabled');
@@ -80,7 +80,7 @@
                 btnAdd.attr('disabled', 'disabled');
                 btnRemove.removeAttr('disabled');
                 noLogo.hide();
-                logo.attr("src", "./public/img/logos/" + "{{ code }}" + "/" + "{{ logoName }}");
+                logo.attr("src", "public/img/logos/" + "{{ code }}" + "/" + "{{ logoName }}");
             }
 
             if (empty) { // Pas de logo

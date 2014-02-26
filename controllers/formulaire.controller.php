@@ -105,7 +105,6 @@ switch ($action) {
     {
         // Chargement des voeux
         $formation = $formationManager->find ($_SESSION['codeFormation']);
-
         $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
         $voeux      = $voeuManager->findAllByDossierPdf ($dossierPdf);
 
@@ -136,7 +135,7 @@ switch ($action) {
         $_SESSION['voeu3'] = $_POST['voeu3'];
 
         // Chemin du répetoire qui contient le répertoire de l'étudiant
-        $dirPath = "./dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
+        $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
         // Nom du répertoire de l'étudiant
         $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
         myMkdirBase ($dirPath . "/" . $dirNameId . "/");
@@ -242,8 +241,7 @@ switch ($action) {
         /*
          * Génération dossier PDF
          */
-        $dossier = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
-
+        $dossier     = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
         $formation   = $formationManager->find ($_SESSION['codeFormation']);
         $titulaire   = $titulaireManager->findAll ();
         $cursus      = $cursusManager->findAllByDossier ($dossier);
@@ -277,12 +275,12 @@ switch ($action) {
 
         $informationsSpecifiques = "";
 
-        require_once './classes/Pdf/PagePdf.class.php';
-        $pagePdf = new PagePdf("./classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
+        require_once 'classes/Pdf/PagePdf.class.php';
+        $pagePdf = new PagePdf("classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
         /*
          * En-tête du pdf
          */
-        $pagePdf->setPagePdfHeaderImgPath ("./classes/Pdf/img/feg.png");
+        $pagePdf->setPagePdfHeaderImgPath ("classes/Pdf/img/feg.png");
         $currentYear = date ('Y');
         $nextYear    = date ('Y');
         $nextYear++;
@@ -296,7 +294,7 @@ switch ($action) {
         /*
          * Corps du pdf
          */
-        $logoPath = "./public/img/logos/" . $formation->getCodeFormation ();
+        $logoPath = "public/img/logos/" . $formation->getCodeFormation ();
         $empty    = is_dir_empty ($logoPath);
         $logoName = $empty ? "" : getFileName ($logoPath);
         if (!$empty) {
@@ -306,7 +304,7 @@ switch ($action) {
         }
 
         // Mention de la formation
-        $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $formation->getMention ());
+        $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $dossierPdf->getNom ());
         $pagePdf->setHolder (' ' . $titulaire[0]->getLibelle (), ' ' . $titulaire[1]->getLibelle (), ' ' . $titulaire[2]->getLibelle (), $dossier->getTitulaire ());
         $pagePdf->setApplicant ($dossier->getGenre (), $dossier->getNom (), $dossier->getPrenom (), $dossier->getLieuNaissance (), $dossier->getDateNaissance (), $dossier->getIne (), $dossier->getAdresse () . ' ' . $dossier->getComplement () . ' ' . $dossier->getVille () . ' ' . $dossier->getCodePostal (), $dossier->getFixe (), $dossier->getPortable (), $dossier->getMail (), $dossier->getActivite ());
         $pagePdf->setPlanFormation ($voeux, $villePreferee);
@@ -335,9 +333,19 @@ switch ($action) {
             $html2pdf->pdf->SetDisplayMode ('fullpage');
             $html2pdf->writeHTML ($content, isset($_GET['vuehtml']));
 
-            $dirPath = "./dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
+            $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
             $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
             $html2pdf->Output ($dirPath . "/" . $dirName . '/Candidature-' . $dirName . '.pdf', 'F');
+
+            // Copie du répertoire correspondant au voeu n°1 dans les deux autres répertoires
+            foreach ($faires as $faire) {
+                if ($faire->getOrdre () != 1) {
+                    myMkdirBase ("dossiers/" . $_SESSION['codeFormation'] . "/" . $faire->getCodeEtape () . "/Candidatures/" . $dirName);
+                    $source      = $dirPath . "/" . $dirName;
+                    $destination = "dossiers/" . $_SESSION['codeFormation'] . "/" . $faire->getCodeEtape () . "/Candidatures/" . $dirName;
+                    copyDir ($source, $destination);
+                }
+            }
             echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
 
         } catch (HTML2PDF_exception $e) {
@@ -349,7 +357,7 @@ switch ($action) {
     case "recapitulatif" :
     {
         $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
-        $dirPath = "./dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
+        $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
         $pathPdf = $dirPath . "/" . $dirName . "/Candidature-" . $dirName;
         $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
         echo $twig->render ('formulaire/recapitulatif.html.twig', array ('dossierPdf' => $dossierPdf->getNom(), 'pathPdf' => $pathPdf));

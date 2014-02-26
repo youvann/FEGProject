@@ -1,20 +1,20 @@
 <?php
 
 // Droits utilisateurs
-require_once './config/rights.php';
+require_once 'config/rights.php';
 
 // fonctions
-require_once './lib/functions.php';
+require_once 'lib/functions.php';
 
 // main classes loader
-require_once './classes/FormElements/loader.php';
-require_once './classes/Translator/loader.php';
-require_once './classes/FileHeader.class.php';
+require_once 'classes/FormElements/loader.php';
+require_once 'classes/Translator/loader.php';
+require_once 'classes/FileHeader.class.php';
 
 // Connexion PDO
-require_once './model/PDO.php';
+require_once 'model/PDO.php';
 // entities loader
-require_once './Entities/loader.php';
+require_once 'Entities/loader.php';
 
 
 // Chargement des ressources francais/anglais
