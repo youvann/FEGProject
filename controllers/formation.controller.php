@@ -114,44 +114,36 @@ switch ($action) {
             unlink ($csvFileName);
         }
 
-        $q = $conn->prepare ("SELECT `INE`,
-		d.`NOM`,
-		`PRENOM`,
-		`MAIL`, 
-		CONCAT(`FIXE`, '/', `PORTABLE`) as TEL,
-		CONCAT(DAY(`DATE_NAISSANCE`), '/', MONTH(`DATE_NAISSANCE`), '/', YEAR(`DATE_NAISSANCE`)) as DATE_NAISSANCE,
-		d.`CODE_FORMATION`,
-		`CURSUS`,
-		dp.`NOM`,
-		`ETAPE`,
-		`ANNEE_BAC`
-FROM `dossier` d
-	INNER JOIN `cursus` c1 ON d.`ID_ETUDIANT` = c1.`ID_ETUDIANT`
-	INNER JOIN `faire` f ON d.`ID_ETUDIANT` = f.`ID_ETUDIANT`
-	INNER JOIN `voeu` v ON f.`CODE_ETAPE` = v.`CODE_ETAPE`
-	INNER JOIN `dossier_pdf` dp ON v.`DOSSIER_PDF` = dp.`ID`
-WHERE `ANNEE_FIN` = (SELECT MAX(`ANNEE_FIN`) FROM `cursus`c2 WHERE `ID_ETUDIANT` = c1.`ID_ETUDIANT`)
-AND f.`ORDRE` = 1;");
+        $q = $conn->prepare ("SELECT DISTINCT d.`ID_ETUDIANT`,
+										`INE`,
+										d.`NOM`,
+										`PRENOM`,
+										`MAIL`,
+										CONCAT(`FIXE`, '/', `PORTABLE`) as TEL,
+										CONCAT(DAY(`DATE_NAISSANCE`), '/', MONTH(`DATE_NAISSANCE`), '/', YEAR(`DATE_NAISSANCE`)) as DATE_NAISSANCE,
+										`CURSUS` as DERNIER_CURSUS,
+										dp.`NOM` as DOSSIER_PDF_NOM,
+										`ETAPE` as PREMIER_VOEU,
+										`ANNEE_BAC`
+								FROM `dossier` d
+									INNER JOIN `cursus` c1 ON d.`ID_ETUDIANT` = c1.`ID_ETUDIANT`
+									INNER JOIN `faire` f ON d.`ID_ETUDIANT` = f.`ID_ETUDIANT`
+									INNER JOIN `voeu` v ON f.`CODE_ETAPE` = v.`CODE_ETAPE`
+									INNER JOIN `dossier_pdf` dp ON v.`DOSSIER_PDF` = dp.`ID`
+								WHERE `ANNEE_FIN` = (SELECT MAX(`ANNEE_FIN`) FROM `cursus` c2 WHERE c2.`ID_ETUDIANT` = c1.`ID_ETUDIANT`)
+								AND f.`ORDRE` = 1
+								GROUP BY d.`ID_ETUDIANT`;");
         $q->execute (array ($_GET['code']));
         $rs = $q->fetchAll ();
 
         $csv = fopen ($csvFileName, 'w');
 
-        fwrite ($csv, 'Ine;Nom;Prenom;Mail;Telephone;Date de naissance;Code formation precedente;Code formation choisie;Annee du Bac\\r\\n');
+        fputcsv ($csv, array ('INE', 'Nom', utf8_decode ('Prénom'), 'MAIL', utf8_decode ('Téléphone'), 'Date de naissance', 'Dernier cursus', 'Formation choisie', 'Premier voeu', utf8_decode ('Année du BAC')), ';');
 
         foreach ($rs as $row) {
-            fwrite ($csv, $row['INE'] . ';');
-            fwrite ($csv, $row['NOM'] . ';');
-            fwrite ($csv, $row['PRENOM'] . ';');
-            fwrite ($csv, $row['MAIL'] . ';');
-            fwrite ($csv, $row['TEL'] . ';');
-            fwrite ($csv, $row['DATE_NAISSANCE'] . ';');
-            fwrite ($csv, $row['CODE_FORMATION_PRECEDENTE'] . ';');
-            fwrite ($csv, $row['CODE_FORMATION'] . ';');
-            fwrite ($csv, $row['ANNEE_BAC']);
-            fwrite ($csv, '\\r\\n');
+            fputcsv ($csv, array ($row['INE'], utf8_decode ($row['NOM']), utf8_decode ($row['PRENOM']), $row['MAIL'], $row['TEL'], $row['DATE_NAISSANCE'], utf8_decode ($row['DERNIER_CURSUS']), utf8_decode ($row['DOSSIER_PDF_NOM']), utf8_decode ($row['PREMIER_VOEU']), $row['ANNEE_BAC'],), ';');
         }
-		fclose($cev);
+        fclose ($csv);
 
         echo $twig->render ('formation/syntheseCsv.html.twig', array ('code' => $_GET['code']));
     }
