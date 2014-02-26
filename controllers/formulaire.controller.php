@@ -241,13 +241,11 @@ switch ($action) {
         /*
          * Génération dossier PDF
          */
-        $dossier     = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
-        $formation   = $formationManager->find ($_SESSION['codeFormation']);
-        $titulaire   = $titulaireManager->findAll ();
-        $cursus      = $cursusManager->findAllByDossier ($dossier);
-        $experiences = $experienceManager->findAllByDossier ($dossier);
-        //$faires          = $faireManager->findAllByDossier ($dossier);
-        $etapes        = array ();
+        $dossier       = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
+        $formation     = $formationManager->find ($_SESSION['codeFormation']);
+        $titulaire     = $titulaireManager->findAll ();
+        $cursus        = $cursusManager->findAllByDossier ($dossier);
+        $experiences   = $experienceManager->findAllByDossier ($dossier);
         $villePreferee = $dossier->getVillePreferee ();
 
         // Récupère les voeux par ordre croissant
@@ -277,6 +275,7 @@ switch ($action) {
 
         require_once 'classes/Pdf/PagePdf.class.php';
         $pagePdf = new PagePdf("classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
+
         /*
          * En-tête du pdf
          */
@@ -316,7 +315,7 @@ switch ($action) {
         $pagePdf->setDossierModalites ($formation->getModalites ());
         $pagePdf->setDossierInformations ($formation->getInformations ());
 
-        $pagePdf->setCadreAdministrationVoeux (array ("voeux1", "voeux2"));
+        $pagePdf->setCadreAdministrationVoeux ($voeux);
         $pagePdf->setVoeuxMultiple (true);
         $pagePdf->setRowAdmin (true);
 

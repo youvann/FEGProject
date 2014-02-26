@@ -140,15 +140,26 @@ switch ($action) {
         break;
     case "previsualiserPdf":
     {
-        $codeFormation = $_GET['code'];
-        $typePdf       = $_GET['typePdf'];
-        echo $twig->render ('formation/previsualiserPdfFormation.html.twig', array ('codeFormation' => $codeFormation, 'typePdf' => $typePdf));
+        $idDossierPdf = $_GET['idDossierPdf'];
+        $typePdf      = $_GET['typePdf'];
+        $dossierPdf   = $dossierPdfManager->find ($idDossierPdf);
+
+        $nomDossierPdf = $dossierPdf->getNom ();
+        $codeFormation = $dossierPdf->getCodeFormation ();
+        $type          = ($typePdf == "candidature") ? "Candidature" : "Pré-inscription";
+
+        echo $twig->render ('formation/previsualiserPdfFormation.html.twig', array (
+            'codeFormation' => $codeFormation,
+            'typePdf' => $type,
+            'nomDossierPdf' => $nomDossierPdf
+        ));
     }
         break;
-    case "previsualisationPdfCandidature":
+    case "previsualisationPdf":
     {
         $idDossierPdf  = $_GET['idDossierPdf'];
         $typePdf       = $_GET['typePdf'];
+        $type          = ($typePdf == "candidature") ? "Candidature" : "Pré-inscription";
         $dossierPdf    = $dossierPdfManager->find ($idDossierPdf);
         $codeFormation = $dossierPdf->getCodeFormation ();
         $formation     = $formationManager->find ($codeFormation);
@@ -171,7 +182,7 @@ switch ($action) {
         $currentYear = date ('Y');
         $nextYear    = date ('Y');
         $nextYear++;
-        $pagePdf->setPagePdfHeaderText ("DOSSIER DE " . strtoupper($typePdf) . "<br />ANNÉE UNIVERSITAIRE " . $currentYear . "-" . $nextYear . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
+        $pagePdf->setPagePdfHeaderText ("DOSSIER DE " . strtoupper($type) . "<br />ANNÉE UNIVERSITAIRE " . $currentYear . "-" . $nextYear . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
         /*
          * Pied de page du pdf
@@ -191,9 +202,6 @@ switch ($action) {
         }
 
         $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $dossierPdf->getNom ());
-
-        //$pagePdf->setHolder (' ' . $titulaire[0]->getLibelle (), ' ' . $titulaire[1]->getLibelle (), ' ' . $titulaire[2]->getLibelle (), "titulaire");
-        //$pagePdf->setPhotoPath ('classes/Pdf/img/photo/github.png');
         $pagePdf->setPlanFormation ($etapes, "");
         $pagePdf->setProExperience (array ());
         //$pagePdf->setInformationsSpecifiques ($informationsSpecifiques);
@@ -217,49 +225,7 @@ switch ($action) {
             $html2pdf->setDefaultFont ('arial');
             $html2pdf->pdf->SetDisplayMode ('fullpage');
             $html2pdf->writeHTML ($content, isset($_GET['vuehtml']));
-            $html2pdf->Output ('dossiers/' . $codeFormation . '/Dossier-type/Candidature.pdf', 'F');
-            //echo "PDF BIEN GENERE";
-        } catch (HTML2PDF_exception $e) {
-            echo $e;
-            exit;
-        }
-    }
-        break;
-    case 'previsualisationPdfPreinscription' :
-    {
-        require_once 'classes/Pdf/PagePreinsriptionPdf.class.php';
-        $codeFormation = $_GET['code'];
-        $typePdf       = $_GET['typePdf'];
-
-        $pagePdfPreinscription = new PagePreinscriptionPdf("", "30mm", "7mm", "0mm", "10mm");
-
-        // En-tête du pdf
-        $pagePdfPreinscription->setPagePdfHeaderImgPath ("classes/Pdf/img/feg.png");
-
-        // Pied du pdf
-        $pagePdfPreinscription->setPagePdfFooterText ("Page [[page_cu]]/[[page_nb]]");
-
-        // Corps du pdf
-        $pagePdfPreinscription->setTitle ("01/01/2014", "DOSSIER DE PRE-INSCRIPTION", "Réservé aux étudiants titulaires d’une licence du domaine de formation <br/> Sciences économiques, sciences de gestion et AES", "ANNEE UNIVERSITAIRE 2013/2014 <br/> Institut Supérieur de Management des Organisations (ISMO)", "MASTER Économie Appliquée", "Dossier à adresser avant le 3 Juillet 2013 <br/> Aimée FERRÉ - Secrétariat Master 1 Économie Appliquée <br/> Faculté d’Économie et de Gestion <br/> 14, avenue Jules Ferry – 13621 Aix-en-Provence Cedex");
-        $pagePdfPreinscription->setNote ("Dossier à utiliser si vous résidez dans l'Espace européen, ou dans un pays où il n'existe pas d'espaceCampus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne sera pas examiné.");
-        //$pagePdfPreinscription->setApplicant("", "", "", "", "", "", "", "", "", "", "", "");
-        $pagePdfPreinscription->setFormationDepuisBac ("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
-        $pagePdfPreinscription->setStageExpPro ("mai 2011 <br/> - <br/> juillet 2011", "mars 2009 <br/> - <br/> août 2009", "janvier 2005 <br/> - <br/> mars 2005", "janvier 2004 <br/> - <br/> décembre 2004", "juin 2003 <br/>-<br/> septembre 2003", "CMA CGM", "Airbus Helicopters", "Capgemini", "LogicielNet", "Sistema", "Marseille", "Marignane", "Marseille", "Aix en Provence", "Aix en Provence", "Info", "Info", "Info", "Info", "Info", "stage", "stage", "emploi", "emploi", "stage");
-        $pagePdfPreinscription->setPartieAdministration ('checked', 'checked');
-
-        ob_start ();
-        echo $pagePdfPreinscription;
-        $content = ob_get_clean ();
-
-        // convert in PDF
-        require_once 'classes/Pdf/html2pdf/html2pdf.class.php';
-        try {
-            $html2pdf = new HTML2PDF('P', 'A4', 'fr', true, 'UTF-8', array (12, 10, 10, 10));
-            $html2pdf->setDefaultFont ('arial');
-            $html2pdf->pdf->SetDisplayMode ('fullpage');
-            $html2pdf->writeHTML ($content, isset($_GET['vuehtml']));
-            $html2pdf->Output ('dossiers/' . $codeFormation . '/Dossier-type/preinscription_Type.pdf', 'F');
-
+            $html2pdf->Output ('dossiers/' . $codeFormation . '/Dossier-type/' . $type . '-' . $dossierPdf->getNom () . '.pdf', 'F');
         } catch (HTML2PDF_exception $e) {
             echo $e;
             exit;

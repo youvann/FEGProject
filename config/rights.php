@@ -24,8 +24,6 @@ $droits = array(
 		array("formation", "grille"),
 		array("formation", "previsualiserPdf"),
 		array("formation", "previsualisationPdf"),
-        array("formation", "previsualisationPdfCandidature"),
-        array("formation", "previsualisationPdfPreinscription"),
 		array("formation", "syntheseCsv"),
 		array("information", "grille"),
 		array("information", "consulter"),

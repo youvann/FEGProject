@@ -220,15 +220,13 @@
                     refresh_speed: 50
                 });
                 var idDossierPdf = $(this).attr('id');
-                var linkPdf = (typePdf == 'candidature') ? "index.php?uc=formation&action=previsualisationPdfCandidature&idDossierPdf=" + idDossierPdf + "&typePdf=" + typePdf
-                        : "index.php?uc=formation&action=previsualisationPdfPreinscription&idDossierPdf=" + idDossierPdf + "&typePdf=" + typePdf;
-                $(location).attr('href', linkPdf);
-                /*$.ajax({
+                var linkPdf = "index.php?uc=formation&action=previsualisationPdf&idDossierPdf=" + idDossierPdf + "&typePdf=" + typePdf;
+                $.ajax({
                     url: linkPdf,
                     success: function (data) {
-                        window.location.replace("index.php?uc=formation&action=previsualiserPdf&code={{ formation.codeformation }}&typePdf=" + typePdf);
+                        window.location.replace("index.php?uc=formation&action=previsualiserPdf&idDossierPdf=" + idDossierPdf + "&typePdf=" + typePdf);
                     }
-                });*/
+                });
             });
 
             // Actions sur la vue
