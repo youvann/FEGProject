@@ -5,39 +5,52 @@
     <ol class="breadcrumb">
         <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
         <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
-        <li><a href="index.php?uc=formation&action=consulter&code={{ dossierPdf.codeFormation }}">Fiche formation</a></li>
-        <li><a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}">Liste des dossiers</a></li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ dossierPdf.codeFormation }}">Fiche formation</a>
+        </li>
+        <li><a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}">Liste des dossiers</a>
+        </li>
         <li class="active">Domaines de compatibilité</li>
     </ol>
 
     <h2 class="titre_rubrique">Domaines de compatibilité</h2>
+
+    {% if session.flash is not null %}
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {% for flash in session.flash %}
+                <p>{{ flash }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <form method="POST" action="index.php?uc=formation&action=modificationDependances">
-        <input type="hidden" id="idDossier" name="idDossier" value="{{ dossierPdf.id }}" />
+        <input type="hidden" id="idDossier" name="idDossier" value="{{ dossierPdf.id }}"/>
+
         <div class="form-group">
             <label for="voeux">Etapes</label> <i>Restez appuyé sur la touche <kbd>Ctrl</kbd></i>
             <select style="height: 300px;" class="form-control" id="voeux" name="voeux[]" multiple>
-            {% for formation in formations %}
-                <optgroup label="{{ formation.mention }}">
-                {% for voeu in voeux %}
-                    {% if formation.codeFormation == voeu.codeFormation %}
-                        <option
-                        {% for voeuCompatible in voeuxCompatibles %}
-                            {% if voeuCompatible.codeEtape == voeu.codeEtape %}
-                                selected
+                {% for formation in formations %}
+                    <optgroup label="{{ formation.mention }}">
+                        {% for voeu in voeux %}
+                            {% if formation.codeFormation == voeu.codeFormation %}
+                                <option
+                                        {% for voeuCompatible in voeuxCompatibles %}
+                                            {% if voeuCompatible.codeEtape == voeu.codeEtape %}
+                                                selected
+                                            {% endif %}
+                                        {% endfor %}
+                                        value="{{ voeu.codeEtape }}">{{ voeu.etape }}</option>
                             {% endif %}
                         {% endfor %}
-                        value="{{ voeu.codeEtape }}">{{ voeu.etape }}</option>
-                    {% endif %}
+                    </optgroup>
                 {% endfor %}
-                </optgroup>
-            {% endfor %}
             </select>
         </div>
-    <button type="submit" class="btn btn-primary">
-        <span class="glyphicon glyphicon-floppy-save"></span> Enregistrer
-    </button>
+        <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-floppy-save"></span> Enregistrer
+        </button>
     </form>
-    <hr />
+    <hr/>
     </ul>
     <a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}" class="btn btn-primary">
         <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent

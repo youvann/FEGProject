@@ -18,7 +18,7 @@ switch ($action) {
 		$formation = $formationManager->find($code);
 		$voeux = $voeuManager->findAllByFormation($formation);
 		$dossiersPdf = $dossierPdfManager->findAllByFormation($formation);
-		echo $twig->render('dossierPdf/grilledossierPdf.html.twig', array('code' => $code,
+		echo $twig->render('dossierPdf/grilleDossierPdf.html.twig', array('code' => $code,
 			'voeux' => $voeux,
 			'dossiersPdf' => $dossiersPdf));
 	} break;

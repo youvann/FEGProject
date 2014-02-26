@@ -83,6 +83,7 @@ switch ($action) {
 		}
 
 		echo $twig->render('formation/dependances.html.twig', array('dossierPdf' => $dossierPdf, 'formations' => $formations, 'voeuxCompatibles' => $voeuxCompatibles, 'voeux' => $voeux));
+		$_SESSION['flash'] = null;
 	}
 		break;
 	case "modificationDependances":
@@ -101,6 +102,7 @@ switch ($action) {
 				$dependreManager->insert(new Dependre(intval($_POST['idDossier']), $unVoeu->getCodeEtape()));
 			}
 		}
+		$_SESSION['flash'] = array('Les modifications ont bien été enregistrées');
 		header ('location:index.php?uc=formation&action=dependances&dossierPdf=' . $_POST['idDossier']);
 	}
 		break;

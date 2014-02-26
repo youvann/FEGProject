@@ -37,8 +37,10 @@ class TranslatorFormToJson extends Translator
 				// Récupération de la donnée dans le cas d'une case à cocher.
 			case "CheckBox":
 			{
-				$json[] = $this->checkBoxPostToJson($structure[$i][0], $post[$keys[$j]] === ("elem-" . $i));
-				if ($post[$keys[$j]] !== ("elem-" . $i)) {
+				if (array_key_exists("elem-" . $i, $post)) {
+					$json[] = $this->checkBoxPostToJson($structure[$i][0]);
+				} else {
+					$json[] = $this->checkBoxUncheckedPostToJson($structure[$i][0]);
 					--$j;
 				}
 			}
@@ -51,7 +53,7 @@ class TranslatorFormToJson extends Translator
 					$json[] = $this->checkBoxGroupPostToJson($structure[$i][0], $post[$keys[$j]], $structure[$i][3]);
 				} else {
 					// Si aucune case n'est cochée, on récupère les informations mises toutes à "Non"
-					$json[] = $this->checkBoxGroupPostToJsonNo($structure[$i][0], $structure[$i][3]);
+					$json[] = $this->checkBoxGroupUncheckedPostToJson($structure[$i][0], $structure[$i][3]);
 					--$j;
 				}
 			}
@@ -93,14 +95,24 @@ class TranslatorFormToJson extends Translator
 	}
 
 	/**
-	 * Récupère l'information dans $_POST dans le cas d'une case à cocher.
+	 * Met "Oui" pour le libellé de l'information
 	 * @param string $idInfo Identifiant de l'information
 	 * @param string $post Sous-parie de la variable $_POST
 	 * @return array Information récupéré sous forme de tableau
 	 */
-	public function checkBoxPostToJson($idInfo, $checked)
+	public function checkBoxPostToJson($idInfo)
 	{
-		return array($idInfo => ($checked) ? 'Oui' : 'Non');
+		return array($idInfo => 'Oui');
+	}
+
+	/**
+	 * Met "Non" pour le libellé de l'information
+	 * @param string $idInfo Identifiant de l'information
+	 * @return array Information récupéré sous forme de tableau
+	 */
+	public function checkBoxUncheckedPostToJson($idInfo)
+	{
+		return array($idInfo => 'Non');
 	}
 
 	/**
@@ -126,7 +138,7 @@ class TranslatorFormToJson extends Translator
 	 * @param type $labels Libellés des cases à cocher
 	 * @return array Information récupéré sous forme de tableau
 	 */
-	public function checkBoxGroupPostToJsonNo($idInfo, $labels)
+	public function checkBoxGroupUncheckedPostToJson($idInfo, $labels)
 	{
 		$res = array();
 		for ($i = 0; $i < count($labels); ++$i) {

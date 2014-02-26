@@ -18,12 +18,12 @@
 
 					require_once '../../../model/PDO.php';
 
-					$rs = $conn->query("SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
-						FROM `information` 
-							INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
-							LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`) 
-						WHERE `information`.`code_formation` = '3BAS'
-						ORDER BY `information`.`ordre`;")->fetchAll();
+					$rs = $conn->query("SELECT `information`.`ID` as idInfo, `information`.`LIBELLE` as libelleInfo, `type`.`ID` as typeInfo, `choix`.`TEXTE` as libellesInfo
+						FROM `information`
+							INNER JOIN `type` ON (`information`.`TYPE` = `type`.`ID`)
+							LEFT JOIN `choix` ON (`information`.`ID` = `choix`.`INFORMATION`)
+						WHERE `information`.`DOSSIER_PDF` = 2
+						ORDER BY `information`.`ORDRE`;")->fetchAll();
 
 					$structure = array();
 
