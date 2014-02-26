@@ -51,6 +51,11 @@
                 </a>
             </li>
             <li>
+                <a href="index.php?uc=formation&action=logoDossierPdf&code={{ formation.codeFormation }}&mention={{ formation.mention }}">
+                    <span class="glyphicon glyphicon-picture"></span> Gérer le logo
+                </a>
+            </li>
+            <li>
                 <a href="index.php?uc=dossierPdf&action=grille&code={{ formation.codeformation }}">
                     <span class="glyphicon glyphicon-paperclip"></span> Gérer les dossiers
                 </a>
@@ -62,51 +67,6 @@
             </li>
         </ul>
     </div>
-
-    <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-           Gestion des dossiers PDF <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            <li>
-                <a class="prevPdf candidature" href="#">
-                    <span class="glyphicon glyphicon-file"></span> Prévisualiser le dossier de candidature PDF
-                </a>
-            </li>
-            <li>
-                <a class="prevPdf preinscription" href="#">
-                    <span class="glyphicon glyphicon-file"></span> Prévisualiser le dossier de pré-inscription PDF
-                </a>
-            </li>
-            <li>
-                <a href="index.php?uc=formation&action=logoDossierPdf&code={{ formation.codeFormation }}">
-                    <span class="glyphicon glyphicon-picture"></span> Prévisualiser le logo du dossier PDF
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Veuillez patienter, création du dossier PDF ...</h4>
-                </div>
-                <div class="modal-body center-block">
-                    <div class="progress">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-info six-sec-ease-in-out"
-                                 aria-valuetransitiongoal="99"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -133,7 +93,6 @@
 
 {% block scripts %}
     {{ parent() }}
-    <script type="text/javascript" src="public/js/bootstrap-progressbar.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $('.btn-danger').click(function () {
@@ -143,27 +102,6 @@
             $('#btnOk').click(function () {
                 window.location.href = $('.btn-danger').attr("href");
             });
-
-            var typePdf = 'null';
-            $('.prevPdf').click(function () {
-                typePdf = ($(this).hasClass('candidature')) ? 'candidature' : 'preinscription';
-
-                $('#loadingModal').modal('show');
-                $('.progress .progress-bar').progressbar({
-                    display_text: 'fill',
-                    use_percentage: true,
-                    refresh_speed: 50
-                });
-                var linkPdf = (typePdf == 'candidature') ? "index.php?uc=formation&action=previsualisationPdfCandidature&code={{ formation.codeformation }}&typePdf=" + typePdf
-                                                         : "index.php?uc=formation&action=previsualisationPdfPreinscription&code={{ formation.codeformation }}&typePdf=" + typePdf
-                $.ajax({
-                    url: linkPdf,
-                    success: function (data) {
-                        window.location.replace("index.php?uc=formation&action=previsualiserPdf&code={{ formation.codeformation }}&typePdf=" + typePdf);
-                    }
-                });
-            });
-
         });
     </script>
 {% endblock %}

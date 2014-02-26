@@ -609,13 +609,13 @@ class PagePdf {
     }
 
     public function getVoeux ($voeux, $voeuxMultiple) {
-        $voeuxFormation = '';
+        $voeuxFormation = '<col style="width: 10%"><col style="width: 15%">';
         if ($voeuxMultiple) {
             foreach ($voeux as $element) {
                 $voeuxFormation .= '  <tr>
-                        <td><input type="checkbox" name="nom">Admis<br/>
-                        <input type="checkbox" name="nom">Refusé</td>
-                        <td style="width:110px;>' . $element . '<br/><br/></td>
+                        <td><input type="checkbox" name="nom"> Admis<br/>
+                        <input type="checkbox" name="nom"> Refusé</td>
+                        <td>' . $element . '<br/><br/></td>
                         <td></td>
                         </tr>';
             }

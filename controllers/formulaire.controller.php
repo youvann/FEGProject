@@ -241,8 +241,7 @@ switch ($action) {
         /*
          * Génération dossier PDF
          */
-        $dossier = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
-
+        $dossier     = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
         $formation   = $formationManager->find ($_SESSION['codeFormation']);
         $titulaire   = $titulaireManager->findAll ();
         $cursus      = $cursusManager->findAllByDossier ($dossier);
