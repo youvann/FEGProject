@@ -114,7 +114,24 @@ switch ($action) {
             unlink ($csvFileName);
         }
 
-        $q = $conn->prepare ("select `INE`, `NOM`, `PRENOM`, `MAIL`, concat(`FIXE`, ' / ', `PORTABLE`) as TEL, `DATE_NAISSANCE`, `CODE_FORMATION_PRECEDENTE`, `CODE_FORMATION`, `ANNEE_BAC` FROM `dossier` WHERE `CODE_FORMATION` = ?;");
+        $q = $conn->prepare ("SELECT `INE`,
+		d.`NOM`,
+		`PRENOM`,
+		`MAIL`, 
+		CONCAT(`FIXE`, '/', `PORTABLE`) as TEL,
+		CONCAT(DAY(`DATE_NAISSANCE`), '/', MONTH(`DATE_NAISSANCE`), '/', YEAR(`DATE_NAISSANCE`)) as DATE_NAISSANCE,
+		d.`CODE_FORMATION`,
+		`CURSUS`,
+		dp.`NOM`,
+		`ETAPE`,
+		`ANNEE_BAC`
+FROM `dossier` d
+	INNER JOIN `cursus` c1 ON d.`ID_ETUDIANT` = c1.`ID_ETUDIANT`
+	INNER JOIN `faire` f ON d.`ID_ETUDIANT` = f.`ID_ETUDIANT`
+	INNER JOIN `voeu` v ON f.`CODE_ETAPE` = v.`CODE_ETAPE`
+	INNER JOIN `dossier_pdf` dp ON v.`DOSSIER_PDF` = dp.`ID`
+WHERE `ANNEE_FIN` = (SELECT MAX(`ANNEE_FIN`) FROM `cursus`c2 WHERE `ID_ETUDIANT` = c1.`ID_ETUDIANT`)
+AND f.`ORDRE` = 1;");
         $q->execute (array ($_GET['code']));
         $rs = $q->fetchAll ();
 
@@ -134,6 +151,7 @@ switch ($action) {
             fwrite ($csv, $row['ANNEE_BAC']);
             fwrite ($csv, '\\r\\n');
         }
+		fclose($cev);
 
         echo $twig->render ('formation/syntheseCsv.html.twig', array ('code' => $_GET['code']));
     }
