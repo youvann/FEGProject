@@ -177,10 +177,13 @@ AND f.`ORDRE` = 1;");
     {
         $idDossierPdf  = $_GET['idDossierPdf'];
         $typePdf       = $_GET['typePdf'];
-        $type          = ($typePdf == "candidature") ? "Candidature" : "Pré-inscription";
         $dossierPdf    = $dossierPdfManager->find ($idDossierPdf);
+        $informations = $informationManager->findAllByDossierPdf($dossierPdf);
+
         $codeFormation = $dossierPdf->getCodeFormation ();
         $formation     = $formationManager->find ($codeFormation);
+        $type          = ($typePdf == "candidature") ? "Candidature" : "Pré-inscription";
+        $typeBool      = ($typePdf == "candidature") ? true : false;
 
         // Récupère tous les voeux du dossier PDF
         $voeux  = $voeuManager->findAllByDossierPdf ($dossierPdf);
@@ -197,10 +200,7 @@ AND f.`ORDRE` = 1;");
          * En-tête du pdf
          */
         $pagePdf->setPagePdfHeaderImgPath ("classes/Pdf/img/feg.png");
-        $currentYear = date ('Y');
-        $nextYear    = date ('Y');
-        $nextYear++;
-        $pagePdf->setPagePdfHeaderText ("DOSSIER DE " . strtoupper($type) . "<br />ANNÉE UNIVERSITAIRE " . $currentYear . "-" . $nextYear . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
+        $pagePdf->setPagePdfHeaderText ("DOSSIER DE " . strtoupper($type) . "<br />ANNÉE UNIVERSITAIRE " . $anneeBasse . "-" . $anneeHaute . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
         /*
          * Pied de page du pdf
@@ -219,10 +219,20 @@ AND f.`ORDRE` = 1;");
             $pagePdf->setLogoPath ("");
         }
 
+        $pagePdf->setIsCandidature($typeBool);
+        $pagePdf->setIsPrev(true);
         $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $dossierPdf->getNom ());
         $pagePdf->setPlanFormation ($etapes, "");
         $pagePdf->setProExperience (array ());
-        //$pagePdf->setInformationsSpecifiques ($informationsSpecifiques);
+
+        $informationsSpecifiques = array ();
+        $typeInformations        = array ();
+        foreach ($informations as $information) {
+            $informationsSpecifiques[] = $information->getLibelle ();
+            $typeInformations[]        = $information->getType ();
+        }
+        $pagePdf->setTypeInformations($typeInformations);
+        $pagePdf->setInformationsSpecifiques ($informationsSpecifiques);
 
         $pagePdf->setCadreAdministrationVoeux ($etapes);
 

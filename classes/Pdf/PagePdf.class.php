@@ -20,6 +20,9 @@ class PagePdf {
     private $cssPath;
     private $css;
 
+    private $isCandidature;
+    private $isPrev;
+
     // Titre
     private $title1;
     private $title2;
@@ -67,7 +70,9 @@ class PagePdf {
     private $otherElements;
 
     // Informations spécifiques
-    private $informationsSpecifiques;
+    private $informationsSpecifiques = array ();
+    private $typeInformations = array ();
+
     private $rowAdmin;
     private $tableauVoeux = array ();
     private $voeuxMultiple;
@@ -77,8 +82,6 @@ class PagePdf {
 
     // Informations
     private $informations;
-
-
 
     public function __construct ($cssPath, $backTop = "30mm", $backBottom = "7mm", $backLeft = "0mm", $backRight = "10mm") {
         $this->pagePdfHeader = new PagePdfHeader();
@@ -207,6 +210,28 @@ class PagePdf {
         $this->css     = '<link type="text/css" href="' . $this->cssPath . '" rel="stylesheet" >';
     }
 
+    public function setIsCandidature ($isCandidature) {
+        $this->isCandidature = $isCandidature;
+    }
+
+    public function getIsCandidature () {
+        return $this->isCandidature;
+    }
+
+    public function setIsPrev($isPrev){
+        $this->isPrev = $isPrev;
+    }
+
+    public function getIsPrev(){
+        return $this->isPrev;
+    }
+
+    public function isCandidature () {
+        if ($this->isCandidature) {
+            return $this->getNewPage () . $this->getInformationsSpecifiques () . $this->getPageEnd ();
+        }
+    }
+
     public function setTitle ($title1, $title2) {
         $this->title1 = $title1;
         $this->title2 = $title2;
@@ -223,14 +248,14 @@ class PagePdf {
         $this->note = $note;
     }
 
-    public function setLogoPath($logoPath){
+    public function setLogoPath ($logoPath) {
         $this->logoPath = $logoPath;
     }
 
-    public function getLogo(){
-        if($this->logoPath == ""){
+    public function getLogo () {
+        if ($this->logoPath == "") {
             return '<td></td>';
-        }else{
+        } else {
             return '<td class="border-left-none"><img style:"width=200; height=auto;" src=" ' . $this->logoPath . '" /></td>';
         }
     }
@@ -243,7 +268,7 @@ class PagePdf {
                     </tr>
                     <tr>
                         <td class="fifty_width_table titre1 border-right-none">' . $this->title2 . '</td>
-                        ' . $this->getLogo() . '
+                        ' . $this->getLogo () . '
                     </tr>
                 </table>';
     }
@@ -329,7 +354,7 @@ class PagePdf {
     }
 
     public function setPlanFormation ($etapes, $villePreferee) {
-        $this->etapes          = $etapes;
+        $this->etapes        = $etapes;
         $this->villePreferee = $villePreferee;
     }
 
@@ -463,12 +488,48 @@ class PagePdf {
         <div class="bold_underline">Autres éléments appuyant votre candidature :</div><br/>' . $this->otherElements . '<br/>';
     }
 
+    public function setTypeInformations ($typeInformations) {
+        $this->typeInformations = $typeInformations;
+    }
+
     public function setInformationsSpecifiques ($informationsSpecifiques) {
         $this->informationsSpecifiques = $informationsSpecifiques;
     }
 
     public function getInformationsSpecifiques () {
-        return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $this->informationsSpecifiques;
+        if($this->isPrev){
+            $informationsSpecifiquesLibelles = "";
+            $i                               = 0;
+            foreach ($this->informationsSpecifiques as $informationSpecifique) {
+                $type = "";
+                switch ($this->typeInformations[$i++]) {
+                    // Dossier PDF prévisualisation
+                    case "CheckBox":
+                        $type = "Case à cocher";
+                        break;
+                    case "CheckBoxGroup":
+                        $type = "Groupe de cases à cocher";
+                        break;
+                    case "TextBox":
+                        $type = "Champ texte";
+                        break;
+                    case "RadioButton":
+                        $type = "Bouton radio";
+                        break;
+                    case "RadioButtonGroup":
+                        $type = "Groupe de boutons radio";
+                        break;
+                    case "TextArea":
+                        $type = "Champ texte multiligne";
+                        break;
+                }
+                $informationsSpecifiquesLibelles .= "<b>" . $informationSpecifique . "</b> :<br/><i>" . $type . "</i><br/><br/>";
+
+            }
+            return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $informationsSpecifiquesLibelles;
+        }else{
+            return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $this->informationsSpecifiques;
+        }
     }
 
     public function setDocumentsGeneraux ($documentsGeneraux) {
@@ -505,19 +566,19 @@ class PagePdf {
         return '<div class="titre_encadre">PIECES A JOINDRE SPECIFIQUES</div><br/>' . $this->printDocumentsSpecifiques ();
     }
 
-    public function getDossierModalites (){
-        return '<div class="titre_encadre">MODALITES</div><br/>' . $this->modalites;
+    public function getDossierModalites () {
+        return '<div class="titre_encadre">MODALITES</div>' . $this->modalites;
     }
 
-    public function setDossierModalites ($modalites){
+    public function setDossierModalites ($modalites) {
         $this->modalites = $modalites;
     }
 
-    public function getDossierInformations (){
-        return '<div class="titre_encadre">INFORMATIONS</div><br/>' . $this->informations;
+    public function getDossierInformations () {
+        return '<div class="titre_encadre">INFORMATIONS</div>' . $this->informations;
     }
 
-    public function setDossierInformations ($informations){
+    public function setDossierInformations ($informations) {
         $this->informations = $informations;
     }
 
@@ -581,7 +642,7 @@ class PagePdf {
                 </div>';
     }
 
-    public function getCadreAdministration2 (){
+    public function getCadreAdministration2 () {
         return '<br/><div class="cadreRouge">
                 <div class="bold_underline">DECISION DE LA COMMISSION PEDAGOGIQUE de la faculté d’économie et de gestion</div><br>
                         <table>
@@ -658,10 +719,11 @@ class PagePdf {
     }
 
     public function __toString () {
-        return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->getFormationTitle () . $this->getDegreeHolder () . $this->getApplicant () . $this->getPlanFormation () . $this->getPageEnd () . $this->getNewPage () . $this->getPrevFormation () . $this->getProExperience () . $this->getOther () . $this->getPageEnd () . //$this->getNewPage() . $this->getOther() . $this->getPageEnd() .
-        $this->getNewPage () . $this->getInformationsSpecifiques () . $this->getPageEnd () .
-        $this->getNewPage() . $this->getDossierModalites() . $this->getDossierInformations () . $this->getPageEnd() .
-        $this->getNewPage() . $this->getFicheCommissionPeda () . $this->getCadreAdministration () . $this->getCadreAdministration2 () . $this->getPageEnd();
+        return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->getFormationTitle () . $this->getDegreeHolder () . $this->getApplicant () . $this->getPlanFormation () . $this->getPageEnd () .
+               $this->getNewPage () . $this->getPrevFormation () . $this->getProExperience () . $this->getOther () . $this->getPageEnd () .
+               $this->isCandidature () .
+               $this->getNewPage () . $this->getDossierModalites () . $this->getDossierInformations () . $this->getPageEnd () .
+               $this->getNewPage () . $this->getFicheCommissionPeda () . $this->getCadreAdministration () . $this->getCadreAdministration2 () . $this->getPageEnd ();
     }
 }
 
