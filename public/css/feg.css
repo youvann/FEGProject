@@ -46,6 +46,11 @@ header {
     line-height: 35px;
 }
 
+.titre_rubrique2{
+    font-family: oswald;
+    color: #23B9EB;
+}
+
 #footer {
     clear: both;
     position: relative;
@@ -189,11 +194,6 @@ p, label{
     background-color: #BCE8F1;
 }
 
-.bs-callout-warning {
-    background-color: #fcf8f2;
-    border-color: #FBBA00;
-}
-
 .bs-callout {
     margin: 20px 0;
     padding-left: 20px;
@@ -202,7 +202,16 @@ p, label{
     border-left: 3px solid #FBBA00;
 }
 
+.bs-callout-warning {
+    background-color: #fcf8f2;
+    border-color: #FBBA00;
+}
+
 .bs-callout-warning h3 {
+    color: #FBBA00;
+}
+
+.bs-callout-warning h4 {
     color: #FBBA00;
 }
 
@@ -214,4 +223,18 @@ p, label{
 .bs-callout-info h3 {
     color: #22BBEA;
 }
+
+.bs-callout-info h4 {
+    color: #22BBEA;
+}
+
+.bs-callout-danger {
+    background-color: #fdf7f7;
+    border-color: #d9534f;
+}
+
+.bs-callout-danger h4 {
+    color: #d9534f;
+}
+
 
