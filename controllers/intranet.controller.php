@@ -76,7 +76,7 @@ switch ($action) {
         break;
     case "liensFormation":
     {
-        $liens = $formationManager->getLinks();
+        $liens = $dossierPdfManager->getLinks();
         echo $twig->render('intranet/liensFormation.html.twig', array('liens' => $liens));
     }
         break;

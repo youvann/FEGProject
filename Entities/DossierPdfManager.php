@@ -64,4 +64,7 @@ class DossierPdfManager {
             ));
     }
 
+	public function getLinks() {
+		return $this->db->query("SELECT CONCAT('<a href=\"http://miage-aix-marseille.fr/?uc=formulaire&action=choixFormation&formationchoisie=', `ID`, '\">', `NOM`, '</a>') as lien FROM `dossier_pdf`;")->fetchAll();
+	}
 }

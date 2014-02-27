@@ -25,7 +25,11 @@
                                 <option value="">&mdash;
                                     Sélectionnez &mdash;</option>
                                 {% for dossierPdf in dossiersPdf %}
-                                    <option value="{{ dossierPdf.id }}">{{ dossierPdf.nom }}</option>
+                                    <option
+                                    {# if get.dossier is defined and get.dossier == dossierPdf.id }
+                                        selected
+                                    {#  endif #}
+                                    value="{{ dossierPdf.id }}">{{ dossierPdf.nom }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -76,12 +80,6 @@
 
             (choixFormation === "Autre") ? autreFormation.fadeIn("slow") : autreFormation.hide();
 
-            $('#derniere').on('change', function () {
-                choixFormation = $(this).val();
-                (choixFormation === "0000") ? autreFormation.fadeIn("slow") : autreFormation.fadeOut("fast");
-                getTypeDossier();
-            });
-
             $('input[type=radio]').on('change', function () {
                 if ($(this).val() == 'oui') {
                     $('input[type=submit]').show();
@@ -91,6 +89,10 @@
             });
 
             $('#choisie').on('change', function () {
+                loadDomainsAndDocuments();
+            });
+
+            var loadDomainsAndDocuments = function () {
                 $('#divAllDocuments').show();
 
                 $.ajax({
@@ -166,7 +168,11 @@
                         }
                     }
                 });
-            });
+            };
+            {% if get.dossier is defined %}
+            $('#choisie').val('{{ get.dossier }}');
+            loadDomainsAndDocuments();
+            {% endif %}
 
             /*
              // Vérification formulaire

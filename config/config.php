@@ -23,6 +23,16 @@ require_once 'Entities/loader.php';
 // Module connexion
 session_start();
 
+if (!isset($_SERVER['HTTP_REFERER'])) {
+	$lastPage = 'index.php';
+} else {
+	if(strpos($_SERVER['HTTP_REFERER'], 'index.php') !== false) {
+		$lastPage = substr($_SERVER['HTTP_REFERER'], strpos($_SERVER['HTTP_REFERER'], 'index.php'));
+	} else {
+		$lastPage = 'index.php';
+	}
+}
+
 if (empty($_SESSION)) {
 	$_SESSION['name'] = 'Anonymous';
 	$_SESSION['grade'] = 0;
@@ -31,7 +41,7 @@ if (empty($_SESSION)) {
 // Pare-feu
 if (isset($_GET['uc']) && isset($_GET['action'])) {
 	if (!in_array(array($_GET['uc'], $_GET['action']), $_SESSION['rights'])) {
-		header('location:index.php');
+		header('location:'.$lastPage);
 	}
 }
 

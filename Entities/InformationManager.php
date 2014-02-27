@@ -72,12 +72,15 @@ class InformationManager {
 	}
 
 	public function getResultset(DossierPdf $dossierPdf) {
-		$q = $this->db->prepare('SELECT `information`.`ID` as idInfo, `information`.`LIBELLE` as libelleInfo, `type`.`ID` as typeInfo, `choix`.`TEXTE` as libellesInfo
+		$q = $this->db->prepare("SELECT `information`.`ID` as idInfo,
+		CONCAT(`information`.`LIBELLE`, IF(`information`.`EXPLICATIONS` != '', CONCAT(' <i>(', `information`.`EXPLICATIONS`,')</i>'), '')) as libelleInfo,
+		`type`.`ID` as typeInfo,
+		`choix`.`TEXTE` as libellesInfo
 			FROM `information` 
 			INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
 			LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`)
 			WHERE `information`.`dossier_pdf` = ?
-			ORDER BY `information`.`ordre`;');
+			ORDER BY `information`.`ordre`;");
 		$q->execute(array($dossierPdf->getId()));
 		return $q->fetchAll();
 	}

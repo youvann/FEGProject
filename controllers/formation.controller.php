@@ -132,6 +132,7 @@ switch ($action) {
 									INNER JOIN `dossier_pdf` dp ON v.`DOSSIER_PDF` = dp.`ID`
 								WHERE `ANNEE_FIN` = (SELECT MAX(`ANNEE_FIN`) FROM `cursus` c2 WHERE c2.`ID_ETUDIANT` = c1.`ID_ETUDIANT`)
 								AND f.`ORDRE` = 1
+								AND dp.`CODE_FORMATION` = ?
 								GROUP BY d.`ID_ETUDIANT`;");
 		$q->execute (array ($_GET['code']));
 		$rs = $q->fetchAll ();
