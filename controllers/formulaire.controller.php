@@ -122,7 +122,7 @@ switch ($action) {
         $documentsGeneraux    = $documentGeneralManager->findAll ();
         $documentsSpecifiques = $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf);
 
-        echo $twig->render ('formulaire/mainFormulaire.html.twig', array ('dossierPdf' => $dossierPdf, 'formation' => $formation, 'voeux' => $voeux, 'nbVoeux' => $nbVoeux, 'form' => $formHTML, 'documentsGeneraux' => $documentsGeneraux, 'documentsSpecifique' => $documentsSpecifiques, 'typedossier' => 'CA'));
+        echo $twig->render ('formulaire/mainFormulaire.html.twig', array ('dossierPdf' => $dossierPdf, 'formation' => $formation, 'voeux' => $voeux, 'nbVoeux' => $nbVoeux, 'form' => $formHTML, 'documentsGeneraux' => $documentsGeneraux, 'documentsSpecifiques' => $documentsSpecifiques, 'typedossier' => 'CA'));
     }
         break;
     case "uploadDocuments" :

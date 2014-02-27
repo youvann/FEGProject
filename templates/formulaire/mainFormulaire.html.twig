@@ -25,17 +25,19 @@
                 {% endif %}
 
                 {% if formation.modalites is not empty %}
-                    <h3>Modalités</h3>
-                    <div class="well well-fg">
-                        {{ formation.modalites | raw }}
+                    <div class="bs-callout bs-callout-warning">
+                        <h3>Modalités</h3>
+                        <p>{{ formation.modalites | raw }}</p>
                     </div>
                 {% endif %}
                 {% if formation.informations is not empty %}
-                    <h3>Informations</h3>
-                    <div class="well well-fg">
-                        {{ formation.informations | raw }}
+                    <div class="bs-callout bs-callout-info">
+                        <h3>Informations</h3>
+                        <p>{{ formation.informations | raw }}</p>
                     </div>
                 {% endif %}
+
+
 
                 <button type="input" id="customSubmit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-cloud-upload"></span> Envoyer
