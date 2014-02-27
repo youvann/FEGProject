@@ -82,7 +82,7 @@ function copyDir ($src, $dst) {
     closedir ($dir);
 }
 
-function removeDir ($dir) {
+/*function removeDir ($dir) {
     if (is_dir ($dir)) // si c'est un repertoire
         $dh = opendir ($dir); // on l'ouvre
     else {
@@ -109,6 +109,42 @@ function removeDir ($dir) {
         }
     }
     closedir ($dh); // on ferme le repertoire courant
+}*/
+
+function removeDir ($path) {
+    if (is_dir ($path) === true) {
+        $files = array_diff (scandir ($path), array ('.', '..'));
+        foreach ($files as $file) {
+            removeDir (realpath ($path) . '/' . $file);
+        }
+        return rmdir ($path);
+    } else if (is_file ($path) === true) {
+        return unlink ($path);
+    }
+    return false;
+}
+
+function listAndRemoveDir($path){
+    $pathsDelete = array();
+    $path = realpath ($path);
+    $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
+
+    foreach ($objects as $name => $object) {
+        /*if ($object->getFilename () === 'work.txt') {
+            echo $object->getPathname ();
+        }*/
+        $dirName = explode("/", $object->getPathname ());
+        $dirName = $dirName[sizeof ($dirName) - 2];
+        if($dirName == "Candidatures" || $dirName == "Pre-inscriptions" || $dirName == "Dossier-type"){
+            //removeDir($object->getPathname ());
+            if($object->getFilename () != ".." && $object->getFilename () != "."){
+                $pathsDelete[] = $object->getPathname();
+            }
+        }
+    }
+    foreach($pathsDelete as $pathDelete){
+        removeDir($pathDelete);
+    }
 }
 
 function IsEmptySubFolders ($path) {

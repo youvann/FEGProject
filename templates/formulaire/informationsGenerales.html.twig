@@ -99,21 +99,21 @@
 
                 <div class="form-group form-inline">
 
-                    <select class="form-control required"
+                    <select class="form-control"
                             id="jour_date_naissance" name="jour_date_naissance"
                             style="width: 100px;">
                         {% for i in 1..31 %}
                             <option value="{% if i < 10 %}0{% endif %}{{ i }}">{{ i }}</option>
                         {% endfor %}
                     </select>
-                    <select class="form-control required"
+                    <select class="form-control"
                             id="mois_date_naissance" name="mois_date_naissance"
                             style="width: 200px;">
                         {% for unMois in mois %}
                             <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
                         {% endfor %}
                     </select>
-                    <select class="form-control required"
+                    <select class="form-control"
                             id="annee_date_naissance"
                             name="annee_date_naissance" style="width: 200px;">
                         {% set ecart = anneeBasse - 60 %}
@@ -272,7 +272,7 @@
                     <label for="departement_bac">Département</label> <span
                             class="en">Department</span>
                     <span class="label label-danger">Requis</span>
-                    <select class="form-control required" id="departement_bac"
+                    <select class="form-control" id="departement_bac"
                             name="departement_bac"
                             placeholder="Votre département">
                         <option value="Autre">Autre</option>
@@ -304,7 +304,7 @@
                     <label for="annee_bac">Année d'obtention du bac</label> <span
                             class="en">Year</span>
                     <span class="label label-danger">Requis</span>
-                    <select class="form-control required"
+                    <select class="form-control"
                             id="annee_bac"
                             name="annee_bac">
                         {% set ecart = anneeBasse - 60 %}

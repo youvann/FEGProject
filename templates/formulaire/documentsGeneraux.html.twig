@@ -1,18 +1,20 @@
 <div class="panel panel-primary">
     <div class="panel-heading">Documents à joindre</div>
     <div class="panel-body">
-        <b>Veuillez nous transmettre toutes les pièces suivantes :</b>
-        <br/><br/>
+        <b>Pièces générales à transmettre :</b>
         <ul>
+            <br/>
             {% for documentGeneral in documentsGeneraux %}
-                <li><p class="text-info">{{ documentGeneral.nom }}</p></li>
+                <li><p>{{ documentGeneral.nom }}</p></li>
             {% endfor %}
         </ul>
+        <br/>
         {% if documentsSpecifiques is not null %}
-            Veuillez nous transmettre les pièces suivantes :
+            <b>Pièces spécifiques à transmettre : </b>
             <ul>
+                <br/>
                 {% for documentSpecifique in documentsSpecifiques %}
-                    <li><p class="bg-warning">{{ documentSpecifique.nom }}</p>
+                    <li><p>{{ documentSpecifique.nom }}</p>
                         {% if documentSpecifique is not null %}
 
                         {% endif %}
@@ -21,9 +23,7 @@
             </ul>
         {% endif %}
         <br/>
-
         <div id="upload">Ajouter</div>
         <br>
-        <!--<button id="startUpload" type="button" class="btn btn-primary">Commencer l'upload</button>-->
     </div>
 </div>

@@ -38,6 +38,9 @@ switch ($action) {
 		myMkdirBase ("dossiers/" . $_POST['code_formation']);
 		// Création du répertoire code_formation/Dossier-type
 		myMkdirBase ("dossiers/" . $_POST['code_formation'] . "/Dossier-type");
+        // Création du répertoire pour le logo
+        myMkdirBase ("public/img/logos/" . $_POST['code_formation']);
+
 		$formationManager->insert (new Formation($_POST['code_formation'], $_POST['mention'], $_POST['informations'], $_POST['modalites'], $_POST['faculte']));
 		header ('location:index.php?uc=formation&action=grille');
 	}
@@ -108,13 +111,13 @@ switch ($action) {
 		break;
 	case "syntheseCsv":
 	{
-		$csvFileName = 'dossiers/' . $_GET['code'] . '/Synthese.csv';
+        $csvFileName = 'dossiers/' . $_GET['code'] . '/Synthese.csv';
 
-		if (file_exists ($csvFileName)) {
-			unlink ($csvFileName);
-		}
+        if (file_exists ($csvFileName)) {
+            unlink ($csvFileName);
+        }
 
-		$q = $conn->prepare ("SELECT DISTINCT d.`ID_ETUDIANT`,
+        $q = $conn->prepare ("SELECT DISTINCT d.`ID_ETUDIANT`,
 										`INE`,
 										d.`NOM`,
 										`PRENOM`,
@@ -134,19 +137,19 @@ switch ($action) {
 								AND f.`ORDRE` = 1
 								AND dp.`CODE_FORMATION` = ?
 								GROUP BY d.`ID_ETUDIANT`;");
-		$q->execute (array ($_GET['code']));
-		$rs = $q->fetchAll ();
+        $q->execute (array ($_GET['code']));
+        $rs = $q->fetchAll ();
 
-		$csv = fopen ($csvFileName, 'w');
+        $csv = fopen ($csvFileName, 'w');
 
-		fputcsv ($csv, array ('INE', 'Nom', utf8_decode ('Prénom'), 'MAIL', utf8_decode ('Téléphone'), 'Date de naissance', 'Dernier cursus', 'Formation choisie', 'Premier voeu', utf8_decode ('Année du BAC')), ';');
+        fputcsv ($csv, array ('INE', 'Nom', utf8_decode ('Prénom'), 'MAIL', utf8_decode ('Téléphone'), 'Date de naissance', 'Dernier cursus', 'Formation choisie', 'Premier voeu', utf8_decode ('Année du BAC')), ';');
 
-		foreach ($rs as $row) {
-			fputcsv ($csv, array ($row['INE'], utf8_decode ($row['NOM']), utf8_decode ($row['PRENOM']), $row['MAIL'], $row['TEL'], $row['DATE_NAISSANCE'], utf8_decode ($row['DERNIER_CURSUS']), utf8_decode ($row['DOSSIER_PDF_NOM']), utf8_decode ($row['PREMIER_VOEU']), $row['ANNEE_BAC'],), ';');
-		}
-		fclose ($csv);
+        foreach ($rs as $row) {
+            fputcsv ($csv, array ($row['INE'], utf8_decode ($row['NOM']), utf8_decode ($row['PRENOM']), $row['MAIL'], $row['TEL'], $row['DATE_NAISSANCE'], utf8_decode ($row['DERNIER_CURSUS']), utf8_decode ($row['DOSSIER_PDF_NOM']), utf8_decode ($row['PREMIER_VOEU']), $row['ANNEE_BAC'],), ';');
+        }
+        fclose ($csv);
 
-		echo $twig->render ('formation/syntheseCsv.html.twig', array ('code' => $_GET['code']));
+        echo $twig->render ('formation/syntheseCsv.html.twig', array ('code' => $_GET['code']));
 	}
 		break;
 	case "previsualiserPdf":

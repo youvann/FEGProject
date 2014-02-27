@@ -69,7 +69,9 @@ switch ($action) {
     case "supprimerRepertoire" :
     {
         // Suppression du contenu du répertoire concerné
-        removeDir($_GET["pathFolder"]);
+        $pathFolder = $_GET["pathFolder"];
+        // Supprime le contenu des répertoires
+        listAndRemoveDir($pathFolder);
         header('location:index.php?uc=intranet&action=explorateur');
 
     }
