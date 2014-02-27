@@ -6,7 +6,8 @@
     <div class="alert alert-info">
         <ul>
             <li>Pour ouvrir un répertoire, effectuez un clique <b>gauche</b>.</li>
-            <li>Pour accèder aux options (suppression et téléchargement), effectuez un clique <b>droit</b>.</li>
+            <li>Pour accèder aux options du répertoire (suppression et téléchargement), effectuez un clique <b>droit</b>.</li>
+            <li>Pour télécharger un <b>fichier</b>, effectuez un clique gauche.</li>
         </ul>
 
     </div>
@@ -25,10 +26,10 @@
                 root: '{{ directory }}',
                 script: 'public/js/jqueryFileTree/connectors/jqueryFileTree.php'
             }, function(file) {
-                //window.open(file.replace("Applications/", ""));
+                window.open(file);
             });
 			$('.directory').first().dblclick(function() {
-				alert($(this).attr("rel"));
+				//alert($(this).attr("rel"));
 			});
         });
     </script>
