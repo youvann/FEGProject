@@ -5,11 +5,18 @@
     <div class="row" style="margin-top: 1em;">
         <div class="col-md-12">
             <h2 class="titre_rubrique">Récapitulatif</h2>
-            <div class="alert alert-success">Votre demande de candidature a bien été prise en compte.</div>
-            <div class="well well-lg">
-                Veuillez conserver le dossier de candidature PDF ci-dessous. Ce document contient des informations sur les modalités d'inscription.
-                (Si le PDF ne s'affiche pas correctement, veuillez recharger la page)
+            <div class="alert alert-success">Votre demande de {{ typeDossier | lower }} a bien été prise en compte. Veuillez conserver votre <b>numéro d'inscription</b> : {{ idEtudiant }} .</div>
+            <div class="alert alert-warning">
+                Veuillez <b>conserver</b> le dossier de candidature PDF ci-dessous. Ce document contient des informations sur les modalités d'inscription.
+                <br/>(Si le PDF ne s'affiche pas correctement, veuillez recharger la page)
             </div>
+
+            <a href="{{ pathPdf }}.pdf" download class="btn btn-info btn-block">
+                <span class="glyphicon glyphicon-cloud-download"></span> Télécharger le dossier de {{ typeDossier | lower }}
+            </a>
+
+            <br/><br/>
+
             <div id="loading" style="text-align: center;"></div>
             <object id="pdfPreview" data="{{ pathPdf }}.pdf" type="application/pdf"
                     width="100%"
