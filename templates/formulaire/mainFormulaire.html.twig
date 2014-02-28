@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <h2 class="titre_rubrique">
 
-                {% if typedossier == 'CA' %}Candidature{% elseif typedossier == 'PI' %}Pré-inscription{% endif %}
+                {% if typeDossier == 'CA' %}Candidature{% elseif typeDossier == 'PI' %}Pré-inscription{% endif %}
                 en {{ dossierPdf.nom }} pour l'année scolaire {{ anneeBasse }}
                 -{{ anneeHaute }}
             </h2>
@@ -15,29 +15,31 @@
                   action="index.php?uc=formulaire&action=traiterMainFormulaire"
                   method="post" autocomplete="on">
                 {% include 'formulaire/informationsGenerales.html.twig' %}
-                {% if typedossier == 'CA' %}
-                    {% include 'formulaire/postBacExperiences.html.twig' %}
-                    {% include 'formulaire/choixVoeux.html.twig' %}
+
+                {% include 'formulaire/postBacExperiences.html.twig' %}
+                {% include 'formulaire/choixVoeux.html.twig' %}
+                {% if typeDossier == 'CA' %}
                     {% if form is not null %}
                         {% include 'formulaire/informationsSpecifiques.html.twig' %}
                     {% endif %}
-                    {% include 'formulaire/documentsGeneraux.html.twig' %}
                 {% endif %}
+
+                {% include 'formulaire/documentsGeneraux.html.twig' %}
 
                 {% if formation.modalites is not empty %}
                     <div class="bs-callout bs-callout-warning">
                         <h3>Modalités</h3>
+
                         <p>{{ formation.modalites | raw }}</p>
                     </div>
                 {% endif %}
+
                 {% if formation.informations is not empty %}
                     <div class="bs-callout bs-callout-info">
                         <h3>Informations</h3>
                         <p>{{ formation.informations | raw }}</p>
                     </div>
                 {% endif %}
-
-
 
                 <button type="input" id="customSubmit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-cloud-upload"></span> Envoyer
@@ -78,245 +80,245 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.38/jquery.form-validator.min.js"></script>
     <script src="public/js/jq.progress-bar.js"></script>
     <script type="text/javascript">
-        Array.prototype.allValuesAreDifferent = function () {
-            var ok = true;
-            for (var i = 0; i < this.length; ++i) {
-                if ($.inArray(this[i], this, i + 1) > -1) {
-                    ok = false;
-                }
+    Array.prototype.allValuesAreDifferent = function () {
+        var ok = true;
+        for (var i = 0; i < this.length; ++i) {
+            if ($.inArray(this[i], this, i + 1) > -1) {
+                ok = false;
             }
-            return ok;
-        };
-        String.prototype.unaccented = function(){
-            var accent = [
-                /[\300-\306]/g, /[\340-\346]/g, // A, a
-                /[\310-\313]/g, /[\350-\353]/g, // E, e
-                /[\314-\317]/g, /[\354-\357]/g, // I, i
-                /[\322-\330]/g, /[\362-\370]/g, // O, o
-                /[\331-\334]/g, /[\371-\374]/g, // U, u
-                /[\321]/g, /[\361]/g, // N, n
-                /[\307]/g, /[\347]/g, // C, c
-            ];
-            var noaccent = ['A','a','E','e','I','i','O','o','U','u','N','n','C','c'];
+        }
+        return ok;
+    };
+    String.prototype.unaccented = function () {
+        var accent = [
+            /[\300-\306]/g, /[\340-\346]/g, // A, a
+            /[\310-\313]/g, /[\350-\353]/g, // E, e
+            /[\314-\317]/g, /[\354-\357]/g, // I, i
+            /[\322-\330]/g, /[\362-\370]/g, // O, o
+            /[\331-\334]/g, /[\371-\374]/g, // U, u
+            /[\321]/g, /[\361]/g, // N, n
+            /[\307]/g, /[\347]/g, // C, c
+        ];
+        var noaccent = ['A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u', 'N', 'n', 'C', 'c'];
 
-            var str = this;
-            for(var i = 0; i < accent.length; i++){
-                str = str.replace(accent[i], noaccent[i]);
-            }
-
-            return str;
+        var str = this;
+        for (var i = 0; i < accent.length; i++) {
+            str = str.replace(accent[i], noaccent[i]);
         }
 
-        $(document).ready(function () {
-            // L'upload a-t-il été fait ?
-            uploadGlobal = false;
-            // y a-t-il un fichier qui a été ajouté dans la zone de drag & drop?
-            isFileAjouterGlobal = false;
+        return str;
+    }
 
-            // Jeu d'essai formulaire
-            $('#nom').val('Meas');
-            $('#prenom').val('Kévin');
-            $('#lieu_naissance').val('Caen');
-            $('#nationalite').val('Française');
-            $('#ine').val('100000000W');
-            $('#adresse').val('4 rue pierre paul jaques Bat B');
-            $('#complement').val('Res zion');
-            $('#code_postal').val('13100');
-            $('#ville').val('Aix-en-Provence');
-            $('#mail').val('measkevin@gmail.com ');
-            $('#serie_bac').val('Scientifique');
-            $('#annee_bac').val('2010');
-            $('#etablissement_bac').val('Lycée Roland Garros');
-            $('#langues').val('Anglais');
-            $('#activite').val('Etudiant');
-            $('#etablissement').eq(0).val('IUT Aix-en-Provence');
-            $('#cursus').eq(0).val('DUT Informatique');
-            $('#ville_preferee').val('Aix-en-Provence');
-            $('#entreprise').val('Sporstec');
-            $('#fonction').val('Développeur PHP');
+    $(document).ready(function () {
+        // L'upload a-t-il été fait ?
+        uploadGlobal = false;
+        // y a-t-il un fichier qui a été ajouté dans la zone de drag & drop?
+        isFileAjouterGlobal = false;
 
-            // Progress Bar
-            $('#mainFormulaire').showProgress({ message: { '10': 'You\'re off to a great start!', '25': 'You\'re doing great so far!', '50': 'You\'re halfway there!', '75': 'Look at that, you\'re nearly done already!', '100': 'All done! Just click <strong>Submit</strong> to continue!' } });
+        // Jeu d'essai formulaire
+        $('#nom').val('Meas');
+        $('#prenom').val('Kévin');
+        $('#lieu_naissance').val('Caen');
+        $('#nationalite').val('Française');
+        $('#ine').val('100000000W');
+        $('#adresse').val('4 rue pierre paul jaques Bat B');
+        $('#complement').val('Res zion');
+        $('#code_postal').val('13100');
+        $('#ville').val('Aix-en-Provence');
+        $('#mail').val('measkevin@gmail.com ');
+        $('#serie_bac').val('Scientifique');
+        $('#annee_bac').val('2010');
+        $('#etablissement_bac').val('Lycée Roland Garros');
+        $('#langues').val('Anglais');
+        $('#activite').val('Etudiant');
+        $('#etablissement').eq(0).val('IUT Aix-en-Provence');
+        $('#cursus').eq(0).val('DUT Informatique');
+        $('#ville_preferee').val('Aix-en-Provence');
+        $('#entreprise').val('Sporstec');
+        $('#fonction').val('Développeur PHP');
 
-            var uploadObj = $("#upload").uploadFile({
-                url: "index.php?uc=formulaire&action=uploadDocuments",
-                dragDrop: true,
-                fileName: "myfile",
-                returnType: "json",
-                multiple: true,
-                autoSubmit: false,
-                dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
-                abortStr: "Abandonner",
-                cancelStr: "Annuler",
-                deletelStr: "Supprimer",
-                showDone: false,
-                dynamicFormData: function () {
-                    // Récupération des champs nom et prénom de l'étudiant
-                    var data = {
-                        nom: $('#nom').val(),
-                        prenom: $('#prenom').val(),
-                        voeu1: $('#voeu-1').val(),
-                        voeu2: $('#voeu-2').length > 0 ? $('#voeu-2').val() : null,
-                        voeu3: $('#voeu-3').length > 0 ? $('#voeu-3').val() : null
-                    }
-                    return data;
-                },
-                afterUploadAll: function () {
-                    uploadGlobal = true;
-                    //alert("upload after all");
-                    $('#mainFormulaire').submit();
-                },
-                onSelect: function (files) {
-                    // Au moins un fichier a été ajouté dans la zone de drag & drop
-                    isFileAjouterGlobal = true;
-                    return true; //to allow file submission.
-                },
-                onError: function (files, status, errMsg) {
-                    $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées.');
-                    $('#myModal').modal('show');
+        // Progress Bar
+        $('#mainFormulaire').showProgress({ message: { '10': 'You\'re off to a great start!', '25': 'You\'re doing great so far!', '50': 'You\'re halfway there!', '75': 'Look at that, you\'re nearly done already!', '100': 'All done! Just click <strong>Submit</strong> to continue!' } });
+
+        var uploadObj = $("#upload").uploadFile({
+            url: "index.php?uc=formulaire&action=uploadDocuments",
+            dragDrop: true,
+            fileName: "myfile",
+            returnType: "json",
+            multiple: true,
+            autoSubmit: false,
+            dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
+            abortStr: "Abandonner",
+            cancelStr: "Annuler",
+            deletelStr: "Supprimer",
+            showDone: false,
+            dynamicFormData: function () {
+                // Récupération des champs nom et prénom de l'étudiant
+                var data = {
+                    nom: $('#nom').val(),
+                    prenom: $('#prenom').val(),
+                    voeu1: $('#voeu-1').val(),
+                    voeu2: $('#voeu-2').length > 0 ? $('#voeu-2').val() : null,
+                    voeu3: $('#voeu-3').length > 0 ? $('#voeu-3').val() : null
                 }
-            });
+                return data;
+            },
+            afterUploadAll: function () {
+                uploadGlobal = true;
+                //alert("upload after all");
+                $('#mainFormulaire').submit();
+            },
+            onSelect: function (files) {
+                // Au moins un fichier a été ajouté dans la zone de drag & drop
+                isFileAjouterGlobal = true;
+                return true; //to allow file submission.
+            },
+            onError: function (files, status, errMsg) {
+                $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées.');
+                $('#myModal').modal('show');
+            }
+        });
 
-            // Message d'erreurs champs formulaire
-            var myLanguageFR = {
-                errorTitle: 'Form submission failed!',
-                requiredFields: 'Ce champ est obligatoire.',
-                badTime: 'You have not given a correct time',
-                badEmail: 'Veuillez fournir une adresse électronique valide.',
-                badTelephone: 'You have not given a correct phone number',
-                badSecurityAnswer: 'You have not given a correct answer to the security question',
-                badDate: 'You have not given a correct date',
-                lengthBadStart: 'You must give an answer between ',
-                lengthBadEnd: ' characters',
-                lengthTooLongStart: 'You have given an answer longer than ',
-                lengthTooShortStart: 'You have given an answer shorter than ',
-                notConfirmed: 'Values could not be confirmed',
-                badDomain: 'Incorrect domain value',
-                badUrl: 'The answer you gave was not a correct URL',
-                badCustomVal: 'You gave an incorrect answer',
-                badInt: 'The answer you gave was not a correct number',
-                badSecurityNumber: 'Your social security number was incorrect',
-                badUKVatAnswer: 'Incorrect UK VAT Number',
-                badStrength: 'The password isn\'t strong enough',
-                badNumberOfSelectedOptionsStart: 'You have to choose at least ',
-                badNumberOfSelectedOptionsEnd: ' answers',
-                badAlphaNumeric: 'Veuillez écrire seulement des caractères alphanumerique ',
-                badAlphaNumericExtra: ' et ',
-                wrongFileSize: 'The file you are trying to upload is too large',
-                wrongFileType: 'The file you are trying to upload is of wrong type',
-                groupCheckedRangeStart: 'Please choose between ',
-                groupCheckedTooFewStart: 'Please choose at least ',
-                groupCheckedTooManyStart: 'Please choose a maximum of ',
-                groupCheckedEnd: ' item(s)'
-            };
+        // Message d'erreurs champs formulaire
+        var myLanguageFR = {
+            errorTitle: 'Form submission failed!',
+            requiredFields: 'Ce champ est obligatoire.',
+            badTime: 'You have not given a correct time',
+            badEmail: 'Veuillez fournir une adresse électronique valide.',
+            badTelephone: 'You have not given a correct phone number',
+            badSecurityAnswer: 'You have not given a correct answer to the security question',
+            badDate: 'You have not given a correct date',
+            lengthBadStart: 'You must give an answer between ',
+            lengthBadEnd: ' characters',
+            lengthTooLongStart: 'You have given an answer longer than ',
+            lengthTooShortStart: 'You have given an answer shorter than ',
+            notConfirmed: 'Values could not be confirmed',
+            badDomain: 'Incorrect domain value',
+            badUrl: 'The answer you gave was not a correct URL',
+            badCustomVal: 'You gave an incorrect answer',
+            badInt: 'The answer you gave was not a correct number',
+            badSecurityNumber: 'Your social security number was incorrect',
+            badUKVatAnswer: 'Incorrect UK VAT Number',
+            badStrength: 'The password isn\'t strong enough',
+            badNumberOfSelectedOptionsStart: 'You have to choose at least ',
+            badNumberOfSelectedOptionsEnd: ' answers',
+            badAlphaNumeric: 'Veuillez écrire seulement des caractères alphanumerique ',
+            badAlphaNumericExtra: ' et ',
+            wrongFileSize: 'The file you are trying to upload is too large',
+            wrongFileType: 'The file you are trying to upload is of wrong type',
+            groupCheckedRangeStart: 'Please choose between ',
+            groupCheckedTooFewStart: 'Please choose at least ',
+            groupCheckedTooManyStart: 'Please choose a maximum of ',
+            groupCheckedEnd: ' item(s)'
+        };
 
-            // Validateur du formulaire
-            $.validate({
-                language: myLanguageFR,
-                onError: function () {
-                    $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
-                    $('#myModal').modal('show');
-                },
-                onSuccess: function () {
-                    //alert('The form is valid!');
-                    if (!uploadGlobal) {
-                        uploadObj.startUpload();
-                        //alert('return false');
-                        return false;
-                    }
-                }
-            });
-
-            $('.form-group').addClass('has-feedback');
-
-            // Envoi du formulaire
-            $("#customSubmit").click(function () {
-                var modal = $('.modal-body');
-                modal.html('');
-                // Test si les voeux sont tous différents
-                var voeux = [];
-                $('select[name="voeu[]"]').each(function() {
-                    voeux.push($(this).val());
-                });
-                console.log(voeux);
-                if (!isFileAjouterGlobal) {
-                    $('.modal-body').html($('.modal-body').html() + '<br>Veuillez ajouter les documents à joindre');
-                }
-                if (!voeux.allValuesAreDifferent()) {
-                    $('.modal-body').html('Les voeux doivent être différents');
-                }
-                if (!modal.html() == ''){
-                    $('#myModal').modal('show');
+        // Validateur du formulaire
+        $.validate({
+            language: myLanguageFR,
+            onError: function () {
+                $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
+                $('#myModal').modal('show');
+            },
+            onSuccess: function () {
+                //alert('The form is valid!');
+                if (!uploadGlobal) {
+                    uploadObj.startUpload();
+                    //alert('return false');
                     return false;
                 }
-            });
-
-            // TESTS LIONEL CURSUS ET EXPERIENCES
-            var nbCursus = 1, nbExperiences = 1;
-
-            $("#addCursus").click(function () {
-                if (nbCursus === 10) {
-                    $('.modal-body').html('Vous ne pouvez pas renseigner plus de 10 cursus.');
-                    $('#myModal').modal('show');
-                } else {
-                    $(this).attr("disabled", "disabled");
-                    $.ajax({
-                        url: 'index.php?uc=formulaire&action=getTemplateCursus',
-                        type: 'get',
-                        data: 'indice=' + (nbCursus + 1),
-                        dataType: 'html',
-                        success: function (html) {
-                            $("#blockCursus-" + nbCursus).after(html);
-                            $("#addCursus").removeAttr("disabled");
-                            nbCursus = nbCursus + 1;
-                        }
-                    });
-                }
-            });
-
-            $("#removeCursus").click(function () {
-                if (nbCursus === 1) {
-                    $('.modal-body').html('Vous devez renseigner au moins un cursus.');
-                    $('#myModal').modal('show');
-                } else {
-                    $(this).attr("disabled", "disabled");
-                    $("#blockCursus-" + nbCursus).remove();
-                    nbCursus = nbCursus - 1;
-                    $(this).removeAttr("disabled");
-                }
-            });
-
-            $("#addExperience").click(function () {
-                if (nbExperiences === 10) {
-                    $('.modal-body').html('Vous ne pouvez pas renseigner plus de 10 expériences.');
-                    $('#myModal').modal('show');
-                } else {
-                    $(this).attr("disabled", "disabled");
-                    $.ajax({
-                        url: 'index.php?uc=formulaire&action=getTemplateExperience',
-                        type: 'get',
-                        data: 'indice=' + (nbExperiences + 1),
-                        dataType: 'html',
-                        success: function (html) {
-                            $("#blockExperience-" + nbExperiences).after(html);
-                            $("#addExperience").removeAttr("disabled");
-                            nbExperiences = nbExperiences + 1;
-                        }
-                    });
-                }
-            });
-
-            $("#removeExperience").click(function () {
-                if (nbExperiences === 1) {
-                    $('.modal-body').html('Vous devez renseigner au moins une expérience professionnelle.');
-                    $('#myModal').modal('show');
-                } else {
-                    $(this).attr("disabled", "disabled");
-                    $("#blockExperience-" + nbExperiences).remove();
-                    nbExperiences = nbExperiences - 1;
-                    $(this).removeAttr("disabled");
-                }
-            });
+            }
         });
+
+        $('.form-group').addClass('has-feedback');
+
+        // Envoi du formulaire
+        $("#customSubmit").click(function () {
+            var modal = $('.modal-body');
+            modal.html('');
+            // Test si les voeux sont tous différents
+            var voeux = [];
+            $('select[name="voeu[]"]').each(function () {
+                voeux.push($(this).val());
+            });
+            console.log(voeux);
+            if (!isFileAjouterGlobal) {
+                $('.modal-body').html($('.modal-body').html() + '<br>Veuillez ajouter les documents à joindre');
+            }
+            if (!voeux.allValuesAreDifferent()) {
+                $('.modal-body').html('Les voeux doivent être différents');
+            }
+            if (!modal.html() == '') {
+                $('#myModal').modal('show');
+                return false;
+            }
+        });
+
+        // TESTS LIONEL CURSUS ET EXPERIENCES
+        var nbCursus = 1, nbExperiences = 1;
+
+        $("#addCursus").click(function () {
+            if (nbCursus === 10) {
+                $('.modal-body').html('Vous ne pouvez pas renseigner plus de 10 cursus.');
+                $('#myModal').modal('show');
+            } else {
+                $(this).attr("disabled", "disabled");
+                $.ajax({
+                    url: 'index.php?uc=formulaire&action=getTemplateCursus',
+                    type: 'get',
+                    data: 'indice=' + (nbCursus + 1),
+                    dataType: 'html',
+                    success: function (html) {
+                        $("#blockCursus-" + nbCursus).after(html);
+                        $("#addCursus").removeAttr("disabled");
+                        nbCursus = nbCursus + 1;
+                    }
+                });
+            }
+        });
+
+        $("#removeCursus").click(function () {
+            if (nbCursus === 1) {
+                $('.modal-body').html('Vous devez renseigner au moins un cursus.');
+                $('#myModal').modal('show');
+            } else {
+                $(this).attr("disabled", "disabled");
+                $("#blockCursus-" + nbCursus).remove();
+                nbCursus = nbCursus - 1;
+                $(this).removeAttr("disabled");
+            }
+        });
+
+        $("#addExperience").click(function () {
+            if (nbExperiences === 10) {
+                $('.modal-body').html('Vous ne pouvez pas renseigner plus de 10 expériences.');
+                $('#myModal').modal('show');
+            } else {
+                $(this).attr("disabled", "disabled");
+                $.ajax({
+                    url: 'index.php?uc=formulaire&action=getTemplateExperience',
+                    type: 'get',
+                    data: 'indice=' + (nbExperiences + 1),
+                    dataType: 'html',
+                    success: function (html) {
+                        $("#blockExperience-" + nbExperiences).after(html);
+                        $("#addExperience").removeAttr("disabled");
+                        nbExperiences = nbExperiences + 1;
+                    }
+                });
+            }
+        });
+
+        $("#removeExperience").click(function () {
+            if (nbExperiences === 1) {
+                $('.modal-body').html('Vous devez renseigner au moins une expérience professionnelle.');
+                $('#myModal').modal('show');
+            } else {
+                $(this).attr("disabled", "disabled");
+                $("#blockExperience-" + nbExperiences).remove();
+                nbExperiences = nbExperiences - 1;
+                $(this).removeAttr("disabled");
+            }
+        });
+    });
     </script>
 {% endblock %}

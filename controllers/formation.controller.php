@@ -160,7 +160,7 @@ switch ($action) {
 
 		$nomDossierPdf = $dossierPdf->getNom ();
 		$codeFormation = $dossierPdf->getCodeFormation ();
-		$type          = ($typePdf == "candidature") ? "Candidature" : "Pré-inscription";
+		$type          = ($typePdf == "candidature") ? "Candidature" : "Pre-inscription";
 
 		echo $twig->render ('formation/previsualiserPdfFormation.html.twig', array (
 			'codeFormation' => $codeFormation,
@@ -178,7 +178,7 @@ switch ($action) {
 
 		$codeFormation = $dossierPdf->getCodeFormation ();
 		$formation     = $formationManager->find ($codeFormation);
-		$type          = ($typePdf == "candidature") ? "Candidature" : "Pré-inscription";
+		$type          = ($typePdf == "candidature") ? "Candidature" : "Pre-inscription";
 		$typeBool      = ($typePdf == "candidature") ? true : false;
 
 		// Récupère tous les voeux du dossier PDF

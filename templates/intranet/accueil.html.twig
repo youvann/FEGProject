@@ -3,52 +3,67 @@
 {% block content %}
 
     <h2 class="titre_rubrique">Bienvenue sur l'intranet</h2>
+    <h3 class="titre_rubrique2">Que puis-je faire dans cet espace ?</h3>
 
-        <h3>Que puis-je faire dans cet espace ?</h3>
-        <br/>
-        <div class="panel panel-primary">
-            <div class="panel-heading">Secrétaires</div>
-            <div class="panel-body">
-                <p>Vous disposez de tous les droits listés ci-dessous :</p>
-            </div>
-            <ul class="list-group">
-                <li class="list-group-item">Vous pouvez consulter la liste des documents à joindre communs à toutes les formations lors d'une candidature ou d'une pré-inscription.</li>
-                <li class="list-group-item">Vous pouvez prévisualiser le pdf de candidature ou de pré-inscription.</li>
-                <li class="list-group-item">Vous pouvez consulter les étapes proposées pour une formation et les villes où elles se déroulents.</li>
-                <li class="list-group-item">Vous pouvez consulter les documents à joindre spécifiques pour une formation.</li>
-                <li class="list-group-item">Vous pouvez consulter les informations spécifiques requises par une formation.</li>
-                <li class="list-group-item">Vous pouver télécharger ou supprimer les dossiers candidature ou de pré-inscription d'une formation.</li>
-            </ul>
-        </div>
+    <div class="bs-callout bs-callout-warning">
+        <h4>Secrétaires</h4>
 
-        <div class="bs-callout bs-callout-warning">
-            <h3>Secrétaires</h3>
+        <p>Vous disposez des droits suivants : </p>
+        <ul>
+            <li>Vous pouvez consulter la liste des documents à joindre communs à
+                toutes les formations lors d'une candidature ou d'une
+                pré-inscription.
+            </li>
+            <li>Vous pouvez prévisualiser le pdf de
+                candidature ou de pré-inscription.
+            </li>
+            <li>Vous pouvez consulter les étapes
+                proposées pour une formation et les villes où elles se
+                déroulents.
+            </li>
+            <li>Vous pouvez consulter les documents à
+                joindre spécifiques pour une formation.
+            </li>
+            <li>Vous pouvez consulter les informations
+                spécifiques requises par une formation.
+            </li>
+            <li>Vous pouver télécharger ou supprimer les
+                dossiers candidature ou de pré-inscription d'une formation.
+            </li>
+        </ul>
+    </div>
+    <div class="bs-callout bs-callout-info">
+        <h4>Responsables</h4>
 
-        </div>
+        <p>Vous disposez de tous les droits octroyés aux secrétaires en plus de
+            ceux listés ci-dessous :</p>
+        <ul>
+            <li>Vous pouvez ajouter/modifier/supprimer une formation</li>
+            <li>Vous pouvez ajouter/modifier/supprimer des étapes pour une
+                formation
+            </li>
+            <li>Vous pouvez ajouter/modifier/supprimer des documents à joindre
+                spécifiques pour une formation
+            </li>
+            <li>Vous pouvez ajouter/modifier/supprimer des informations
+                spécifiques requises par une formation.
+            </li>
+        </ul>
+    </div>
 
-        <hr />
-        <div class="panel panel-primary">
-            <div class="panel-heading">Responsable</div>
-            <div class="panel-body">
-                <p>Vous disposez de tous les droits octroyés aux secrétaires en plus de ceux listés ci-dessous :</p>
-            </div>
-            <ul class="list-group">
-                <li class="list-group-item">Vous pouvez ajouter/modifier/supprimer une formation</li>
-                <li class="list-group-item">Vous pouvez ajouter/modifier/supprimer des étapes pour une formation</li>
-                <li class="list-group-item">Vous pouvez ajouter/modifier/supprimer des documents à joindre spécifiques pour une formation</li>
-                <li class="list-group-item">Vous pouvez ajouter/modifier/supprimer des informations spécifiques requises par une formation.</li>
-            </ul>
-        </div>
-        <hr />
-        <div class="panel panel-primary">
-            <div class="panel-heading">Administrateur</div>
-            <div class="panel-body">
-                <p>Vous disposez de tous les droits octroyés aux secrétaires et aux responsables en plus de ceux listés ci-dessous :</p>
-            </div>
-            <ul class="list-group">
-                <li class="list-group-item">Vous pouvez supprimer une formation</li>
-                <li class="list-group-item">Vous pouvez ajouter/modifier/supprimer documents à joindre communs à toutes les formations lors d'une candidature ou d'une pré-inscription.</li>
-            </ul>
-        </div>
+    <div class="bs-callout bs-callout-danger">
+        <h4>Administrateur</h4>
+        <p>Vous disposez de tous les droits octroyés aux secrétaires et aux
+            responsables en plus de ceux listés ci-dessous :</p>
+        <ul>
+            <li>Vous pouvez supprimer une formation</li>
+            <li>Vous pouvez ajouter/modifier/supprimer
+                documents à joindre communs à toutes les formations lors d'une
+                candidature ou d'une pré-inscription.
+            </li>
+        </ul>
+    </div>
+
+
 
 {% endblock %}

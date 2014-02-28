@@ -45,13 +45,11 @@ switch ($action) {
     case "traiterChoixFormation":
     {
         // Récupère le code formation choisi grâce à l'id du dossier pdf
-        $idDossierPdf    = $_POST['choisie'];
-        $dossierPdf      = $dossierPdfManager->find ($idDossierPdf);
+        $idDossierPdf  = $_POST['choisie'];
+        $dossierPdf    = $dossierPdfManager->find ($idDossierPdf);
         $codeFormation = $dossierPdf->getCodeFormation ();
-        //$codesFormations = $voeuManager->findAllByDossierPdf ($dossierPdf);
-        //$codeFormation   = $codesFormations[0]->getCodeFormation ();
 
-        //$derniere                 = $_POST['derniere'];
+        $_SESSION['isCandidature'] = ($_POST['derniere'] === "") ? true : false;
         $_SESSION['idDossierPdf']  = $idDossierPdf;
         $_SESSION['codeFormation'] = $codeFormation;
         $_SESSION['idEtudiant']    = time ();
@@ -122,7 +120,8 @@ switch ($action) {
         $documentsGeneraux    = $documentGeneralManager->findAll ();
         $documentsSpecifiques = $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf);
 
-        echo $twig->render ('formulaire/mainFormulaire.html.twig', array ('dossierPdf' => $dossierPdf, 'formation' => $formation, 'voeux' => $voeux, 'nbVoeux' => $nbVoeux, 'form' => $formHTML, 'documentsGeneraux' => $documentsGeneraux, 'documentsSpecifiques' => $documentsSpecifiques, 'typedossier' => 'CA'));
+        $typeDossier = ($_SESSION["isCandidature"]) ? "CA" : "PI";
+        echo $twig->render ('formulaire/mainFormulaire.html.twig', array ('dossierPdf' => $dossierPdf, 'formation' => $formation, 'voeux' => $voeux, 'nbVoeux' => $nbVoeux, 'form' => $formHTML, 'documentsGeneraux' => $documentsGeneraux, 'documentsSpecifiques' => $documentsSpecifiques, 'typeDossier' => $typeDossier));
     }
         break;
     case "uploadDocuments" :
@@ -134,8 +133,10 @@ switch ($action) {
         $_SESSION['voeu2'] = $_POST['voeu2'];
         $_SESSION['voeu3'] = $_POST['voeu3'];
 
+        $typeDossier = ($_SESSION['isCandidature']) ? "Candidatures" : "Pre-inscriptions";
+
         // Chemin du répetoire qui contient le répertoire de l'étudiant
-        $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
+        $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier;
         // Nom du répertoire de l'étudiant
         $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
         myMkdirBase ($dirPath . "/" . $dirNameId . "/");
@@ -253,8 +254,9 @@ switch ($action) {
         /*
          * En-tête du pdf
          */
+        $typeDossier = ($_SESSION['isCandidature']) ? "Candidature" : "Pre-inscription";
         $pagePdf->setPagePdfHeaderImgPath ("classes/Pdf/img/feg.png");
-        $pagePdf->setPagePdfHeaderText ("DOSSIER DE CANDIDATURE<br />ANNÉE UNIVERSITAIRE " . $anneeBasse . "-" . $anneeHaute . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
+        $pagePdf->setPagePdfHeaderText ("DOSSIER DE " . strtoupper($typeDossier) . "<br />ANNÉE UNIVERSITAIRE " . $anneeBasse . "-" . $anneeHaute . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
         /*
          * Pied de page du pdf
@@ -273,7 +275,7 @@ switch ($action) {
             $pagePdf->setLogoPath ("");
         }
 
-        $pagePdf->setIsCandidature (true);
+        $pagePdf->setIsCandidature ($_SESSION['isCandidature']);
         $pagePdf->setIsPrev (false);
 
         // Mention de la formation
@@ -306,16 +308,16 @@ switch ($action) {
             $html2pdf->pdf->SetDisplayMode ('fullpage');
             $html2pdf->writeHTML ($content, isset($_GET['vuehtml']));
 
-            $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
+            $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier . "s";
             $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
-            $html2pdf->Output ($dirPath . "/" . $dirName . '/Candidature-' . $dirName . '.pdf', 'F');
+            $html2pdf->Output ($dirPath . "/" . $dirName . '/' . $typeDossier . '-' . $dirName . '.pdf', 'F');
 
             // Copie du répertoire correspondant au voeu n°1 dans les deux autres répertoires
             foreach ($faires as $faire) {
                 if ($faire->getOrdre () != 1) {
-                    myMkdirBase ("dossiers/" . $_SESSION['codeFormation'] . "/" . $faire->getCodeEtape () . "/Candidatures/" . $dirName);
+                    myMkdirBase ("dossiers/" . $_SESSION['codeFormation'] . "/" . $faire->getCodeEtape () . "/" . $typeDossier . "s/" . $dirName);
                     $source      = $dirPath . "/" . $dirName;
-                    $destination = "dossiers/" . $_SESSION['codeFormation'] . "/" . $faire->getCodeEtape () . "/Candidatures/" . $dirName;
+                    $destination = "dossiers/" . $_SESSION['codeFormation'] . "/" . $faire->getCodeEtape () . "/" . $typeDossier . "s/" . $dirName;
                     copyDir ($source, $destination);
                 }
             }
@@ -329,10 +331,10 @@ switch ($action) {
         break;
     case "recapitulatif" :
     {
-        $typeDossier = "candidature";
+        $typeDossier = ($_SESSION['isCandidature']) ? "Candidature" : "Pre-inscription";
         $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
-        $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/Candidatures";
-        $pathPdf = $dirPath . "/" . $dirName . "/Candidature-" . $dirName;
+        $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier . "s";
+        $pathPdf = $dirPath . "/" . $dirName . "/" . $typeDossier . "-" . $dirName;
         $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
         echo $twig->render ('formulaire/recapitulatif.html.twig', array ('dossierPdf' => $dossierPdf->getNom(), 'pathPdf' => $pathPdf, 'typeDossier' => $typeDossier, 'idEtudiant' => $_SESSION['idEtudiant']));
     }
