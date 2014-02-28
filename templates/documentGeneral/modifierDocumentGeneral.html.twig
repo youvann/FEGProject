@@ -16,6 +16,28 @@
 		<label for="nom">Nom</label>
 		<input class="form-control" type="text" id="nom" name="nom" value="{{ documentGeneral.nom }}" />
 	</div>
+    <div class="form-group">
+        <label>Requis pour un pré-inscription</label>
+        <div class="radio">
+            <label for="visible-1">
+                {% if documentGeneral.visible == 1 %}
+                    <input type="radio" id="visible-1" name="visible" value="1" checked/> Oui
+                {% else %}
+                    <input type="radio" id="visible-1" name="visible" value="1"/> Oui
+                {% endif %}
+
+            </label>
+        </div>
+        <div class="radio">
+            <label for="visible-0">
+                {% if documentGeneral.visible == 0 %}
+                    <input type="radio" id="visible-0" name="visible" value="0" checked /> Non
+                {% else %}
+                    <input type="radio" id="visible-0" name="visible" value="0" /> Non
+                {% endif %}
+            </label>
+        </div>
+    </div>
 	<button class="btn btn-primary" type="submit">
 		<span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer
 	</button>
