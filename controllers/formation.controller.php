@@ -232,8 +232,8 @@ switch ($action) {
 
 		$pagePdf->setCadreAdministrationVoeux ($etapes);
 
-		$pagePdf->setDossierModalites ($formation->getModalites ());
-		$pagePdf->setDossierInformations ($formation->getInformations ());
+		$pagePdf->setDossierModalites ($dossierPdf->getModalites ());
+		$pagePdf->setDossierInformations ($dossierPdf->getInformations ());
 
 		$pagePdf->setVoeuxMultiple (true);
 		$pagePdf->setRowAdmin (true);

@@ -147,7 +147,7 @@ switch ($action) {
     {
         $dossierPdf       = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
         $structure        = $translatorResultsetToStructure->translate ($informationManager->getResultset ($dossierPdf));
-        $json             = $translatorFormToJson->translate ($structure, array_slice ($_POST, array_search ('ville_preferee', array_keys ($_POST))+1));
+        $json             = ($_SESSION['isCandidature']) ? $translatorFormToJson->translate ($structure, array_slice ($_POST, array_search ('ville_preferee', array_keys ($_POST))+1)) : "";
 
         $dateDeNaissance = $_POST['annee_date_naissance'] . "-" . $_POST["mois_date_naissance"] . "-" . $_POST["jour_date_naissance"];
         $dossier         = new Dossier($_SESSION['idEtudiant'], $_POST['ine'], $_POST["genre"], $_SESSION['codeFormation'], $_POST["autre"], formatString ($_POST["nom"]), formatString ($_POST["prenom"]), formatString ($_POST["adresse"]), $_POST["complement"], formatString ($_POST["code_postal"]), formatString ($_POST["ville"]), $dateDeNaissance, formatString ($_POST["lieu_naissance"]), $_POST["fixe"], $_POST["portable"], $_POST["mail"], formatString ($_POST["langues"]), formatString ($_POST["nationalite"]), $_POST["serie_bac"], $_POST["annee_bac"], formatString ($_POST["etablissement_bac"]), $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["titulaire"], $_POST["ville_preferee"], formatString ($_POST["autres_elements"]), $json);
@@ -245,8 +245,7 @@ switch ($action) {
             $voeu                       = $voeu->getEtape ();
             $voeux[$faire->getOrdre ()] = $voeu;
         }
-
-        $informationsSpecifiques = $translatorJsonToHTML->translate ($json, $structure);
+        $informationsSpecifiques =  ($_SESSION["isCandidature"]) ? $translatorJsonToHTML->translate ($json, $structure) : "";
 
         require_once 'classes/Pdf/PagePdf.class.php';
         $pagePdf = new PagePdf("classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
@@ -288,8 +287,8 @@ switch ($action) {
         $pagePdf->setOther ($dossier->getLangues (), $dossier->getAutresElements ());
         $pagePdf->setInformationsSpecifiques ($informationsSpecifiques);
 
-        $pagePdf->setDossierModalites ($formation->getModalites ());
-        $pagePdf->setDossierInformations ($formation->getInformations ());
+        $pagePdf->setDossierModalites ($dossierPdf->getModalites ());
+        $pagePdf->setDossierInformations ($dossierPdf->getInformations ());
 
         $pagePdf->setCadreAdministrationVoeux ($voeux);
         $pagePdf->setVoeuxMultiple (true);

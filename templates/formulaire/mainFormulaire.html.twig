@@ -26,18 +26,18 @@
 
                 {% include 'formulaire/documentsGeneraux.html.twig' %}
 
-                {% if formation.modalites is not empty %}
+                {% if dossierPdf.modalites is not empty %}
                     <div class="bs-callout bs-callout-warning">
                         <h3>Modalités</h3>
 
-                        <p>{{ formation.modalites | raw }}</p>
+                        <p>{{ dossierPdf.modalites | raw }}</p>
                     </div>
                 {% endif %}
 
-                {% if formation.informations is not empty %}
+                {% if dossierPdf.informations is not empty %}
                     <div class="bs-callout bs-callout-info">
                         <h3>Informations</h3>
-                        <p>{{ formation.informations | raw }}</p>
+                        <p>{{ dossierPdf.informations | raw }}</p>
                     </div>
                 {% endif %}
 
