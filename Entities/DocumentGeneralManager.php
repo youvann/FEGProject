@@ -35,6 +35,16 @@ class DocumentGeneralManager
 		return $documents;
 	}
 
+	public function findAllVisible()
+	{
+		$documents = array();
+		$rs = $this->db->query("SELECT * FROM `document_general` WHERE `VISIBLE` = 1;")->fetchAll();
+		foreach ($rs as $document) {
+			$documents[] = new DocumentGeneral($document['ID'], $document['NOM'], $document['VISIBLE']);
+		}
+		return $documents;
+	}
+
 	public function insert(DocumentGeneral $documentGeneral)
 	{
 		return $this->db->prepare("INSERT INTO `document_general` (`NOM`, `VISIBLE`) VALUES (?, ?);")

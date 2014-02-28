@@ -41,7 +41,7 @@ switch ($action) {
         // Création du répertoire pour le logo
         myMkdirBase ("public/img/logos/" . $_POST['code_formation']);
 
-		$formationManager->insert (new Formation($_POST['code_formation'], $_POST['modalites'], $_POST['faculte']));
+		$formationManager->insert (new Formation($_POST['code_formation'], $_POST['mention'], $_POST['faculte']));
 		header ('location:index.php?uc=formation&action=grille');
 	}
 		break;
