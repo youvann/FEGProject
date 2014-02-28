@@ -228,7 +228,7 @@ class PagePdf {
 
     public function isCandidature () {
         if ($this->isCandidature) {
-            return $this->getNewPage () . $this->getInformationsSpecifiques () . $this->getPageEnd ();
+            return $this->getOther () . $this->getPageEnd() . $this->getNewPage () . $this->getInformationsSpecifiques ();
         }
     }
 
@@ -348,9 +348,14 @@ class PagePdf {
                     <span class="bold">Adresse :</span> ' . $this->applicantAdress . '<br><br>
                     <span class="bold">Tel Fixe :</span> ' . $this->applicantFixNumber . '<br><br>
                     <span class="bold">Tel Portable :</span> ' . $this->applicantPortNumber . '<br><br>
-                    <span class="bold">Adresse électronique :</span> ' . $this->applicantMail . '<br><br>
-                    <span class="bold">Activité actuelle (étudiant, salarié, demandeur d\'emploi, autre) :</span> ' . $this->applicantActivity . '<br><br>
+                    <span class="bold">Adresse électronique :</span> ' . $this->applicantMail
+                    . $this->getActivity() . '
+                    <br><br>
                 </div>';
+    }
+
+    public function getActivity (){
+        return ($this->isCandidature) ? '<br><br><span class="bold" > Activité actuelle (étudiant, salarié, demandeur d\'emploi, autre) :</span> ' . $this->applicantActivity : "";
     }
 
     public function setPlanFormation ($etapes, $villePreferee) {
@@ -720,8 +725,8 @@ class PagePdf {
 
     public function __toString () {
         return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->getFormationTitle () . $this->getDegreeHolder () . $this->getApplicant () . $this->getPlanFormation () . $this->getPageEnd () .
-               $this->getNewPage () . $this->getPrevFormation () . $this->getProExperience () . $this->getOther () . $this->getPageEnd () .
-               $this->isCandidature () .
+               $this->getNewPage () . $this->getPrevFormation () . $this->getProExperience () .
+               $this->isCandidature () . $this->getPageEnd () .
                $this->getNewPage () . $this->getDossierModalites () . $this->getDossierInformations () . $this->getPageEnd () .
                $this->getNewPage () . $this->getFicheCommissionPeda () . $this->getCadreAdministration () . $this->getCadreAdministration2 () . $this->getPageEnd ();
     }
