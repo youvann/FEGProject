@@ -144,6 +144,8 @@ switch ($action) {
         $isCandidature    = $_SESSION['isCandidature'];
         $dossierPdf       = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
 
+
+
         $idEtudiant       = $_SESSION['idEtudiant'];
         $ine              = $_POST['ine'];
         $genre            = $_POST["genre"];
@@ -155,7 +157,11 @@ switch ($action) {
         $complement       = $_POST["complement"];
         $codePostal       = formatString ($_POST["code_postal"]);
         $ville            = formatString ($_POST["ville"]);
-        $dateDeNaissance  = $_POST['annee_date_naissance'] . "-" . $_POST["mois_date_naissance"] . "-" . $_POST["jour_date_naissance"];
+
+        $naissanceArray   = $_POST["dateNaissance"];
+        $naissanceArray   = explode ("/", $naissanceArray);
+        $dateDeNaissance  = $naissanceArray[2] . "-" . $naissanceArray[1] . "-" . $naissanceArray[0];
+
         $lieuNaissance    = formatString ($_POST["lieu_naissance"]);
         $fixe             = $_POST["fixe"];
         $portable         = $_POST["portable"];
@@ -181,13 +187,8 @@ switch ($action) {
         // Récupère tous les cursus
         $arrayCursus = array (); // Tableau à deux dimensions
         $i           = 0;
-        foreach ($_POST['anneeDebutCursus'] as $anneeDebutCursus) {
-            $arrayCursus['cursus-' . $i]['anneeDebutCursus'] = $anneeDebutCursus;
-            $i++;
-        }
-        $i = 0;
-        foreach ($_POST['anneeFinCursus'] as $anneeFinCursus) {
-            $arrayCursus['cursus-' . $i]['anneeFinCursus'] = $anneeFinCursus;
+        foreach ($_POST['anneeCursus'] as $anneeCursus) {
+            $arrayCursus['cursus-' . $i]['anneeCursus'] = $anneeCursus;
             $i++;
         }
         $i = 0;
@@ -206,8 +207,11 @@ switch ($action) {
             $i++;
         }
         foreach ($arrayCursus as $cursus) {
+            $anneeCursus = explode("-", $cursus['anneeCursus']);
+            $anneeDebutCursus = $anneeCursus[0];
+            $anneeFinCursus = $anneeCursus[1];
             // Ajout des cursus dans la table Cursus
-            $cursusManager->insert (new Cursus(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $cursus['anneeDebutCursus'], $cursus['anneeFinCursus'], $cursus['cursus'], $cursus['etablissement'], $cursus['valide']));
+            $cursusManager->insert (new Cursus(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $anneeDebutCursus, $anneeFinCursus, $cursus['cursus'], $cursus['etablissement'], $cursus['valide']));
         }
 
         // Récupère toutes les expériences
@@ -302,10 +306,14 @@ switch ($action) {
         $pagePdf->setIsCandidature ($_SESSION['isCandidature']);
         $pagePdf->setIsPrev (false);
 
+        $naissanceArray  = $dossier->getDateNaissance ();
+        $naissanceArray  = explode ("-", $naissanceArray);
+        $dateDeNaissance = $naissanceArray[2] . "/" . $naissanceArray[1] . "/" . $naissanceArray[0];
+
         // Mention de la formation
         $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $dossierPdf->getNom ());
         $pagePdf->setHolder (' ' . $titulaire[0]->getLibelle (), ' ' . $titulaire[1]->getLibelle (), ' ' . $titulaire[2]->getLibelle (), $dossier->getTitulaire ());
-        $pagePdf->setApplicant ($dossier->getGenre (), $dossier->getNom (), $dossier->getPrenom (), $dossier->getLieuNaissance (), $dossier->getDateNaissance (), $dossier->getIne (), $dossier->getAdresse () . ' ' . $dossier->getComplement () . ' ' . $dossier->getVille () . ' ' . $dossier->getCodePostal (), $dossier->getFixe (), $dossier->getPortable (), $dossier->getMail (), $dossier->getActivite ());
+        $pagePdf->setApplicant ($dossier->getGenre (), $dossier->getNom (), $dossier->getPrenom (), $dossier->getLieuNaissance (), $dateDeNaissance, $dossier->getIne (), $dossier->getAdresse () . ' ' . $dossier->getComplement () . ' ' . $dossier->getVille () . ' ' . $dossier->getCodePostal (), $dossier->getFixe (), $dossier->getPortable (), $dossier->getMail (), $dossier->getActivite ());
         $pagePdf->setPlanFormation ($voeux, $villePreferee);
         $pagePdf->setPrevFormation ($dossier->getSerieBac (), $dossier->getAnneeBac (), $dossier->getEtablissementBac (), $dossier->getDepartementBac (), $dossier->getPaysBac (), $cursus);
         $pagePdf->setProExperience ($experiences);
