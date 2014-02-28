@@ -25,18 +25,14 @@
                                 <option value="">&mdash;
                                     Sélectionnez &mdash;</option>
                                 {% for dossierPdf in dossiersPdf %}
-                                    <option
-                                            {# if get.dossier is defined and get.dossier == dossierPdf.id }
-                                                selected
-                                            {#  endif #}
-                                            value="{{ dossierPdf.id }}">{{ dossierPdf.nom }}</option>
+                                    <option value="{{ dossierPdf.id }}">{{ dossierPdf.nom }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                         <div id="divDerniere" class="form-group"></div>
                         <div id="displayDocuments"></div>
                         <div id="divAllDocuments" class="form-group">
-                            <label>Etez-vous en possession de tous les documents
+                            <label>Etes-vous en possession de tous les documents
                                 demandés ?</label>
 
                             <div class="radio">
@@ -52,7 +48,9 @@
                                 </label>
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-primary"/>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-check"></span> Remplir mon dossier
+                        </button>
                         <br/><br/>
 
                         <div id="msgErrorIne"></div>
@@ -70,7 +68,7 @@
     <script src="public/js/jquery-form-validator/jquery.form-validator.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('input[type=submit]').hide();
+            $('button[type=submit]').hide();
             $('#divAllDocuments').hide();
             $('#msgError').hide();
 
@@ -82,19 +80,18 @@
 
             $('input[type=radio]').on('change', function () {
                 if ($(this).val() == 'oui') {
-                    $('input[type=submit]').show();
+                    $('button[type=submit]').show();
                 } else {
-                    $('input[type=submit]').hide();
+                    $('button[type=submit]').hide();
                 }
             });
 
             $('#choisie').on('change', function () {
-                loadDomainsAndDocuments();
+                loadDomains();
+                loadDocuments(0);
             });
 
-            var loadDomainsAndDocuments = function () {
-                $('#divAllDocuments').show();
-
+            var loadDomains = function (pi) {
                 $.ajax({
                     url: 'index.php?uc=formulaire&action=domainesDeCompatibilite',
                     type: 'post',
@@ -103,7 +100,12 @@
                     success: function (json) {
                         var divDerniere = $('<div></div>').attr('id', 'divDerniere').addClass('form-group');
                         var label = $('<label></label>').attr('for', 'derniere').html('Etes-vous en possession d\'un diplôme parmi celui ou ceux proposés ?');
-                        var select = $('<select/>').attr('id', 'derniere').attr('name', 'derniere').addClass('form-control');
+                        var select = $('<select/>').attr('id', 'derniere').attr('name', 'derniere').addClass('form-control').on('change', function () {
+                            if ($(this).val() != '')
+                                loadDocuments(1);
+                            else
+                                loadDocuments(0);
+                        });
                         select.append($('<option></option>').attr('value', '').html('Autre'));
                         for (var i = 0; i < json.length; ++i) {
                             select.append($('<option></option>').attr('value', json[i].codeEtape).html(json[i].etape));
@@ -113,13 +115,18 @@
                         $('#divDerniere').append(select);
                     }
                 });
+            }
+
+            var loadDocuments = function (pi) {
+                $('#divAllDocuments').show();
 
                 $.ajax({
                     url: 'index.php?uc=formulaire&action=displayDocuments',
                     type: 'post',
-                    data: 'idDossierPdf=' + $('#choisie').val(),
+                    data: 'idDossierPdf=' + $('#choisie').val() + '&preinscription=' + pi,
                     dataType: 'json',
                     success: function (json) {
+                        console.log(json);
                         $('#displayDocuments').empty();
                         if (!$('#displayDocuments').hasClass('alert') && !$('#displayDocuments').hasClass('alert-warning')) {
                             $('#displayDocuments').addClass('alert');
@@ -136,7 +143,6 @@
                             listeDocumentsGeneraux.append(li);
                         });
                         documentsSpecifiques.forEach(function (doc) {
-                            console.log(doc)
                             var li = $('<li></li>').append(doc[0]);
                             if (doc[1] !== "") {
                                 var link = $('<a></a>').on('click', function () {
@@ -160,7 +166,7 @@
                                                 .attr('data-dismiss', 'alert')
                                                 .attr('aria-hidden', 'true')
                                                 .append('&times;')
-                                ).append('Pour postuler à cette formation, assurez vous d\'être en possession des documents ci dessous :');
+                                ).append('Pour postuler à cette formation, assurez vous d\'être en possession des documents ci-dessous :');
 
                         $('#displayDocuments').before().append(alert);
 
@@ -173,6 +179,7 @@
                     }
                 });
             };
+
             {% if get.dossier is defined %}
             $('#choisie').val('{{ get.dossier }}');
             loadDomainsAndDocuments();

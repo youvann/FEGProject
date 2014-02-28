@@ -81,8 +81,8 @@ switch ($action) {
     {
         FileHeader::headerJson ();
         $dossierPdf           = $dossierPdfManager->find ($_POST['idDossierPdf']);
-        $documentsGeneraux    = $documentGeneralManager->findAll ();
-        $documentsSpecifiques = $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf);
+        $documentsGeneraux    = ($_POST['preinscription'] === '1' ? $documentGeneralManager->findAllVisible() : $documentGeneralManager->findAll());
+        $documentsSpecifiques = ($_POST['preinscription'] === '1' ? $documentSpecifiqueManager->findAllByDossierPdfVisible($dossierPdf) : $documentSpecifiqueManager->findAllByDossierPdf($dossierPdf));
 
         $response   = array ();
         $general    = array ();
