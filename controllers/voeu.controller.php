@@ -36,7 +36,7 @@ switch ($action) {
 		break;
 	case "ajout":
 	{
-        myMkdirDossier ($_POST['code_formation'] . "/" . $_POST['code_etape']);
+		myMkdirDossier($_POST['code_formation'] . "/" . $_POST['code_etape']);
 		$voeuManager->insert(new Voeu($_POST['code_etape'], $_POST['code_formation'], $_POST['etape'], $_POST['responsable'], $_POST['mail_responsable']));
 
 		$postSeDerouler = array(
@@ -64,26 +64,29 @@ switch ($action) {
 	case "modification":
 	{
 		$voeu = $voeuManager->find($_POST['code_etape']);
-		$lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
-		foreach($lesSeDerouler as $unSeDerouler) {
-			$seDeroulerManager->delete($unSeDerouler);
-		}
 
-		$postSeDerouler = array(
-			'ville' => $_POST['ville'],
-			'responsable' => $_POST['responsable'],
-			'mail_responsable' => $_POST['mail_responsable']
-		);
-		for ($i = 0; $i < count($postSeDerouler['ville']); ++$i) {
-			$seDeroulerManager->insert(new SeDerouler($postSeDerouler['ville'][$i],
-				$_POST['code_etape'],
-				$postSeDerouler['responsable'][$i],
-				$postSeDerouler['mail_responsable'][$i]));
+		if (isset($_POST['ville']) && isset($_POST['responsable']) && isset($_POST['mail_responsable'])) {
+			$lesSeDerouler = $seDeroulerManager->findAllByVoeu($voeu);
+			foreach ($lesSeDerouler as $unSeDerouler) {
+				$seDeroulerManager->delete($unSeDerouler);
+			}
+
+			$postSeDerouler = array(
+				'ville' => $_POST['ville'],
+				'responsable' => $_POST['responsable'],
+				'mail_responsable' => $_POST['mail_responsable']
+			);
+			for ($i = 0; $i < count($postSeDerouler['ville']); ++$i) {
+				$seDeroulerManager->insert(new SeDerouler($postSeDerouler['ville'][$i],
+					$_POST['code_etape'],
+					$postSeDerouler['responsable'][$i],
+					$postSeDerouler['mail_responsable'][$i]));
+			}
 		}
 
 		$voeu->setEtape($_POST['etape']);
 		$voeuManager->update($voeu);
-		header('location:index.php?uc=voeu&action=consulter&codeEtape='.$_POST['code_etape'].'&code=' . $_POST['code']);
+		header('location:index.php?uc=voeu&action=consulter&codeEtape=' . $_POST['code_etape'] . '&code=' . $_POST['code']);
 	}
 		break;
 	case "suppression":

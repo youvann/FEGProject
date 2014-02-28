@@ -16,6 +16,10 @@
                   method="post" autocomplete="on">
                 {% include 'formulaire/informationsGenerales.html.twig' %}
 
+                {% if typeDossier == 'CA' %}
+                    {% include 'formulaire/languesAutres.html.twig' %}
+                {% endif %}
+
                 {% include 'formulaire/postBacExperiences.html.twig' %}
                 {% include 'formulaire/choixVoeux.html.twig' %}
                 {% if typeDossier == 'CA' %}
