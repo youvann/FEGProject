@@ -23,7 +23,7 @@ switch ($action) {
         echo $twig->render('documentSpecifique/ajouterDocumentSpecifique.html.twig', array('dossierPdf' => $dossierPdf));
     } break;
     case "ajout": {
-        $documentSpecifiqueManager->insert(new DocumentSpecifique(0, $_POST['dossier_pdf'], $_POST['nom'], $_POST['url']));
+        $documentSpecifiqueManager->insert(new DocumentSpecifique(0, $_POST['dossier_pdf'], $_POST['nom'], $_POST['visible'], $_POST['url']));
         header('location:index.php?uc=documentSpecifique&action=grille&dossierPdf='.$_POST['dossier_pdf']);
     } break;
     case "modifier": {
@@ -32,7 +32,7 @@ switch ($action) {
         echo $twig->render('documentSpecifique/modifierDocumentSpecifique.html.twig', array('documentSpecifique' => $documentSpecifique, 'dossierPdf' => $dossierPdf));
     } break;
     case "modification": {
-        $documentSpecifique = new documentSpecifique($_POST['id'], $_POST['dossier_pdf'], $_POST['nom'], $_POST['url'], $_POST['multiple']);
+        $documentSpecifique = new documentSpecifique($_POST['id'], $_POST['dossier_pdf'], $_POST['nom'], $_POST['visible'], $_POST['url'], $_POST['multiple']);
         $documentSpecifiqueManager->update($documentSpecifique);
         header('location:index.php?uc=documentSpecifique&action=grille&dossierPdf='.$_POST['dossier_pdf']);
     } break;

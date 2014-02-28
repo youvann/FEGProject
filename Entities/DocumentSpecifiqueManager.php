@@ -17,7 +17,7 @@ class DocumentSpecifiqueManager {
 		$q = $this->db->prepare("SELECT * FROM `DOCUMENT_SPECIFIQUE` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
-		return new DocumentSpecifique($rs['ID'], $rs['DOSSIER_PDF'], $rs['NOM'], $rs['URL']);
+		return new DocumentSpecifique($rs['ID'], $rs['DOSSIER_PDF'], $rs['NOM'], $rs['VISIBLE'], $rs['URL']);
 	}
 
 	public function findAllByDossierPdf(DossierPdf $dossierPdf) {
@@ -26,25 +26,27 @@ class DocumentSpecifiqueManager {
 		$q->execute(array($dossierPdf->getId()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $documentSpecifique) {
-			$documentsSpecifiques[] = new DocumentSpecifique($documentSpecifique['ID'], $documentSpecifique['DOSSIER_PDF'], $documentSpecifique['NOM'], $documentSpecifique['URL']);
+			$documentsSpecifiques[] = new DocumentSpecifique($documentSpecifique['ID'], $documentSpecifique['DOSSIER_PDF'], $documentSpecifique['NOM'], $documentSpecifique['VISIBLE'], $documentSpecifique['URL']);
 		}
 		return $documentsSpecifiques;
 	}
 
 	public function insert(DocumentSpecifique $documentSpecifique) {
-		return $this->db->prepare("INSERT INTO `DOCUMENT_SPECIFIQUE` (`DOSSIER_PDF`, `NOM`, `URL`) VALUES (?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `DOCUMENT_SPECIFIQUE` (`DOSSIER_PDF`, `NOM`, `VISIBLE`, `URL`) VALUES (?, ?, ?, ?);")
 						->execute(array(
 							$documentSpecifique->getDossierPdf(),
 							$documentSpecifique->getNom(),
+							$documentSpecifique->getVisible(),
 							$documentSpecifique->getUrl()
 		));
 	}
 
 	public function update(DocumentSpecifique $documentSpecifique) {
-		return $this->db->prepare("UPDATE `DOCUMENT_SPECIFIQUE` SET `DOSSIER_PDF` = ?, `NOM` = ?, `URL` = ? WHERE `ID` = ?;")
+		return $this->db->prepare("UPDATE `DOCUMENT_SPECIFIQUE` SET `DOSSIER_PDF` = ?, `NOM` = ?, `VISIBLE` = ?, `URL` = ? WHERE `ID` = ?;")
 						->execute(array(
 							$documentSpecifique->getDossierPdf(),
 							$documentSpecifique->getNom(),
+							$documentSpecifique->getVisible(),
 							$documentSpecifique->getUrl(),
 							$documentSpecifique->getId()
 		));

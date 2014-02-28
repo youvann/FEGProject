@@ -3,25 +3,59 @@
 class DocumentGeneral {
 	private $id;
 	private $nom;
+	private $visible;
 	
-	function __construct($id, $nom) {
+	function __construct($id, $nom, $visible) {
 		$this->id = $id;
 		$this->nom = $nom;
+		$this->visible = $visible;
 	}
 
-	public function getId() {
+	/**
+	 * @param mixed $id
+	 */
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getId()
+	{
 		return $this->id;
 	}
 
-	public function getNom() {
+	/**
+	 * @param mixed $nom
+	 */
+	public function setNom($nom)
+	{
+		$this->nom = $nom;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getNom()
+	{
 		return $this->nom;
 	}
 
-	public function setId($id) {
-		$this->id = $id;
+	/**
+	 * @param mixed $visible
+	 */
+	public function setVisible($visible)
+	{
+		$this->visible = $visible;
 	}
 
-	public function setNom($nom) {
-		$this->nom = $nom;
+	/**
+	 * @return mixed
+	 */
+	public function getVisible()
+	{
+		return $this->visible;
 	}
 }

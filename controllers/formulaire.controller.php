@@ -126,8 +126,8 @@ switch ($action) {
         break;
     case "uploadDocuments" :
     {
-        $_SESSION['nom']    = formatString (stripAccents($_POST['nom']));
-        $_SESSION['prenom'] = formatString (stripAccents($_POST['prenom']));
+        $_SESSION['nom']    = formatString ($_POST['nom']);
+        $_SESSION['prenom'] = formatString ($_POST['prenom']);
 
         $_SESSION['voeu1'] = $_POST['voeu1'];
         $_SESSION['voeu2'] = $_POST['voeu2'];

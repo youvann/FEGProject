@@ -2,46 +2,54 @@
 
 {% block content %}
 
-<ol class="breadcrumb">
-	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
-	<li class="active">Liste des documents</li>
-</ol>
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+        <li class="active">Liste des documents</li>
+    </ol>
 
-<h2 class="titre_rubrique">Liste des documents</h2>
+    <h2 class="titre_rubrique">Liste des documents</h2>
 
-<a href="index.php?uc=documentGeneral&action=ajouter" class="btn btn-lg btn-primary">
-	<span class="glyphicon glyphicon-plus-sign"></span> Ajouter un document général
-</a>
+    <a href="index.php?uc=documentGeneral&action=ajouter" class="btn btn-lg btn-primary">
+        <span class="glyphicon glyphicon-plus-sign"></span> Ajouter un document général
+    </a>
 
-{% if documentsGeneraux is not empty %}
-<hr />
-<table class="table table-hover table-bordered table-striped">
-	<tr>
-		<th class="col-md-9">Nom</th>
-		<th class="col-md-3">Options</th>
-	</tr>
-        {% for documentGeneral in documentsGeneraux %}
-	<tr>
-		<td>{{ documentGeneral.nom }}</td>
-		<td>
-			<div class="btn-group">
-				<a href="index.php?uc=documentGeneral&action=modifier&id={{ documentGeneral.id }}" type="button" class="btn btn-warning">
-					<span class="glyphicon glyphicon-edit"></span> Modifier
-				</a>
-				<a href="index.php?uc=documentGeneral&action=suppression&id={{ documentGeneral.id }}" type="button" class="btn btn-danger">
-					<span class="glyphicon glyphicon-trash"></span> Supprimer
-				</a>
-			</div>
-		</td>
-	</tr>
-        {% endfor %}
-</table>
-{% endif %}
+    {% if documentsGeneraux is not empty %}
+        <hr/>
+        <table class="table table-hover table-bordered table-striped">
+            <tr>
+                <th class="col-md-9">Nom</th>
+                <th class="col-md-3">Options</th>
+            </tr>
+            {% for documentGeneral in documentsGeneraux %}
+                {% if documentGeneral.visible == 1 %}
+                    <tr class="success">
+                {% else %}
+                    <tr class="active">
+                {% endif %}
 
-<hr/>
+                <td>{{ documentGeneral.nom }}</td>
+                <td>
+                    <div class="btn-group">
+                        <a href="index.php?uc=documentGeneral&action=modifier&id={{ documentGeneral.id }}" type="button"
+                           class="btn btn-warning">
+                            <span class="glyphicon glyphicon-edit"></span> Modifier
+                        </a>
+                        <a href="index.php?uc=documentGeneral&action=suppression&id={{ documentGeneral.id }}"
+                           type="button" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span> Supprimer
+                        </a>
+                    </div>
+                </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <span class="label label-default">Requis uniquement pour une candidature</span>
+        <span class="label label-success">Requis aussi pour une pré-inscritpion</span>
+    {% endif %}
+    <hr/>
 
-<a href="index.php?uc=intranet&action=accueil"  class="btn btn-primary">
-	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
-</a>
+    <a href="index.php?uc=intranet&action=accueil" class="btn btn-primary">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+    </a>
 
 {% endblock %}

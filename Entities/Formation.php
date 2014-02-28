@@ -4,15 +4,11 @@ class Formation {
 
 	private $codeFormation;
 	private $mention;
-	private $informations;
-	private $modalites;
 	private $faculte;
 	
-	function __construct($codeFormation, $mention, $informations, $modalites, $faculte) {
+	function __construct($codeFormation, $mention, $faculte) {
 		$this->codeFormation = $codeFormation;
 		$this->mention = $mention;
-		$this->informations = $informations;
-		$this->modalites = $modalites;
 		$this->faculte = $faculte;
 	}
 
@@ -22,14 +18,6 @@ class Formation {
 
 	public function getMention() {
 		return $this->mention;
-	}
-
-	public function getInformations() {
-		return $this->informations;
-	}
-
-	public function getModalites() {
-		return $this->modalites;
 	}
 
 	public function getFaculte() {
@@ -42,14 +30,6 @@ class Formation {
 
 	public function setMention($mention) {
 		$this->mention = $mention;
-	}
-
-	public function setInformations($informations) {
-		$this->informations = $informations;
-	}
-
-	public function setModalites($modalites) {
-		$this->modalites = $modalites;
 	}
 
 	public function setFaculte($faculte) {
