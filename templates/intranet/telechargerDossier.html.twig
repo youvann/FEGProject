@@ -15,9 +15,14 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <a href="{{ path }}" class="btn btn-primary btn-block" {% if (zip or empty) %}disabled="disabled"{% endif %}>Télécharger {{ dirName }}</a>
-            <a href="#" class="btn btn-danger btn-block" {% if empty %}disabled="disabled"{% endif %}>Supprimer le
-                contenu de {{ dirName }}</a>
+            <a href="{{ path }}" class="btn btn-info btn-block" {% if (zip or empty) %}disabled="disabled"{% endif %}>
+                <span class="glyphicon glyphicon-download"></span>
+                Télécharger {{ dirName }}
+            </a>
+            <a href="#" class="btn btn-danger btn-block" {% if empty %}disabled="disabled"{% endif %}>
+                <span class="glyphicon glyphicon-trash"></span>
+                Supprimer le contenu de {{ dirName }}
+            </a>
         </div>
     </div>
 

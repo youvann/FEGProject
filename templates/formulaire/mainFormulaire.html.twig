@@ -138,7 +138,7 @@
         $('#fonction').val('Développeur PHP');
 
         // Progress Bar
-        $('#mainFormulaire').showProgress({ message: { '10': 'You\'re off to a great start!', '25': 'You\'re doing great so far!', '50': 'You\'re halfway there!', '75': 'Look at that, you\'re nearly done already!', '100': 'All done! Just click <strong>Submit</strong> to continue!' } });
+        $('#mainFormulaire').showProgress({ message: { '10': '', '25': '', '50': '!', '75': '', '100': '' } });
 
         var uploadObj = $("#upload").uploadFile({
             url: "index.php?uc=formulaire&action=uploadDocuments",
