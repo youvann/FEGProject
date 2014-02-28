@@ -238,6 +238,7 @@
                 });
                 var idDossierPdf = $(this).attr('id');
                 var linkPdf = "index.php?uc=formation&action=previsualisationPdf&idDossierPdf=" + idDossierPdf + "&typePdf=" + typePdf;
+                //$(location).attr('href', linkPdf);
                 $.ajax({
                     url: linkPdf,
                     success: function (data) {

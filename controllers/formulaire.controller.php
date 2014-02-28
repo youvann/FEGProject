@@ -102,14 +102,10 @@ switch ($action) {
     case "main":
     {
         // Chargement des voeux
-        $formation = $formationManager->find ($_SESSION['codeFormation']);
+        $formation  = $formationManager->find ($_SESSION['codeFormation']);
         $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
         $voeux      = $voeuManager->findAllByDossierPdf ($dossierPdf);
-
-        foreach ($voeux as $voeu) {
-            //$voeu->setVilles ($voeuManager->getVilles ($voeu));
-        }
-        $nbVoeux = count ($voeux);
+        $nbVoeux    = count ($voeux);
 
         // Chargement des informations supplémentaires
         $structure = $translatorResultsetToStructure->translate ($informationManager->getResultset ($dossierPdf));
@@ -117,8 +113,8 @@ switch ($action) {
         $formHTML  = $form->getHTML ();
 
         // Chargement des documents généraux et spécifiques
-        $documentsGeneraux    = $documentGeneralManager->findAll ();
-        $documentsSpecifiques = $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf);
+        $documentsGeneraux    = ($_SESSION['isCandidature']) ? $documentGeneralManager->findAll () : $documentGeneralManager->findAllVisible ();
+        $documentsSpecifiques = ($_SESSION['isCandidature']) ? $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf) : $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf);
 
         $typeDossier = ($_SESSION["isCandidature"]) ? "CA" : "PI";
         echo $twig->render ('formulaire/mainFormulaire.html.twig', array ('dossierPdf' => $dossierPdf, 'formation' => $formation, 'voeux' => $voeux, 'nbVoeux' => $nbVoeux, 'form' => $formHTML, 'documentsGeneraux' => $documentsGeneraux, 'documentsSpecifiques' => $documentsSpecifiques, 'typeDossier' => $typeDossier));
@@ -145,12 +141,41 @@ switch ($action) {
         break;
     case "traiterMainFormulaire":
     {
+        $isCandidature    = $_SESSION['isCandidature'];
         $dossierPdf       = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
-        $structure        = $translatorResultsetToStructure->translate ($informationManager->getResultset ($dossierPdf));
-        $json             = ($_SESSION['isCandidature']) ? $translatorFormToJson->translate ($structure, array_slice ($_POST, array_search ('ville_preferee', array_keys ($_POST))+1)) : "";
 
-        $dateDeNaissance = $_POST['annee_date_naissance'] . "-" . $_POST["mois_date_naissance"] . "-" . $_POST["jour_date_naissance"];
-        $dossier         = new Dossier($_SESSION['idEtudiant'], $_POST['ine'], $_POST["genre"], $_SESSION['codeFormation'], $_POST["autre"], formatString ($_POST["nom"]), formatString ($_POST["prenom"]), formatString ($_POST["adresse"]), $_POST["complement"], formatString ($_POST["code_postal"]), formatString ($_POST["ville"]), $dateDeNaissance, formatString ($_POST["lieu_naissance"]), $_POST["fixe"], $_POST["portable"], $_POST["mail"], formatString ($_POST["langues"]), formatString ($_POST["nationalite"]), $_POST["serie_bac"], $_POST["annee_bac"], formatString ($_POST["etablissement_bac"]), $_POST["departement_bac"], $_POST["pays_bac"], $_POST["activite"], $_POST["titulaire"], $_POST["ville_preferee"], formatString ($_POST["autres_elements"]), $json);
+        $idEtudiant       = $_SESSION['idEtudiant'];
+        $ine              = $_POST['ine'];
+        $genre            = $_POST["genre"];
+        $codeFormation    = $_SESSION['codeFormation'];
+        $autre            = $_POST["autre"];
+        $nom              = formatString ($_POST["nom"]);
+        $prenom           = formatString ($_POST["prenom"]);
+        $adresse          = formatString ($_POST["adresse"]);
+        $complement       = $_POST["complement"];
+        $codePostal       = formatString ($_POST["code_postal"]);
+        $ville            = formatString ($_POST["ville"]);
+        $dateDeNaissance  = $_POST['annee_date_naissance'] . "-" . $_POST["mois_date_naissance"] . "-" . $_POST["jour_date_naissance"];
+        $lieuNaissance    = formatString ($_POST["lieu_naissance"]);
+        $fixe             = $_POST["fixe"];
+        $portable         = $_POST["portable"];
+        $mail             = $_POST["mail"];
+        $langues          = ($isCandidature) ? formatString ($_POST["langues"]) : "";
+        $nationalite      = formatString ($_POST["nationalite"]);
+        $serieBac         = $_POST["serie_bac"];
+        $anneeBac         = $_POST["annee_bac"];
+        $etablissementBac = formatString ($_POST["etablissement_bac"]);
+        $departementBac   = $_POST["departement_bac"];
+        $paysBac          = $_POST["pays_bac"];
+        $activite         = ($isCandidature) ? $_POST["activite"] : "";
+        $titulaire        = $_POST["titulaire"];
+        $villePreferee    = $_POST["ville_preferee"];
+        $autresElements   = ($isCandidature) ? formatString ($_POST["autres_elements"]) : "";
+
+        $structure        = $translatorResultsetToStructure->translate ($informationManager->getResultset ($dossierPdf));
+        $json             = ($isCandidature) ? $translatorFormToJson->translate ($structure, array_slice ($_POST, array_search ('ville_preferee', array_keys ($_POST)) + 1)) : "";
+
+        $dossier          = new Dossier($idEtudiant, $ine, $genre, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateDeNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $villePreferee, $autresElements, $json);
         $dossierManager->insert ($dossier);
 
         // Récupère tous les cursus
