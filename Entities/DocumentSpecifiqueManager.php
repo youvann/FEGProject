@@ -31,6 +31,17 @@ class DocumentSpecifiqueManager {
 		return $documentsSpecifiques;
 	}
 
+	public function findAllByDossierPdfVisible(DossierPdf $dossierPdf) {
+		$documentsSpecifiques = array();
+		$q = $this->db->prepare("SELECT * FROM `DOCUMENT_SPECIFIQUE` WHERE `DOSSIER_PDF` = ? AND `VISIBLE` = 1;");
+		$q->execute(array($dossierPdf->getId()));
+		$rs = $q->fetchAll();
+		foreach ($rs as $documentSpecifique) {
+			$documentsSpecifiques[] = new DocumentSpecifique($documentSpecifique['ID'], $documentSpecifique['DOSSIER_PDF'], $documentSpecifique['NOM'], $documentSpecifique['VISIBLE'], $documentSpecifique['URL']);
+		}
+		return $documentsSpecifiques;
+	}
+
 	public function insert(DocumentSpecifique $documentSpecifique) {
 		return $this->db->prepare("INSERT INTO `DOCUMENT_SPECIFIQUE` (`DOSSIER_PDF`, `NOM`, `VISIBLE`, `URL`) VALUES (?, ?, ?, ?);")
 						->execute(array(

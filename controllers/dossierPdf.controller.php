@@ -28,8 +28,8 @@ switch ($action) {
 		$dossierPdf = $dossierPdfManager->find($_POST['idDossierPdf']);
 		$json['id'] = $dossierPdf->getId();
 		$json['nom'] = $dossierPdf->getNom();
-		$json['informations'] = $dossierPdf->getInformations();
-		$json['modalites'] = $dossierPdf->getModalites();
+		$json['informations'] = $dossierPdf->getInformations() === NULL ? '' : $dossierPdf->getInformations();
+		$json['modalites'] = $dossierPdf->getModalites() === NULL ? '' : $dossierPdf->getModalites();
 		$json['codeFormation'] = $dossierPdf->getCodeFormation();
 		$response['dossierPdf'] = $json;
 		echo json_encode($response);
@@ -38,13 +38,13 @@ switch ($action) {
 	case 'ajout' :
 	{
 		$dossierPdfManager->insert(new DossierPdf(0, $_POST['nom'], $_POST['informations'], $_POST['modalites'], $_POST['code_formation']));
-		//header('location:index.php?uc=dossierPdf&action=grille&code='.$_POST['code_formation']);
+		header('location:index.php?uc=dossierPdf&action=grille&code='.$_POST['code_formation']);
 	}
 		break;
 	case 'modification' :
 	{
 		$dossierPdfManager->update(new DossierPdf($_POST['id'], $_POST['nom'], $_POST['informations'], $_POST['modalites'], $_POST['code_formation']));
-		//header('location:index.php?uc=dossierPdf&action=grille&code='.$_POST['code_formation']);
+		header('location:index.php?uc=dossierPdf&action=grille&code='.$_POST['code_formation']);
 	}
 		break;
 	case 'suppression' :
