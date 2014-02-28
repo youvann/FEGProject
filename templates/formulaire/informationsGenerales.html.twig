@@ -115,7 +115,7 @@
                     </select>
                     <select class="form-control"
                             id="annee_date_naissance"
-                            name="annee_date_naissance" style="width: 200px;">
+                            name="annee_date_naissance" style="width: 180px;">
                         {% set ecart = anneeBasse - 60 %}
                         {% for i in ecart..anneeBasse %}
                             <option {% if i == "now" | date('Y') %}selected="selected" {% endif %}

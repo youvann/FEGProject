@@ -30,18 +30,18 @@
 
                 {% include 'formulaire/documentsGeneraux.html.twig' %}
 
-                {% if formation.modalites is not empty %}
+                {% if dossierPdf.modalites is not empty %}
                     <div class="bs-callout bs-callout-warning">
                         <h3>Modalités</h3>
 
-                        <p>{{ formation.modalites | raw }}</p>
+                        <p>{{ dossierPdf.modalites | raw }}</p>
                     </div>
                 {% endif %}
 
-                {% if formation.informations is not empty %}
+                {% if dossierPdf.informations is not empty %}
                     <div class="bs-callout bs-callout-info">
                         <h3>Informations</h3>
-                        <p>{{ formation.informations | raw }}</p>
+                        <p>{{ dossierPdf.informations | raw }}</p>
                     </div>
                 {% endif %}
 
@@ -142,7 +142,7 @@
         $('#fonction').val('Développeur PHP');
 
         // Progress Bar
-        $('#mainFormulaire').showProgress({ message: { '10': 'You\'re off to a great start!', '25': 'You\'re doing great so far!', '50': 'You\'re halfway there!', '75': 'Look at that, you\'re nearly done already!', '100': 'All done! Just click <strong>Submit</strong> to continue!' } });
+        $('#mainFormulaire').showProgress({ message: { '10': '', '25': '', '50': '!', '75': '', '100': '' } });
 
         var uploadObj = $("#upload").uploadFile({
             url: "index.php?uc=formulaire&action=uploadDocuments",
