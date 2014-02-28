@@ -26,10 +26,10 @@
                                     Sélectionnez &mdash;</option>
                                 {% for dossierPdf in dossiersPdf %}
                                     <option
-                                    {# if get.dossier is defined and get.dossier == dossierPdf.id }
-                                        selected
-                                    {#  endif #}
-                                    value="{{ dossierPdf.id }}">{{ dossierPdf.nom }}</option>
+                                            {# if get.dossier is defined and get.dossier == dossierPdf.id }
+                                                selected
+                                            {#  endif #}
+                                            value="{{ dossierPdf.id }}">{{ dossierPdf.nom }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -139,7 +139,11 @@
                             console.log(doc)
                             var li = $('<li></li>').append(doc[0]);
                             if (doc[1] !== "") {
-                                var link = $('<a></a>')
+                                var link = $('<a></a>').on('click', function () {
+                                    window.open(this.href);
+                                    return false;
+                                })
+                                        .addClass('linkDocumentSpecifique')
                                         .attr('href', doc[1]).
                                         append('Cliquez ici pour télécharger le document');
                                 li.append(' - ')
