@@ -98,7 +98,8 @@
                 <span class="en">Birthdate</span>
                 <span class="label label-danger">Requis</span>
                 <div class="input-group date">
-                    <input type="text"  class="form-control" id="dateNaissance" name="dateNaissance">
+                    <input type="text"  class="form-control" id="dateNaissance" name="dateNaissance"
+                           data-validation="required" value="{{ "now" | date("d/m/Y") }}">
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-th"></i>
                     </span>
@@ -321,7 +322,9 @@
                         class="en">Year</span>
                 <span class="label label-danger">Requis</span>
                 <div class="input-group date">
-                    <input type="text" class="form-control" id="annee_bac" name="annee_bac"/>
+                    <input type="text" class="form-control" id="annee_bac" name="annee_bac"
+                           data-validation="required"
+                           value="{{ "now" | date("Y") }}"/>
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-th"></i>
                     </span>

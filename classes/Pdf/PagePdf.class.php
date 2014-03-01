@@ -23,6 +23,10 @@ class PagePdf {
     private $isCandidature;
     private $isPrev;
 
+    private $numInscription;
+    // Url pièces manquantes
+    private $urlPiecesmanquantes;
+
     // Titre
     private $title1;
     private $title2;
@@ -202,7 +206,6 @@ class PagePdf {
 
             </style>';
 
-
     }
 
     public function setCssPath ($cssPath) {
@@ -230,6 +233,30 @@ class PagePdf {
         if ($this->isCandidature) {
             return $this->getOther () . $this->getPageEnd() . $this->getNewPage () . $this->getInformationsSpecifiques ();
         }
+    }
+
+    public function getNumInscription (){
+        return $this->numInscription;
+    }
+
+    public function setNumInscription($numInscription){
+        $this->numInscription = $numInscription;
+    }
+
+    public function printNumInscription (){
+        return "<span><b>Votre numéro d'inscription : </b>".$this->numInscription."</span>";
+    }
+
+    public function geturlPiecesmanquantes (){
+        return $this->urlPiecesmanquantes;
+    }
+
+    public function printUrlPiecesmanquantes (){
+        return "<div><b>Si vous avez oublié de nous transmettre des documents, veuillez cliquer sur ce <a href='".$this->urlPiecesmanquantes."'>lien</a>.</b></div>";
+    }
+
+    public function setUrlPiecesManquantes($urlPiecesmanquantes){
+        $this->urlPiecesmanquantes = $urlPiecesmanquantes;
     }
 
     public function setTitle ($title1, $title2) {
@@ -329,6 +356,8 @@ class PagePdf {
     public function getApplicant () {
         return '<div class="titre_encadre">CANDIDAT</div>
                 <br>
+                ' . $this->printUrlPiecesmanquantes() .
+                '<br/>' . $this->printNumInscription() .'<br/><br/>
                 <span class="bold">' . $this->applicantSex . '</span>
                 <br><br>
                 <table>

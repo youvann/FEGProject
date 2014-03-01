@@ -144,8 +144,6 @@ switch ($action) {
         $isCandidature    = $_SESSION['isCandidature'];
         $dossierPdf       = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
 
-
-
         $idEtudiant       = $_SESSION['idEtudiant'];
         $ine              = $_POST['ine'];
         $genre            = $_POST["genre"];
@@ -266,13 +264,17 @@ switch ($action) {
         $experiences   = $experienceManager->findAllByDossier ($dossier);
         $villePreferee = $dossier->getVillePreferee ();
 
+        $codeFormation = $formation->getCodeFormation ();
+
         // Récupère les voeux par ordre croissant
         $faires = $faireManager->findAllByDossier ($dossier);
+        $codesEtapes = array();
         $voeux  = array ();
         foreach ($faires as $faire) {
             $voeu                       = $voeuManager->find ($faire->getCodeEtape ());
             $voeu                       = $voeu->getEtape ();
             $voeux[$faire->getOrdre ()] = $voeu;
+            $codesEtapes[] = $faire->getCodeEtape();
         }
         $informationsSpecifiques =  ($_SESSION["isCandidature"]) ? $translatorJsonToHTML->translate ($json, $structure) : "";
 
@@ -294,7 +296,7 @@ switch ($action) {
         /*
          * Corps du pdf
          */
-        $logoPath = "public/img/logos/" . $formation->getCodeFormation ();
+        $logoPath = "public/img/logos/" . $codeFormation;
         $empty    = is_dir_empty ($logoPath);
         $logoName = $empty ? "" : getFileName ($logoPath);
         if (!$empty) {
@@ -310,9 +312,19 @@ switch ($action) {
         $naissanceArray  = explode ("-", $naissanceArray);
         $dateDeNaissance = $naissanceArray[2] . "/" . $naissanceArray[1] . "/" . $naissanceArray[0];
 
+        $nom          = $dossier->getNom ();
+        $prenom       = $dossier->getPrenom ();
+        $idEtudiant   = $dossier->getIdEtudiant ();
+        $typeDossier  = ($_SESSION['isCandidature']) ? "Candidature" : "Pre-inscription";
+        $idDossierPdf = $dossierPdf->getId ();
+
+        $urlPiecesManquantes = "http://www.miage-aix-marseille.fr/candid_feg/index.php?uc=formulaire&action=uploadPiecesManquantes&idEtudiant=".$idEtudiant."&codeFormation=".$codeFormation."&typeDossier=".$typeDossier."&idDossierPdf=".$idDossierPdf;
+
         // Mention de la formation
         $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $dossierPdf->getNom ());
         $pagePdf->setHolder (' ' . $titulaire[0]->getLibelle (), ' ' . $titulaire[1]->getLibelle (), ' ' . $titulaire[2]->getLibelle (), $dossier->getTitulaire ());
+        $pagePdf->setUrlPiecesManquantes($urlPiecesManquantes);
+        $pagePdf->setNumInscription($idEtudiant);
         $pagePdf->setApplicant ($dossier->getGenre (), $dossier->getNom (), $dossier->getPrenom (), $dossier->getLieuNaissance (), $dateDeNaissance, $dossier->getIne (), $dossier->getAdresse () . ' ' . $dossier->getComplement () . ' ' . $dossier->getVille () . ' ' . $dossier->getCodePostal (), $dossier->getFixe (), $dossier->getPortable (), $dossier->getMail (), $dossier->getActivite ());
         $pagePdf->setPlanFormation ($voeux, $villePreferee);
         $pagePdf->setPrevFormation ($dossier->getSerieBac (), $dossier->getAnneeBac (), $dossier->getEtablissementBac (), $dossier->getDepartementBac (), $dossier->getPaysBac (), $cursus);
@@ -368,7 +380,7 @@ switch ($action) {
         $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier . "s";
         $pathPdf = $dirPath . "/" . $dirName . "/" . $typeDossier . "-" . $dirName;
         $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
-        echo $twig->render ('formulaire/recapitulatif.html.twig', array ('dossierPdf' => $dossierPdf->getNom(), 'pathPdf' => $pathPdf, 'typeDossier' => $typeDossier, 'idEtudiant' => $_SESSION['idEtudiant']));
+        echo $twig->render ('formulaire/recapitulatif.html.twig', array ('dossierPdf' => $dossierPdf->getNom(), 'pathPdf' => $pathPdf, 'typeDossier' => $typeDossier, 'idEtudiant' => $_SESSION['idEtudiant'], 'codeFormation' => $_SESSION['codeFormation'], "idDossierPdf" => $_SESSION['idDossierPdf']));
     }
         break;
     case "getTemplateCursus" :
@@ -379,6 +391,64 @@ switch ($action) {
     case "getTemplateExperience" :
     {
         echo $twig->render ('formulaire/template.experience.html.twig', array ('indice' => $_GET['indice']));
+    }
+        break;
+    case "uploadPiecesManquantes" :
+    {
+        $idEtudiant    = $_GET['idEtudiant'];
+        $codeFormation = $_GET['codeFormation'];
+        $typeDossier   = $_GET['typeDossier'];
+        $idDossierPdf  = $_GET['idDossierPdf'];
+
+        $dossier       = $dossierManager->find ($idEtudiant, $codeFormation);
+        $nom           = $dossier->getNom ();
+        $prenom        = $dossier->getPrenom ();
+
+        $faires        = $faireManager->findAllByDossier ($dossier);
+        $codesEtapes   = array ();
+        foreach ($faires as $faire) {
+            $codesEtapes[] = $faire->getCodeEtape ();
+        }
+
+        $dossierPdf    = $dossierPdfManager->find ($idDossierPdf);
+        $nomDossierPdf = $dossierPdf->getNom ();
+
+        // Chargement des documents généraux et spécifiques
+        $documentsGeneraux    = ($typeDossier == "candidature") ? $documentGeneralManager->findAll () : $documentGeneralManager->findAllVisible ();
+        $documentsSpecifiques = ($typeDossier == "candidature") ? $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf) : $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf);
+
+        echo $twig->render ('formulaire/uploadPiecesManquantes.html.twig', array (
+            "nom" => $nom,
+            "prenom" => $prenom,
+            "idEtudiant" => $idEtudiant,
+            "typeDossier" => $typeDossier,
+            "codeFormation" => $codeFormation,
+            "codesEtapes" => $codesEtapes,
+            "nomDossierPdf" => $nomDossierPdf,
+            "documentsGeneraux" => $documentsGeneraux,
+            "documentsSpecifiques" => $documentsSpecifiques
+        ));
+    }
+        break;
+    case "uploaderPiecesManquantes" :
+    {
+        $codeFormation = $_GET['codeFormation'];
+        $nom           = $_GET['nom'];
+        $prenom        = $_GET['prenom'];
+        $idEtudiant    = $_GET['idEtudiant'];
+        $typeDossier   = ucfirst ($_GET['typeDossier']);
+
+        $voeux = array();
+        foreach($_GET['voeu'] as $voeu){
+            $voeux[] = $voeu;
+        }
+        // Chemin du répetoire qui contient le répertoire de l'étudiant
+        //$dirPath = "dossiers/" . $codeFormation . "/" . $voeux[0] . "/" . $typeDossier . "s";
+        // Nom du répertoire de l'étudiant
+        $dirNameId = $nom . "-" . $prenom . "-" . $idEtudiant;
+        $path1 = "dossiers/" . $codeFormation;
+        $path2 = $typeDossier . "s" . "/" . $dirNameId;
+        uploadMultiLocations ($path1, $path2, $voeux);
     }
         break;
     default:
