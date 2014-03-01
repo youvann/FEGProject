@@ -83,7 +83,10 @@
     {{ parent() }}
     <script src="public/js/jquery-upload/jquery.uploadfile.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.38/jquery.form-validator.min.js"></script>
+    <script src="public/js/bootstrap-formhelpers.min.js"></script>
     <script src="public/js/jq.progress-bar.js"></script>
+    <script src="public/js/datepicker/bootstrap-datepicker.js"></script>
+    <script src="public/js/datepicker/locales/bootstrap-datepicker.fr.js"></script>
     <script type="text/javascript">
     Array.prototype.allValuesAreDifferent = function () {
         var ok = true;
@@ -132,7 +135,6 @@
         $('#ville').val('Aix-en-Provence');
         $('#mail').val('measkevin@gmail.com ');
         $('#serie_bac').val('Scientifique');
-        $('#annee_bac').val('2010');
         $('#etablissement_bac').val('Lycée Roland Garros');
         $('#langues').val('Anglais');
         $('#activite').val('Etudiant');
@@ -144,6 +146,19 @@
 
         // Progress Bar
         $('#mainFormulaire').showProgress({ message: { '10': '', '25': '', '50': '!', '75': '', '100': '' } });
+
+        $('#datePickerNaissance .input-group.date').datepicker({
+            language: "fr",
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        $('#datePickerYearBac .input-group.date').datepicker({
+            format: "yyyy",
+            language: "fr",
+            autoclose: true,
+            todayHighlight: true
+        });
 
         var uploadObj = $("#upload").uploadFile({
             url: "index.php?uc=formulaire&action=uploadDocuments",
@@ -247,7 +262,7 @@
             $('select[name="voeu[]"]').each(function () {
                 voeux.push($(this).val());
             });
-            console.log(voeux);
+            //console.log(voeux);
             if (!isFileAjouterGlobal) {
                 $('.modal-body').html($('.modal-body').html() + '<br>Veuillez ajouter les documents à joindre');
             }

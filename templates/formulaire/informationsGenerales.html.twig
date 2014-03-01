@@ -2,7 +2,7 @@
 
 <input type="hidden" id="autre" name="autre" value=""/>
 <div class="panel panel-primary">
-    <div class="panel-heading">Candidat <span class="en_cadre"> | Applicant</span>
+    <div class="panel-heading">Candidat <span class="en_cadre"> / Applicant</span>
     </div>
     <div class="panel-body">
         <div class="row">
@@ -56,14 +56,14 @@
                         <label>
                             <input type="radio" name="genre" id="femme"
                                    value="Madame" checked>
-                            Madame <span class="en">Mrs.</span>
+                            Madame / <span class="en">Mrs.</span>
                         </label>
                     </div>
                     <div class="radio">
                         <label>
                             <input type="radio" name="genre" id="homme"
                                    value="Monsieur">
-                            Monsieur <span class="en">Mr.</span>
+                            Monsieur / <span class="en">Mr.</span>
                         </label>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="nom">Nom</label> <span class="en">Last name</span>
+                    <label for="nom">Nom</label> / <span class="en">Last name</span>
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="nom"
                            name="nom" placeholder="Votre nom"
@@ -82,7 +82,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="prenom">Prénom</label> <span
+                    <label for="prenom">Prénom</label> / <span
                             class="en">First name</span>
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="prenom"
@@ -91,11 +91,28 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
-            <div class="col-md-6">
+            <div id="datePickerNaissance" class="col-md-6">
+                <label for="dateNaissance">Date de naissance</label> /
+                <span class="en">Birthdate</span>
+                <span class="label label-danger">Requis</span>
+                <div class="input-group date">
+                    <input type="text"  class="form-control" id="dateNaissance" name="dateNaissance"
+                           data-validation="required" value="{{ "now" | date("d/m/Y") }}">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-th"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!--<div class="col-md-6">
                 <label for="annee_date_naissance">Date de naissance</label>
                 <span class="en">Birthdate</span>
                 <span class="label label-danger">Requis</span>
+
+
+
 
                 <div class="form-group form-inline">
 
@@ -124,11 +141,11 @@
                     </select>
 
                 </div>
-            </div>
+            </div>-->
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="lieu_naissance">Lieu de naissance</label> <span
-                            class="en">Birth place</span>
+                    <label for="lieu_naissance">Lieu de naissance</label> /
+                    <span class="en">Birth place</span>
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required"
                            id="lieu_naissance" name="lieu_naissance"
@@ -140,7 +157,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="nationalite">Nationalité</label> <span class="en">Citizenship</span>
+                    <label for="nationalite">Nationalité</label> / <span class="en">Citizenship</span>
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="nationalite"
                            name="nationalite"
@@ -152,7 +169,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="ine">N° INE (pour étudiants en France)</label> <span
+                    <label for="ine">N° INE (pour étudiants en France)</label> / <span
                             class="en">INE number (only for students already in Frane)</span>
                     <input type="text" class="form-control" id="ine"
                            name="ine"
@@ -164,14 +181,14 @@
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Coordonnées & contact <span class="en_cadre"> | Address & contact</span>
+    <div class="panel-heading">Coordonnées & contact <span class="en_cadre"> / Address & contact</span>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="adresses">Adresse</label> <span
-                            class="en">Adresse</span>
+                    <label for="adresses">Adresse</label> /
+                    <span class="en">Adresse</span>
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="adresse"
                            name="adresse"
@@ -180,7 +197,8 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="complement">Complément d'adresse</label>
+                    <label for="complement">Complément d'adresse</label> /
+                    <span class="en">Complement</span>
                     <input type="text" class="form-control" id="complement"
                            name="complement"
                            placeholder="Bâtiment, étage, appartement ..."/>
@@ -188,7 +206,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="code_postal">Code postal</label> <span class="en">Zip code</span>
+                    <label for="code_postal">Code postal</label> / <span class="en">Zip code</span>
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="code_postal"
                            name="code_postal"
@@ -201,7 +219,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="ville">Ville</label> <span class="en">City</span>
+                    <label for="ville">Ville</label> / <span class="en">City</span>
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="ville"
                            name="ville"
@@ -213,14 +231,14 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="fixe">Téléphone fixe</label> <span class="en">Phone number</span>
+                    <label for="fixe">Téléphone fixe</label> / <span class="en">Phone number</span>
                     <input type="tel" class="form-control" id="fixe" name="fixe"
                            placeholder="Votre numéro"/>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="portable">Téléphone mobile</label> <span class="en">Mobile number</span>
+                    <label for="portable">Téléphone mobile</label> / <span class="en">Mobile number</span>
                     <input type="tel" class="form-control" id="portable"
                            name="portable"
                            placeholder="Votre numéro"/>
@@ -228,7 +246,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="mail">Adresse électronique</label> <span class="en">E-mail</span>
+                    <label for="mail">Courriel</label> / <span class="en">E-mail</span>
                     <span class="label label-danger">Requis</span>
                     <input type="email" class="form-control required" id="mail"
                            name="mail" placeholder="Votre mail"
@@ -240,13 +258,13 @@
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Baccalauréat ou équivalent <span class="en_cadre"> | High school diploma</span>
+    <div class="panel-heading">Baccalauréat ou équivalent <span class="en_cadre"> / High school diploma</span>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="serie_bac">Série</label> <span class="en">Type</span>
+                    <label for="serie_bac">Série</label> / <span class="en">Type</span>
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="serie_bac"
                            name="serie_bac"
@@ -255,7 +273,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="etablissement_bac">Etablissement</label> <span
+                    <label for="etablissement_bac">Etablissement</label> / <span
                             class="en">Establishment</span>
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required"
@@ -269,7 +287,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="departement_bac">Département</label> <span
+                    <label for="departement_bac">Département</label> / <span
                             class="en">Department</span>
                     <span class="label label-danger">Requis</span>
                     <select class="form-control" id="departement_bac"
@@ -284,7 +302,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="pays_bac">Pays</label> <span
+                    <label for="pays_bac">Pays</label> / <span
                             class="en">Country</span>
                     <span class="label label-danger">Requis</span>
                     <select class="form-control" id="pays_bac"
@@ -296,11 +314,22 @@
                             </option>
                         {% endfor %}
                     </select>
+
                 </div>
             </div>
-            <div class="col-md-4">
-
-                <div class="form-group">
+            <div class="col-md-4" id="datePickerYearBac">
+                <label for="annee_bac">Année d'obtention</label> / <span
+                        class="en">Year</span>
+                <span class="label label-danger">Requis</span>
+                <div class="input-group date">
+                    <input type="text" class="form-control" id="annee_bac" name="annee_bac"
+                           data-validation="required"
+                           value="{{ "now" | date("Y") }}"/>
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-th"></i>
+                    </span>
+                </div>
+                <!--<div class="form-group">
                     <label for="annee_bac">Année d'obtention du bac</label> <span
                             class="en">Year</span>
                     <span class="label label-danger">Requis</span>
@@ -313,7 +342,7 @@
                                     value="{{ i }}">{{ i }}</option>
                         {% endfor %}
                     </select>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

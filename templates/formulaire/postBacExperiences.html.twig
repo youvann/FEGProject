@@ -1,6 +1,6 @@
 {% set mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"] %}
 <div class="panel panel-primary">
-    <div class="panel-heading">Formation antérieur <span class="en_cadre">Previous formation</span>
+    <div class="panel-heading">Formation antérieure / <span class="en_cadre">Previous formation</span>
     </div>
     <div class="panel-body">
         <p>Veuillez détailler votre parcours post-bac.</p>
@@ -24,20 +24,22 @@
         <div id="blockCursus-1">
             <div class="well well-lg">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="anneeDebutCursus[]">Année de début</label>
+                            <label for="anneeCursus[]">Années</label> /
+                            <span class="en">Years</span>
+                            <span class="label label-danger">Requis</span>
                             <select class="form-control"
-                                    id="anneeDebutCursus[]"
-                                    name="anneeDebutCursus[]">
+                                    id="anneeCursus[]"
+                                    name="anneeCursus[]">
                                 {% set ecart = anneeBasse - 60 %}
                                 {% for i in ecart..anneeBasse %}
-                                    <option {% if i == "now" | date('Y') - 1 %}selected="selected" {% endif %}value="{{ i }}">{{ i }}</option>
+                                    <option {% if i == "now" | date('Y') %}selected="selected" {% endif %}value="{{ i - 1 }}-{{ i }}">{{ i - 1 }}-{{ i }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <!--<div class="col-md-2">
                         <div class="form-group">
                             <label for="anneeFinCursus[]">Année de fin</label>
                             <select class="form-control"
@@ -49,10 +51,10 @@
                                 {% endfor %}
                             </select>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label for="etablissement[]">Etablissement</label>
+                            <label for="etablissement[]">Etablissement</label> /
                             <span class="en">Establishment</span>
                             <span class="label label-danger">Requis</span>
                             <input type="text" class="form-control required"
@@ -66,7 +68,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="valide[]">Note (résultat)
-                            </label>
+                            </label> /
                             <span class="en">Mark</span>
                             <input type="text" class="form-control" id="valide[]"
                                    name="valide[]"/>
@@ -74,7 +76,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label for="cursus[]">Cursus suivi</label> <span
+                            <label for="cursus[]">Cursus suivi</label> / <span
                                     class="en">Followed formation</span>
                             <span class="label label-danger">Requis</span>
                             <input type="text" class="form-control required"
@@ -89,7 +91,8 @@
 </div>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Expériences professionnelles (emplois, stages)</div>
+    <div class="panel-heading">Expériences professionnelles (emplois, stages)
+    / <span class="en_cadre">Professional experience</span></div>
     <div class="panel-body">
 
         <div class="row">

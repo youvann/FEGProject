@@ -1,5 +1,5 @@
 <div class="panel panel-primary">
-    <div class="panel-heading">Choix de la spécialité</div>
+    <div class="panel-heading">Choix de la spécialité / <span class="en_cadre">Wish(es) selection</span></div>
     <div class="panel-body">
         {% set nbListes = 3 %}
         {% if nbVoeux < 3 %}
@@ -7,10 +7,9 @@
         {% endif %}
         {% for i in 1..nbListes %}
             <div class="form-group">
-                <label for="voeu-{{ i }}">Sélectionnez votre voeu n°{{ i }}</label>
+                <label for="voeu-{{ i }}">Sélectionnez votre voeu n°{{ i }}</label> /
                 <span class="en">Select your wish</span>
-            <span
-                    class="label label-danger">Requis</span>
+                <span class="label label-danger">Requis</span>
                 <select class="form-control" id="voeu-{{ i }}" name="voeu[]">
                     {% for voeu in voeux %}
                         {% set villes = voeu.villes %}
@@ -23,12 +22,11 @@
                 </select>
             </div>
         {% endfor %}
-        <div class="form-group required">
-            <label>Ville préférée</label>
-            <span class="label label-danger">Requis</span>
-            <input class="form-control required" type="text" id="ville_preferee"
-                   name="ville_preferee"
-                   data-validation="required"/>
+        <div class="form-group">
+            <label for="ville_preferee">Ville préférée</label> /
+            <span class="en">Prefer city</span>
+            <input class="form-control" type="text" id="ville_preferee"
+                   name="ville_preferee"/>
         </div>
     </div>
 </div>

@@ -18,7 +18,7 @@
                         <div id="divChoisie" class="form-group">
                             <label for="choisie">Sélectionnez la formation souhaitée
                                 pour l'année scolaire
-                                2014-2015</label>
+                                {{ "now" | date("Y")}}-{{ "now" | date("Y") + 1}}</label> /
                             <span class="en">Whish training</span>
                             <span class="label label-danger">Requis</span>
                             <select class="form-control" id="choisie" name="choisie">

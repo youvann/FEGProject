@@ -5,10 +5,16 @@
     <div class="row" style="margin-top: 1em;">
         <div class="col-md-12">
             <h2 class="titre_rubrique">Récapitulatif</h2>
-            <div class="alert alert-success">Votre demande de {{ typeDossier | lower }} a bien été prise en compte. Veuillez conserver votre <b>numéro d'inscription</b> : {{ idEtudiant }} .</div>
+            <div class="alert alert-success">
+                <span class='glyphicon glyphicon-saved'></span>
+                 Votre demande de {{ typeDossier | lower }} a bien été prise en compte. Veuillez conserver votre <b>numéro d'inscription</b> : {{ idEtudiant }} .
+            </div>
             <div class="alert alert-warning">
-                Veuillez <b>conserver</b> le dossier de candidature PDF ci-dessous. Ce document contient des informations sur les modalités d'inscription.
-                <br/>(Si le PDF ne s'affiche pas correctement, veuillez recharger la page)
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                 Veuillez <b>conserver</b> le dossier de {{ typeDossier | lower }} PDF ci-dessous.
+                <br/>
+                Ce document contient des informations sur les modalités d'inscription et un
+                <a href="index.php?uc=formulaire&action=uploadPiecesManquantes&idEtudiant={{ idEtudiant }}&codeFormation={{ codeFormation }}&typeDossier={{ typeDossier | lower }}&idDossierPdf={{ idDossierPdf }}">lien</a> permettant de rajouter des documents que vous auriez oublié à votre dossier de {{ typeDossier | lower }}.
             </div>
 
             <a href="{{ pathPdf }}.pdf" download class="btn btn-info btn-block">
@@ -23,7 +29,6 @@
                     height="700px">
                 <p>Si le PDF ne s'affiche pas, veuillez recharger la page.</p>
             </object>
-
         </div>
     </div>
 {% endblock %}
