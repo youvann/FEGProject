@@ -11,7 +11,7 @@
         <li class="active">Liste des informations</li>
     </ol>
 
-    <h2 class="titre_rubrique">Liste des informations</h2>
+    <h2 class="titre_rubrique">Liste des informations {{ dossierPdf.nom }}</h2>
     {% if session.grade > 1 %}
     <a href="index.php?uc=information&action=ajouter&dossierPdf={{ dossierPdf.id }}" class="btn btn-lg btn-primary">
         <span class="glyphicon glyphicon-plus-sign"></span> Ajouter une information

@@ -21,8 +21,12 @@
                             <!--<li class="{% if get.uc == 'intranet' and get.action == 'accueil' %}active{% endif %}"><a
                                         href="index.php?uc=intranet&action=accueil">Accueil</a></li>-->
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion
-                                    <span class="label label-info">{{ session.name }}</span> <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="gestion">Gestion
+                                    {% if session.name == "Administrateur" %}<span class="label label-danger">{% endif %}
+                                    {% if session.name == "Responsable" %}<span class="label label-info">{% endif %}
+                                    {% if session.name == "Secrétaire" %}<span class="label label-warning">{% endif %}
+                                    {{ session.name }}</span> <b class="caret"></b>
+                                </a>
                                 <ul class="dropdown-menu">
                                     <li class="{% if get.uc == 'intranet' and get.action == 'carte' %}active{% endif %}">
                                         <a
@@ -32,7 +36,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Formations <b
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="formations">Formations <b
                                             class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li class="{% if get.uc == 'formation' and get.action == 'grille' %}active{% endif %}">
@@ -46,7 +50,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documents généraux à
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="documents">Documents généraux à
                                     joindre <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li class="{% if get.uc == 'documentGeneral' and get.action != 'ajouter' %}active{% endif %}">

@@ -1,9 +1,11 @@
 {% extends 'intranet.html.twig' %}
 
 {% block content %}
-
     <h2 class="titre_rubrique">Bienvenue sur l'intranet</h2>
     <h3 class="titre_rubrique2">Que puis-je faire dans cet espace ?</h3>
+    <br/>
+    <button class="btn btn-info tourAccueil" data-tour="tour1">Lancez le guide</button>
+    <br/><br/>
 
     <div class="bs-callout bs-callout-warning">
         <h4>Secrétaires</h4>
@@ -64,6 +66,52 @@
         </ul>
     </div>
 
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="public/js/underscore.min.js"></script>
+    <script type="text/javascript" src="public/js/backbone.min.js"></script>
+    <script type="text/javascript" src="public/js/tourist.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var steps = [
+                {
+                    content: '<p>Accédez à l\'explorateur de fichiers et à la carte du site via cet onglet.</p>',
+                    highlightTarget: true,
+                    nextButton: true,
+                    target: $('#gestion'),
+                    my: 'top left',
+                    at: 'left bottom'
+                },
+                {
+                    content: '<p>Accédez aux formations en cliquant ici.</p>',
+                    highlightTarget: true,
+                    nextButton: true,
+                    target: $('#formations'),
+                    my: 'top left',
+                    at: 'left bottom'
+                },
+                {
+                    content: '<p>And then at this thing</p>',
+                    highlightTarget: true,
+                    nextButton: true,
+                    target: $('#documents'),
+                    my: 'top left',
+                    at: 'left bottom'
+                }
+            ];
 
+            var tour = new Tourist.Tour({
+                steps: steps,
+                tipClass: 'Bootstrap',
+                tipOptions: { showEffect: 'slidein' }
+            });
+            $('.tourAccueil').click(function(){
+                tour.start();
+            });
+
+        });
+
+    </script>
 {% endblock %}
