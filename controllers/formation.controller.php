@@ -75,40 +75,6 @@ switch ($action) {
 		echo json_encode ($response);
 	}
 		break;
-	case "dependances":
-	{
-		$dossierPdf  = $dossierPdfManager->find ($_GET['dossierPdf']);
-		$dependances = $dependreManager->findEtapes ($dossierPdf);
-
-		$formations       = $formationManager->findAll ();
-		$voeux            = $voeuManager->findAll ();
-		$voeuxCompatibles = array ();
-		foreach ($dependances as $dependance) {
-			$voeuxCompatibles[] = $voeuManager->find ($dependance->getCodeEtape ());
-		}
-
-		echo $twig->render ('formation/dependances.html.twig', array ('dossierPdf' => $dossierPdf, 'formations' => $formations, 'voeuxCompatibles' => $voeuxCompatibles, 'voeux' => $voeux));
-	}
-		break;
-	case "modificationDependances":
-	{
-		$dossierPdf = $dossierPdfManager->find ($_POST['idDossier']);
-
-		$dependances = $dependreManager->findEtapes ($dossierPdf);
-
-		foreach ($dependances as $dependance) {
-			$dependreManager->delete ($dependance);
-		}
-
-		if (isset($_POST['voeux'])) {
-			foreach ($_POST['voeux'] as $voeu) {
-				$unVoeu = $voeuManager->find ($voeu);
-				$dependreManager->insert (new Dependre(intval ($_POST['idDossier']), $unVoeu->getCodeEtape ()));
-			}
-		}
-		header ('location:index.php?uc=formation&action=dependances&dossierPdf=' . $_POST['idDossier']);
-	}
-		break;
 	case "syntheseCsv":
 	{
         $csvFileName = 'dossiers/' . $_GET['code'] . '/Synthese.csv';

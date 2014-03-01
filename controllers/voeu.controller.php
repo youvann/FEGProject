@@ -98,6 +98,7 @@ switch ($action) {
 		break;
 	case "codeEtapePossible":
 	{
+		FileHeader::headerJson();
 		$q = $conn->prepare("SELECT IF(count(*) = 1, FALSE, TRUE) as ok FROM `voeu` WHERE `code_etape` = ?;");
 		$q->execute(array($_POST['code']));
 		$rs = $q->fetch();

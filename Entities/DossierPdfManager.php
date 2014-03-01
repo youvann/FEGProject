@@ -40,6 +40,15 @@ class DossierPdfManager {
         return $dossiers;
     }
 
+	public function myFindAll(){
+		$dossiers = array ();
+		$rs = $this->db->query("SELECT * FROM `dossier_pdf` ORDER BY `NOM`;")->fetchAll();
+		foreach ($rs as $dossier) {
+			$dossiers[] = new DossierPdf($dossier['ID'], $dossier['NOM'], $dossier['INFORMATIONS'], $dossier['MODALITES'], $dossier['CODE_FORMATION']);
+		}
+		return $dossiers;
+	}
+
     public function insert(DossierPdf $dossierPdf) {
         return $this->db->prepare("INSERT INTO `dossier_pdf` (`NOM`, `INFORMATIONS`, `MODALITES`, `CODE_FORMATION`) VALUES (?, ?, ?, ?);")
             ->execute(array(

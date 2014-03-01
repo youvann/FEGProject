@@ -13,12 +13,13 @@
     </ol>
 
     <h2 class="titre_rubrique">Documents requis par la formation</h2>
-
+    {% if session.grade > 1 %}
     <a href="index.php?uc=documentSpecifique&action=ajouter&dossierPdf={{ dossierPdf.id }}"
        class="btn btn-lg btn-primary">
         <span class="glyphicon glyphicon-plus-sign"></span> Ajouter un document à joindre
     </a>
-
+    {% endif %}
+    <hr />
     {% if documentsSpecifiques is not empty %}
 
         <table style="margin-top: 1em;" class="table table-hover table-bordered table-striped">
@@ -34,8 +35,9 @@
                     <tr class="active">
                 {% endif %}
                 <td>{{ documentSpecifique.nom }}</td>
-                <td>{{ documentSpecifique.url }}</td>
+                <td><a class="linkDocument" href="{{ documentSpecifique.url }}">{{ documentSpecifique.url }}</a></td>
                 <td>
+                    {% if session.grade > 1 %}
                     <div class="btn-group">
                         <a href="index.php?uc=documentSpecifique&action=modifier&id={{ documentSpecifique.id }}"
                            type="button" class="btn btn-warning">
@@ -46,6 +48,7 @@
                             <span class="glyphicon glyphicon-trash"></span> Supprimer
                         </a>
                     </div>
+                    {% endif %}
                 </td>
                 </tr>
             {% endfor %}
@@ -95,6 +98,11 @@
             });
             $('#btnOk').click(function () {
                 window.location.href = lastPushedButton.attr("href");
+            });
+
+            $('a.linkDocument').click(function() {
+                window.open(this.href);
+                return false;
             });
         });
     </script>

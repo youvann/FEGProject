@@ -14,7 +14,7 @@ class DocumentSpecifiqueManager {
 	}
 
 	public function find($id) {
-		$q = $this->db->prepare("SELECT * FROM `DOCUMENT_SPECIFIQUE` WHERE `ID` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `document_specifique` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
 		return new DocumentSpecifique($rs['ID'], $rs['DOSSIER_PDF'], $rs['NOM'], $rs['VISIBLE'], $rs['URL']);
@@ -22,7 +22,7 @@ class DocumentSpecifiqueManager {
 
 	public function findAllByDossierPdf(DossierPdf $dossierPdf) {
 		$documentsSpecifiques = array();
-		$q = $this->db->prepare("SELECT * FROM `DOCUMENT_SPECIFIQUE` WHERE `DOSSIER_PDF` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `document_specifique` WHERE `DOSSIER_PDF` = ?;");
 		$q->execute(array($dossierPdf->getId()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $documentSpecifique) {
@@ -33,7 +33,7 @@ class DocumentSpecifiqueManager {
 
 	public function findAllByDossierPdfVisible(DossierPdf $dossierPdf) {
 		$documentsSpecifiques = array();
-		$q = $this->db->prepare("SELECT * FROM `DOCUMENT_SPECIFIQUE` WHERE `DOSSIER_PDF` = ? AND `VISIBLE` = 1;");
+		$q = $this->db->prepare("SELECT * FROM `document_specifique` WHERE `DOSSIER_PDF` = ? AND `VISIBLE` = 1;");
 		$q->execute(array($dossierPdf->getId()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $documentSpecifique) {
@@ -43,17 +43,17 @@ class DocumentSpecifiqueManager {
 	}
 
 	public function insert(DocumentSpecifique $documentSpecifique) {
-		return $this->db->prepare("INSERT INTO `DOCUMENT_SPECIFIQUE` (`DOSSIER_PDF`, `NOM`, `VISIBLE`, `URL`) VALUES (?, ?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `document_specifique` (`DOSSIER_PDF`, `NOM`, `URL`, `VISIBLE`) VALUES (?, ?, ?, ?);")
 						->execute(array(
 							$documentSpecifique->getDossierPdf(),
 							$documentSpecifique->getNom(),
-							$documentSpecifique->getVisible(),
-							$documentSpecifique->getUrl()
+							$documentSpecifique->getUrl(),
+							$documentSpecifique->getVisible()
 		));
 	}
 
 	public function update(DocumentSpecifique $documentSpecifique) {
-		return $this->db->prepare("UPDATE `DOCUMENT_SPECIFIQUE` SET `DOSSIER_PDF` = ?, `NOM` = ?, `VISIBLE` = ?, `URL` = ? WHERE `ID` = ?;")
+		return $this->db->prepare("UPDATE `document_specifique` SET `DOSSIER_PDF` = ?, `NOM` = ?, `VISIBLE` = ?, `URL` = ? WHERE `ID` = ?;")
 						->execute(array(
 							$documentSpecifique->getDossierPdf(),
 							$documentSpecifique->getNom(),
@@ -64,7 +64,7 @@ class DocumentSpecifiqueManager {
 	}
 
 	public function delete(DocumentSpecifique $documentSpecifique) {
-		return $this->db->prepare("DELETE FROM `DOCUMENT_SPECIFIQUE` WHERE `ID` = ?;")
+		return $this->db->prepare("DELETE FROM `document_specifique` WHERE `ID` = ?;")
 						->execute(array($documentSpecifique->getId()));
 	}
 

@@ -24,7 +24,7 @@ switch ($action) {
     } break;
     case "ajout": {
         $documentSpecifiqueManager->insert(new DocumentSpecifique(0, $_POST['dossier_pdf'], $_POST['nom'], $_POST['visible'], $_POST['url']));
-        header('location:index.php?uc=documentSpecifique&action=grille&dossierPdf='.$_POST['dossier_pdf']);
+		header('location:index.php?uc=documentSpecifique&action=grille&dossierPdf='.$_POST['dossier_pdf']);
     } break;
     case "modifier": {
         $documentSpecifique = $documentSpecifiqueManager->find($_GET['id']);

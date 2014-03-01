@@ -2,71 +2,75 @@
 
 {% block content %}
 
-<ol class="breadcrumb">
-	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
-	<li class="active">Liste des formations</li>
-</ol>
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+        <li class="active">Liste des formations</li>
+    </ol>
 
-<h2 class="titre_rubrique">Liste des formations</h2>
+    <h2 class="titre_rubrique">Liste des formations</h2>
+    {% if session.grade > 2 %}
+        <a href="index.php?uc=formation&action=ajouter" class="btn btn-lg btn-primary">
+            <span class="glyphicon glyphicon-plus-sign"></span> Ajouter une formation
+        </a>
+    {% endif %}
+    {% if formations is not empty %}
 
-<a href="index.php?uc=formation&action=ajouter" class="btn btn-lg btn-primary">
-	<span class="glyphicon glyphicon-plus-sign"></span> Ajouter une formation
-</a>
+        <hr/>
 
-{% if formations is not empty %}
-
-<hr />
-
-<table class="table table-hover table-bordered table-striped">
-	<tr>
-		<th>Code</th>
-		<th>Mention</th>
-		<th>Options</th>
-	</tr>
-	{% for formation in formations %}
-        {% if formation.codeformation != "0000" %}
+        <table class="table table-hover table-bordered table-striped">
             <tr>
-                <td>{{ formation.codeformation }}</td>
-                <td>{{ formation.mention }}</td>
-                <td>
-                    <div class="btn-group">
-                        <a href="index.php?uc=formation&action=consulter&code={{ formation.codeformation }}"
-                           class="btn btn-info">
-                            <span class="glyphicon glyphicon-check"></span> Consulter
-                        </a>
-                        <a href="index.php?uc=formation&action=modifier&code={{ formation.codeformation }}"
-                           class="btn btn-warning">
-                            <span class="glyphicon glyphicon-edit"></span> Modifier
-                        </a>
-                        <a href="index.php?uc=formation&action=suppression&code={{ formation.codeformation }}"
-                           class="btn btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span> Supprimer
-                        </a>
-                    </div>
-                </td>
+                <th>Code</th>
+                <th>Mention</th>
+                <th>Options</th>
             </tr>
-        {% endif %}
-	{% endfor %}
-</table>
-{% endif %}
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content panel-danger">
-            <div class="modal-header panel-heading">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+            {% for formation in formations %}
+                <tr>
+                    <td>{{ formation.codeformation }}</td>
+                    <td>{{ formation.mention }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="index.php?uc=formation&action=consulter&code={{ formation.codeformation }}"
+                               class="btn btn-info">
+                                <span class="glyphicon glyphicon-check"></span> Consulter
+                            </a>
+                            {% if session.grade > 1 %}
+                                <a href="index.php?uc=formation&action=modifier&code={{ formation.codeformation }}"
+                                   class="btn btn-warning">
+                                    <span class="glyphicon glyphicon-edit"></span> Modifier
+                                </a>
+                                {% if session.grade > 2 %}
+                                    <a href="index.php?uc=formation&action=suppression&code={{ formation.codeformation }}"
+                                       class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-trash"></span> Supprimer
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sûr(e) de vouloir réaliser cette action ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnOk">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </div>
             </div>
-            <div class="modal-body">
-                Etes-vous sûr(e) de vouloir réaliser cette action ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btnOk">Ok</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 {% endblock %}
 

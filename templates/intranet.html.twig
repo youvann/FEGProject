@@ -36,11 +36,11 @@
                                             class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li class="{% if get.uc == 'formation' and get.action == 'grille' %}active{% endif %}">
-                                        <a
-                                                href="index.php?uc=formation&action=grille">Liste</a></li>
+                                        <a href="index.php?uc=formation&action=grille">Liste</a></li>
+                                    {% if session.grade > 2 %}
                                     <li class="{% if get.uc == 'formation' and get.action == 'ajouter' %}active{% endif %}">
-                                        <a
-                                                href="index.php?uc=formation&action=ajouter">Ajouter</a></li>
+                                        <a href="index.php?uc=formation&action=ajouter">Ajouter</a></li>
+                                    {% endif %}
                                     <li class="{% if get.uc == 'intranet' and get.action == 'liensFormation' %}active{% endif %}">
                                         <a href="index.php?uc=intranet&action=liensFormation">Liens</a></li>
                                 </ul>
@@ -51,8 +51,10 @@
                                 <ul class="dropdown-menu">
                                     <li class="{% if get.uc == 'documentGeneral' and get.action != 'ajouter' %}active{% endif %}">
                                         <a href="index.php?uc=documentGeneral&action=grille">Liste</a></li>
-                                    <li class="{% if get.uc == 'documentGeneral' and get.action == 'ajouter' %}active{% endif %}">
-                                        <a href="index.php?uc=documentGeneral&action=ajouter">Ajouter</a></li>
+                                    {% if session.grade > 2 %}
+                                        <li class="{% if get.uc == 'documentGeneral' and get.action == 'ajouter' %}active{% endif %}">
+                                            <a href="index.php?uc=documentGeneral&action=ajouter">Ajouter</a></li>
+                                    {% endif %}
                                 </ul>
                             </li>
                         </ul>

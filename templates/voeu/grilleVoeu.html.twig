@@ -10,11 +10,11 @@
 </ol>
 
 <h2 class="titre_rubrique">Liste des voeux</h2>
-
+    {% if session.grade > 1 %}
 <a href="index.php?uc=voeu&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
 	<span class="glyphicon glyphicon-plus-sign"></span> Ajouter un voeu
 </a>
-
+    {% endif %}
 {% if voeux is not empty %}
 
 <table style="margin-top: 1em;" class="table table-hover table-bordered table-striped">
@@ -31,7 +31,7 @@
 					<span class="glyphicon glyphicon-check"></span> Consulter
 				</a>
 				<a href="index.php?uc=voeu&action=modifier&codeEtape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-warning">
-					<span class="glyphicon glyphicon-check"></span> Modifier
+					<span class="glyphicon glyphicon-edit"></span> Modifier
 				</a>
 				<a href="index.php?uc=voeu&action=suppression&codeEtape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-danger">
 					<span class="glyphicon glyphicon-trash"></span> Supprimer

@@ -41,6 +41,7 @@
                 {% if dossierPdf.informations is not empty %}
                     <div class="bs-callout bs-callout-info">
                         <h3>Informations</h3>
+
                         <p>{{ dossierPdf.informations | raw }}</p>
                     </div>
                 {% endif %}
@@ -215,23 +216,25 @@
             groupCheckedTooManyStart: 'Please choose a maximum of ',
             groupCheckedEnd: ' item(s)'
         };
-
-        // Validateur du formulaire
-        $.validate({
-            language: myLanguageFR,
-            onError: function () {
-                $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
-                $('#myModal').modal('show');
-            },
-            onSuccess: function () {
-                //alert('The form is valid!');
-                if (!uploadGlobal) {
-                    uploadObj.startUpload();
-                    //alert('return false');
-                    return false;
+        var initValidator = function () {
+            // Validateur du formulaire
+            $.validate({
+                language: myLanguageFR,
+                onError: function () {
+                    $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
+                    $('#myModal').modal('show');
+                },
+                onSuccess: function () {
+                    //alert('The form is valid!');
+                    if (!uploadGlobal) {
+                        uploadObj.startUpload();
+                        //alert('return false');
+                        return false;
+                    }
                 }
-            }
-        });
+            });
+        };
+        initValidator();
 
         $('.form-group').addClass('has-feedback');
 
@@ -275,6 +278,7 @@
                         $("#blockCursus-" + nbCursus).after(html);
                         $("#addCursus").removeAttr("disabled");
                         nbCursus = nbCursus + 1;
+                        initValidator();
                     }
                 });
             }
@@ -288,6 +292,7 @@
                 $(this).attr("disabled", "disabled");
                 $("#blockCursus-" + nbCursus).remove();
                 nbCursus = nbCursus - 1;
+                initValidator();
                 $(this).removeAttr("disabled");
             }
         });
@@ -306,6 +311,7 @@
                     success: function (html) {
                         $("#blockExperience-" + nbExperiences).after(html);
                         $("#addExperience").removeAttr("disabled");
+                        initValidator();
                         nbExperiences = nbExperiences + 1;
                     }
                 });
@@ -320,6 +326,7 @@
                 $(this).attr("disabled", "disabled");
                 $("#blockExperience-" + nbExperiences).remove();
                 nbExperiences = nbExperiences - 1;
+                initValidator();
                 $(this).removeAttr("disabled");
             }
         });

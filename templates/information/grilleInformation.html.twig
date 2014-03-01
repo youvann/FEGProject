@@ -12,11 +12,11 @@
     </ol>
 
     <h2 class="titre_rubrique">Liste des informations</h2>
-
+    {% if session.grade > 1 %}
     <a href="index.php?uc=information&action=ajouter&dossierPdf={{ dossierPdf.id }}" class="btn btn-lg btn-primary">
         <span class="glyphicon glyphicon-plus-sign"></span> Ajouter une information
     </a>
-
+    {% endif %}
     {% if informations is not empty %}
 
         <div class="row" style="margin-top: 2em;">
@@ -48,10 +48,12 @@
                                type="button" class="btn btn-info">
                                 <span class="glyphicon glyphicon-check"></span> Consulter
                             </a>
+                            {% if session.grade > 1 %}
                             <a href="index.php?uc=information&action=suppression&id={{ information.id }}&dossierPdf={{ dossierPdf.id }}"
                                type="button" class="btn btn-danger">
                                 <span class="glyphicon glyphicon-trash"></span> Supprimer
                             </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

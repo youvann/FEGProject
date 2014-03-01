@@ -8,11 +8,11 @@
     </ol>
 
     <h2 class="titre_rubrique">Liste des documents</h2>
-
+    {% if session.grade > 2 %}
     <a href="index.php?uc=documentGeneral&action=ajouter" class="btn btn-lg btn-primary">
         <span class="glyphicon glyphicon-plus-sign"></span> Ajouter un document général
     </a>
-
+    {% endif %}
     {% if documentsGeneraux is not empty %}
         <hr/>
         <table class="table table-hover table-bordered table-striped">
@@ -29,6 +29,7 @@
 
                 <td>{{ documentGeneral.nom }}</td>
                 <td>
+                    {% if session.grade > 2 %}
                     <div class="btn-group">
                         <a href="index.php?uc=documentGeneral&action=modifier&id={{ documentGeneral.id }}" type="button"
                            class="btn btn-warning">
@@ -39,6 +40,7 @@
                             <span class="glyphicon glyphicon-trash"></span> Supprimer
                         </a>
                     </div>
+                    {% endif %}
                 </td>
                 </tr>
             {% endfor %}

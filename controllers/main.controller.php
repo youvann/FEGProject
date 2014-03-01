@@ -18,6 +18,11 @@ switch ($uc){
         require_once 'controllers/formation.controller.php';
     }
         break;
+	case "dependre":
+	{
+		require_once 'controllers/dependre.controller.php';
+	}
+		break;
     case "documentGeneral":
     {
         require_once 'controllers/documentGeneral.controller.php';

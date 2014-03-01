@@ -57,7 +57,6 @@
                     </div>
                 </fieldset>
             </form>
-
         </div>
     </div>
 
@@ -91,31 +90,37 @@
                 loadDocuments(0);
             });
 
-            var loadDomains = function (pi) {
+            var loadDomains = function () {
                 $.ajax({
                     url: 'index.php?uc=formulaire&action=domainesDeCompatibilite',
                     type: 'post',
                     data: 'idDossierPdf=' + $('#choisie').val(),
                     dataType: 'json',
                     success: function (json) {
-                        var divDerniere = $('<div></div>').attr('id', 'divDerniere').addClass('form-group');
-                        var label = $('<label></label>').attr('for', 'derniere').html('Etes-vous en possession d\'un diplôme parmi celui ou ceux proposés ?');
-                        var select = $('<select/>').attr('id', 'derniere').attr('name', 'derniere').addClass('form-control').on('change', function () {
-                            if ($(this).val() != '')
-                                loadDocuments(1);
-                            else
-                                loadDocuments(0);
-                        });
-                        select.append($('<option></option>').attr('value', '').html('Autre'));
-                        for (var i = 0; i < json.length; ++i) {
-                            select.append($('<option></option>').attr('value', json[i].codeEtape).html(json[i].etape));
+                        if (json.length > 0) {
+                            var divDerniere = $('<div></div>').attr('id', 'divDerniere').addClass('form-group');
+                            var label = $('<label></label>').attr('for', 'derniere').html('Etes-vous en possession d\'un diplôme parmi celui ou ceux proposés ?');
+                            var select = $('<select/>').attr('id', 'derniere').attr('name', 'derniere').addClass('form-control').on('change', function () {
+                                if ($(this).val() != '')
+                                    loadDocuments(1);
+                                else
+                                    loadDocuments(0);
+                            });
+                            select.append($('<option></option>').attr('value', '').html('Autre'));
+                            for (var i = 0; i < json.length; ++i) {
+                                select.append($('<option></option>').attr('value', json[i].codeEtape).html(json[i].etape));
+                            }
+                            $('#divDerniere').html('');
+                            $('#divDerniere').append(label);
+                            $('#divDerniere').append(select);
+                        } else {
+                            var hidden = $('<input/>').attr('type', 'hidden').attr('id', 'derniere').attr('name', 'derniere').attr('value', '');
+                            $('#divDerniere').html('');
+                            $('#divDerniere').append(hidden);
                         }
-                        $('#divDerniere').html('');
-                        $('#divDerniere').append(label);
-                        $('#divDerniere').append(select);
                     }
                 });
-            }
+            };
 
             var loadDocuments = function (pi) {
                 $('#divAllDocuments').show();
@@ -126,7 +131,6 @@
                     data: 'idDossierPdf=' + $('#choisie').val() + '&preinscription=' + pi,
                     dataType: 'json',
                     success: function (json) {
-                        console.log(json);
                         $('#displayDocuments').empty();
                         if (!$('#displayDocuments').hasClass('alert') && !$('#displayDocuments').hasClass('alert-warning')) {
                             $('#displayDocuments').addClass('alert');

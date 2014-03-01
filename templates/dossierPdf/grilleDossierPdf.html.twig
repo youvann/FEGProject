@@ -12,10 +12,11 @@
     </ol>
 
     <h2 class="titre_rubrique">Gestion des dossiers</h2>
-
+    {% if session.grade > 1 %}
     <button id="btnToggleModalNewEdit" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus-sign"></span> Ajouter un dossier
     </button>
+    {% endif %}
     <hr/>
     <div class="row">
         <div class="col-md-4">
@@ -52,6 +53,7 @@
                                 Gestion du dossier <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
+                                {% if session.grade > 1 %}
                                 <li>
                                     <a href="#"
                                        id="btnModifierDossier-{{ dossierPdf.id }}"
@@ -69,6 +71,13 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="index.php?uc=dependre&action=modifier&dossierPdf={{ dossierPdf.id }}">
+                                        <span class="glyphicon glyphicon-briefcase"></span>
+                                        Domaines de compatibilité
+                                    </a>
+                                </li>
+                                {% endif %}
+                                <li>
                                     <a href="index.php?uc=information&action=grille&dossierPdf={{ dossierPdf.id }}">
                                         <span class="glyphicon glyphicon-info-sign"></span>
                                         Informations spécifiques
@@ -78,12 +87,6 @@
                                     <a href="index.php?uc=documentSpecifique&action=grille&dossierPdf={{ dossierPdf.id }}">
                                         <span class="glyphicon glyphicon-file"></span>
                                         Documents spécifiques
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index.php?uc=formation&action=dependances&dossierPdf={{ dossierPdf.id }}">
-                                        <span class="glyphicon glyphicon-briefcase"></span>
-                                        Domaines de compatibilité
                                     </a>
                                 </li>
                                 <li>
