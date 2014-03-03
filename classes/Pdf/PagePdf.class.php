@@ -632,7 +632,7 @@ class PagePdf {
 
     public function getRowAdmin ($rowAdmin) {
         if ($rowAdmin) {
-            return '<input type="checkbox" name="suggestion"> Proposition admission en niveau inférieur<br/>
+            return '<img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Proposition admission en niveau inférieur<br/>
                     ………………………………………………………………………………………………………………………………………<br/>
                     ………………………………………………………………………………………………………………………………………<br/><br/>';
 
@@ -640,8 +640,8 @@ class PagePdf {
     }
 
     public function getCadreSemester () {
-        return $this->voeuxMultiple . '<br><br><input type="checkbox"> S1
-                <input type="checkbox"> S2';
+        return $this->voeuxMultiple . '<br><br><img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/>  S1
+                <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/>  S2';
     }
 
     public function getCadreAdministration () {
@@ -660,10 +660,10 @@ class PagePdf {
                         <tr>
                             <td class="center bold" colspan="2">Motif du refus</td>
                             <td>
-                                <input type="checkbox" name="motif"> Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
-                                <input type="checkbox" name="motif"> Le niveau est insuffisant pour la formation envisagée<br/><br/>
-                                <input type="checkbox" name="motif"> Le niveau est jugé trop juste en français<br/><br/>
-                                <input type="checkbox" name="motif"> Autre motif:<br/>
+                                <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
+                                <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Le niveau est insuffisant pour la formation envisagée<br/><br/>
+                                <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Le niveau est jugé trop juste en français<br/><br/>
+                                <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Autre motif:<br/>
                                 ………………………………………………………………………………
                             </td>
                         </tr>
@@ -672,7 +672,7 @@ class PagePdf {
                         </tr>
                         <tr>
                             <td colspan="3">
-                            <input type="checkbox" name="suggestion"> Suggestion éventuelle de réorientation<br/>
+                            <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Suggestion éventuelle de réorientation<br/>
                                 ………………………………………………………………………………………………………………………………………<br/>
                                 ………………………………………………………………………………………………………………………………………<br/>
                                 ………………………………………………………………………………………………………………………………………
@@ -694,24 +694,24 @@ class PagePdf {
                             <col style="width: 33%">
                             <col style="width: 33%">
                             <tr>
-                                <td class=no-border bold">
-                                    <input type="checkbox"> ADMIS
+                                <td class="no-border bold">
+                                    <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> ADMIS
                                 </td>
                                 <td class="no-border bold">
-                                    <input type="checkbox"> REFUSE
+                                    <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> REFUSE
                                 </td>
                                 <td class="no-border bold">
-                                    <input type="checkbox"> LISTE D’ATTENTE
+                                    <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> LISTE D’ATTENTE
                                 </td>
                             </tr>
                         </table>
                         <br/>
                         <div class="underline">Motif du refus</div><br>
                          <div>
-                            <input type="checkbox" name="nom"> Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
-                            <input type="checkbox" name="nom"> Le niveau est insuffisant pour la formation envisagée<br/><br/>
-                            <input type="checkbox" name="nom"> Le niveau est jugé trop juste en français<br/><br/>
-                            <input type="checkbox" name="nom"> Autre motif
+                            <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
+                            <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Le niveau est insuffisant pour la formation envisagée<br/><br/>
+                            <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Le niveau est jugé trop juste en français<br/><br/>
+                            <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Autre motif
                         </div>
                 </div>';
     }
@@ -725,8 +725,8 @@ class PagePdf {
         if ($voeuxMultiple) {
             foreach ($voeux as $element) {
                 $voeuxFormation .= '  <tr>
-                        <td><input type="checkbox" name="nom"> Admis<br/>
-                        <input type="checkbox" name="nom"> Refusé</td>
+                        <td><img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Admis<br/>
+                        <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Refusé</td>
                         <td>' . $element . '<br/><br/></td>
                         <td></td>
                         </tr>';
@@ -734,10 +734,10 @@ class PagePdf {
         } else {
             $voeuxFormation = '<tr>
                             <td width="100">
-                                <input type="checkbox" name="nom"> Admis
+                                <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Admis
                             </td>
                             <td width="100">
-                                <input type="checkbox" name="nom" /> Refusé
+                                <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Refusé
                             </td>
                             <td class="border-bottom-none"></td>
                         </tr>
