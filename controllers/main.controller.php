@@ -23,6 +23,11 @@ switch ($uc){
 		require_once 'controllers/dependre.controller.php';
 	}
 		break;
+	case "diplome":
+	{
+		require_once 'controllers/diplome.controller.php';
+	}
+		break;
     case "documentGeneral":
     {
         require_once 'controllers/documentGeneral.controller.php';

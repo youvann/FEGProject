@@ -10,7 +10,6 @@
             <form role="form"
                   action="index.php?uc=formulaire&action=traiterChoixFormation"
                   id="formChoixFormation" method="post">
-                <input type="hidden" id="typeDossier" name="typeDossier"/>
 
                 <fieldset>
                     <legend>Formation souhaitée</legend>
@@ -18,7 +17,7 @@
                         <div id="divChoisie" class="form-group">
                             <label for="choisie">Sélectionnez la formation souhaitée
                                 pour l'année scolaire
-                                {{ "now" | date("Y")}}-{{ "now" | date("Y") + 1}}</label> /
+                                {{ "now" | date("Y") }}-{{ "now" | date("Y") + 1 }}</label> /
                             <span class="en">Whish training</span>
                             <span class="label label-danger">Requis</span>
                             <select class="form-control" id="choisie" name="choisie">
@@ -30,8 +29,8 @@
                             </select>
                         </div>
                         <div id="divDerniere" class="form-group"></div>
-                        <div id="displayDocuments"></div>
-                        <div id="divAllDocuments" class="form-group">
+                        <div id="divDocuments"></div>
+                        <div id="divRadioButtons" class="form-group">
                             <label>Etes-vous en possession de tous les documents
                                 demandés ?</label>
 
@@ -48,12 +47,11 @@
                                 </label>
                             </div>
                         </div>
+                        <div id="divSubmit">
                         <button type="submit" class="btn btn-primary">
                             <span class="glyphicon glyphicon-check"></span> Remplir mon dossier
                         </button>
-                        <br/><br/>
-
-                        <div id="msgErrorIne"></div>
+                        </div>
                     </div>
                 </fieldset>
             </form>
@@ -67,28 +65,117 @@
     <script src="public/js/jquery-form-validator/jquery.form-validator.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('button[type=submit]').hide();
-            $('#divAllDocuments').hide();
-            $('#msgError').hide();
 
-            //var choixFormation = $("select[name='derniere'] > option:selected").val();
-            var choixFormation = $('#derniere').val();
-            var autreFormation = $("#autre_formation");
-
-            (choixFormation === "Autre") ? autreFormation.fadeIn("slow") : autreFormation.hide();
+            $('#divDerniere').hide();
+            $('#divRadioButtons').hide();
+            $('#divSubmit').hide();
 
             $('input[type=radio]').on('change', function () {
                 if ($(this).val() == 'oui') {
-                    $('button[type=submit]').show();
+                    $('#divSubmit').fadeIn(1000);
                 } else {
-                    $('button[type=submit]').hide();
+                    $('#divSubmit').fadeOut(1000);
                 }
             });
 
             $('#choisie').on('change', function () {
-                loadDomains();
-                loadDocuments(0);
+                if ($(this).val() !== '')
+                    loadDomains();
+                else {
+                    $('#displayDocuments').hide();
+                    $('#displayDocuments').hide();
+                    $('#displayDocuments').empty();
+                    $('#divAllDocuments').hide();
+                }
             });
+
+            var displayDerniereSelect = function (json) {
+                $('#divDerniere').empty();
+                var divDerniere = $('<div></div>').attr('id', 'divDerniere').addClass('form-group');
+                var label = $('<label></label>').attr('for', 'derniere').html('Etes-vous en possession d\'un diplôme parmi celui ou ceux proposés ?');
+                var select = $('<select/>').attr('id', 'derniere').attr('name', 'derniere').addClass('form-control').on('change', function () {
+                    if ($(this).val() !== '0' && $(this).val() !== '') {
+                        loadDocuments(1);
+                    }
+                    else if ($(this).val() === '') {
+                        $('#divDocuments').fadeOut(1000);
+                        $('#divRadioButtons').fadeOut(1000);
+                        $('#divSubmit').fadeOut(1000);
+                    }
+                    else if ($(this).val() === '0')
+                        loadDocuments(0);
+                });
+                select.append($('<option></option>').attr('value', '').html('&mdash; Sélectionnez &mdash;'));
+                for (var i = 0; i < json.length; ++i) {
+                    select.append($('<option></option>').attr('value', json[i].codeEtape).html(json[i].etape));
+                }
+                select.append($('<option></option>').attr('value', '0').html('Autre'));
+                $('#divDerniere').append(label);
+                $('#divDerniere').append(select);
+                $('#divDerniere').fadeIn(1000);
+            };
+
+            var displayDerniereHidden = function () {
+                $('#divDerniere').fadeOut(1000, function() {
+                    $('#divDerniere').empty();
+                    var hidden = $('<input/>').attr('type', 'hidden').attr('id', 'derniere').attr('name', 'derniere').attr('value', '');
+                    $('#divDerniere').append(hidden);
+                    loadDocuments(0);
+                });
+            };
+
+            var displayDocuments = function(json) {
+                $('#divDocuments').empty();
+                if (!$('#divDocuments').hasClass('alert') && !$('#divDocuments').hasClass('alert-warning')) {
+                    $('#divDocuments').addClass('alert');
+                    $('#divDocuments').addClass('alert-warning');
+                }
+
+                var documentsGeneraux = json.general;
+                var documentsSpecifiques = json.specifique;
+                var listeDocumentsGeneraux = $('<ul></ul>');
+                var listeDocumentsSpecifiques = $('<ul></ul>');
+
+                documentsGeneraux.forEach(function (doc) {
+                    var li = $('<li></li>').append(doc)
+                    listeDocumentsGeneraux.append(li);
+                });
+                documentsSpecifiques.forEach(function (doc) {
+                    var li = $('<li></li>').append(doc[0]);
+                    if (doc[1] !== "") {
+                        var link = $('<a></a>').on('click', function () {
+                            window.open(this.href);
+                            return false;
+                        })
+                                .addClass('linkDocumentSpecifique')
+                                .attr('href', doc[1]).
+                                append('Cliquez ici pour télécharger le document');
+                        li.append(' - ')
+                                .append(link);
+                    }
+                    listeDocumentsSpecifiques.append(li);
+                });
+                var alert = $('<div></div>')
+                        .addClass('alert')
+                        .addClass('alert-danger')
+                        .append(
+                                $('<button></button>')
+                                        .addClass('close')
+                                        .attr('data-dismiss', 'alert')
+                                        .attr('aria-hidden', 'true')
+                                        .append('&times;')
+                        ).append('Pour postuler à cette formation, assurez vous d\'être en possession des documents ci-dessous :');
+
+                $('#divDocuments').before().append(alert);
+
+                $('#divDocuments').append('<h4>Documents communs</h4>')
+                        .append(listeDocumentsGeneraux);
+                if (documentsSpecifiques.length > 0) {
+                    $('#displayDocuments').append('<br/><h4>Documents spécifiques à la formation choisie</h4>')
+                            .append(listeDocumentsSpecifiques);
+                }
+                $('#displayDocuments').fadeIn(1000);
+            };
 
             var loadDomains = function () {
                 $.ajax({
@@ -98,113 +185,32 @@
                     dataType: 'json',
                     success: function (json) {
                         if (json.length > 0) {
-                            var divDerniere = $('<div></div>').attr('id', 'divDerniere').addClass('form-group');
-                            var label = $('<label></label>').attr('for', 'derniere').html('Etes-vous en possession d\'un diplôme parmi celui ou ceux proposés ?');
-                            var select = $('<select/>').attr('id', 'derniere').attr('name', 'derniere').addClass('form-control').on('change', function () {
-                                if ($(this).val() != '')
-                                    loadDocuments(1);
-                                else
-                                    loadDocuments(0);
-                            });
-                            select.append($('<option></option>').attr('value', '').html('Autre'));
-                            for (var i = 0; i < json.length; ++i) {
-                                select.append($('<option></option>').attr('value', json[i].codeEtape).html(json[i].etape));
-                            }
-                            $('#divDerniere').html('');
-                            $('#divDerniere').append(label);
-                            $('#divDerniere').append(select);
+                            displayDerniereSelect(json);
                         } else {
-                            var hidden = $('<input/>').attr('type', 'hidden').attr('id', 'derniere').attr('name', 'derniere').attr('value', '');
-                            $('#divDerniere').html('');
-                            $('#divDerniere').append(hidden);
+                            displayDerniereHidden();
                         }
                     }
                 });
             };
 
             var loadDocuments = function (pi) {
-                $('#divAllDocuments').show();
-
                 $.ajax({
                     url: 'index.php?uc=formulaire&action=displayDocuments',
                     type: 'post',
                     data: 'idDossierPdf=' + $('#choisie').val() + '&preinscription=' + pi,
                     dataType: 'json',
                     success: function (json) {
-                        $('#displayDocuments').empty();
-                        if (!$('#displayDocuments').hasClass('alert') && !$('#displayDocuments').hasClass('alert-warning')) {
-                            $('#displayDocuments').addClass('alert');
-                            $('#displayDocuments').addClass('alert-warning');
-                        }
-
-                        var documentsGeneraux = json.general;
-                        var documentsSpecifiques = json.specifique;
-                        var listeDocumentsGeneraux = $('<ul></ul>');
-                        var listeDocumentsSpecifiques = $('<ul></ul>');
-
-                        documentsGeneraux.forEach(function (doc) {
-                            var li = $('<li></li>').append(doc)
-                            listeDocumentsGeneraux.append(li);
-                        });
-                        documentsSpecifiques.forEach(function (doc) {
-                            var li = $('<li></li>').append(doc[0]);
-                            if (doc[1] !== "") {
-                                var link = $('<a></a>').on('click', function () {
-                                    window.open(this.href);
-                                    return false;
-                                })
-                                        .addClass('linkDocumentSpecifique')
-                                        .attr('href', doc[1]).
-                                        append('Cliquez ici pour télécharger le document');
-                                li.append(' - ')
-                                        .append(link);
-                            }
-                            listeDocumentsSpecifiques.append(li);
-                        });
-                        var alert = $('<div></div>')
-                                .addClass('alert')
-                                .addClass('alert-danger')
-                                .append(
-                                        $('<button></button>')
-                                                .addClass('close')
-                                                .attr('data-dismiss', 'alert')
-                                                .attr('aria-hidden', 'true')
-                                                .append('&times;')
-                                ).append('Pour postuler à cette formation, assurez vous d\'être en possession des documents ci-dessous :');
-
-                        $('#displayDocuments').before().append(alert);
-
-                        $('#displayDocuments').append('<h4>Documents communs</h4>')
-                                .append(listeDocumentsGeneraux);
-                        if (documentsSpecifiques.length > 0) {
-                            $('#displayDocuments').append('<br/><h4>Documents spécifiques à la formation choisie</h4>')
-                                    .append(listeDocumentsSpecifiques);
-                        }
+                        displayDocuments(json);
                     }
                 });
+                $('#divRadioButtons').fadeIn(1000);
             };
 
             {% if get.dossier is defined %}
             $('#choisie').val('{{ get.dossier }}');
-            loadDomainsAndDocuments();
+            loadDomains();
             {% endif %}
 
-            /*
-             // Vérification formulaire
-             $.validate({
-             onError: function () {
-             $('#msgErrorIne')
-             .attr('class', 'alert alert-danger alert-dismissable')
-             .append(
-             $('<button/>')
-             .attr('class', 'close')
-             .attr('data-dismiss', 'alert')
-             .attr('aria-hidden', 'true')
-             .html('&times;'))
-             .append('<strong>Attention!</strong> Veuillez indiquer votre numéro INE.')
-             .show('fast');
-             }
-             });*/
         });
     </script>
 {% endblock %}

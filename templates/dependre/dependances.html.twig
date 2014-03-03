@@ -14,45 +14,131 @@
 
     <h2 class="titre_rubrique">Domaines de compatibilité {{ dossierPdf.nom }}</h2>
 
-    {% if session.flash is not null %}
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            {% for flash in session.flash %}
-                <p>{{ flash }}</p>
-            {% endfor %}
-        </div>
-    {% endif %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Diplômes FEG</div>
+        <div class="panel-body">
+            {% if session.flash is not null %}
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {% for flash in session.flash %}
+                        <p>{{ flash }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
-    <form method="POST" action="index.php?uc=dependre&action=modification">
-        <input type="hidden" id="idDossier" name="idDossier" value="{{ dossierPdf.id }}"/>
+            <form method="POST" action="index.php?uc=dependre&action=modification">
+                <input type="hidden" id="dossier_pdf" name="dossier_pdf" value="{{ dossierPdf.id }}"/>
 
-        <div class="form-group">
-            <label for="voeux">Etapes</label> <i>Restez appuyé sur la touche <kbd>Ctrl</kbd></i>
-            <select style="height: 300px;" class="form-control" id="voeux" name="voeux[]" multiple>
-                {% for formation in formations %}
-                    <optgroup label="{{ formation.mention }}">
-                        {% for voeu in voeux %}
-                            {% if formation.codeFormation == voeu.codeFormation %}
-                                <option
-                                        {% for voeuCompatible in voeuxCompatibles %}
-                                            {% if voeuCompatible.codeEtape == voeu.codeEtape %}
-                                                selected
-                                            {% endif %}
-                                        {% endfor %}
-                                        value="{{ voeu.codeEtape }}">{{ voeu.etape }}</option>
-                            {% endif %}
+                <div class="form-group">
+                    <label for="voeux">Etapes</label> <i>Restez appuyé sur la touche <kbd>Ctrl</kbd></i>
+                    <select style="height: 300px;" class="form-control" id="voeux" name="voeux[]" multiple>
+                        {% for formation in formations %}
+                            <optgroup label="{{ formation.mention }}">
+                                {% for voeu in voeux %}
+                                    {% if formation.codeFormation == voeu.codeFormation %}
+                                        <option
+                                                {% for voeuCompatible in voeuxCompatibles %}
+                                                    {% if voeuCompatible.codeEtape == voeu.codeEtape %}
+                                                        selected
+                                                    {% endif %}
+                                                {% endfor %}
+                                                value="{{ voeu.codeEtape }}">{{ voeu.etape }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </optgroup>
                         {% endfor %}
-                    </optgroup>
-                {% endfor %}
-            </select>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-floppy-save"></span> Enregistrer
+                </button>
+            </form>
         </div>
-        <button type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-floppy-save"></span> Enregistrer
-        </button>
-    </form>
+    </div>
     <hr/>
-    </ul>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Diplômes hors FEG</div>
+        <div class="panel-body">
+            <fieldset>
+                <legend>Ajouter un diplôme hors FEG compatible</legend>
+
+                <form method="POST" action="index.php?uc=diplome&action=ajout">
+                    <input type="hidden" id="dossier_pdf" name="dossier_pdf" value="{{ dossierPdf.id }}"/>
+
+                    <div class="form-group">
+                        <label for="voeux">Nom du diplôme</label>
+                        <input type="text" class="form-control" id="nom" name="nom"/>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-floppy-save"></span> Enregistrer
+                    </button>
+                </form>
+            </fieldset>
+
+            {% if diplomes is not empty %}
+
+                <hr />
+                <fieldset>
+                    <legend>Liste des diplôme hors FEG compatibles pour ce dossier</legend>
+                    {% for diplome in diplomes %}
+                        <div class="col-md-3">
+                            <div class="alert alert-success">
+                                <button type="button" class="close" data-href="index.php?uc=diplome&action=suppression&idDiplome={{ diplome.id }}" aria-hidden="true">&times;</button>
+                                {{ diplome.nom }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </fieldset>
+
+            {% endif %}
+        </div>
+    </div>
+
+    <hr/>
+
     <a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}" class="btn btn-primary">
         <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
     </a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sûr(e) de vouloir réaliser cette action ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnOk">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            var lastPushedButton = null;
+
+            $('.close').click(function () {
+                $('#myModal').modal('show');
+                lastPushedButton = $(this);
+                return false;
+            });
+            $('#btnOk').click(function () {
+                window.location.href = lastPushedButton.attr("data-href");
+            });
+        });
+    </script>
 {% endblock %}
