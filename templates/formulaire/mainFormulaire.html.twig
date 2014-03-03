@@ -5,6 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="titre_rubrique">
+            <div id="debut"></div>
 
                 {% if typeDossier == 'CA' %}Candidature{% elseif typeDossier == 'PI' %}Pré-inscription{% endif %}
                 en {{ dossierPdf.nom }} pour l'année scolaire {{ anneeBasse }}
@@ -126,7 +127,18 @@
         $('#entreprise').val('Sporstec');
         $('#fonction').val('Développeur PHP');
 
-        // ici
+        //ancrage bouton OK
+        $('#boutonOk').click(function() {
+            $('html,body').animate({scrollTop: $("#debut").offset().top}, 'slow'      );
+        });  
+
+
+
+$(document).ready( function () {
+   $('#redirection').click(function() {
+     $('html,body').animate({scrollTop: $("#monancre").offset().top}, 'slow'      );
+   });  
+})
 
         // Progress Bar
         $('#mainFormulaire').showProgress({ message: { '10': '', '25': '', '50': '!', '75': '', '100': '' } });
