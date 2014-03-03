@@ -206,7 +206,7 @@
 
         // Message d'erreurs champs formulaire
         var myLanguageFR = {
-            errorTitle: 'Form submission failed!',
+            errorTitle: 'La soumission du formulaire a échoué / <i>Form submission failed!</i>',
             requiredFields: 'Ce champ est obligatoire.',
             badTime: 'You have not given a correct time',
             badEmail: 'Veuillez fournir une adresse électronique valide.',
@@ -240,6 +240,9 @@
             // Validateur du formulaire
             $.validate({
                 language: myLanguageFR,
+                validateOnBlur: false, // disable validation when input looses focus
+                errorMessagePosition: 'top', // Instead of 'element' which is default
+                scrollToTopOnError: false, // Set this property to true if you have a long form
                 onError: function () {
                     $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
                     $('#myModal').modal('show');
