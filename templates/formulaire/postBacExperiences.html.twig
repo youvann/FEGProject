@@ -24,13 +24,13 @@
         <div id="blockCursus-1">
             <div class="well well-lg">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="anneeCursus[]">Années</label> /
                             <span class="en">Years</span>
                             <span class="label label-danger">Requis</span>
                             <select class="form-control"
-                                    id="anneeCursus[]"
+                                    id="anneeCursus-1"
                                     name="anneeCursus[]">
                                 {% set ecart = anneeBasse - 60 %}
                                 {% for i in ecart..anneeBasse %}
@@ -39,72 +39,57 @@
                             </select>
                         </div>
                     </div>
-                    <!--<div class="col-md-2">
+
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label for="anneeFinCursus[]">Année de fin</label>
-                            <select class="form-control"
-                                    id="anneeFinCursus[]"
-                                    name="anneeFinCursus[]">
-                                {% set ecart = anneeBasse - 60 %}
-                                {% for i in ecart..anneeBasse %}
-                                    <option {% if i == "now" | date('Y') %}selected="selected" {% endif %} value="{{ i }}">{{ i }}</option>
-                                {% endfor %}
+                            <label for="valide[]">Année validée
+                                ?</label>
+                            <select class="form-control" name="valide[]"
+                                    id="valide-1">
+                                <option value="1">Oui</option>
+                                <option value="0" selected>Non</option>
                             </select>
                         </div>
-                    </div>-->
-                    <div class="col-md-8">
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="note[]">Note (résultat)
+                            </label> /
+                            <span class="en">Mark</span>
+                            <input type="text" class="form-control" id="note-1"
+                                   name="note[]" maxlength="50"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="etablissement[]">Etablissement</label> /
                             <span class="en">Establishment</span>
                             <span class="label label-danger">Requis</span>
                             <input type="text" class="form-control required"
-                                   id="etablissement[]"
+                                   id="etablissement-1"
                                    name="etablissement[]"
                                    data-validation="required"
                                    data-validation-error-msg="Veuillez indiquer le nom de l'établissement où vous avez effectué votre parcours post bac."/>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="valide[]">Note (résultat)
-                            </label> /
-                            <span class="en">Mark</span>
-                            <input type="text" class="form-control" id="valide[]"
-                                   name="valide[]"/>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
+
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="cursus[]">Cursus suivi</label> / <span
                                     class="en">Followed formation</span>
                             <span class="label label-danger">Requis</span>
                             <input type="text" class="form-control required"
-                                   id="cursus[]" name="cursus[]"
+                                   id="cursus-1" name="cursus[]"
                                    data-validation="required"
                                    data-validation-error-msg="Veuillez remplir le cursus suivi."/>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="radio-inline">
-                            <label>
-                                <input type="radio" name="radioValide"
-                                       id="nonValide" value="0" checked>
-                                Je n'ai pas validé mon année
-                            </label>
-                        </div>
-                        <div class="radio-inline">
-                            <label>
-                                <input type="radio" name="radioValide"
-                                       id="valide" value="1">
-                                J'ai validé mon année
-                            </label>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

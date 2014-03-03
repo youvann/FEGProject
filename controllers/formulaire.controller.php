@@ -190,6 +190,8 @@ switch ($action) {
 		$dossier          = new Dossier($idEtudiant, $ine, $genre, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateDeNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $villePreferee, $autresElements, $json);
 		$dossierManager->insert ($dossier);
 
+        //var_dump($_POST);
+
 		// Récupère tous les cursus
 		$arrayCursus = array (); // Tableau à deux dimensions
 		$i           = 0;
@@ -207,17 +209,24 @@ switch ($action) {
 			$arrayCursus['cursus-' . $i]['valide'] = $valide;
 			$i++;
 		}
+        $i = 0;
+        foreach ($_POST['note'] as $note) {
+            $arrayCursus['cursus-' . $i]['note'] = $note;
+            $i++;
+        }
 		$i = 0;
 		foreach ($_POST['cursus'] as $cursus) {
 			$arrayCursus['cursus-' . $i]['cursus'] = $cursus;
 			$i++;
 		}
+
+        var_dump($arrayCursus);
 		foreach ($arrayCursus as $cursus) {
 			$anneeCursus = explode("-", $cursus['anneeCursus']);
 			$anneeDebutCursus = $anneeCursus[0];
 			$anneeFinCursus = $anneeCursus[1];
 			// Ajout des cursus dans la table Cursus
-			$cursusManager->insert (new Cursus(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $anneeDebutCursus, $anneeFinCursus, $cursus['cursus'], $cursus['etablissement'], $cursus['valide']));
+			$cursusManager->insert (new Cursus(0, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $anneeDebutCursus, $anneeFinCursus, $cursus['cursus'], $cursus['etablissement'], $cursus['note'], $cursus['valide']));
 		}
 
 		// Récupère toutes les expériences
