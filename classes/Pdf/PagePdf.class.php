@@ -448,6 +448,10 @@ class PagePdf {
         $this->cursusPostBac   = $cursusPostBac;
     }
 
+    public function printValide($cpb){
+        return ($cpb->getValide ()) ? "Oui" : "Non";
+    }
+
     public function printPostBac () {
         $postBac = '';
         foreach ($this->cursusPostBac as $cpb) {
@@ -456,6 +460,7 @@ class PagePdf {
                 <td text-align="center">' . $cpb->getEtablissement () . '</td>
                 <td text-align="center">' . $cpb->getCursus () . '</td>
                 <td text-align="center">' . $cpb->getNote () . '</td>
+                <td text-align="center">' . $this->printValide($cpb) . '</td>
             </tr>';
         }
         return $postBac;
@@ -474,16 +479,18 @@ class PagePdf {
                     <div class="titre3 bold" text-align="center">ENSEIGNEMENT SUPÉRIEUR</div><br>
                     <table class="t_postBac">
                         <col style="width: 13%">
-                        <col style="width: 40%">
-                        <col style="width: 37%">
+                        <col style="width: 30%">
+                        <col style="width: 30%">
+                        <col style="width: 15%">
                         <col style="width: 10%">
                         <tr>
-                            <th class="bold" colspan="4" text-align="center">Cursus Post-Bac</th>
+                            <th class="bold" colspan="5" text-align="center">Cursus Post-Bac</th>
                         </tr>
                         <tr>
                             <th class="center">Année</th>
                             <th class="center">Établissement</th>
                             <th class="center">Cursus suivi</th>
+                            <th class="center">Resultat</th>
                             <th class="center">Validé</th>
                         </tr>' . $this->printPostBac () . '</table>
     </div>';

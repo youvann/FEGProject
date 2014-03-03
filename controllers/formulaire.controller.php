@@ -49,7 +49,11 @@ switch ($action) {
         $dossierPdf    = $dossierPdfManager->find ($idDossierPdf);
         $codeFormation = $dossierPdf->getCodeFormation ();
 
-        $_SESSION['isCandidature'] = ($_POST['derniere'] === "") ? true : false;
+        $_SESSION['isCandidature'] = ($_POST['derniere'] == '0') ? true : false;
+
+        //var_dump($_SESSION['isCandidature']);
+        //var_dump($_POST);
+
         $_SESSION['idDossierPdf']  = $idDossierPdf;
         $_SESSION['codeFormation'] = $codeFormation;
         $_SESSION['idEtudiant']    = time ();
@@ -220,7 +224,6 @@ switch ($action) {
 			$i++;
 		}
 
-        var_dump($arrayCursus);
 		foreach ($arrayCursus as $cursus) {
 			$anneeCursus = explode("-", $cursus['anneeCursus']);
 			$anneeDebutCursus = $anneeCursus[0];
@@ -278,6 +281,7 @@ switch ($action) {
 		$formation     = $formationManager->find ($_SESSION['codeFormation']);
 		$titulaire     = $titulaireManager->findAll ();
 		$cursus        = $cursusManager->findAllByDossierOrderedByAnneeFin($dossier);
+        $lastCursus    = $cursusManager->findLastYearValideByDossier($dossier);
 		$experiences   = $experienceManager->findAllByDossierOrderedByAnneeFin ($dossier);
 		$villePreferee = $dossier->getVillePreferee ();
 
@@ -353,7 +357,7 @@ switch ($action) {
 		$pagePdf->setDossierInformations ($dossierPdf->getInformations ());
 
 		$pagePdf->setCadreAdministrationVoeux ($voeux);
-        $pagePdf->setDernierDiplome("Dernier diplome essai");
+        $pagePdf->setDernierDiplome($lastCursus->getCursus());
 		$pagePdf->setVoeuxMultiple (true);
 		$pagePdf->setRowAdmin (true);
 
