@@ -14,7 +14,7 @@ class DiplomeManager {
 	}
 
 	public function find($id) {
-		$q = $this->db->prepare("SELECT * FROM `diplome` WHERE `ID` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `diplome_hors_feg` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
 		return new Diplome($rs['ID'], $rs['NOM'], $rs['DOSSIER_PDF']);
@@ -22,7 +22,7 @@ class DiplomeManager {
 
 	public function findAllByDossierPdf(DossierPdf $dossierPdf) {
 		$diplomes = array();
-		$q = $this->db->prepare("SELECT * FROM `diplome` WHERE `DOSSIER_PDF` = ?;");
+		$q = $this->db->prepare("SELECT * FROM `diplome_hors_feg` WHERE `DOSSIER_PDF` = ?;");
 		$q->execute(array($dossierPdf->getId()));
 		$rs = $q->fetchAll();
 		foreach ($rs as $diplome) {
@@ -32,7 +32,7 @@ class DiplomeManager {
 	}
 
 	public function insert(Diplome $diplome) {
-		return $this->db->prepare("INSERT INTO `diplome` (`NOM`, `DOSSIER_PDF`) VALUES (?, ?);")
+		return $this->db->prepare("INSERT INTO `diplome_hors_feg` (`NOM`, `DOSSIER_PDF`) VALUES (?, ?);")
 			->execute(array(
 				$diplome->getNom(),
 				$diplome->getDossierPdf()
@@ -40,7 +40,7 @@ class DiplomeManager {
 	}
 
 	public function update(Diplome $diplome) {
-		return $this->db->prepare("UPDATE `diplome` SET `NOM` = ?, `DOSSIER_PDF` = ? WHERE `ID` = ?;")
+		return $this->db->prepare("UPDATE `diplome_hors_feg` SET `NOM` = ?, `DOSSIER_PDF` = ? WHERE `ID` = ?;")
 			->execute(array(
 				$diplome->getNom(),
 				$diplome->getDossierPdf(),
@@ -49,7 +49,7 @@ class DiplomeManager {
 	}
 
 	public function delete(Diplome $diplome) {
-		return $this->db->prepare("DELETE FROM `diplome` WHERE `ID` = ?;")
+		return $this->db->prepare("DELETE FROM `diplome_hors_feg` WHERE `ID` = ?;")
 			->execute(array($diplome->getId()));
 	}
 

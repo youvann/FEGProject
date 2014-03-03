@@ -204,6 +204,7 @@
                     }
                 });
                 $('#divRadioButtons').fadeIn(1000);
+                $('input[name="allDocuments"][value="non"]').prop('checked', true);
             };
 
             {% if get.dossier is defined %}

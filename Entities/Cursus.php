@@ -10,8 +10,9 @@ class Cursus {
 	private $cursus;
 	private $etablissement;
 	private $note;
+	private $valide;
 
-	function __construct($id, $idEtudiant, $codeFormation, $anneeDebut, $anneeFin, $cursus, $etablissement, $note) {
+	function __construct($id, $idEtudiant, $codeFormation, $anneeDebut, $anneeFin, $cursus, $etablissement, $note, $valide) {
 		$this->id = $id;
 		$this->idEtudiant = $idEtudiant;
 		$this->codeFormation = $codeFormation;
@@ -20,6 +21,7 @@ class Cursus {
 		$this->cursus = $cursus;
 		$this->etablissement = $etablissement;
 		$this->note = $note;
+		$this->valide = $valide;
 	}
 	
 	public function getId() {
@@ -54,6 +56,10 @@ class Cursus {
 		return $this->note;
 	}
 
+	public function getValide() {
+		return $this->valide;
+	}
+
 	public function setId($id) {
 		$this->id = $id;
 	}
@@ -85,5 +91,9 @@ class Cursus {
 
 	public function setNote($note) {
 		$this->note = $note;
+	}
+
+	public function setValide($valide) {
+		$this->valide = $valide;
 	}
 }
