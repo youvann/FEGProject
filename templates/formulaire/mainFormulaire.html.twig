@@ -150,14 +150,19 @@
         $('#datePickerNaissance .input-group.date').datepicker({
             language: "fr",
             autoclose: true,
-            todayHighlight: true
+            todayHighlight: true,
+            startView: 2,
+            keyboardNavigation: false
         });
 
         $('#datePickerYearBac .input-group.date').datepicker({
             format: "yyyy",
             language: "fr",
             autoclose: true,
-            todayHighlight: true
+            todayHighlight: true,
+            viewMode: "years",
+            minViewMode: "years",
+            keyboardNavigation: false
         });
 
         var uploadObj = $("#upload").uploadFile({
