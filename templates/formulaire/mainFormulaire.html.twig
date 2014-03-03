@@ -67,7 +67,7 @@
                     Etes-vous sûr(e) de vouloir réaliser cette action ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default"
+                    <button id="boutonOk" type="button" class="btn btn-default"
                             data-dismiss="modal">Ok
                     </button>
                 </div>
@@ -88,6 +88,7 @@
     <script src="public/js/datepicker/bootstrap-datepicker.js"></script>
     <script src="public/js/datepicker/locales/bootstrap-datepicker.fr.js"></script>
     <script type="text/javascript">
+
     Array.prototype.allValuesAreDifferent = function () {
         var ok = true;
         for (var i = 0; i < this.length; ++i) {
@@ -97,25 +98,6 @@
         }
         return ok;
     };
-    String.prototype.unaccented = function () {
-        var accent = [
-            /[\300-\306]/g, /[\340-\346]/g, // A, a
-            /[\310-\313]/g, /[\350-\353]/g, // E, e
-            /[\314-\317]/g, /[\354-\357]/g, // I, i
-            /[\322-\330]/g, /[\362-\370]/g, // O, o
-            /[\331-\334]/g, /[\371-\374]/g, // U, u
-            /[\321]/g, /[\361]/g, // N, n
-            /[\307]/g, /[\347]/g, // C, c
-        ];
-        var noaccent = ['A', 'a', 'E', 'e', 'I', 'i', 'O', 'o', 'U', 'u', 'N', 'n', 'C', 'c'];
-
-        var str = this;
-        for (var i = 0; i < accent.length; i++) {
-            str = str.replace(accent[i], noaccent[i]);
-        }
-
-        return str;
-    }
 
     $(document).ready(function () {
         // L'upload a-t-il été fait ?
@@ -144,20 +126,27 @@
         $('#entreprise').val('Sporstec');
         $('#fonction').val('Développeur PHP');
 
+        // ici
+
         // Progress Bar
         $('#mainFormulaire').showProgress({ message: { '10': '', '25': '', '50': '!', '75': '', '100': '' } });
 
         $('#datePickerNaissance .input-group.date').datepicker({
             language: "fr",
             autoclose: true,
-            todayHighlight: true
+            todayHighlight: true,
+            startView: 2,
+            keyboardNavigation: false
         });
 
         $('#datePickerYearBac .input-group.date').datepicker({
             format: "yyyy",
             language: "fr",
             autoclose: true,
-            todayHighlight: true
+            todayHighlight: true,
+            viewMode: "years",
+            minViewMode: "years",
+            keyboardNavigation: false
         });
 
         var uploadObj = $("#upload").uploadFile({
@@ -201,7 +190,7 @@
 
         // Message d'erreurs champs formulaire
         var myLanguageFR = {
-            errorTitle: 'Form submission failed!',
+            errorTitle: 'La soumission du formulaire a échoué / <i>Form submission failed!</i>',
             requiredFields: 'Ce champ est obligatoire.',
             badTime: 'You have not given a correct time',
             badEmail: 'Veuillez fournir une adresse électronique valide.',
@@ -235,6 +224,9 @@
             // Validateur du formulaire
             $.validate({
                 language: myLanguageFR,
+                validateOnBlur: false, // disable validation when input looses focus
+                errorMessagePosition: 'top', // Instead of 'element' which is default
+                scrollToTopOnError: false, // Set this property to true if you have a long form
                 onError: function () {
                     $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
                     $('#myModal').modal('show');

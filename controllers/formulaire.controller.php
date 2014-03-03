@@ -344,6 +344,7 @@ switch ($action) {
 		$pagePdf->setDossierInformations ($dossierPdf->getInformations ());
 
 		$pagePdf->setCadreAdministrationVoeux ($voeux);
+        $pagePdf->setDernierDiplome("Dernier diplome essai");
 		$pagePdf->setVoeuxMultiple (true);
 		$pagePdf->setRowAdmin (true);
 

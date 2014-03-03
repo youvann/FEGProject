@@ -53,6 +53,8 @@ class PagePdf {
     private $applicantActivity;
     private $noteActivity;
     private $photoPath;
+    private $dernierDiplome;
+    //private $anneeDernierDiplome;
 
     // Formation envisagé
     private $etapes = array ();
@@ -277,6 +279,14 @@ class PagePdf {
 
     public function setLogoPath ($logoPath) {
         $this->logoPath = $logoPath;
+    }
+
+    public function getDernierDiplome(){
+        return $this->dernierDiplome;
+    }
+
+    public function setDernierDiplome($dernierDiplome){
+        $this->dernierDiplome = $dernierDiplome;
     }
 
     public function getLogo () {
@@ -748,7 +758,7 @@ class PagePdf {
                 <div class="text_align">Commission pédagogique du :………………………………………</div><br/>
                 <div>Nom et Prénom du candidat : ' . $this->applicantName . ' ' . $this->applicantFirstName . '</div>
                 <br/><div>Demande l’autorisation de s’inscrire en : ' . $this->title2 . '<br/></div><br/>
-                <div>Dernier diplôme obtenu : </div><br/>
+                <div>Dernier diplôme obtenu : ' . $this->dernierDiplome . '</div><br/>
                 <div>Date et lieu : le ' . date ("d/m/Y") . ' à </div><br/><br/>';
     }
 

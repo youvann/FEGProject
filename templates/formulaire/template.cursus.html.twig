@@ -25,7 +25,8 @@
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required"
                            id="etablissement-{{ indice }}"
-                           name="etablissement[]" data-validation="required"/>
+                           name="etablissement[]" data-validation="required"
+                           data-validation-error-msg="Veuillez remplir le champ Etablissement pour la formation antérieur"/>
                 </div>
             </div>
         </div>
@@ -45,9 +46,11 @@
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required"
                            id="cursus-{{ indice }}" name="cursus[]"
-                           data-validation="required"/>
+                           data-validation="required"
+                           data-validation-error-msg="Veuillez remplir le champ Cursus suivi dans la formation antérieur"/>
                 </div>
             </div>
         </div>
     </div>
+
 </div>

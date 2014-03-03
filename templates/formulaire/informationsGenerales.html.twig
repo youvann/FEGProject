@@ -78,7 +78,8 @@
                     <input type="text" class="form-control required" id="nom"
                            name="nom" placeholder="Votre nom"
                            data-validation="required" data-validation="length"
-                           data-validation-length="min4"/>
+                           data-validation-length="min4"
+                           data-validation-error-msg="Veuillez remplir le champ nom"/>
                 </div>
             </div>
             <div class="col-md-6">
@@ -88,7 +89,8 @@
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="prenom"
                            name="prenom"
-                           placeholder="Votre prenom" data-validation="required"/>
+                           placeholder="Votre prenom" data-validation="required"
+                           data-validation-error-msg="Veuillez remplir le champ prénom"/>
                 </div>
             </div>
         </div>
@@ -100,7 +102,8 @@
                 <span class="label label-danger">Requis</span>
                 <div class="input-group date">
                     <input type="text"  class="form-control" id="dateNaissance" name="dateNaissance"
-                           data-validation="required" value="{{ "now" | date("d/m/Y") }}">
+                           data-validation="required" value="{{ "now" | date("d/m/Y") }}"
+                           data-validation-error-msg="Veuillez remplir le champ date de naissance"/>
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-th"></i>
                     </span>
@@ -151,7 +154,8 @@
                     <input type="text" class="form-control required"
                            id="lieu_naissance" name="lieu_naissance"
                            placeholder="Votre lieu de naissance"
-                           data-validation="required"/>
+                           data-validation="required"
+                           data-validation-error-msg="Veuillez remplir le champ lieu de naissance"/>
                 </div>
             </div>
         </div>
@@ -163,7 +167,8 @@
                     <input type="text" class="form-control required" id="nationalite"
                            name="nationalite"
                            placeholder="Votre nationalité"
-                           data-validation="required"/>
+                           data-validation="required"
+                           data-validation-error-msg="Veuillez remplir le champ nationalité"/>
                 </div>
             </div>
         </div>
@@ -193,7 +198,8 @@
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="adresse"
                            name="adresse"
-                           placeholder="Votre adresse" data-validation="required"/>
+                           placeholder="Votre adresse" data-validation="required"
+                           data-validation-error-msg="Veuillez remplir le champ Coordonnées & contact"/>
                 </div>
             </div>
             <div class="col-md-4">
@@ -225,7 +231,8 @@
                     <input type="text" class="form-control required" id="ville"
                            name="ville"
                            placeholder="Votre ville"
-                           data-validation="required"/>
+                           data-validation="required"
+                           data-validation-error-msg="Veuillez remplir le champ ville"/>
                 </div>
             </div>
         </div>
@@ -251,7 +258,8 @@
                     <span class="label label-danger">Requis</span>
                     <input type="email" class="form-control required" id="mail"
                            name="mail" placeholder="Votre mail"
-                           data-validation="email"/>
+                           data-validation="email"
+                           data-validation-error-msg="Veuillez entrer un email valide"/>
                 </div>
             </div>
         </div>
@@ -269,7 +277,8 @@
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="serie_bac"
                            name="serie_bac"
-                           placeholder="Votre série" data-validation="required"/>
+                           placeholder="Votre série" data-validation="required"
+                           data-validation-error-msg="Veuillez remplir le champ Série"/>
                 </div>
             </div>
             <div class="col-md-6">
@@ -280,7 +289,8 @@
                     <input type="text" class="form-control required"
                            id="etablissement_bac" name="etablissement_bac"
                            placeholder="Votre établissement"
-                           data-validation="required"/>
+                           data-validation="required"
+                           data-validation-error-msg="Veuillez indiquer le nom de l'établissement où vous avez eu votre baccalauréat"/>
                 </div>
             </div>
 
@@ -293,7 +303,8 @@
                     <span class="label label-danger">Requis</span>
                     <select class="form-control" id="departement_bac"
                             name="departement_bac"
-                            placeholder="Votre département">
+                            placeholder="Votre département"
+                            data-validation-error-msg="Veuillez sélectionner un département">
                         <option value="Autre">Autre</option>
                         {% for num,departement in departements %}
                             <option value="{{ departement }}">{{ departement }}</option>
@@ -308,7 +319,8 @@
                     <span class="label label-danger">Requis</span>
                     <select class="form-control" id="pays_bac"
                             name="pays_bac"
-                            placeholder="Votre pays">
+                            placeholder="Votre pays"
+                            data-validation-error-msg="Veuillez sélectionner un pays">
                         {% for num,unPaysUe in paysUe %}
                             <option {% if num == 'FR' %}selected="selected"{% endif %}
                                     value="{{ num }}">{{ unPaysUe }} ({{ num }})
