@@ -46,6 +46,33 @@
                                 {% endif %}
                             {% endif %}
                         </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                Gestion de la formation <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="index.php?uc=voeu&action=grille&code={{ formation.codeformation }}">
+                                        <span class="glyphicon glyphicon-briefcase"></span> Gérer les voeux
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="index.php?uc=formation&action=logoDossierPdf&code={{ formation.codeFormation }}&mention={{ formation.mention }}">
+                                        <span class="glyphicon glyphicon-picture"></span> Gérer le logo
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="index.php?uc=dossierPdf&action=grille&code={{ formation.codeformation }}">
+                                        <span class="glyphicon glyphicon-paperclip"></span> Gérer les dossiers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="index.php?uc=formation&action=syntheseCsv&code={{ formation.codeformation }}">
+                                        <span class="glyphicon glyphicon-list"></span> Synthèse Excel
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
