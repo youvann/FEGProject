@@ -63,6 +63,7 @@ switch ($action) {
 		$response = array();
 		$dossierPdf = $dossierPdfManager->find($_POST['idDossierPdf']);
 		$dependances = $dependreManager->findEtapes($dossierPdf);
+		$diplomes = $diplomeManager->findAllByDossierPdf($dossierPdf);
 		$voeuxCompatibles = array();
 		foreach($dependances as $dependance) {
 			$voeuxCompatibles[] = $voeuManager->find($dependance->getCodeEtape());
@@ -73,6 +74,13 @@ switch ($action) {
 			$voeu['codeEtape'] = $voeuCompatible->getCodeEtape();
 			$voeu['etape'] = $voeuCompatible->getEtape();
 			$response[] = $voeu;
+		}
+
+		foreach($diplomes as $diplome) {
+			$unDiplome = array();
+			$unDiplome['codeEtape'] = $diplome->getId();
+			$unDiplome['etape'] = $diplome->getNom();
+			$response[] = $unDiplome;
 		}
 		echo json_encode($response);
 	}

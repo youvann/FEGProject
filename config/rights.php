@@ -62,6 +62,10 @@ $droits = array(
         array("formation", "suppressionLogo"),
 		array("dependre", "modifier"),
 		array("dependre", "modification"),
+
+		array("diplome", "ajout"),
+		array("diplome", "modification"),
+
 		array("information", "ajouter"),
 		array("information", "ajout"),
 		array("information", "suppression"),
