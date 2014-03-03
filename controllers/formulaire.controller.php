@@ -260,8 +260,8 @@ switch ($action) {
 		$dossier       = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
 		$formation     = $formationManager->find ($_SESSION['codeFormation']);
 		$titulaire     = $titulaireManager->findAll ();
-		$cursus        = $cursusManager->findAllByDossier ($dossier);
-		$experiences   = $experienceManager->findAllByDossier ($dossier);
+		$cursus        = $cursusManager->findAllByDossierOrderedByAnneeFin($dossier);
+		$experiences   = $experienceManager->findAllByDossierOrderedByAnneeFin ($dossier);
 		$villePreferee = $dossier->getVillePreferee ();
 
 		$codeFormation = $formation->getCodeFormation ();
@@ -366,7 +366,8 @@ switch ($action) {
 					copyDir ($source, $destination);
 				}
 			}
-			echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
+			//echo "<script type='text/javascript'>document.location.replace('index.php?uc=formulaire&action=recapitulatif');</script>";
+            header ('location:index.php?uc=formulaire&action=recapitulatif');
 
 		} catch (HTML2PDF_exception $e) {
 			echo $e;
