@@ -127,6 +127,23 @@
         $('#fonction').val('Développeur PHP');
 
         // ici
+        //$('#boutonOk').click(function(){
+
+        //});
+
+      
+
+        $('#boutonOk').click(function() {
+        $('html,body').animate({scrollTop: $("#debut").offset().top}, 'slow'      );
+        });  
+
+
+
+$(document).ready( function () {
+   $('#redirection').click(function() {
+     $('html,body').animate({scrollTop: $("#monancre").offset().top}, 'slow'      );
+   });  
+})
 
         // Progress Bar
         $('#mainFormulaire').showProgress({ message: { '10': '', '25': '', '50': '!', '75': '', '100': '' } });
