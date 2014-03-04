@@ -68,7 +68,7 @@ class FileUpload {
 	}
 
 	private static function formaterNomFichier($fichier) {
-		$trans = array('À', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A',
+		$trans = array('À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A',
 			'Ç' => 'C', 'È' => 'E', 'É' => 'E', 'Ê' => 'E', 'Ë' => 'E',
 			'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I',
 			'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O',
