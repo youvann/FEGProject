@@ -130,14 +130,17 @@
         $('#entreprise').val('Sporstec');
         $('#fonction').val('Développeur PHP');
 
+        var boutonOK = $('#boutonOk');
         //ancrage bouton OK
         $('#boutonOk').click(function() {
-            $('html,body').animate({scrollTop: $("#debut").offset().top}, 'slow'      );
-        });  
+            if($(this).hasClass('champsManquants')){
+                $('html,body').animate({scrollTop: $("#debut").offset().top}, 'slow');
+            }
+        });
 
-   $('#redirection').click(function() {
-     $('html,body').animate({scrollTop: $("#monancre").offset().top}, 'slow'      );
-   });
+        $('#redirection').click(function() {
+            $('html,body').animate({scrollTop: $("#monancre").offset().top}, 'slow');
+        });
 
         // Progress Bar
         $('#mainFormulaire').showProgress({ message: { '10': '', '25': '', '50': '!', '75': '', '100': '' } });
@@ -195,6 +198,7 @@
             },
             onError: function (files, status, errMsg) {
                 $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées.');
+                boutonOK.removeClass('champsManquants');
                 $('#myModal').modal('show');
             }
         });
@@ -240,6 +244,7 @@
                 scrollToTopOnError: false, // Set this property to true if you have a long form
                 onError: function () {
                     $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
+                    boutonOK.addClass('champsManquants');
                     $('#myModal').modal('show');
                 },
                 onSuccess: function () {
@@ -272,6 +277,7 @@
                 $('.modal-body').html('Les voeux doivent être différents');
             }
             if (!modal.html() == '') {
+                boutonOK.removeClass('champsManquants');
                 $('#myModal').modal('show');
                 return false;
             }
@@ -282,6 +288,7 @@
         $("#addCursus").click(function () {
             if (nbCursus === 10) {
                 $('.modal-body').html('Vous ne pouvez pas renseigner plus de 10 cursus.');
+                boutonOK.removeClass('champsManquants');
                 $('#myModal').modal('show');
             } else {
                 $(this).attr("disabled", "disabled");
@@ -302,7 +309,8 @@
 
         $("#removeCursus").click(function () {
             if (nbCursus === 1) {
-                $('.modal-body').html('Vous devez renseigner au moins une expérience professionnelle.');
+                $('.modal-body').html('Vous devez renseigner au moins un cursus.');
+                boutonOK.removeClass('champsManquants');
                 $('#myModal').modal('show');
             } else {
                 $(this).attr("disabled", "disabled");
@@ -316,6 +324,7 @@
         $("#addExperience").click(function () {
             if (nbExperiences === 10) {
                 $('.modal-body').html('Vous ne pouvez pas renseigner plus de 10 expériences.');
+                boutonOK.removeClass('champsManquants');
                 $('#myModal').modal('show');
             } else {
                 $(this).attr("disabled", "disabled");
