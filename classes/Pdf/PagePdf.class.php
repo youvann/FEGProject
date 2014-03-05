@@ -162,6 +162,10 @@ class PagePdf {
 
             .titre4{ font-size: 18px; }
 
+            .titre5{ font-size: 15px; }
+
+            .small { font-size: 12px; }
+
             page{ font-size: 13px; }
 
             .note{ font-size: 12px; text-align: justify; }
@@ -652,9 +656,9 @@ class PagePdf {
     }
 
     public function getCadreAdministration () {
-        return '<div class="cadreRouge"><span class="titre3 bold_underline">CADRE RESERVE A L’ADMINISTRATION</span><br/><br/><br/>
+        return '<div class="cadreRouge"><span class="titre5 bold_underline">CADRE RESERVE A L’ADMINISTRATION</span><br/><br/>
                 <div class="bold_underline">AVIS DU RESPONSABLE PEDAGOGIQUE DE LA FORMATION :</div><br/>
-                <form method="POST" action="">
+                <form method="POST" action="" class="small">
                     <table class="table_cadre">
                     <col style="width: 10%">
                     <col style="width: 30%">
@@ -690,36 +694,37 @@ class PagePdf {
                         </tr>
                         </table>
                     </form><br/>
+                     <div class="bold_underline">DECISION DE LA COMMISSION PEDAGOGIQUE de la faculté d’économie et de gestion</div><br>
+                <table class="small">
+                    <col style="width: 33%">
+                    <col style="width: 33%">
+                    <col style="width: 33%">
+                    <tr>
+                        <td class="no-border bold">
+                            <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> ADMIS
+                        </td>
+                        <td class="no-border bold">
+                            <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> REFUSE
+                        </td>
+                        <td class="no-border bold">
+                            <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> LISTE D’ATTENTE
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <div class="underline small">Motif du refus</div><br>
+                 <div class="small">
+                    <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
+                    <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Le niveau est insuffisant pour la formation envisagée<br/><br/>
+                    <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Le niveau est jugé trop juste en français<br/><br/>
+                    <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Autre motif
+                </div>
                 </div>';
     }
 
     public function getCadreAdministration2 () {
         return '<br/><div class="cadreRouge">
-                <div class="bold_underline">DECISION DE LA COMMISSION PEDAGOGIQUE de la faculté d’économie et de gestion</div><br>
-                        <table>
-                            <col style="width: 33%">
-                            <col style="width: 33%">
-                            <col style="width: 33%">
-                            <tr>
-                                <td class="no-border bold">
-                                    <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> ADMIS
-                                </td>
-                                <td class="no-border bold">
-                                    <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> REFUSE
-                                </td>
-                                <td class="no-border bold">
-                                    <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> LISTE D’ATTENTE
-                                </td>
-                            </tr>
-                        </table>
-                        <br/>
-                        <div class="underline">Motif du refus</div><br>
-                         <div>
-                            <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Les études antérieures ne sont pas adaptées au cursus envisagé<br/><br/>
-                            <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Le niveau est insuffisant pour la formation envisagée<br/><br/>
-                            <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Le niveau est jugé trop juste en français<br/><br/>
-                            <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Autre motif
-                        </div>
+
                 </div>';
     }
 
@@ -734,7 +739,7 @@ class PagePdf {
                 $voeuxFormation .= '  <tr>
                         <td><img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Admis<br/>
                         <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/> Refusé</td>
-                        <td>' . $element . '<br/><br/></td>
+                        <td>' . $element . '</td>
                         <td></td>
                         </tr>';
             }
@@ -766,7 +771,7 @@ class PagePdf {
                 <div>Nom et Prénom du candidat : ' . $this->applicantName . ' ' . $this->applicantFirstName . '</div>
                 <br/><div>Demande l’autorisation de s’inscrire en : ' . $this->title2 . '<br/></div><br/>
                 <div>Dernier diplôme obtenu : ' . $this->dernierDiplome . '</div><br/>
-                <div>Date et lieu : le ' . date ("d/m/Y") . ' à </div><br/><br/>';
+                <div>Date et lieu : le ' . date ("d/m/Y") . ' à </div><br/>';
     }
 
     public function __toString () {
@@ -774,7 +779,7 @@ class PagePdf {
                $this->getNewPage () . $this->getPrevFormation () . $this->getProExperience () .
                $this->isCandidature () . $this->getPageEnd () .
                $this->getNewPage () . $this->getDossierModalites () . $this->getDossierInformations () . $this->getPageEnd () .
-               $this->getNewPage () . $this->getFicheCommissionPeda () . $this->getCadreAdministration () . $this->getCadreAdministration2 () . $this->getPageEnd ();
+               $this->getNewPage () . $this->getFicheCommissionPeda () . $this->getCadreAdministration () . $this->getPageEnd ();
     }
 }
 

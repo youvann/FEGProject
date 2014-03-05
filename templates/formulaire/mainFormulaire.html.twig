@@ -248,7 +248,12 @@
                     $('#myModal').modal('show');
                 },
                 onSuccess: function () {
-                    //alert('The form is valid!');
+                    if (!isFileAjouterGlobal) {
+                        boutonOK.removeClass('champsManquants');
+                        $('.modal-body').html('Veuillez ajouter les documents à joindre');
+                        $('#myModal').modal('show');
+                    }
+
                     if (!uploadGlobal) {
                         uploadObj.startUpload();
                         //alert('return false');
@@ -270,9 +275,9 @@
             $('select[name="voeu[]"]').each(function () {
                 voeux.push($(this).val());
             });
-            if (!isFileAjouterGlobal) {
+            /*if (!isFileAjouterGlobal) {
                 $('.modal-body').html($('.modal-body').html() + '<br>Veuillez ajouter les documents à joindre');
-            }
+            }*/
             if (!voeux.uniqueValues()) {
                 $('.modal-body').html('Les voeux doivent être différents');
             }
