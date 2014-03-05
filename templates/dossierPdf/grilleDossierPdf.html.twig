@@ -41,7 +41,10 @@
                         {% for voeu in voeux %}
                             {% if voeu.dossierPdf == dossierPdf.id %}
                                 <div id="{{ voeu.codeEtape }}"
-                                     class="etape well">{{ voeu.etape }}</div>
+                                     class="etape well">
+                                    <span class="glyphicon glyphicon-move"></span>
+                                    {{ voeu.etape }}
+                                </div>
                             {% endif %}
                         {% endfor %}
                     </div>

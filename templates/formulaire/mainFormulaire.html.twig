@@ -90,7 +90,7 @@
     <script src="public/js/datepicker/locales/bootstrap-datepicker.fr.js"></script>
     <script type="text/javascript">
 
-    Array.prototype.allValuesAreDifferent = function () {
+    Array.prototype.uniqueValues = function () {
         var ok = true;
         for (var i = 0; i < this.length; ++i) {
             if ($.inArray(this[i], this, i + 1) > -1) {
@@ -101,6 +101,10 @@
     };
 
     $(document).ready(function () {
+        $.fn.exists = function() {
+            return (this.length > 0);
+        };
+
         // L'upload a-t-il été fait ?
         uploadGlobal = false;
         // y a-t-il un fichier qui a été ajouté dans la zone de drag & drop?
@@ -115,7 +119,6 @@
         $('#adresse').val('4 rue pierre paul jaques Bat B');
         $('#complement').val('Res zion');
         $('#code_postal').val('13100');
-        $('#ville').val('Aix-en-Provence');
         $('#mail').val('pierrepaul@gmail.com');
         $('#serie_bac').val('Scientifique');
         $('#etablissement_bac').val('Lycée Roland Garros');
@@ -123,7 +126,7 @@
         $('#activite').val('Etudiant');
         $('#etablissement').eq(0).val('IUT Aix-en-Provence');
         $('#cursus').eq(0).val('DUT Informatique');
-        $('#ville_preferee').val('Aix-en-Provence');
+        $('#ville_preferee').val('1');
         $('#entreprise').val('Sporstec');
         $('#fonction').val('Développeur PHP');
 
@@ -132,13 +135,9 @@
             $('html,body').animate({scrollTop: $("#debut").offset().top}, 'slow'      );
         });  
 
-
-
-$(document).ready( function () {
    $('#redirection').click(function() {
      $('html,body').animate({scrollTop: $("#monancre").offset().top}, 'slow'      );
-   });  
-})
+   });
 
         // Progress Bar
         $('#mainFormulaire').showProgress({ message: { '10': '', '25': '', '50': '!', '75': '', '100': '' } });
@@ -179,8 +178,8 @@ $(document).ready( function () {
                     nom: $('#nom').val(),
                     prenom: $('#prenom').val(),
                     voeu1: $('#voeu-1').val(),
-                    voeu2: $('#voeu-2').length > 0 ? $('#voeu-2').val() : null,
-                    voeu3: $('#voeu-3').length > 0 ? $('#voeu-3').val() : null
+                    voeu2: $('#voeu-2').length > 0 ? ($('#voeu-2').val() !== '2' ? $('#voeu-2').val() : null) : null,
+                    voeu3: $('#voeu-3').length > 0 ? ($('#voeu-2').val() !== '3' ? $('#voeu-2').val() : null) : null
                 }
                 return data;
             },
@@ -266,11 +265,10 @@ $(document).ready( function () {
             $('select[name="voeu[]"]').each(function () {
                 voeux.push($(this).val());
             });
-            //console.log(voeux);
             if (!isFileAjouterGlobal) {
                 $('.modal-body').html($('.modal-body').html() + '<br>Veuillez ajouter les documents à joindre');
             }
-            if (!voeux.allValuesAreDifferent()) {
+            if (!voeux.uniqueValues()) {
                 $('.modal-body').html('Les voeux doivent être différents');
             }
             if (!modal.html() == '') {
@@ -279,7 +277,6 @@ $(document).ready( function () {
             }
         });
 
-        // TESTS LIONEL CURSUS ET EXPERIENCES
         var nbCursus = 1, nbExperiences = 1;
 
         $("#addCursus").click(function () {
@@ -305,7 +302,7 @@ $(document).ready( function () {
 
         $("#removeCursus").click(function () {
             if (nbCursus === 1) {
-                $('.modal-body').html('Vous devez renseigner au moins un cursus.');
+                $('.modal-body').html('Vous devez renseigner au moins une expérience professionnelle.');
                 $('#myModal').modal('show');
             } else {
                 $(this).attr("disabled", "disabled");
@@ -328,7 +325,11 @@ $(document).ready( function () {
                     data: 'indice=' + (nbExperiences + 1),
                     dataType: 'html',
                     success: function (html) {
-                        $("#blockExperience-" + nbExperiences).after(html);
+                        if (nbExperiences > 0) {
+                            $("#blockExperience-" + nbExperiences).after(html);
+                        } else {
+                            $("#delimiterExperiences").after(html);
+                        }
                         $("#addExperience").removeAttr("disabled");
                         initValidator();
                         nbExperiences = nbExperiences + 1;
@@ -338,9 +339,8 @@ $(document).ready( function () {
         });
 
         $("#removeExperience").click(function () {
-            if (nbExperiences === 1) {
-                $('.modal-body').html('Vous devez renseigner au moins une expérience professionnelle.');
-                $('#myModal').modal('show');
+            if (nbExperiences === 0) {
+                return false;
             } else {
                 $(this).attr("disabled", "disabled");
                 $("#blockExperience-" + nbExperiences).remove();

@@ -15,3 +15,4 @@ try {
 }
 
 $conn->query("SET CHARACTER SET utf8");
+

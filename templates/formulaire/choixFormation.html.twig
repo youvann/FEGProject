@@ -81,13 +81,20 @@
             });
 
             $('#choisie').on('change', function () {
+                console.log($(this).val());
                 if ($(this).val() !== '')
                     loadDomains();
                 else {
-                    $('#displayDocuments').hide();
-                    $('#displayDocuments').hide();
-                    $('#displayDocuments').empty();
-                    $('#divAllDocuments').hide();
+                    $('#divSubmit').fadeOut(250, function () {
+                        $('#divRadioButtons').fadeOut(250, function () {
+                            $('#divDocuments').fadeOut(250, function () {
+                                $('#divDerniere').fadeOut(250, function () {
+                                $('#divDocuments').empty();
+                                $('#divDerniere').empty();
+                            });
+                        });
+                        });
+                    });
                 }
             });
 
@@ -100,12 +107,17 @@
                         loadDocuments(1);
                     }
                     else if ($(this).val() === '') {
-                        $('#divDocuments').fadeOut(1000);
-                        $('#divRadioButtons').fadeOut(1000);
+                        $('#divDocuments').fadeOut(1000, function () {
+                            $('#divRadioButtons').fadeOut(1000, function () {
+                                $('#divSubmit').fadeOut(1000);
+                            });
+                        });
+                    }
+                    else if ($(this).val() === '0') {
+                        loadDocuments(0);
+                        $('input[name="allDocuments"][value="non"]').prop('checked', true);
                         $('#divSubmit').fadeOut(1000);
                     }
-                    else if ($(this).val() === '0')
-                        loadDocuments(0);
                 });
                 select.append($('<option></option>').attr('value', '').html('&mdash; Sélectionnez &mdash;'));
                 for (var i = 0; i < json.length; ++i) {
@@ -120,7 +132,7 @@
             var displayDerniereHidden = function () {
                 $('#divDerniere').fadeOut(1000, function () {
                     $('#divDerniere').empty();
-                    var hidden = $('<input/>').attr('type', 'hidden').attr('id', 'derniere').attr('name', 'derniere').attr('value', '');
+                    var hidden = $('<input/>').attr('type', 'hidden').attr('id', 'derniere').attr('name', 'derniere').attr('value', '0');
                     $('#divDerniere').append(hidden);
                     loadDocuments(0);
                 });
@@ -176,7 +188,7 @@
                     $('#displayDocuments').append('<br/><h4>Documents spécifiques à la formation choisie</h4>')
                             .append(listeDocumentsSpecifiques);
                 }
-                $('#displayDocuments').fadeIn(1000);
+                $('#divDocuments').fadeIn(1000);
             };
 
             var loadDomains = function () {
@@ -205,8 +217,8 @@
                         displayDocuments(json);
                     }
                 });
-                $('#divRadioButtons').fadeIn(1000);
                 $('input[name="allDocuments"][value="non"]').prop('checked', true);
+                $('#divRadioButtons').fadeIn(1000);
             };
 
             {% if get.dossier is defined %}
