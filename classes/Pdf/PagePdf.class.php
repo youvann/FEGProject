@@ -518,7 +518,7 @@ class PagePdf {
     }
 
     public function getProExperience () {
-        return '<br/><div class="bold_underline">Expérience professionnelle (emplois, stages, jobs étdudiants):</div><br/>
+        return count($this->proExperience) == 0 ? '' :'<br/><div class="bold_underline">Expérience professionnelle (emplois, stages, jobs étdudiants):</div><br/>
                 <table class="t_postBac">
                     <col style="width: 15%">
                     <col style="width: 13%">

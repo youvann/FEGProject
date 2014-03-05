@@ -31,12 +31,11 @@ switch ($action) {
 
 		$_SESSION['isCandidature'] = ($_POST['derniere'] == '0') ? true : false;
 
-		//var_dump($_SESSION['isCandidature']);
-		//var_dump($_POST);
-
 		$_SESSION['idDossierPdf'] = $idDossierPdf;
 		$_SESSION['codeFormation'] = $codeFormation;
-		$_SESSION['idEtudiant'] = time();
+		$microtime = microtime();
+		$microtime = explode(' ', $microtime);
+		$_SESSION['idEtudiant'] = substr($microtime[1], 4) . substr($microtime[0], 2, 4);
 
 		header('location:index.php?uc=formulaire&action=main');
 	}
