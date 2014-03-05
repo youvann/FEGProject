@@ -189,7 +189,7 @@ switch ($action) {
 		$autresElements = ($isCandidature) ? formatString($_POST["autres_elements"]) : "";
 
 		$structure = $translatorResultsetToStructure->translate($informationManager->getResultset($dossierPdf));
-		$json = ($isCandidature) ? $translatorFormToJson->translate($structure, array_slice($_POST, array_search('ville_preferee', array_keys($_POST)) + 1)) : "";
+		$json = ($isCandidature) ? $translatorFormToJson->translate($structure, array_slice($_POST, array_search('flag', array_keys($_POST)) + 1)) : "";
 
 		$dossier = new Dossier($idEtudiant, $ine, $genre, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateDeNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $villePreferee, $autresElements, $json);
 		$dossierManager->insert($dossier);
@@ -272,9 +272,13 @@ switch ($action) {
 
 		$i = 1;
 		foreach ($_POST['voeu'] as $codeEtape) {
-			$faireManager->insert(new Faire($codeEtape, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $i));
+            if($codeEtape !== '2' && $codeEtape !== '3'){
+                $faireManager->insert (new Faire($codeEtape, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $i));
+                var_dump($codeEtape);
+            }
 			++$i;
 		}
+
 
 		/*
 		 * Génération dossier PDF

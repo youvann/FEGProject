@@ -151,8 +151,8 @@ switch ($action) {
 		$voeux  = $voeuManager->findAllByDossierPdf ($dossierPdf);
 		$etapes = array ();
 		$cpt = 1;
-		foreach ($voeux as $voeu) {
-			$etapes[$cpt++] = $voeu->getEtape ();
+		for ($i = 0; $i < 3; $i++) {
+			$etapes[$cpt++] = $voeux[$i]->getEtape ();
 		}
 
 		require_once 'classes/Pdf/PagePdf.class.php';
