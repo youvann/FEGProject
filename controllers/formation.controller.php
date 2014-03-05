@@ -68,7 +68,7 @@ switch ($action) {
 		break;
 	case "codeFormationPossible":
 	{
-		$q = $conn->prepare ("SELECT IF(count(*) = 1, FALSE, TRUE) as ok FROM `formation` WHERE `code_formation` = ?;");
+		$q = $conn->prepare ("SELECT IF(count(*) = 1, FALSE, TRUE) as ok FROM `formation` WHERE `code_formation` = UPPER(?);");
 		$q->execute (array ($_POST['code']));
 		$rs                   = $q->fetch ();
 		$response['response'] = $rs['ok'];

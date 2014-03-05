@@ -36,13 +36,26 @@ class CursusManager {
         return $lesCursus;
     }
 
-    public function findLastYearValideByDossier(Dossier $dossier){
-        $q = $this->db->prepare ("SELECT * FROM `cursus`
-                                  WHERE `VALIDE`= 1 AND `cursus`.`ID_ETUDIANT` = ? AND
-                                        `ANNEE_FIN` = (SELECT MAX(`ANNEE_FIN`) FROM `cursus` WHERE `cursus`.`ID_ETUDIANT` = ? AND `VALIDE`= 1);");
-        $q->execute (array ($dossier->getIdEtudiant(), $dossier->getIdEtudiant ()));
+    public function findLastDiplomaObtainedByDossier(Dossier $dossier){
+        $q = $this->db->prepare ("SELECT IF(count(*) > 0,
+									(SELECT `CURSUS`
+									FROM `cursus`
+									WHERE `ID_ETUDIANT` = ?
+									AND `cursus`.`VALIDE` = 1
+									AND `cursus`.`ANNEE_FIN` = (SELECT MAX(`ANNEE_FIN`) FROM `cursus` WHERE `ID_ETUDIANT` = ?)),
+									(SELECT CONCAT('Bac : ', `dossier`.`SERIE_BAC`)
+									FROM `dossier`
+									WHERE `dossier`.`ID_ETUDIANT` = ?)
+									) as DERNIER_DIPLOME
+									FROM `dossier`
+										INNER JOIN `faire` ON (`dossier`.`ID_ETUDIANT` = `faire`.`ID_ETUDIANT`)
+										INNER JOIN `cursus` ON (`dossier`.`ID_ETUDIANT` = `cursus`.`ID_ETUDIANT`)
+									WHERE `dossier`.`ID_ETUDIANT` = ?
+									AND `cursus`.`VALIDE` = 1
+									AND `cursus`.`ANNEE_FIN` = (SELECT MAX(`ANNEE_FIN`) FROM `cursus` WHERE `ID_ETUDIANT` = ?);");
+        $q->execute (array ($dossier->getIdEtudiant(), $dossier->getIdEtudiant (), $dossier->getIdEtudiant(), $dossier->getIdEtudiant (), $dossier->getIdEtudiant ()));
         $rs = $q->fetch ();
-        return new Cursus($rs['ID'], $rs['ID_ETUDIANT'], $rs['CODE_FORMATION'], $rs['ANNEE_DEBUT'], $rs['ANNEE_FIN'], $rs['CURSUS'], $rs['ETABLISSEMENT'], $rs['NOTE'], $rs['VALIDE']);
+        return $rs['DERNIER_DIPLOME'];
     }
 
 	public function insert(Cursus $cursus) {

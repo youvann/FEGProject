@@ -14,20 +14,21 @@
 
 	<div class="form-group">
 		<label for="code">Code</label>
-		<input class="form-control" type="text" id="code_formation" name="code_formation" />
+		<input class="form-control" type="text" maxlength="4" data-validation-help="Please give us some more information" data-validation="length" data-validation-length="min4" data-validation-error-msg="Un code formation doit faire 4 caractères" id="code_formation" name="code_formation" />
 	</div>
 	<div class="form-group">
 		<label for="mention">Mention</label>
-		<input class="form-control" type="text" id="mention" name="mention" />
+		<input class="form-control" type="text" data-validation="required" data-validation-error-msg="Vous devez renseigner la mention de la formation" id="mention" name="mention" />
 	</div>
-	<div class="form-group">
+	<!--<div class="form-group">
 		<label for="faculte">Faculté</label>
 		<select class="form-control" id="faculte" name="faculte">
 			{% for faculte in facultes %}
 			<option value="{{ faculte.id}}">{{ faculte.nom}}</option>
 			{% endfor %}
 		</select>
-	</div>
+	</div>-->
+    <input id="faculte" type="hidden" name="faculte" value="1" />
 	<button class="btn btn-primary" type="submit">
 		<span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer
 	</button>
@@ -43,9 +44,11 @@
 
 {% block scripts %}
 {{ parent() }}
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.38/jquery.form-validator.min.js"></script>
 <script type="text/javascript">
     $(function() {
+        $.validate();
+
         $('#code_formation').on('input', function() {
             $.ajax({
                 url: 'index.php?uc=formation&action=codeFormationPossible',

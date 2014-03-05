@@ -35,7 +35,7 @@ switch ($action) {
 		$_SESSION['codeFormation'] = $codeFormation;
 		$microtime = microtime();
 		$microtime = explode(' ', $microtime);
-		$_SESSION['idEtudiant'] = substr($microtime[1], 4) . substr($microtime[0], 2, 4);
+		$_SESSION['idEtudiant'] = intval(substr($microtime[1], 4) . substr($microtime[0], 2, 4));
 
 		header('location:index.php?uc=formulaire&action=main');
 	}
@@ -144,7 +144,6 @@ switch ($action) {
 		break;
 	case "traiterMainFormulaire":
 	{
-		var_dump($_POST);
 		$isCandidature = $_SESSION['isCandidature'];
 		$dossierPdf = $dossierPdfManager->find($_SESSION['idDossierPdf']);
 
@@ -192,8 +191,6 @@ switch ($action) {
 
 		$dossier = new Dossier($idEtudiant, $ine, $genre, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateDeNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $villePreferee, $autresElements, $json);
 		$dossierManager->insert($dossier);
-
-		//var_dump($_POST);
 
 		// Récupère tous les cursus
 		$arrayCursus = array(); // Tableau à deux dimensions
@@ -273,9 +270,8 @@ switch ($action) {
 		foreach ($_POST['voeu'] as $codeEtape) {
             if($codeEtape !== '2' && $codeEtape !== '3'){
                 $faireManager->insert (new Faire($codeEtape, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $i));
-                var_dump($codeEtape);
+				++$i;
             }
-			++$i;
 		}
 
 
@@ -286,7 +282,7 @@ switch ($action) {
 		$formation = $formationManager->find($_SESSION['codeFormation']);
 		$titulaire = $titulaireManager->findAll();
 		$cursus = $cursusManager->findAllByDossierOrderedByAnneeFin($dossier);
-		$lastCursus = $cursusManager->findLastYearValideByDossier($dossier);
+		$lastCursus = $cursusManager->findLastDiplomaObtainedByDossier($dossier);
 		$experiences = $experienceManager->findAllByDossierOrderedByAnneeFin($dossier);
 		$villePreferee = $dossier->getVillePreferee();
 
@@ -362,7 +358,7 @@ switch ($action) {
 		$pagePdf->setDossierInformations($dossierPdf->getInformations());
 
 		$pagePdf->setCadreAdministrationVoeux($voeux);
-		$pagePdf->setDernierDiplome($lastCursus->getCursus());
+		$pagePdf->setDernierDiplome($lastCursus);
 		$pagePdf->setVoeuxMultiple(true);
 		$pagePdf->setRowAdmin(true);
 
@@ -392,8 +388,7 @@ switch ($action) {
 					copyDir($source, $destination);
 				}
 			}
-			echo '<a href="index.php?uc=formulaire&action=recapitulatif">Suite</a>';
-			//header('location:index.php?uc=formulaire&action=recapitulatif');
+			header('location:index.php?uc=formulaire&action=recapitulatif');
 
 		} catch (HTML2PDF_exception $e) {
 			echo $e;
