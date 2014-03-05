@@ -20,7 +20,7 @@ class TextArea extends FormElement {
 	}
 
 	public function __toString() {
-		return $this->getLabel() . '<textarea class="form-control required" data-validation="required" type="text" id="' . $this->id . '" name="' . $this->name . '">' . $this->value . '</textarea>';
+		return $this->getLabel() . '<textarea class="form-control required" data-validation="required" data-validation-error-msg="Un champ relatif aux informations spécifiques n\'a pas été rempli" type="text" id="' . $this->id . '" name="' . $this->name . '">' . $this->value . '</textarea>';
 	}
 
 }

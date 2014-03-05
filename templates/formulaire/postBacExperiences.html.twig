@@ -3,10 +3,16 @@
     <div class="panel-heading">Formation antérieure / <span class="en_cadre">Previous formation</span>
     </div>
     <div class="panel-body">
-        <p>Veuillez détailler votre parcours post-bac</p>
-
         <div class="row">
             <div class="col-md-12">
+                <div class="alert alert-info alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <p><strong>Veuillez détailler votre parcours post-bac</strong></p>
+                    <p>Vous pouvez renseigner entre 1 et 10 cursus.</p>
+                    <p>Vous devez renseigner vos cursus passés en partant du plus récent au plus ancien.</p>
+                    <p>Utilisez les boutons <strong>Ajouter</strong> et <strong>Retirer</strong> prévus à cet effet.</p>
+                </div>
+
                 <div class="btn-group">
                     <button type="button" id="addCursus"
                             class="btn btn-primary btn-sm">
@@ -102,6 +108,14 @@
 
         <div class="row">
             <div class="col-md-12">
+                <div class="alert alert-info alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <p><strong>Veuillez renseigner vos expériences professionnelles</strong></p>
+                    <p>Vous pouvez renseigner jusqu'à 10 expériences professionnelles ou n'en reseigner aucune.</p>
+                    <p>Vous devez renseigner vos expériences professionnelles passées en partant de la plus récente à la plus ancienne.</p>
+                    <p>Utilisez les boutons <strong>Ajouter</strong> et <strong>Retirer</strong> prévus à cet effet.</p>
+                </div>
+
                 <div class="btn-group">
                     <button type="button" id="addExperience"
                             class="btn btn-primary btn-sm">
@@ -172,15 +186,15 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="entreprise[]">Entreprise</label>
-                            <input type="text" class="form-control" id="entreprise[]"
-                                   name="entreprise[]"/>
+                            <input type="text" class="form-control required" id="entreprise[]"
+                                   name="entreprise[]" data-validation="required"/>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="emploi[]">Fonction</label>
-                            <input type="text" class="form-control" id="fonction[]"
-                                   name="fonction[]"/>
+                            <input type="text" class="form-control required" id="fonction[]"
+                                   name="fonction[]" data-validation="required"/>
                         </div>
                     </div>
                 </div>
