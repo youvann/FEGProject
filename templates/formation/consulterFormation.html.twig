@@ -10,6 +10,13 @@
 
     <h2 class="titre_rubrique">Fiche formation : {{ formation.mention }} </h2>
 
+    <button data-html="true" title="<p>En fonction des droits accordés à votre type de compte, vous pouvez ici gérer
+            la formation en ajoutant des étape à la formation, des dossiers de candidatures/préinscription, éditer le
+            logo de la formation qui appraraît sur les dossiers, et générer la synthèse Excel des candidatures/préinscription.</p>"
+            data-placement="left" data-toggle="tooltip" class="btn btn-lg btn-info pull-right">
+        <span class="glyphicon glyphicon-question-sign"></span> Aide
+    </button>
+
     <p class="text-muted">Code</p>
     <p class="text-info">{{ formation.codeformation }}</p>
     <p class="text-muted">Mention</p>
@@ -91,6 +98,7 @@
     {{ parent() }}
     <script type="text/javascript">
         $(function () {
+            $('button[data-toggle="tooltip"]').tooltip();
             $('.btn-danger').click(function () {
                 $('#myModal').modal('show');
                 return false;

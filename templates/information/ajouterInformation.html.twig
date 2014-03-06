@@ -13,6 +13,17 @@
 
 <h2 class="titre_rubrique">Ajouter une information</h2>
 
+    <button data-html="true" title="<ul>
+    <li>Zone de texte : Réponse tapée au clavier</li>
+    <li>Zone de texte multilignes : Réponse tapée au clavier sur plusieurs lignes</li>
+    <li>Case à cocher : Oui/non</li>
+    <li>Groupe de cases à cocher : Réponse à choix multiple</li>
+    <li>Groupe de boutons radio : Réponse à choix unique</li>
+    </ul>" data-placement="right" data-toggle="tooltip" class="btn btn-info">
+        <span class="glyphicon glyphicon-question-sign"></span> Aide
+    </button>
+
+    <hr />
 <form action="index.php?uc=information&action=ajout" method="POST">
 	<input type="hidden" id="dossier_pdf" name="dossier_pdf" value="{{ dossierPdf.id }}" />
 	<div class="form-group">
@@ -25,7 +36,8 @@
 	</div>
 	<div class="form-group">
 		<label for="libelle">Libellé</label>
-		<input class="form-control" type="text" id="libelle" name="libelle" />
+		<input class="form-control" type="text" id="libelle" name="libelle"
+                data-validation="required" data-validation-error-msg="Veuillez renseigner le libellé de l'information" />
 	</div>
 	<div class="form-group">
 		<label for="explications">Explications</label>
@@ -70,20 +82,25 @@
 {{ parent() }}
 <script type="text/javascript">
 	$(function() {
-		$(document).ready(function() {
-			$("#choix").hide();
-		});
+		$("#choix").hide();
+        $('button[data-toggle="tooltip"]').tooltip();
 
 		$("#type").change(function() {
 			if ($(this).val() === 'RadioButtonGroup' || $(this).val() === 'CheckBoxGroup') {
 				$("#choix").show();
+                $('input[name="tb[]"]').each(function() {
+                    $(this).empty();
+                    $(this).attr("data-validation", "required").attr("data-validation-error-msg", "Le ou les champs en rouge doivent être renseignés");
+                });
 			} else {
 				$("#choix").hide();
-				$("#textbox-group > input").each(function() {
+				$('input[name="tb[]"]').each(function() {
 					$(this).empty();
+                    $(this).removeAttr("data-validation").removeAttr("data-validation-error-msg");
 				});
 			}
 		});
+        $.validate();
 	});
 </script>
 {% endblock %}

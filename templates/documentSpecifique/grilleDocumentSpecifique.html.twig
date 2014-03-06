@@ -13,6 +13,13 @@
     </ol>
 
     <h2 class="titre_rubrique">Documents requis par la formation</h2>
+
+    <button data-html="true" title="<p>Vous pouvez ici ajouter des documents spécifiques qui
+     seront demandés dans le dossier de candidature et dans le dossier de préinscription selon votre choix.</p>"
+            data-placement="left" data-toggle="tooltip" class="btn btn-lg btn-info pull-right">
+        <span class="glyphicon glyphicon-question-sign"></span> Aide
+    </button>
+
     {% if session.grade > 1 %}
     <a href="index.php?uc=documentSpecifique&action=ajouter&dossierPdf={{ dossierPdf.id }}"
        class="btn btn-lg btn-primary">
@@ -89,6 +96,7 @@
     {{ parent() }}
     <script type="text/javascript">
         $(function () {
+            $('button[data-toggle="tooltip"]').tooltip();
             var lastPushedButton = null;
 
             $('.btn-danger').click(function () {
