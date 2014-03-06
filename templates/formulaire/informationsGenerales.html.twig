@@ -58,6 +58,7 @@
                             <input type="radio" name="genre" id="femme"
                                    value="Madame" checked>
                             Madame / <span class="en">Mrs.</span>
+
                         </label>
                     </div>
                     <div class="radio">
@@ -77,8 +78,7 @@
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="nom"
                            name="nom" placeholder="Votre nom"
-                           data-validation="required" data-validation="length"
-                           data-validation-length="min4"
+                           data-validation="custom" data-validation-regexp="([a-zA-Z-\séêèëààâäôœöûüùîï]+)"
                            data-validation-error-msg="Veuillez remplir le champ nom"/>
                 </div>
             </div>
@@ -88,8 +88,8 @@
                             class="en">First name</span>
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="prenom"
-                           name="prenom"
-                           placeholder="Votre prenom" data-validation="required"
+                           name="prenom" placeholder="Votre prenom" 
+                           data-validation="custom" data-validation-regexp="([a-zA-Z-\séêèëààâäôœöûüùîï]+)"
                            data-validation-error-msg="Veuillez remplir le champ prénom"/>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                     <input type="text" class="form-control required"
                            id="lieu_naissance" name="lieu_naissance"
                            placeholder="Votre lieu de naissance"
-                           data-validation="required"
+                           data-validation="custom" data-validation-regexp="[^0-9]"
                            data-validation-error-msg="Veuillez remplir le champ lieu de naissance"/>
                 </div>
             </div>
@@ -167,7 +167,7 @@
                     <input type="text" class="form-control required" id="nationalite"
                            name="nationalite"
                            placeholder="Votre nationalité"
-                           data-validation="required"
+                           data-validation="custom" data-validation-regexp="[^0-9]"
                            data-validation-error-msg="Veuillez remplir le champ nationalité"/>
                 </div>
             </div>
@@ -240,8 +240,10 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="fixe">Téléphone fixe</label> / <span class="en">Phone number</span>
-                    <input type="tel" class="form-control" id="fixe" name="fixe"
-                           placeholder="Votre numéro"/>
+                    <input type="tel" class="form-control" id="fixe" name="fixe" 
+                           placeholder="Votre numéro" data-validation-optional="true"
+                           data-validation="custom" data-validation-regexp="^(0[1-68])(?:[ _.-]?(\d{2})){4}$"
+                           data-validation-error-msg="Veuillez fournir tel. valide"/>
                 </div>
             </div>
             <div class="col-md-4">
@@ -249,7 +251,9 @@
                     <label for="portable">Téléphone mobile</label> / <span class="en">Mobile number</span>
                     <input type="tel" class="form-control" id="portable"
                            name="portable"
-                           placeholder="Votre numéro"/>
+                           placeholder="Votre numéro" data-validation-optional="true"
+                           data-validation="custom" data-validation-regexp="^(0[1-68])(?:[ _.-]?(\d{2})){4}$"
+                           data-validation-error-msg="Veuillez fournir tel. valide"/>
                 </div>
             </div>
             <div class="col-md-4">
