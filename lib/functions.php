@@ -131,9 +131,23 @@ function removeDir($path)
 	return false;
 }
 
+function removeDirContent ($path){
+    if (is_dir ($path) === true) {
+        $files = array_diff (scandir ($path), array ('.', '..'));
+        foreach ($files as $file) {
+            removeDir (realpath ($path) . '/' . $file);
+        }
+        return true;
+    } else if (is_file ($path) === true) {
+        return unlink ($path);
+    }
+    return false;
+}
+
 function listAndRemoveDir($path)
 {
 	$pathsDelete = array();
+    $othersPath = array();
 	$path = realpath($path);
 	$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
 
@@ -149,10 +163,22 @@ function listAndRemoveDir($path)
 				$pathsDelete[] = $object->getPathname();
 			}
 		}
+        if ($object->getFilename () != ".." && $object->getFilename () != ".") {
+            $othersPath[] = $object->getPathname ();
+        }
 	}
+
 	foreach ($pathsDelete as $pathDelete) {
 		removeDir($pathDelete);
 	}
+
+    $name = basename ($othersPath[0]);
+    if($name !== "." && $name !== ".." && $name !== ".DS_Store"){
+        if (is_file ($othersPath[0])) {
+            $dirPath = dirname ($othersPath[0]);
+            removeDir($dirPath);
+        }
+    }
 }
 
 function IsEmptySubFolders($path)

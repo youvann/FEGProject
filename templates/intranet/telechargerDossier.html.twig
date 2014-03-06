@@ -1,7 +1,7 @@
 {% extends 'intranet.html.twig' %}
 
 {% block content %}
-    <h2 class="titre_rubrique">Options répertoire {{ dirName }}</h2>
+    <h2 class="titre_rubrique">Options {% if isFile %}fichier{% else %}dossier{% endif %} {{ dirName }}</h2>
     <div class="alert alert-info">
         <ul>
             <li>Cliquer sur <b>télécharger</b> pour obtenir le répertoire compressé.</li>
@@ -15,13 +15,13 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <a href="{{ path }}" class="btn btn-info btn-block" {% if (zip or empty) %}disabled="disabled"{% endif %}>
+            <a href="{{ path }}" class="btn btn-info btn-block" {% if (zip or empty) and not isFile %}disabled="disabled"{% endif %}>
                 <span class="glyphicon glyphicon-download"></span>
-                Télécharger {{ dirName }}
+                Télécharger {% if isFile %}le fichier {{ fileName }}{% else %}le contenu de {{ dirName }}{% endif %}
             </a>
-            <a href="#" class="btn btn-danger btn-block" {% if empty %}disabled="disabled"{% endif %}>
+            <a href="#" class="btn btn-danger btn-block" {% if empty and not isFile %}disabled="disabled"{% endif %}>
                 <span class="glyphicon glyphicon-trash"></span>
-                Supprimer le contenu de {{ dirName }}
+                Supprimer {% if isFile %}le fichier {{ fileName }}{% else %}le contenu de {{ dirName }}{% endif %}
             </a>
         </div>
     </div>
@@ -63,7 +63,7 @@
                 return false;
             });
             $('#btnOk').click(function () {
-                document.location.href = "index.php?uc=intranet&action=supprimerRepertoire&pathFolder={{ pathFolder }}";
+                document.location.href = "index.php?uc=intranet&action=supprimerRepertoire&pathFolder={{ pathFolder }}&isFile={{ isFile }}&zip={{ zip }}";
             });
         });
     </script>
