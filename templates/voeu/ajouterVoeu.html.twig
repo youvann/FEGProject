@@ -12,16 +12,21 @@
 
     <h2 class="titre_rubrique">Ajouter un voeu</h2>
 
-    <form action="index.php?uc=voeu&action=ajout" method="POST" onsubmit="javascript:return isValid();">
+    <form action="index.php?uc=voeu&action=ajout" method="POST">
         <input type="hidden" id="code_formation" name="code_formation" value="{{ code }}"/>
 
         <div class="form-group">
             <label for="code_etape">Code étape</label>
-            <input class="form-control" type="text" id="code_etape" name="code_etape" maxlength="6" />
+            <input class="form-control" type="text" id="code_etape" name="code_etape" maxlength="6"
+                   data-validation="custom"
+                   data-validation-regexp="[{% for voeu in voeux %}{% if loop.first %}^{% else %}|{% endif %}({{ voeu.codeEtape }}){% endfor %}]"
+                   required="required"
+                   data-validation-error-msg="Le code saisi est invalide ou déjà existant" />
         </div>
         <div class="form-group">
             <label for="etape">Etape</label>
-            <input class="form-control" type="text" id="etape" name="etape"/>
+            <input class="form-control" type="text" id="etape" name="etape"
+                   data-validation="required" data-validation-error-msg="Veuillez renseigner la mention de l'étape" />
         </div>
         {% if villes is not empty %}
             <label>Ville(s)</label>
@@ -41,7 +46,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon">@</span>
-                        <input type="text" class="form-control" disabled id="mail_responsable-{{ loop.index0 }}"
+                        <input type="email" class="form-control" disabled id="mail_responsable-{{ loop.index0 }}"
                                name="mail_responsable[]" placeholder="Adresse mail du responsable"/>
                     </div>
                 </div>
@@ -63,32 +68,29 @@
 {% block scripts %}
     {{ parent() }}
     <script type="text/javascript">
-        var ok = false;
-
-        function isValid() {
-            return ok;
-        }
-
         $(function () {
+            $.validate();
             $('input[type="checkbox"]').change(function () {
                 var idCb = this.id;
                 idCb = idCb.replace('ville-', '');
                 if ($(this).is(':checked')) {
-                    $('#responsable-' + idCb).removeAttr('disabled').attr('required', 'required');
-                    $('#mail_responsable-' + idCb).removeAttr('disabled').attr('required', 'required');
+                    $('#responsable-' + idCb).removeAttr('disabled').attr('data-validation', 'required').attr('data-validation-error-msg', 'Veuillez renseigner les nom et prénom du responsable');
+                    $('#mail_responsable-' + idCb).removeAttr('disabled').attr('data-validation', 'email').attr('data-validation-error-msg', 'L\'email saisie est invalide');
                 } else {
-                    $('#responsable-' + idCb).attr('disabled', 'disabled').removeAttr('required');
-                    $('#mail_responsable-' + idCb).attr('disabled', 'disabled').removeAttr('required').addClass('disabled');
+                    $('#responsable-' + idCb).attr('disabled', 'disabled').removeAttr('data-validation');
+                    $('#mail_responsable-' + idCb).attr('disabled', 'disabled').removeAttr('data-validation').addClass('disabled');
                 }
+                $.validate();
             });
             $('#code_etape').on('input', function () {
+                $('#code_etape').val($('#code_etape').val().toUpperCase());
                 $.ajax({
                     url: 'index.php?uc=voeu&action=codeEtapePossible',
-                    type: 'post',
-                    data: 'code=' + $('#code_etape').val(),
-                    dataType: 'json',
-                    success: function (json) {
-                        ok = json.response === "1" ? true : false;
+                    type: 'get',
+                    dataType: 'text',
+                    success: function (text) {
+                        $("#code_etape").attr("data-validation-regexp", text);
+                        $.validate();
                     }
                 });
             });

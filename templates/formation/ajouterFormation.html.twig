@@ -14,7 +14,11 @@
 
 	<div class="form-group">
 		<label for="code">Code</label>
-		<input class="form-control" type="text" maxlength="4" data-validation-help="Please give us some more information" data-validation="length" data-validation-length="min4" data-validation-error-msg="Un code formation doit faire 4 caractères" id="code_formation" name="code_formation" />
+		<input class="form-control" type="text" id="code_formation" name="code_formation" maxlength="4"
+               data-validation="custom"
+               data-validation-regexp="[{% for formation in formations %}{% if loop.first %}^{% else %}|{% endif %}({{ formation.codeFormation }}){% endfor %}]"
+               required="required"
+               data-validation-error-msg="Le code saisi est invalide ou déjà existant" />
 	</div>
 	<div class="form-group">
 		<label for="mention">Mention</label>
@@ -23,9 +27,9 @@
 	<!--<div class="form-group">
 		<label for="faculte">Faculté</label>
 		<select class="form-control" id="faculte" name="faculte">
-			{% for faculte in facultes %}
-			<option value="{{ faculte.id}}">{{ faculte.nom}}</option>
-			{% endfor %}
+			{# for faculte in facultes #}
+			<option value="{# faculte.id#}">{# faculte.nom#}</option>
+			{# endfor #}
 		</select>
 	</div>-->
     <input id="faculte" type="hidden" name="faculte" value="1" />
@@ -44,23 +48,22 @@
 
 {% block scripts %}
 {{ parent() }}
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.38/jquery.form-validator.min.js"></script>
 <script type="text/javascript">
     $(function() {
         $.validate();
 
         $('#code_formation').on('input', function() {
+            $('#code_formation').val($('#code_formation').val().toUpperCase());
             $.ajax({
                 url: 'index.php?uc=formation&action=codeFormationPossible',
-                type: 'post',
-                data: 'code=' +  $('#code_formation').val(),
-                dataType: 'json',
-                success: function (json) {
-                    console.log(json);
+                type: 'get',
+                dataType: 'text',
+                success: function (text) {
+                    $("#code_formation").attr("data-validation-regexp", text);
+                    $.validate();
                 }
             });
         });
     });
-
 </script>
 {% endblock %}

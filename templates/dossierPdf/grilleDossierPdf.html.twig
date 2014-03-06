@@ -12,8 +12,18 @@
     </ol>
 
     <h2 class="titre_rubrique">Gestion des dossiers</h2>
+
+    <button data-html="true" title="<p>En fonction des droits accordés à votre type de compte, vous pouvez ici ajouter, modifier et supprimer des dossiers de candidatures/préinscription</p>
+        <p>Dans le cadre gris 'Etapes' se trouvent les étapes qu'offre la formation, s'il y en a pas, ajoutez-les en cliquant sur ce
+    <a class='btn btn-primary btn-xs' href='index.php?uc=voeu&action=ajouter&code={{ code }}'>lien</a>.</p>
+    <p>Après avoir créé un dossier et ajouté les étapes proposées par la formation, faites glisser les étapes du cadre gris à l'un des dossiers où
+        cette étape doit apparaître.</p>"
+            data-placement="left" data-toggle="tooltip" class="btn btn-lg btn-info pull-right">
+        <span class="glyphicon glyphicon-question-sign"></span> Aide
+    </button>
+
     {% if session.grade > 1 %}
-    <button id="btnToggleModalNewEdit" class="btn btn-primary">
+    <button id="btnToggleModalNewEdit" class="btn btn-primary btn-lg">
         <span class="glyphicon glyphicon-plus-sign"></span> Ajouter un dossier
     </button>
     {% endif %}
@@ -108,6 +118,16 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <button data-html="true" title="<p>Vous pouvez ajouter des
+                        informations et documents spécifiques qui seront demandés à la candidature d'un étudiant, et
+                        à la préinscription selon votre choix.</p><p>Vous pouvez ensuite choisir pour chaque dossier
+                        quel(s) diplôme(s) de la Faculté d'Economie Gestion donne droit à l'étudiant à une préinscription,
+                        et ajouter des compatibilités pour des diplômes hors Faculté d'Economie Gestion.</p>
+                        <p>Vous pouvez enfin prévisualiser les dossiers que vous avez créés et édités.</p>"
+                                data-placement="top" data-toggle="tooltip" class="btn btn-info">
+                            <span class="glyphicon glyphicon-question-sign"></span> Aide
+                        </button>
                     </div>
                 </div>
             </div>
@@ -136,7 +156,7 @@
                         <div class="form-group">
                             <label for="nom">Nom</label>
                             <input class="form-control" type="text" id="nom"
-                                   name="nom"/>
+                                   name="nom" required="required" />
                         </div>
                         <div class="form-group">
                             <label for="informations">Informations</label>
@@ -230,7 +250,7 @@
                 ],
                 toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
             });
-
+            $('button[data-toggle="tooltip"]').tooltip();
             // Prévisualisation des dossiers de pré-inscriptions ou de candidatures
             var typePdf = 'null';
             $('.prevPdf').click(function () {

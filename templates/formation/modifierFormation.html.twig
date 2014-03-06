@@ -14,16 +14,19 @@
 	<input type="hidden" id="code" name="code_formation" value="{{ formation.codeformation }}" />
 	<div class="form-group">
 		<label for="mention">Mention</label>
-		<input class="form-control" type="text" id="mention" name="mention" value="{{ formation.mention }}" />
+		<input class="form-control" type="text" id="mention" name="mention"
+               data-validation="required" data-validation-error-msg="Veuillez renseigner la mention de la formation"
+               value="{{ formation.mention }}" />
 	</div>
-	<div class="form-group">
+    <input type="hidden" id="faculte" name="faculte" value="1">
+	<!--<div class="form-group">
 		<label for="faculte">Faculté</label>
 		<select class="form-control" id="faculte" name="faculte">
-			{% for faculte in facultes %}
-			<option {% if formation.faculte == faculte.id %} selected="selected" {% endif %} value="{{ faculte.id}}">{{ faculte.nom}}</option>
-			{% endfor %}
+			{# for faculte in facultes #}
+			<option {# if formation.faculte == faculte.id #} selected="selected" {# endif #} value="{# faculte.id}}">{# faculte.nom#}</option>
+			{# endfor #}
 		</select>
-	</div>
+	</div>-->
 	<button class="btn btn-primary" type="submit">
 		<span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer
 	</button>
@@ -34,5 +37,15 @@
 <a href="index.php?uc=formation&action=grille"  class="btn btn-primary">
 	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
 </a>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+<script type="text/javascript">
+    $(function () {
+        $.validate();
+    });
+</script>
 
 {% endblock %}

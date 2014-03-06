@@ -12,6 +12,14 @@
     </ol>
 
     <h2 class="titre_rubrique">Liste des informations {{ dossierPdf.nom }}</h2>
+
+    <button data-html="true" title="<p>Vous pouvez ici ajouter des informations spécifiques
+     sous forme de question qui seront affichées dans le dossier de candidature et dans le dossier de préinscription
+     selon votre choix.</p><p>Vous pouvez réordonner les informations en les attrapant avec la souris.</p>"
+            data-placement="left" data-toggle="tooltip" class="btn btn-lg btn-info pull-right">
+        <span class="glyphicon glyphicon-question-sign"></span> Aide
+    </button>
+
     {% if session.grade > 1 %}
     <a href="index.php?uc=information&action=ajouter&dossierPdf={{ dossierPdf.id }}" class="btn btn-lg btn-primary">
         <span class="glyphicon glyphicon-plus-sign"></span> Ajouter une information
@@ -91,10 +99,10 @@
 {% block scripts %}
     {{ parent() }}
     <script src="public/js/jquery-ui-1.10.4.custom.min.js"></script>
-
-
     <script type="text/javascript">
         $(function () {
+            $('button[data-toggle="tooltip"]').tooltip();
+
             var lastPushedButton = null;
 
             $('.btn-danger').click(function () {

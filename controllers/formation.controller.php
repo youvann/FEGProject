@@ -28,8 +28,8 @@ switch ($action) {
 		break;
 	case "ajouter":
 	{
-		$facultes = $faculteManager->findAll ();
-		echo $twig->render ('formation/ajouterFormation.html.twig', array ('facultes' => $facultes));
+		$formations = $formationManager->findAll ();
+		echo $twig->render ('formation/ajouterFormation.html.twig', array ('formations' => $formations));
 	}
 		break;
 	case "ajout":
@@ -68,11 +68,18 @@ switch ($action) {
 		break;
 	case "codeFormationPossible":
 	{
-		$q = $conn->prepare ("SELECT IF(count(*) = 1, FALSE, TRUE) as ok FROM `formation` WHERE `code_formation` = UPPER(?);");
-		$q->execute (array ($_POST['code']));
-		$rs                   = $q->fetch ();
-		$response['response'] = $rs['ok'];
-		echo json_encode ($response);
+		FileHeader::headerTextPlain();
+		$formations = $formationManager->findAll();
+		$i = 0;
+		echo '[';
+		foreach ($formations as $formation) {
+			if ($i++ == 0) {
+				echo '^'.$formation->getCodeFormation();
+			} else {
+				echo '|'.$formation->getCodeFormation();
+			}
+		}
+		echo ']';
 	}
 		break;
 	case "syntheseCsv":
