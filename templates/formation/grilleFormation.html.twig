@@ -8,6 +8,13 @@
     </ol>
 
     <h2 class="titre_rubrique">Liste des formations</h2>
+
+    <button data-html="true" title="<p>En fonction des droits accordés à votre type de compte, vous pouvez ici ajouter,
+    consulter, modifier, supprimer ou gérer une formation en cliquant sur les différents boutons.</p>"
+            data-placement="left" data-toggle="tooltip" class="btn btn-lg btn-info pull-right">
+        <span class="glyphicon glyphicon-question-sign"></span> Aide
+    </button>
+
     {% if session.grade > 2 %}
         <a href="index.php?uc=formation&action=ajouter" class="btn btn-lg btn-primary">
             <span class="glyphicon glyphicon-plus-sign"></span> Ajouter une formation
@@ -105,6 +112,8 @@
     {{ parent() }}
     <script type="text/javascript">
         $(function () {
+            $('button[data-toggle="tooltip"]').tooltip();
+
             var lastPushedButton = null;
 
             $('.btn-danger').click(function () {

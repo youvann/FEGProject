@@ -18,7 +18,9 @@
 
         <div class="form-group">
             <label for="etape">Etape</label>
-            <input class="form-control" type="text" id="etape" name="etape" value="{{ voeu.etape }}"/>
+            <input class="form-control" type="text" id="etape" name="etape"
+                   data-validation="required" data-validation-error-msg="Veuillez renseigner la mention de l'étape"
+                   value="{{ voeu.etape }}"/>
         </div>
         {% if villes is not empty %}
             <label>Ville(s)</label>
@@ -39,6 +41,7 @@
                                 </span>
                                 <input type="text" class="form-control" id="responsable-{{ myLoopIndex }}"
                                        name="responsable[]" placeholder="Nom et prénom du responsable"
+                                       data-validation="required" data-validation-error-msg="Veuillez renseigner les nom et prénom du responsable"
                                        value="{{ seDerouler.responsable }}" />
                             </div>
                         </div>
@@ -47,6 +50,7 @@
                                 <span class="input-group-addon">@</span>
                                 <input type="text" class="form-control" id="mail_responsable-{{ myLoopIndex }}"
                                        name="mail_responsable[]" placeholder="Adresse mail du responsable"
+                                       data-validation="email" data-validation-error-msg="L\'email saisie est invalide"
                                        value="{{ seDerouler.mailResponsable }}" />
                             </div>
                         </div>
@@ -94,15 +98,17 @@
     {{ parent() }}
     <script type="text/javascript">
         $(function () {
+            $.validate();
+
             $('input[type="checkbox"]').change(function () {
                 var idCb = this.id;
                 idCb = idCb.replace('ville-', '');
                 if ($(this).is(':checked')) {
-                    $('#responsable-' + idCb).removeAttr('disabled').attr('required','required');
-                    $('#mail_responsable-' + idCb).removeAttr('disabled').attr('required','required');
+                    $('#responsable-' + idCb).removeAttr('disabled').attr('data-validation', 'required').attr('data-validation-error-msg', 'Veuillez renseigner les nom et prénom du responsable');
+                    $('#mail_responsable-' + idCb).removeAttr('disabled').attr('data-validation', 'email').attr('data-validation-error-msg', 'L\'email saisie est invalide');
                 } else {
-                    $('#responsable-' + idCb).attr('disabled','disabled').removeAttr('required');
-                    $('#mail_responsable-' + idCb).attr('disabled','disabled').removeAttr('required').addClass('disabled');
+                    $('#responsable-' + idCb).attr('disabled', 'disabled').removeAttr('data-validation');
+                    $('#mail_responsable-' + idCb).attr('disabled', 'disabled').removeAttr('data-validation').addClass('disabled');
                 }
             });
         });

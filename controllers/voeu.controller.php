@@ -30,8 +30,9 @@ switch ($action) {
 		break;
 	case "ajouter":
 	{
+		$voeux = $voeuManager->findAll();
 		$villes = $villeManager->findAll();
-		echo $twig->render('voeu/ajouterVoeu.html.twig', array('code' => $_GET['code'], 'villes' => $villes));
+		echo $twig->render('voeu/ajouterVoeu.html.twig', array('code' => $_GET['code'], 'voeux' => $voeux, 'villes' => $villes));
 	}
 		break;
 	case "ajout":
@@ -98,12 +99,18 @@ switch ($action) {
 		break;
 	case "codeEtapePossible":
 	{
-		FileHeader::headerJson();
-		$q = $conn->prepare("SELECT IF(count(*) = 1, FALSE, TRUE) as ok FROM `voeu` WHERE `code_etape` = ?;");
-		$q->execute(array($_POST['code']));
-		$rs = $q->fetch();
-		$response['response'] = $rs['ok'];
-		echo json_encode($response);
+		FileHeader::headerTextPlain();
+		$voeux = $voeuManager->findAll();
+		$i = 0;
+		echo '[';
+		foreach ($voeux as $voeu) {
+			if ($i++ == 0) {
+				echo '^'.$voeu->getCodeEtape();
+			} else {
+				echo '|'.$voeu->getCodeEtape();
+			}
+		}
+		echo ']';
 	}
 		break;
 	case "deplacerVoeuDansDossier":
