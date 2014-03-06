@@ -78,7 +78,8 @@
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="nom"
                            name="nom" placeholder="Votre nom"
-                           data-validation="custom" data-validation-regexp="([a-zA-Z-\séêèëààâäôœöûüùîï]+)"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                            data-validation-error-msg="Veuillez remplir le champ nom"/>
                 </div>
             </div>
@@ -88,8 +89,9 @@
                             class="en">First name</span>
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="prenom"
-                           name="prenom" placeholder="Votre prenom" 
-                           data-validation="custom" data-validation-regexp="([a-zA-Z-\séêèëààâäôœöûüùîï]+)"
+                           name="prenom" placeholder="Votre prenom"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                            data-validation-error-msg="Veuillez remplir le champ prénom"/>
                 </div>
             </div>
@@ -100,9 +102,12 @@
                 <label for="dateNaissance">Date de naissance</label> /
                 <span class="en">Birthdate</span>
                 <span class="label label-danger">Requis</span>
+
                 <div class="input-group date">
-                    <input type="text"  class="form-control" id="dateNaissance" name="dateNaissance"
-                           data-validation="required" value="{{ "now" | date("d/m/Y") }}"
+                    <input type="text" class="form-control" id="dateNaissance"
+                           name="dateNaissance"
+                           data-validation="date" data-validation-format="dd/mm/yyyy"
+                           value="{{ "now" | date("d/m/Y") }}"
                            data-validation-error-msg="Veuillez remplir le champ date de naissance"/>
                     <span class="input-group-addon">
                         <i class="glyphicon glyphicon-th"></i>
@@ -154,7 +159,8 @@
                     <input type="text" class="form-control required"
                            id="lieu_naissance" name="lieu_naissance"
                            placeholder="Votre lieu de naissance"
-                           data-validation="custom" data-validation-regexp="[^0-9]"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                            data-validation-error-msg="Veuillez remplir le champ lieu de naissance"/>
                 </div>
             </div>
@@ -167,7 +173,8 @@
                     <input type="text" class="form-control required" id="nationalite"
                            name="nationalite"
                            placeholder="Votre nationalité"
-                           data-validation="custom" data-validation-regexp="[^0-9]"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                            data-validation-error-msg="Veuillez remplir le champ nationalité"/>
                 </div>
             </div>
@@ -175,7 +182,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="ine">N° INE (pour étudiants en France)</label> / <span
+                    <label for="ine">N° INE (pour étudiants en France)</label>
+                    / <span
                             class="en">INE number (only for students already in Frane)</span>
                     <input type="text" class="form-control" id="ine"
                            name="ine"
@@ -231,7 +239,8 @@
                     <input type="text" class="form-control required" id="ville"
                            name="ville"
                            placeholder="Votre ville"
-                           data-validation="required"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                            data-validation-error-msg="Veuillez remplir le champ ville"/>
                 </div>
             </div>
@@ -240,25 +249,29 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="fixe">Téléphone fixe</label> / <span class="en">Phone number</span>
-                    <input type="tel" class="form-control" id="fixe" name="fixe" 
+                    <input type="tel" class="form-control" id="fixe" name="fixe"
                            placeholder="Votre numéro" data-validation-optional="true"
-                           data-validation="custom" data-validation-regexp="^(0[1-68])(?:[ _.-]?(\d{2})){4}$"
+                           data-validation="custom"
+                           data-validation-regexp="^(0[1-68])(?:[ _.-]?(\d{2})){4}$"
                            data-validation-error-msg="Veuillez fournir tel. valide"/>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="portable">Téléphone mobile</label> / <span class="en">Mobile number</span>
+                    <label for="portable">Téléphone mobile</label> / <span
+                            class="en">Mobile number</span>
                     <input type="tel" class="form-control" id="portable"
                            name="portable"
                            placeholder="Votre numéro" data-validation-optional="true"
-                           data-validation="custom" data-validation-regexp="^(0[1-68])(?:[ _.-]?(\d{2})){4}$"
+                           data-validation="custom"
+                           data-validation-regexp="^(0[1-68])(?:[ _.-]?(\d{2})){4}$"
                            data-validation-error-msg="Veuillez fournir tel. valide"/>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="mail">Courriel</label> / <span class="en">E-mail</span>
+                    <label for="mail">Courriel</label> / <span
+                            class="en">E-mail</span>
                     <span class="label label-danger">Requis</span>
                     <input type="email" class="form-control required" id="mail"
                            name="mail" placeholder="Votre mail"
@@ -277,11 +290,13 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="serie_bac">Série</label> / <span class="en">Type</span>
+                    <label for="serie_bac">Série</label> / <span
+                            class="en">Type</span>
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" id="serie_bac"
                            name="serie_bac"
-                           placeholder="Votre série" data-validation="required"
+                           placeholder="Votre série" data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                            data-validation-error-msg="Veuillez remplir le champ Série"/>
                 </div>
             </div>
@@ -293,7 +308,8 @@
                     <input type="text" class="form-control required"
                            id="etablissement_bac" name="etablissement_bac"
                            placeholder="Votre établissement"
-                           data-validation="required"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                            data-validation-error-msg="Veuillez indiquer le nom de l'établissement où vous avez eu votre baccalauréat"/>
                 </div>
             </div>
@@ -338,8 +354,10 @@
                 <label for="annee_bac">Année d'obtention</label> / <span
                         class="en">Year</span>
                 <span class="label label-danger">Requis</span>
+
                 <div class="input-group date">
-                    <input type="text" class="form-control" id="annee_bac" name="annee_bac"
+                    <input type="text" class="form-control" id="annee_bac"
+                           name="annee_bac"
                            data-validation="required"
                            value="{{ "now" | date("Y") }}"/>
                     <span class="input-group-addon">
