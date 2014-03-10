@@ -186,15 +186,19 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="entreprise[]">Entreprise</label>
+                            <span class="label label-danger">Requis</span>
                             <input type="text" class="form-control required" id="entreprise[]"
-                                   name="entreprise[]" data-validation="required"/>
+                                   name="entreprise[]" data-validation="required"
+                                   data-validation-error-msg="Veuillez remplir l'entreprise"/>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="emploi[]">Fonction</label>
+                            <span class="label label-danger">Requis</span>
                             <input type="text" class="form-control required" id="fonction[]"
-                                   name="fonction[]" data-validation="required"/>
+                                   name="fonction[]" data-validation="required"
+                                   data-validation-error-msg="Veuillez remplir votre fonction dans l'entreprise"/>
                         </div>
                     </div>
                 </div>
