@@ -99,18 +99,15 @@ switch ($action) {
 		break;
 	case "codeEtapePossible":
 	{
+		// ^((?!BAS301)(?!BAS302).)*$
 		FileHeader::headerTextPlain();
 		$voeux = $voeuManager->findAll();
 		$i = 0;
-		echo '[';
+		echo '^(';
 		foreach ($voeux as $voeu) {
-			if ($i++ == 0) {
-				echo '^'.$voeu->getCodeEtape();
-			} else {
-				echo '|'.$voeu->getCodeEtape();
-			}
+			echo '(?!'.$voeu->getCodeEtape().')';
 		}
-		echo ']';
+		echo '.)*$';
 	}
 		break;
 	case "deplacerVoeuDansDossier":

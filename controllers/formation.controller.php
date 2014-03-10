@@ -71,15 +71,11 @@ switch ($action) {
 		FileHeader::headerTextPlain();
 		$formations = $formationManager->findAll();
 		$i = 0;
-		echo '[';
+		echo '^(';
 		foreach ($formations as $formation) {
-			if ($i++ == 0) {
-				echo '^'.$formation->getCodeFormation();
-			} else {
-				echo '|'.$formation->getCodeFormation();
-			}
+			echo '(?!'.$formation->getCodFormation().')';
 		}
-		echo ']';
+		echo '.)*$';
 	}
 		break;
 	case "syntheseCsv":
@@ -90,25 +86,17 @@ switch ($action) {
             unlink ($csvFileName);
         }
 
-        $q = $conn->prepare ("SELECT DISTINCT d.`ID_ETUDIANT`,
-										`INE`,
-										d.`NOM`,
-										`PRENOM`,
-										`MAIL`,
-										CONCAT(`FIXE`, '/', `PORTABLE`) as TEL,
-										CONCAT(DAY(`DATE_NAISSANCE`), '/', MONTH(`DATE_NAISSANCE`), '/', YEAR(`DATE_NAISSANCE`)) as DATE_NAISSANCE,
-										`CURSUS` as DERNIER_CURSUS,
-										dp.`NOM` as DOSSIER_PDF_NOM,
-										`ETAPE` as PREMIER_VOEU,
-										`ANNEE_BAC`
+        $q = $conn->prepare ("SELECT DISTINCT d.`ID_ETUDIANT` `INE`, d.`NOM`, `PRENOM`, `MAIL`,
+								CONCAT(`FIXE`, '/', `PORTABLE`) as TEL,
+								CONCAT(DAY(`DATE_NAISSANCE`), '/', MONTH(`DATE_NAISSANCE`), '/', YEAR(`DATE_NAISSANCE`)) as DATE_NAISSANCE,
+								`CURSUS` as DERNIER_CURSUS, dp.`NOM` as DOSSIER_PDF_NOM, `ETAPE` as PREMIER_VOEU, `ANNEE_BAC`
 								FROM `dossier` d
 									INNER JOIN `cursus` c1 ON d.`ID_ETUDIANT` = c1.`ID_ETUDIANT`
 									INNER JOIN `faire` f ON d.`ID_ETUDIANT` = f.`ID_ETUDIANT`
 									INNER JOIN `voeu` v ON f.`CODE_ETAPE` = v.`CODE_ETAPE`
 									INNER JOIN `dossier_pdf` dp ON v.`DOSSIER_PDF` = dp.`ID`
 								WHERE `ANNEE_FIN` = (SELECT MAX(`ANNEE_FIN`) FROM `cursus` c2 WHERE c2.`ID_ETUDIANT` = c1.`ID_ETUDIANT`)
-								AND f.`ORDRE` = 1
-								AND dp.`CODE_FORMATION` = ?
+								AND f.`ORDRE` = 1 AND dp.`CODE_FORMATION` = ?
 								GROUP BY d.`ID_ETUDIANT`;");
         $q->execute (array ($_GET['code']));
         $rs = $q->fetchAll ();

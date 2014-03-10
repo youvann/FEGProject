@@ -81,7 +81,6 @@
             });
 
             $('#choisie').on('change', function () {
-                console.log($(this).val());
                 if ($(this).val() !== '')
                     loadDomains();
                 else {
@@ -89,10 +88,10 @@
                         $('#divRadioButtons').fadeOut(250, function () {
                             $('#divDocuments').fadeOut(250, function () {
                                 $('#divDerniere').fadeOut(250, function () {
-                                $('#divDocuments').empty();
-                                $('#divDerniere').empty();
+                                    $('#divDocuments').empty();
+                                    $('#divDerniere').empty();
+                                });
                             });
-                        });
                         });
                     });
                 }
@@ -144,17 +143,25 @@
                     $('#divDocuments').addClass('alert');
                     $('#divDocuments').addClass('alert-warning');
                 }
-
+                // On liste les documents généraux du JSON
                 var documentsGeneraux = json.general;
+                // On liste les documents spécifiques du JSON
                 var documentsSpecifiques = json.specifique;
+                // On crée une liste HTML pour afficher les documents généraux
                 var listeDocumentsGeneraux = $('<ul></ul>');
+                // On crée une liste HTML pour afficher les documents spécifiques
                 var listeDocumentsSpecifiques = $('<ul></ul>');
 
+                // Pour chaque document général, on ajoute un élément LI à la liste HTML
                 documentsGeneraux.forEach(function (doc) {
+                    // On crée un élément LI ayant comme contenu le nom du document général
                     var li = $('<li></li>').append(doc)
+                    // On ajoute l'élément LI à la liste HTML
                     listeDocumentsGeneraux.append(li);
                 });
+                // Pour chaque document spécifique, on ajoute un élément LI à la liste HTML
                 documentsSpecifiques.forEach(function (doc) {
+                    // On crée un élément LI ayant comme contenu le nom du document général spécifique
                     var li = $('<li></li>').append(doc[0]);
                     if (doc[1] !== "") {
                         var link = $('<a></a>').on('click', function () {
@@ -167,25 +174,27 @@
                         li.append(' - ')
                                 .append(link);
                     }
+                    // On ajoute l'élément LI à la liste HTML
                     listeDocumentsSpecifiques.append(li);
                 });
+                // On crée un cadre Alert Bootstrap
                 var alert = $('<div></div>')
                         .addClass('alert')
                         .addClass('alert-danger')
-                        .append(
-                                $('<button></button>')
+                        .append($('<button></button>')
                                         .addClass('close')
                                         .attr('data-dismiss', 'alert')
                                         .attr('aria-hidden', 'true')
                                         .append('&times;')
                         ).append('Pour postuler à cette formation, assurez vous d\'être en possession des documents ci-dessous :');
-
-                $('#divDocuments').before().append(alert);
-
+                // On ajoute le cadre Alert Bootstrap à la DIV#divDocuments
+                $('#divDocuments').append(alert);
+                // On ajoute la liste des documents généraux avec un titre
                 $('#divDocuments').append('<h4>Documents communs</h4>')
                         .append(listeDocumentsGeneraux);
+                // S'il y a au moins 1 document spécifique, on ajoute la liste des documents spécifiques avec un titre
                 if (documentsSpecifiques.length > 0) {
-                    $('#displayDocuments').append('<br/><h4>Documents spécifiques à la formation choisie</h4>')
+                    $('#divDocuments').append('<br/><h4>Documents spécifiques à la formation choisie</h4>')
                             .append(listeDocumentsSpecifiques);
                 }
                 $('#divDocuments').fadeIn(1000);

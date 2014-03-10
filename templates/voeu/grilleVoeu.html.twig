@@ -5,26 +5,28 @@
     <ol class="breadcrumb">
         <li><a href="index.php?uc=intranet&action">Accueil</a></li>
         <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
-        <li><a href="index.php?uc=formation&action=consulter&code=">Fiche formation</a></li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
         <li class="active">Liste des voeux</li>
     </ol>
 
     <h2 class="titre_rubrique">Liste des voeux</h2>
 
-    <a role="button" data-html="true" data-content="<p>En fonction des droits accordés à votre type de compte, vous pouvez ici ajouter,
+    <button data-html="true" title="<p>En fonction des droits accordés à votre type de compte, vous pouvez ici ajouter,
             consulter, modifier, supprimer les étapes proposées par la formation en cliquant sur les différents boutons.</p>
-        <p>Vous pouvez ensuite placer ces étapes dans les dossiers de candidature/préinscription en cliquant sur
-        ce <a class='btn btn-primary btn-xs' href='index.php?uc=dossierPdf&action=grille&code={ code }}'>lien</a></p>"
-       title="" data-placement="left" data-toggle="popover" class="btn btn-lg btn-info pull-right" href="#"
-       data-original-title="Aide">
+        <p>Vous pouvez ensuite placer ces étapes dans les dossiers de candidature/préinscription en vous rendant dans la section
+        'Gérer les dossiers'</p>"
+            data-placement="left" data-toggle="tooltip" class="btn btn-lg btn-info pull-right">
         <span class="glyphicon glyphicon-question-sign"></span> Aide
-    </a>
+    </button>
 
     {% if session.grade > 1 %}
         <a href="index.php?uc=voeu&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
             <span class="glyphicon glyphicon-plus-sign"></span> Ajouter un voeu
         </a>
     {% endif %}
+    <a href="index.php?uc=dossierPdf&action=grille&code={{ code }}" class="btn btn-lg btn-primary">
+        <span class="glyphicon glyphicon-paperclip"></span> Gérer les dossiers
+    </a>
     {% if voeux is not empty %}
 
         <table style="margin-top: 1em;" class="table table-hover table-bordered table-striped">
@@ -88,7 +90,7 @@
     {{ parent() }}
     <script type="text/javascript">
         $(function () {
-            $('a[role="button"]').popover();
+            $('button[data-toggle="tooltip"]').tooltip();
 
             var lastPushedButton = null;
 

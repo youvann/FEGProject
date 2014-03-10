@@ -15,9 +15,9 @@
             <ul>
                 <br/>
                 {% for documentSpecifique in documentsSpecifiques %}
-                    <li><p>{{ documentSpecifique.nom }}</p>
-                        {% if documentSpecifique is not null %}
-
+                    <li>{{ documentSpecifique.nom }}
+                        {% if documentSpecifique.url != '' %}
+                            - <a class="linkDocumentSpecifique" href="{{ documentSpecifique.url }}">Cliquez ici pour télécharger le document</a>
                         {% endif %}
                     </li>
                 {% endfor %}

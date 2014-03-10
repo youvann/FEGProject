@@ -279,6 +279,10 @@ function formatString($string)
 	return $mot;
 }
 
+/**
+ * @param $str
+ * @return mixed|string
+ */
 function stripAccents($str)
 {
 	$trans = array('À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A',
