@@ -37,4 +37,70 @@ class Voeu {
 		$this->dossierPdf = $dossierPdf;
 	}
 
+	/**
+	 * @param string $codeEtape
+	 */
+	public function setCodeEtape($codeEtape)
+	{
+		$this->codeEtape = $codeEtape;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCodeEtape()
+	{
+		return $this->codeEtape;
+	}
+
+	/**
+	 * @param string $codeFormation
+	 */
+	public function setCodeFormation($codeFormation)
+	{
+		$this->codeFormation = $codeFormation;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCodeFormation()
+	{
+		return $this->codeFormation;
+	}
+
+	/**
+	 * @param string $dossierPdf
+	 */
+	public function setDossierPdf($dossierPdf)
+	{
+		$this->dossierPdf = $dossierPdf;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDossierPdf()
+	{
+		return $this->dossierPdf;
+	}
+
+	/**
+	 * @param string $etape
+	 */
+	public function setEtape($etape)
+	{
+		$this->etape = $etape;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getEtape()
+	{
+		return $this->etape;
+	}
+
+
+
 }
