@@ -36,30 +36,42 @@ switch ($action) {
 		FileHeader::headerJson();
 		// On récupère le dossiezr pdf
 		$dossierPdf = $dossierPdfManager->find($_POST['idDossierPdf']);
+		// On renseigne l'identifiant dans le JSON
 		$json['id'] = $dossierPdf->getId();
+		// On renseigne le nom dans le JSON
 		$json['nom'] = $dossierPdf->getNom();
+		// On renseigne les informations dans le JSON
 		$json['informations'] = $dossierPdf->getInformations() === NULL ? '' : $dossierPdf->getInformations();
+		// On renseigne les modalités dans le JSON
 		$json['modalites'] = $dossierPdf->getModalites() === NULL ? '' : $dossierPdf->getModalites();
+		// On renseigne le code formation dans le JSON
 		$json['codeFormation'] = $dossierPdf->getCodeFormation();
 		$response['dossierPdf'] = $json;
 		echo json_encode($response);
 	}
 		break;
+	// Cette action ajout un dossier pdf en base de données
 	case 'ajout' :
 	{
+		// On insère un dossier pdf en base de données à travers le manager
 		$dossierPdfManager->insert(new DossierPdf(0, $_POST['nom'], $_POST['informations'], $_POST['modalites'], $_POST['code_formation']));
 		header('location:index.php?uc=dossierPdf&action=grille&code=' . $_POST['code_formation']);
 	}
 		break;
+	// Cette action modifie un dossier pdf en base de données
 	case 'modification' :
 	{
+		// On met à jour un dossier pdf en base de données à travers le manager
 		$dossierPdfManager->update(new DossierPdf($_POST['id'], $_POST['nom'], $_POST['informations'], $_POST['modalites'], $_POST['code_formation']));
 		header('location:index.php?uc=dossierPdf&action=grille&code=' . $_POST['code_formation']);
 	}
 		break;
+	// Cette action suppime un dossier pdf en base de données
 	case 'suppression' :
 	{
+		// On récupère l'identifiant du dossier pdf passé en variable GET
 		$dossierPdf = $dossierPdfManager->find($_GET['idDossier']);
+		// On supprime un dossier pdf en base de données à travers le manager
 		$dossierPdfManager->delete($dossierPdf);
 		header('location:index.php?uc=dossierPdf&action=grille&code=' . $dossierPdf->getCodeFormation());
 	}
