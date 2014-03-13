@@ -38,7 +38,7 @@ class Voeu {
 	}
 
 	/**
-	 * @param string $codeEtape
+	 * @param string $codeEtape Code Etape
 	 */
 	public function setCodeEtape($codeEtape)
 	{
@@ -46,7 +46,7 @@ class Voeu {
 	}
 
 	/**
-	 * @return string
+	 * @return string Code Etape
 	 */
 	public function getCodeEtape()
 	{
@@ -54,7 +54,7 @@ class Voeu {
 	}
 
 	/**
-	 * @param string $codeFormation
+	 * @param string $codeFormation Code Formation
 	 */
 	public function setCodeFormation($codeFormation)
 	{
@@ -62,7 +62,7 @@ class Voeu {
 	}
 
 	/**
-	 * @return string
+	 * @return string Code Formation
 	 */
 	public function getCodeFormation()
 	{
@@ -70,7 +70,7 @@ class Voeu {
 	}
 
 	/**
-	 * @param string $dossierPdf
+	 * @param string $dossierPdf Dossier Pdf
 	 */
 	public function setDossierPdf($dossierPdf)
 	{
@@ -78,7 +78,7 @@ class Voeu {
 	}
 
 	/**
-	 * @return string
+	 * @return string Dossier Pdf
 	 */
 	public function getDossierPdf()
 	{
@@ -86,7 +86,7 @@ class Voeu {
 	}
 
 	/**
-	 * @param string $etape
+	 * @param string $etape Etape
 	 */
 	public function setEtape($etape)
 	{
@@ -94,13 +94,10 @@ class Voeu {
 	}
 
 	/**
-	 * @return string
+	 * @return string Etape
 	 */
 	public function getEtape()
 	{
 		return $this->etape;
 	}
-
-
-
 }
