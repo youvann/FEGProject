@@ -1,26 +1,49 @@
 <?php
-
-// Manque insert
+/**
+ * @Project: FEG Project
+ * @File: /Entities/DossierPdfManager.php
+ * @Purpose: Entité DossierPdf
+ * @Author: Lionel Guissani
+ */
 class DossierPdfManager {
+	/**
+	 * @var PDO Connexion à la base de données
+	 */
+	private $db;
 
-    private $db;
+	/**
+	 * @param PDO $db Connexion à la base de données
+	 */
+	function __construct(PDO $db) {
+		$this->setDb($db);
+	}
 
-    function __construct(PDO $db) {
-        $this->setDb($db);
-    }
+	/**
+	 * Accesseur en écriture de l'attribut db
+	 * @param PDO $db
+	 */
+	public function setDb(PDO $db) {
+		$this->db = $db;
+	}
 
-    public function setDb(PDO $db) {
-        $this->db = $db;
-    }
-
-    public function find($id) {
+	/**
+	 * Récupère un dossier pdf en fonction de son identifiant
+	 * @param $id string Identifiant du dossier pdf
+	 * @return DossierPdf Dossier pdf
+	 */
+	public function find($id) {
         $q = $this->db->prepare("SELECT * FROM `dossier_pdf` WHERE `ID` = ?;");
         $q->execute(array($id));
         $rs = $q->fetch();
         return new DossierPdf($rs['ID'], $rs['NOM'], $rs['INFORMATIONS'], $rs['MODALITES'], $rs['CODE_FORMATION']);
     }
 
-    public function findAllByFormation(Formation $formation) {
+	/**
+	 * Retourne tous les dossiers pdf d'une formation
+	 * @param Formation $formation Formation
+	 * @return array Tous les dossiers pdf d'une formation
+	 */
+	public function findAllByFormation(Formation $formation) {
         $dossiers = array();
         $q        = $this->db->prepare("SELECT * FROM `dossier_pdf` WHERE `CODE_FORMATION` = ?;");
         $q->execute(array($formation->getCodeFormation()));
@@ -31,6 +54,10 @@ class DossierPdfManager {
         return $dossiers;
     }
 
+	/**
+	 * Retourne tous les dossiers pdf
+	 * @return array Tous les dossiers pdf
+	 */
     public function findAll(){
         $dossiers = array ();
         $rs = $this->db->query("SELECT * FROM `dossier_pdf`;")->fetchAll();
@@ -40,6 +67,10 @@ class DossierPdfManager {
         return $dossiers;
     }
 
+	/**
+	 * Retourne tous les dossiers pdf ordonnés par nom
+	 * @return array Tous les dossiers pdf ordonnés par nom
+	 */
 	public function myFindAll(){
 		$dossiers = array ();
 		$rs = $this->db->query("SELECT * FROM `dossier_pdf` ORDER BY `NOM`;")->fetchAll();
@@ -49,7 +80,12 @@ class DossierPdfManager {
 		return $dossiers;
 	}
 
-    public function insert(DossierPdf $dossierPdf) {
+	/**
+	 * Enregistre un dossier pdf
+	 * @param DossierPdf $dossierPdf Dossier pdf
+	 * @return bool Résultat de l'opération
+	 */
+	public function insert(DossierPdf $dossierPdf) {
         return $this->db->prepare("INSERT INTO `dossier_pdf` (`NOM`, `INFORMATIONS`, `MODALITES`, `CODE_FORMATION`) VALUES (?, ?, ?, ?);")
             ->execute(array(
                 $dossierPdf->getNom(),
@@ -59,6 +95,11 @@ class DossierPdfManager {
             ));
     }
 
+	/**
+	 * Met à jour un dossier pdf
+	 * @param DossierPdf $dossierPdf Dossier pdf
+	 * @return bool Résultat de l'opération
+	 */
     public function update(DossierPdf $dossierPdf) {
         return $this->db->prepare("UPDATE `dossier_pdf` SET `NOM` = ?, `INFORMATIONS` = ?, `MODALITES` = ?, `CODE_FORMATION` = ? WHERE `ID` = ?;")
             ->execute(array(
@@ -69,7 +110,11 @@ class DossierPdfManager {
 				$dossierPdf->getId(),
             ));
     }
-
+	/**
+	 * Supprime un dossier pdf
+	 * @param DossierPdf $dossierPdf Dossier pdf
+	 * @return bool Résultat de l'opération
+	 */
     public function delete(DossierPdf $dossierPdf) {
         return $this->db->prepare("DELETE FROM `dossier_pdf` WHERE `ID` = ?;")
             ->execute(array(
@@ -77,6 +122,10 @@ class DossierPdfManager {
             ));
     }
 
+	/**
+	 * Retourne la liste des liens
+	 * @return array Liste des liens
+	 */
 	public function getLinks() {
 		return $this->db->query("SELECT CONCAT('<a href=\"http://miage-aix-marseille.fr/?uc=formulaire&action=choixFormation&formationchoisie=', `ID`, '\">', `NOM`, '</a>') as lien FROM `dossier_pdf`;")->fetchAll();
 	}

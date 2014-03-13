@@ -1,6 +1,14 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/VoeuManager.php
+ * @Purpose: Entité Voeu
+ * @Author: Lionel Guissani
+ */
 class VoeuManager {
+	/**
+	 * @var PDO Connexion à la base de données
+	 */
 	private $db;
 
 	function __construct(PDO $db) {

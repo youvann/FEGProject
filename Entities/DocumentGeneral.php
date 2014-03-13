@@ -1,10 +1,29 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/DocumentGeneral.php
+ * @Purpose: Entité DocumentGeneral
+ * @Author: Lionel Guissani
+ */
 class DocumentGeneral {
+	/**
+	 * @var string Identifiant
+	 */
 	private $id;
+	/**
+	 * @var string Nom
+	 */
 	private $nom;
+	/**
+	 * @var string Demandé en préinscription
+	 */
 	private $visible;
-	
+
+	/**
+	 * @param $id string Identifiant
+	 * @param $nom string Nom
+	 * @param $visible string Demandé en préinscription
+	 */
 	function __construct($id, $nom, $visible) {
 		$this->id = $id;
 		$this->nom = $nom;

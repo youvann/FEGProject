@@ -1,5 +1,5 @@
 <?php
-
+// Chargement des classes représentant les entités
 require_once(__DIR__ . '/Choix.php');
 require_once(__DIR__ . '/ChoixManager.php');
 require_once(__DIR__ . '/Cursus.php');

@@ -1,10 +1,24 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/Dependre.php
+ * @Purpose: Entité Dependre
+ * @Author: Lionel Guissani
+ */
 class Dependre {
-
+	/**
+	 * @var string Identifiant du dossier pdf
+	 */
 	private $idDossier;
+	/**
+	 * @var string Code étape
+	 */
 	private $codeEtape;
 
+	/**
+	 * @param $idDossier string Identifiant du dossier pdf
+	 * @param $codeEtape string Code étape
+	 */
 	function __construct($idDossier, $codeEtape) {
 		$this->idDossier = $idDossier;
 		$this->codeEtape = $codeEtape;
@@ -19,7 +33,7 @@ class Dependre {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getIdDossier()
 	{

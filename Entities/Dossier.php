@@ -1,36 +1,155 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/Dossier.php
+ * @Purpose: Entité Dossier
+ * @Author: Lionel Guissani
+ */
 class Dossier {
-
+	/**
+	 * @var string Identifiant de l'étudiant
+	 */
 	private $idEtudiant;
+	/**
+	 * @var string Numéro INE
+	 */
     private $ine;
+	/**
+	 * @var string Sexe
+	 */
 	private $genre;
+	/**
+	 * @var string Code formation
+	 */
     private $codeFormation;
+	/**
+	 * @var string Autre
+	 */
 	private $autre;
+	/**
+	 * @var string Nom
+	 */
     private $nom;
+	/**
+	 * @var string Prénom
+	 */
     private $prenom;
+	/**
+	 * @var string Adresse
+	 */
     private $adresse;
+	/**
+	 * @var string Complément d'adresse
+	 */
     private $complement;
+	/**
+	 * @var string Code postal
+	 */
     private $codePostal;
+	/**
+	 * @var string Ville de résidence
+	 */
     private $ville;
+	/**
+	 * @var string Date de naissance
+	 */
     private $dateNaissance;
+	/**
+	 * @var string Lieu de naissance
+	 */
     private $lieuNaissance;
+	/**
+	 * @var string Téléphone fixe
+	 */
     private $fixe;
+	/**
+	 * @var string Téléphone portable
+	 */
     private $portable;
+	/**
+	 * @var string Adresse mail
+	 */
     private $mail;
+	/**
+	 * @var string Langues parlées
+	 */
     private $langues;
+	/**
+	 * @var string Nationalité
+	 */
     private $nationalite;
+	/**
+	 * @var string Série BAC
+	 */
     private $serieBac;
+	/**
+	 * @var string Année d'obtention du BAC
+	 */
     private $anneeBac;
+	/**
+	 * @var string Etablissement où a été obtenu le BAC
+	 */
     private $etablissementBac;
+	/**
+	 * @var string Département où a été obtenu le BAC
+	 */
     private $departementBac;
+	/**
+	 * @var string Pays ou a été obtenu le BAC
+	 */
     private $paysBac;
+	/**
+	 * @var string Activité
+	 */
     private $activite;
+	/**
+	 * @var string Titulaire
+	 */
     private $titulaire;
+	/**
+	 * @var string Ville préférée
+	 */
     private $villePreferee;
+	/**
+	 * @var string Autres éléments
+	 */
     private $autresElements;
+	/**
+	 * @var string Informations au format JSON
+	 */
     private $informations;
 
+	/**
+	 * Contructeur
+	 * @param $idEtudiant string Identifiant de l'étudiant
+	 * @param $ine string Numéro INE
+	 * @param $genre string Sexe
+	 * @param $codeFormation string Code formation
+	 * @param $autre string Autre
+	 * @param $nom string Nom
+	 * @param $prenom string Prénom
+	 * @param $adresse string Adresse
+	 * @param $complement string Complément d'adresse
+	 * @param $codePostal string Code postal
+	 * @param $ville string Ville de résidence
+	 * @param $dateNaissance string Date de naissance
+	 * @param $lieuNaissance string Lieu de naissance
+	 * @param $fixe string Téléphone fixe
+	 * @param $portable string Téléphone portable
+	 * @param $mail string Adresse mail
+	 * @param $langues string Langues parlées
+	 * @param $nationalite string Nationalité
+	 * @param $serieBac string Série BAC
+	 * @param $anneeBac string Année d'obtention du BAC
+	 * @param $etablissementBac string Etablissement où a été obtenu le BAC
+	 * @param $departementBac string Département où a été obtenu le BAC
+	 * @param $paysBac string Pays ou a été obtenu le BAC
+	 * @param $activite string Activité
+	 * @param $titulaire string Titulaire
+	 * @param $villePreferee string Ville préférée
+	 * @param $autresElements string Autres éléments
+	 * @param $informations string Informations au format JSON
+	 */
 	public function __construct($idEtudiant, $ine, $genre, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $villePreferee, $autresElements, $informations) {
         $this->idEtudiant = $idEtudiant;
         $this->ine = $ine;
@@ -63,7 +182,7 @@ class Dossier {
     }
 
 	/**
-	 * @param mixed $activite
+	 * @param string $activite
 	 */
 	public function setActivite($activite)
 	{
@@ -71,7 +190,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getActivite()
 	{
@@ -79,7 +198,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $adresse
+	 * @param string $adresse
 	 */
 	public function setAdresse($adresse)
 	{
@@ -87,7 +206,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getAdresse()
 	{
@@ -95,7 +214,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $anneeBac
+	 * @param string $anneeBac
 	 */
 	public function setAnneeBac($anneeBac)
 	{
@@ -103,7 +222,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getAnneeBac()
 	{
@@ -111,7 +230,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $autre
+	 * @param string $autre
 	 */
 	public function setAutre($autre)
 	{
@@ -119,7 +238,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getAutre()
 	{
@@ -127,7 +246,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $autresElements
+	 * @param string $autresElements
 	 */
 	public function setAutresElements($autresElements)
 	{
@@ -135,7 +254,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getAutresElements()
 	{
@@ -143,7 +262,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $codeFormation
+	 * @param string $codeFormation
 	 */
 	public function setCodeFormation($codeFormation)
 	{
@@ -151,7 +270,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getCodeFormation()
 	{
@@ -159,7 +278,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $codePostal
+	 * @param string $codePostal
 	 */
 	public function setCodePostal($codePostal)
 	{
@@ -167,7 +286,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getCodePostal()
 	{
@@ -175,7 +294,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $complement
+	 * @param string $complement
 	 */
 	public function setComplement($complement)
 	{
@@ -183,7 +302,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getComplement()
 	{
@@ -191,7 +310,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $dateNaissance
+	 * @param string $dateNaissance
 	 */
 	public function setDateNaissance($dateNaissance)
 	{
@@ -199,7 +318,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getDateNaissance()
 	{
@@ -207,7 +326,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $departementBac
+	 * @param string $departementBac
 	 */
 	public function setDepartementBac($departementBac)
 	{
@@ -215,7 +334,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getDepartementBac()
 	{
@@ -223,7 +342,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $etablissementBac
+	 * @param string $etablissementBac
 	 */
 	public function setEtablissementBac($etablissementBac)
 	{
@@ -231,7 +350,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getEtablissementBac()
 	{
@@ -239,7 +358,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $fixe
+	 * @param string $fixe
 	 */
 	public function setFixe($fixe)
 	{
@@ -247,7 +366,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getFixe()
 	{
@@ -255,7 +374,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $genre
+	 * @param string $genre
 	 */
 	public function setGenre($genre)
 	{
@@ -263,7 +382,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getGenre()
 	{
@@ -271,7 +390,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $idEtudiant
+	 * @param string $idEtudiant
 	 */
 	public function setIdEtudiant($idEtudiant)
 	{
@@ -279,7 +398,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getIdEtudiant()
 	{
@@ -287,7 +406,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $ine
+	 * @param string $ine
 	 */
 	public function setIne($ine)
 	{
@@ -295,7 +414,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getIne()
 	{
@@ -303,7 +422,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $informations
+	 * @param string $informations
 	 */
 	public function setInformations($informations)
 	{
@@ -311,7 +430,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getInformations()
 	{
@@ -319,7 +438,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $langues
+	 * @param string $langues
 	 */
 	public function setLangues($langues)
 	{
@@ -327,7 +446,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getLangues()
 	{
@@ -335,7 +454,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $lieuNaissance
+	 * @param string $lieuNaissance
 	 */
 	public function setLieuNaissance($lieuNaissance)
 	{
@@ -343,7 +462,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getLieuNaissance()
 	{
@@ -351,7 +470,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $mail
+	 * @param string $mail
 	 */
 	public function setMail($mail)
 	{
@@ -359,7 +478,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getMail()
 	{
@@ -367,7 +486,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $nationalite
+	 * @param string $nationalite
 	 */
 	public function setNationalite($nationalite)
 	{
@@ -375,7 +494,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getNationalite()
 	{
@@ -383,7 +502,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $nom
+	 * @param string $nom
 	 */
 	public function setNom($nom)
 	{
@@ -391,7 +510,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getNom()
 	{
@@ -399,7 +518,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $paysBac
+	 * @param string $paysBac
 	 */
 	public function setPaysBac($paysBac)
 	{
@@ -407,7 +526,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getPaysBac()
 	{
@@ -415,7 +534,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $portable
+	 * @param string $portable
 	 */
 	public function setPortable($portable)
 	{
@@ -423,7 +542,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getPortable()
 	{
@@ -431,7 +550,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $prenom
+	 * @param string $prenom
 	 */
 	public function setPrenom($prenom)
 	{
@@ -439,7 +558,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getPrenom()
 	{
@@ -447,7 +566,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $serieBac
+	 * @param string $serieBac
 	 */
 	public function setSerieBac($serieBac)
 	{
@@ -455,7 +574,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getSerieBac()
 	{
@@ -463,7 +582,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $titulaire
+	 * @param string $titulaire
 	 */
 	public function setTitulaire($titulaire)
 	{
@@ -471,7 +590,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getTitulaire()
 	{
@@ -479,7 +598,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $ville
+	 * @param string $ville
 	 */
 	public function setVille($ville)
 	{
@@ -487,7 +606,7 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getVille()
 	{
@@ -495,7 +614,7 @@ class Dossier {
 	}
 
 	/**
-	 * @param mixed $villePreferee
+	 * @param string $villePreferee
 	 */
 	public function setVillePreferee($villePreferee)
 	{
@@ -503,12 +622,10 @@ class Dossier {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getVillePreferee()
 	{
 		return $this->villePreferee;
 	}
-
-
 }

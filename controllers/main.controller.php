@@ -3,7 +3,7 @@
 /**
  * @Project: FEG Project
  * @File   : /controllers/main.controller.php
- * @Purpose:
+ * @Purpose: Ce super contrôleur charge le bon contrôleur en fonction de la variable $uc
  * @Author :
  */
 if (!isset($_GET['uc'])){

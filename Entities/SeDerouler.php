@@ -1,12 +1,35 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/SeDerouler.php
+ * @Purpose: Entité SeDerouler
+ * @Author: Lionel Guissani
+ */
 class SeDerouler {
+	/**
+	 * @var string Identifiant
+	 */
 	private $id;
+	/**
+	 * @var string Code étape
+	 */
 	private $codeEtape;
+	/**
+	 * @var string Responsable
+	 */
 	private $responsable;
+	/**
+	 * @var string Adresse mail du responsable
+	 */
 	private $mailResponsable;
 
-	
+	/**
+	 * Constructeur
+	 * @param $id string Identifiant
+	 * @param $codeEtape string Code étape
+	 * @param $responsable string Responsable
+	 * @param $mailResponsable string Adresse mail du responsable
+	 */
 	function __construct($id, $codeEtape, $responsable, $mailResponsable) {
 		$this->id = $id;
 		$this->codeEtape = $codeEtape;
@@ -14,41 +37,68 @@ class SeDerouler {
 		$this->mailResponsable = $mailResponsable;
 	}
 
-	public function getId() {
-		return $this->id;
-	}
-
-	public function getCodeEtape() {
-		return $this->codeEtape;
-	}
-
-	public function setId($id) {
-		$this->id = $id;
-	}
-
-	public function setCodeEtape($codeEtape) {
+	/**
+	 * @param string $codeEtape
+	 */
+	public function setCodeEtape($codeEtape)
+	{
 		$this->codeEtape = $codeEtape;
 	}
 
-	public function setResponsable($responsable)
+	/**
+	 * @return string
+	 */
+	public function getCodeEtape()
 	{
-		$this->responsable = $responsable;
+		return $this->codeEtape;
 	}
 
-	public function getResponsable()
+	/**
+	 * @param string $id
+	 */
+	public function setId($id)
 	{
-		return $this->responsable;
+		$this->id = $id;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * @param string $mailResponsable
+	 */
 	public function setMailResponsable($mailResponsable)
 	{
 		$this->mailResponsable = $mailResponsable;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getMailResponsable()
 	{
 		return $this->mailResponsable;
 	}
 
+	/**
+	 * @param string $responsable
+	 */
+	public function setResponsable($responsable)
+	{
+		$this->responsable = $responsable;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getResponsable()
+	{
+		return $this->responsable;
+	}
 
 }

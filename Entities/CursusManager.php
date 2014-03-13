@@ -1,17 +1,36 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/CursusManager.php
+ * @Purpose: Entité Cursus
+ * @Author: Lionel Guissani
+ */
 class CursusManager {
-
+	/**
+	 * @var PDO Connexion à la base de données
+	 */
 	private $db;
 
+	/**
+	 * @param PDO $db Connexion à la base de données
+	 */
 	function __construct(PDO $db) {
 		$this->setDb($db);
 	}
 
+	/**
+	 * Accesseur en écriture de l'attribut db
+	 * @param PDO $db
+	 */
 	public function setDb(PDO $db) {
 		$this->db = $db;
 	}
 
+	/**
+	 * Retourne les cursus d'un dossier étudiant
+	 * @param Dossier $dossier Dossier étudiant
+	 * @return array Cursus d'un dossier étudiant
+	 */
 	public function findAllByDossier(Dossier $dossier) {
         $lesCursus = array();
 		$q = $this->db->prepare("SELECT * FROM `cursus` WHERE `cursus`.`ID_ETUDIANT` = ? AND `cursus`.`CODE_FORMATION` = ?;");
@@ -24,7 +43,12 @@ class CursusManager {
         return $lesCursus;
 	}
 
-    public function findAllByDossierOrderedByAnneeFin (Dossier $dossier) {
+	/**
+	 * Retourne les cursus d'un dossier étudiant ordonnés par année
+	 * @param Dossier $dossier Dossier étudiant
+	 * @return array Cursus d'un dossier étudiant ordonnés par année
+	 */
+	public function findAllByDossierOrderedByAnneeFin (Dossier $dossier) {
         $lesCursus = array ();
         $q         = $this->db->prepare ("SELECT * FROM `cursus` WHERE `cursus`.`ID_ETUDIANT` = ? AND `cursus`.`CODE_FORMATION` = ? ORDER BY `cursus`.`ANNEE_FIN` DESC;");
         $q->execute (array ($dossier->getIdEtudiant (), $dossier->getCodeFormation ()));
@@ -36,7 +60,12 @@ class CursusManager {
         return $lesCursus;
     }
 
-    public function findLastDiplomaObtainedByDossier(Dossier $dossier){
+	/**
+	 * Retourne le dernier diplôme renseigné dans le dossier passé en paramètre
+	 * @param Dossier $dossier Dossier étudiant
+	 * @return string Le dernier diplôme renseigné dans le dossier
+	 */
+	public function findLastDiplomaObtainedByDossier(Dossier $dossier){
         $q = $this->db->prepare ("SELECT IF(count(*) > 0,
 									(SELECT `CURSUS`
 									FROM `cursus`
@@ -58,6 +87,11 @@ class CursusManager {
         return $rs['DERNIER_DIPLOME'];
     }
 
+	/**
+	 * Enregistre un Cursus
+	 * @param Cursus $cursus
+	 * @return bool Résultat de l'opération
+	 */
 	public function insert(Cursus $cursus) {
 		return $this->db->prepare("INSERT INTO `cursus` (`ID_ETUDIANT`, `CODE_FORMATION`, `ANNEE_DEBUT`, `ANNEE_FIN`, `CURSUS`, `ETABLISSEMENT`, `NOTE`, `VALIDE`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);")
 						->execute(array(
@@ -71,7 +105,11 @@ class CursusManager {
 							$cursus->getValide()
 		));
 	}
-
+	/**
+	 * Supprime un Cursus
+	 * @param Cursus $cursus
+	 * @return bool Résultat de l'opération
+	 */
 	public function delete(Cursus $cursus) {
 		return $this->db->prepare("DELETE FROM `cursus` WHERE `cursus`.`INE` = ? AND `cursus`.`CODE_FORMATION` = ?;")
 						->execute(array(

@@ -4,7 +4,7 @@
  * @Project: FEG Project
  * @File   : /controllers/formulaire.controller.php
  * @Purpose: Contrôleur qui se charge d'afficher les différentes vues des formulaires d'inscription
- * @Author :
+ * @Author : Kévin Meas
  */
 if (!isset($_GET['action'])) {
 	$action = "choixFormation";
@@ -13,20 +13,29 @@ if (!isset($_GET['action'])) {
 }
 
 switch ($action) {
+	// Cette action affiche le formulaire où l'étudiant choisi quelle formation
+	// il veut postuler.
 	case "choixFormation" :
 	{
+		// On récupère tous les voeux
 		$voeux = $voeuManager->findAll();
+		// On récupère toutes les formations
 		$formations = $formationManager->findAll();
+		// On récupère tous les dossiers pdf
 		$dossiersPdf = $dossierPdfManager->findAll();
 
 		echo $twig->render('formulaire/choixFormation.html.twig', array('formations' => $formations, 'voeux' => $voeux, 'dossiersPdf' => $dossiersPdf));
 	}
 		break;
+	// Cette action traite le formulaire de la page choixFormation.html.twig
 	case "traiterChoixFormation":
 	{
-		// Récupère le code formation choisi grâce à l'id du dossier pdf
+		// On récupère l'identifiant du dossier pdf
 		$idDossierPdf = $_POST['choisie'];
+		// On récupère le dossier pdf sous forme d'instance de DossierPdf
+		// grâce au manager
 		$dossierPdf = $dossierPdfManager->find($idDossierPdf);
+
 		$codeFormation = $dossierPdf->getCodeFormation();
 
 		$_SESSION['isCandidature'] = ($_POST['derniere'] == '0') ? true : false;
@@ -68,25 +77,38 @@ switch ($action) {
 		echo json_encode($response);
 	}
 		break;
+	// Cette action retourne les dossiers généraux et spécifiques en fonction
+	// d'un dossier pdf au format JSON
 	case "displayDocuments":
 	{
+		// On met comme entête de page le format JSON
 		FileHeader::headerJson();
+		// On récupère le dossier pdf dont l'identifiant est passé en variable GET
 		$dossierPdf = $dossierPdfManager->find($_POST['idDossierPdf']);
+		// On récupere les documents généraux et spécifiques adequats en fonction
+		// du statut de postulation de l'étudiant (candidature ou préinscription)
 		$documentsGeneraux = ($_POST['preinscription'] === '1' ? $documentGeneralManager->findAllVisible() : $documentGeneralManager->findAll());
 		$documentsSpecifiques = ($_POST['preinscription'] === '1' ? $documentSpecifiqueManager->findAllByDossierPdfVisible($dossierPdf) : $documentSpecifiqueManager->findAllByDossierPdf($dossierPdf));
 
+		// Ce tableau contiendra le JSON
 		$response = array();
+		// Ce tableau contiendra les documents généraux adequats
 		$general = array();
+		// Ce tableau contiendra les documents spécifiques adequats
 		$specifique = array();
 
+		// Pour chaque document général, on ajoute son nom au JSON
 		foreach ($documentsGeneraux as $documentGeneral) {
 			$general[] = $documentGeneral->getNom();
 		}
+		// Pour chaque document spécifique, on ajoute son nom au JSON
 		foreach ($documentsSpecifiques as $documentSpecifique) {
 			$specifique[] = array($documentSpecifique->getNom(), $documentSpecifique->getUrl());
 		}
+		// On ajoute la liste des documents généraux et spécifiques au conteneur
 		$response['general'] = $general;
 		$response['specifique'] = $specifique;
+		// On affiche le JSON
 		echo(json_encode($response));
 	}
 		break;
@@ -406,11 +428,13 @@ switch ($action) {
 		echo $twig->render('formulaire/recapitulatif.html.twig', array('dossierPdf' => $dossierPdf->getNom(), 'pathPdf' => $pathPdf, 'typeDossier' => $typeDossier, 'idEtudiant' => $_SESSION['idEtudiant'], 'codeFormation' => $_SESSION['codeFormation'], "idDossierPdf" => $_SESSION['idDossierPdf']));
 	}
 		break;
+	// Cette action retourne un cadre Cursus pour le formulaire principal
 	case "getTemplateCursus" :
 	{
 		echo $twig->render('formulaire/template.cursus.html.twig', array('indice' => $_GET['indice']));
 	}
 		break;
+	// Cette action retourne un cadre Experience pour le formulaire principal
 	case "getTemplateExperience" :
 	{
 		echo $twig->render('formulaire/template.experience.html.twig', array('indice' => $_GET['indice']));

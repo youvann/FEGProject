@@ -1,26 +1,54 @@
 <?php
-
-// CHECK
-class DocumentSpecifiqueManager {
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/DocumentSpecifiqueManager.php
+ * @Purpose: Entité DocumentSpecifique
+ * @Author: Lionel Guissani
+ */
+class DocumentSpecifiqueManager
+{
+	/**
+	 * @var PDO Connexion à la base de données
+	 */
 	private $db;
 
-	function __construct(PDO $db) {
+	/**
+	 * @param PDO $db Connexion à la base de données
+	 */
+	function __construct(PDO $db)
+	{
 		$this->setDb($db);
 	}
 
-	public function setDb(PDO $db) {
+	/**
+	 * Accesseur en écriture de l'attribut db
+	 * @param PDO $db
+	 */
+	public function setDb(PDO $db)
+	{
 		$this->db = $db;
 	}
 
-	public function find($id) {
+	/**
+	 * Récupère un document spécifique en fonction de son identifiant
+	 * @param $id string Identifiant du document spécifique
+	 * @return Choix Choix
+	 */
+	public function find($id)
+	{
 		$q = $this->db->prepare("SELECT * FROM `document_specifique` WHERE `ID` = ?;");
 		$q->execute(array($id));
 		$rs = $q->fetch();
 		return new DocumentSpecifique($rs['ID'], $rs['DOSSIER_PDF'], $rs['NOM'], $rs['VISIBLE'], $rs['URL']);
 	}
 
-	public function findAllByDossierPdf(DossierPdf $dossierPdf) {
+	/**
+	 * Récupère tous les documents spécifiques en fonction d'un dossier pdf
+	 * @param DossierPdf $dossierPdf Dossier Pdf
+	 * @return array Tous les documents spécifiques en fonction d'un dossier pdf
+	 */
+	public function findAllByDossierPdf(DossierPdf $dossierPdf)
+	{
 		$documentsSpecifiques = array();
 		$q = $this->db->prepare("SELECT * FROM `document_specifique` WHERE `DOSSIER_PDF` = ?;");
 		$q->execute(array($dossierPdf->getId()));
@@ -31,7 +59,13 @@ class DocumentSpecifiqueManager {
 		return $documentsSpecifiques;
 	}
 
-	public function findAllByDossierPdfVisible(DossierPdf $dossierPdf) {
+	/**
+	 * Récupère tous les documents spécifiques en fonction d'un dossier pdf demandés en préinscription
+	 * @param DossierPdf $dossierPdf Dossier Pdf
+	 * @return array Tous les documents spécifiques en fonction d'un dossier pdf demandés en préinscription
+	 */
+	public function findAllByDossierPdfVisible(DossierPdf $dossierPdf)
+	{
 		$documentsSpecifiques = array();
 		$q = $this->db->prepare("SELECT * FROM `document_specifique` WHERE `DOSSIER_PDF` = ? AND `VISIBLE` = 1;");
 		$q->execute(array($dossierPdf->getId()));
@@ -42,30 +76,48 @@ class DocumentSpecifiqueManager {
 		return $documentsSpecifiques;
 	}
 
-	public function insert(DocumentSpecifique $documentSpecifique) {
+	/**
+	 * Enregistre un document spécifique
+	 * @param DocumentSpecifique $documentSpecifique
+	 * @return bool Résultat de l'opération
+	 */
+	public function insert(DocumentSpecifique $documentSpecifique)
+	{
 		return $this->db->prepare("INSERT INTO `document_specifique` (`DOSSIER_PDF`, `NOM`, `URL`, `VISIBLE`) VALUES (?, ?, ?, ?);")
-						->execute(array(
-							$documentSpecifique->getDossierPdf(),
-							$documentSpecifique->getNom(),
-							$documentSpecifique->getUrl(),
-							$documentSpecifique->getVisible()
-		));
+			->execute(array(
+				$documentSpecifique->getDossierPdf(),
+				$documentSpecifique->getNom(),
+				$documentSpecifique->getUrl(),
+				$documentSpecifique->getVisible()
+			));
 	}
 
-	public function update(DocumentSpecifique $documentSpecifique) {
+	/**
+	 * Met à jour un document spécifique
+	 * @param DocumentSpecifique $documentSpecifique
+	 * @return bool Résultat de l'opération
+	 */
+	public function update(DocumentSpecifique $documentSpecifique)
+	{
 		return $this->db->prepare("UPDATE `document_specifique` SET `DOSSIER_PDF` = ?, `NOM` = ?, `VISIBLE` = ?, `URL` = ? WHERE `ID` = ?;")
-						->execute(array(
-							$documentSpecifique->getDossierPdf(),
-							$documentSpecifique->getNom(),
-							$documentSpecifique->getVisible(),
-							$documentSpecifique->getUrl(),
-							$documentSpecifique->getId()
-		));
+			->execute(array(
+				$documentSpecifique->getDossierPdf(),
+				$documentSpecifique->getNom(),
+				$documentSpecifique->getVisible(),
+				$documentSpecifique->getUrl(),
+				$documentSpecifique->getId()
+			));
 	}
 
-	public function delete(DocumentSpecifique $documentSpecifique) {
+	/**
+	 * Supprime un document spécifique
+	 * @param DocumentSpecifique $documentSpecifique
+	 * @return bool Résultat de l'opération
+	 */
+	public function delete(DocumentSpecifique $documentSpecifique)
+	{
 		return $this->db->prepare("DELETE FROM `document_specifique` WHERE `ID` = ?;")
-						->execute(array($documentSpecifique->getId()));
+			->execute(array($documentSpecifique->getId()));
 	}
 
 }

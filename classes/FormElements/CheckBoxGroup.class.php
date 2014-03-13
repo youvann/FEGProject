@@ -9,9 +9,14 @@
  * @Author: Lionel Guissani
  */
 class CheckBoxGroup extends FormElement {
-
+	/**
+	 * @var array Cases à cocher
+	 */
 	private $checkBoxes;
 
+	/**
+	 * @return string Code HTML du groupe de cases à cocher
+	 */
 	public function __toString() {
 		$return = $this->label . "<div>";
 		foreach ($this->checkBoxes as $chechBox) {

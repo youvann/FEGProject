@@ -3,8 +3,8 @@
 /**
  * @Project: FEG Project
  * @File   : /controllers/formation.controller.php
- * @Purpose:
- * @Author :
+ * @Purpose: Ce contrôleur gère l'entité Formation
+ * @Author : Lionel Guissani
  */
 if (!isset($_GET['action'])) {
 	$action = "grille";
@@ -13,25 +13,33 @@ if (!isset($_GET['action'])) {
 }
 
 switch ($action) {
+	// Cette action permet de consulter les informations d'une formation
 	case "consulter":
 	{
+		// On récupère la formation dont le code est passé par variable GET
 		$formation = $formationManager->find ($_GET['code']);
+		// On récupère toutes les facultés
 		$facultes  = $faculteManager->findAll ();
 		echo $twig->render ('formation/consulterFormation.html.twig', array ('formation' => $formation, 'facultes' => $facultes));
 	}
 		break;
+	// Cette action permet de consulter la liste des formations sous forme de grille
 	case "grille":
 	{
+		// On récupère toutes les formations
 		$formations = $formationManager->findAll ();
 		echo $twig->render ('formation/grilleFormation.html.twig', array ('formations' => $formations));
 	}
 		break;
+	// Cette action permet d'accéder au formulaire d'ajout d'une formation
 	case "ajouter":
 	{
+		// On récupère toutes les formations
 		$formations = $formationManager->findAll ();
 		echo $twig->render ('formation/ajouterFormation.html.twig', array ('formations' => $formations));
 	}
 		break;
+	// Cette action ajoute une formation en base de données
 	case "ajout":
 	{
 		// Création du répertoire "code_formation"
@@ -40,37 +48,51 @@ switch ($action) {
 		myMkdirBase ("dossiers/" . $_POST['code_formation'] . "/Dossier-type");
         // Création du répertoire pour le logo
         myMkdirBase ("public/img/logos/" . $_POST['code_formation']);
-
+		// On insère la formation en base de données à travers le manager
 		$formationManager->insert (new Formation($_POST['code_formation'], $_POST['mention'], $_POST['faculte']));
 		header ('location:index.php?uc=formation&action=grille');
 	}
 		break;
+	// Cette action permet d'accéder au formulaire de modification d'une formation
 	case "modifier":
 	{
+		// On récupère toutes les facultés
 		$facultes  = $faculteManager->findAll ();
+		// On récupère la formation dont le code est passé par variable GET
 		$formation = $formationManager->find ($_GET['code']);
 		echo $twig->render ('formation/modifierFormation.html.twig', array ('facultes' => $facultes, 'formation' => $formation));
 	}
 		break;
+	// Cette action modifie une formation en base de données
 	case "modification":
 	{
+		// On récupère la formation dont le code est passé par variable GET
 		$formation = new Formation($_POST['code_formation'], $_POST['mention'], $_POST['faculte']);
+		// On la met à jour à travers le manager
 		$formationManager->update ($formation);
 		header ('location:index.php?uc=formation&action=grille');
 	}
 		break;
+	// Cette action supprime une formation en base de données
 	case "suppression":
 	{
+		// On récupère la formation dont le code est passé par variable GET
 		$formation = $formationManager->find ($_GET['code']);
+		// On la supprime à travers le manager
 		$formationManager->delete ($formation);
 		header ('location:index.php?uc=formation&action=grille');
 	}
 		break;
+	// Cette action renvoie une expression régulière pour que l'utilisateur
+	// ne puisse pas rentrer 2 fois le même code formation
 	case "codeFormationPossible":
 	{
+		// On met comme entête de fichier du texte dur
 		FileHeader::headerTextPlain();
+		// On récupère toutes les formations existantes
 		$formations = $formationManager->findAll();
-		$i = 0;
+		// On construit l'expression régulière avec
+		// les codes formation
 		echo '^(';
 		foreach ($formations as $formation) {
 			echo '(?!'.$formation->getCodFormation().')';
@@ -78,14 +100,17 @@ switch ($action) {
 		echo '.)*$';
 	}
 		break;
+	// Cette action retourne la synthèse au format CSV des inscriptions
 	case "syntheseCsv":
 	{
+		// On crée le nom du fichier CSV avec son chemin complet
+		// pour qu'il soit dans la formation souhaitée
         $csvFileName = 'dossiers/' . $_GET['code'] . '/Synthese.csv';
-
+		// Si le fichier existe déjà, on le supprime
         if (file_exists ($csvFileName)) {
             unlink ($csvFileName);
         }
-
+		// On prépare la requête
         $q = $conn->prepare ("SELECT DISTINCT d.`ID_ETUDIANT` `INE`, d.`NOM`, `PRENOM`, `MAIL`,
 								CONCAT(`FIXE`, '/', `PORTABLE`) as TEL,
 								CONCAT(DAY(`DATE_NAISSANCE`), '/', MONTH(`DATE_NAISSANCE`), '/', YEAR(`DATE_NAISSANCE`)) as DATE_NAISSANCE,
@@ -98,16 +123,19 @@ switch ($action) {
 								WHERE `ANNEE_FIN` = (SELECT MAX(`ANNEE_FIN`) FROM `cursus` c2 WHERE c2.`ID_ETUDIANT` = c1.`ID_ETUDIANT`)
 								AND f.`ORDRE` = 1 AND dp.`CODE_FORMATION` = ?
 								GROUP BY d.`ID_ETUDIANT`;");
+		// On execute la requête
         $q->execute (array ($_GET['code']));
+		// On récupère le résultat sous forme de tableau statistique
         $rs = $q->fetchAll ();
-
+		// On crée le nouveau fichier CSV en écriture
         $csv = fopen ($csvFileName, 'w');
-
+		// On insère l'entête du fichier CSV
         fputcsv ($csv, array ('INE', 'Nom', utf8_decode ('Prénom'), 'MAIL', utf8_decode ('Téléphone'), 'Date de naissance', 'Dernier cursus', 'Formation choisie', 'Premier voeu', utf8_decode ('Année du BAC')), ';');
-
+		// Pour chaque ligne du résultat de la requête, on l'insère dans le fichier CSV
         foreach ($rs as $row) {
             fputcsv ($csv, array ($row['INE'], utf8_decode ($row['NOM']), utf8_decode ($row['PRENOM']), $row['MAIL'], $row['TEL'], $row['DATE_NAISSANCE'], utf8_decode ($row['DERNIER_CURSUS']), utf8_decode ($row['DOSSIER_PDF_NOM']), utf8_decode ($row['PREMIER_VOEU']), $row['ANNEE_BAC'],), ';');
         }
+		// On ferme le fichier CSV
         fclose ($csv);
 
         echo $twig->render ('formation/syntheseCsv.html.twig', array ('code' => $_GET['code']));

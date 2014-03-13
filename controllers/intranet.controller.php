@@ -2,9 +2,9 @@
 
 /**
  * @Project: FEG Project
- * @File   : /controllers/informationSupp.controller.php
- * @Purpose:
- * @Author :
+ * @File: /controllers/informationSupp.controller.php
+ * @Purpose: Ce contrôleur gère les différentes fonctionnalités de l'intranet
+ * @Author: Lionel Guissani
  */
 if (!isset($_GET['action'])) {
     $action = "accueil";
@@ -12,24 +12,20 @@ if (!isset($_GET['action'])) {
     $action = $_GET['action'];
 }
 
-/* autorisations
-  $pageAction = array("ordonner", "ajouter", "ajout", "modifier", "modification", "suppression");
-
-  if (in_array($action, $pageAction) && !$utilisateur->isConnected()) {
-  header('location:index.php?uc=utilisateur&action=connecter');
-  } */
-
 switch ($action) {
+	// Cette action redirige vers l'accueil de l'intranet
     case "accueil" :
     {
         echo $twig->render ('intranet/accueil.html.twig');
     }
         break;
+	// Cette action redirige vers la carte de l'intranet
     case "carte" :
     {
         echo $twig->render ('intranet/carte.html.twig');
     }
         break;
+	// Cette action redirige vers l'explorateur de fichiers
     case "explorateur" :
     {
         echo $twig->render ('intranet/explorateur.html.twig', array ('directory' => str_replace (DIRECTORY_SEPARATOR, '/', realpath (dirname (__FILE__))) . '/../dossiers/'));
@@ -91,6 +87,7 @@ switch ($action) {
         header ('location:index.php?uc=intranet&action=explorateur');
     }
         break;
+	// Cette action permet de générer les liens qui donnent un accès paramétré à un dossier PDF
     case "liensFormation":
     {
         $liens = $dossierPdfManager->getLinks ();

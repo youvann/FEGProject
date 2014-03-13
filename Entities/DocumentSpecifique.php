@@ -1,12 +1,39 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/DocumentSpecifique.php
+ * @Purpose: Entité DocumentSpecifique
+ * @Author: Lionel Guissani
+ */
 class DocumentSpecifique {
+	/**
+	 * @var string Identifiant
+	 */
 	private $id;
+	/**
+	 * @var string Identifiant du dossier pdf auquel il appartient
+	 */
 	private $dossierPdf;
+	/**
+	 * @var string Nom
+	 */
 	private $nom;
+	/**
+	 * @var string Demandé en préinscription
+	 */
 	private $visible;
+	/**
+	 * @var string Adresse URL
+	 */
 	private $url;
-	
+
+	/**
+	 * @param $id string Identifiant
+	 * @param $dossierPdf string Identifiant du dossier pdf auquel il appartient
+	 * @param $nom string Nom
+	 * @param $visible string Demandé en préinscription
+	 * @param $url string Adresse URL
+	 */
 	function __construct($id, $dossierPdf, $nom, $visible, $url) {
 		$this->id = $id;
 		$this->dossierPdf = $dossierPdf;
@@ -16,7 +43,7 @@ class DocumentSpecifique {
 	}
 
 	/**
-	 * @param mixed $dossierPdf
+	 * @param string $dossierPdf
 	 */
 	public function setDossierPdf($dossierPdf)
 	{
@@ -24,7 +51,7 @@ class DocumentSpecifique {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getDossierPdf()
 	{
@@ -32,7 +59,7 @@ class DocumentSpecifique {
 	}
 
 	/**
-	 * @param mixed $id
+	 * @param string $id
 	 */
 	public function setId($id)
 	{
@@ -40,7 +67,7 @@ class DocumentSpecifique {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getId()
 	{
@@ -48,7 +75,7 @@ class DocumentSpecifique {
 	}
 
 	/**
-	 * @param mixed $nom
+	 * @param string $nom
 	 */
 	public function setNom($nom)
 	{
@@ -56,7 +83,7 @@ class DocumentSpecifique {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getNom()
 	{
@@ -64,7 +91,7 @@ class DocumentSpecifique {
 	}
 
 	/**
-	 * @param mixed $url
+	 * @param string $url
 	 */
 	public function setUrl($url)
 	{
@@ -72,7 +99,7 @@ class DocumentSpecifique {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getUrl()
 	{
@@ -80,7 +107,7 @@ class DocumentSpecifique {
 	}
 
 	/**
-	 * @param mixed $visible
+	 * @param string $visible
 	 */
 	public function setVisible($visible)
 	{
@@ -88,12 +115,10 @@ class DocumentSpecifique {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getVisible()
 	{
 		return $this->visible;
 	}
-
-
 }

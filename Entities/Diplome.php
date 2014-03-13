@@ -1,10 +1,30 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/Diplome.php
+ * @Purpose: Entité Diplome
+ * @Author: Lionel Guissani
+ */
 class Diplome {
+	/**
+	 * @var string Identifiant
+	 */
 	private $id;
+	/**
+	 * @var string Nom
+	 */
 	private $nom;
+	/**
+	 * @var string Identidiant du dossier pdf duquel il dépend
+	 */
 	private $dossierPdf;
 
+	/**
+	 * Constructeur
+	 * @param string $id Identifiant
+	 * @param string $nom Nom
+	 * @param string $dossierPdf Identidiant du dossier pdf duquel il dépend
+	 */
 	function __construct($id, $nom, $dossierPdf)
 	{
 		$this->id = $id;
@@ -13,7 +33,7 @@ class Diplome {
 	}
 
 	/**
-	 * @param mixed $id
+	 * @param string $id
 	 */
 	public function setId($id)
 	{
@@ -21,7 +41,7 @@ class Diplome {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getId()
 	{
@@ -29,7 +49,7 @@ class Diplome {
 	}
 
 	/**
-	 * @param mixed $nom
+	 * @param string $nom
 	 */
 	public function setNom($nom)
 	{
@@ -37,7 +57,7 @@ class Diplome {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getNom()
 	{
@@ -45,7 +65,7 @@ class Diplome {
 	}
 
 	/**
-	 * @param mixed $dossierPdf
+	 * @param string $dossierPdf
 	 */
 	public function setDossierPdf($dossierPdf)
 	{
@@ -53,7 +73,7 @@ class Diplome {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getDossierPdf()
 	{

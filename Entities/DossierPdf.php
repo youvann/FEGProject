@@ -1,13 +1,40 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/DossierPdf.php
+ * @Purpose: Entité DossierPdf
+ * @Author: Lionel Guissani
+ */
 class DossierPdf {
-
-    private $id;
+	/**
+	 * @var string Identifiant
+	 */
+	private $id;
+	/**
+	 * @var string Nom
+	 */
 	private $nom;
+	/**
+	 * @var string Informations
+	 */
 	private $informations;
+	/**
+	 * @var string Modalités
+	 */
 	private $modalites;
+	/**
+	 * @var string Code formation
+	 */
     private $codeFormation;
 
+	/**
+	 * Constructeur
+	 * @param $id string Identifiant
+	 * @param $nom string Nom
+	 * @param $informations string Informations
+	 * @param $modalites string Modalités
+	 * @param $codeFormation string Code formation
+	 */
 	function __construct($id, $nom, $informations, $modalites, $codeFormation)
 	{
 		$this->id = $id;
@@ -18,7 +45,7 @@ class DossierPdf {
 	}
 
 	/**
-	 * @param mixed $id
+	 * @param string $id
 	 */
 	public function setId($id)
 	{
@@ -26,7 +53,7 @@ class DossierPdf {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getId()
 	{
@@ -34,7 +61,7 @@ class DossierPdf {
 	}
 
 	/**
-	 * @param mixed $nom
+	 * @param string $nom
 	 */
 	public function setNom($nom)
 	{
@@ -42,7 +69,7 @@ class DossierPdf {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getNom()
 	{
@@ -50,7 +77,7 @@ class DossierPdf {
 	}
 
 	/**
-	 * @param mixed $codeFormation
+	 * @param string $codeFormation
 	 */
 	public function setCodeFormation($codeFormation)
 	{
@@ -58,7 +85,7 @@ class DossierPdf {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getCodeFormation()
 	{
@@ -66,7 +93,7 @@ class DossierPdf {
 	}
 
 	/**
-	 * @param mixed $informations
+	 * @param string $informations
 	 */
 	public function setInformations($informations)
 	{
@@ -74,7 +101,7 @@ class DossierPdf {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getInformations()
 	{
@@ -82,7 +109,7 @@ class DossierPdf {
 	}
 
 	/**
-	 * @param mixed $modalites
+	 * @param string $modalites
 	 */
 	public function setModalites($modalites)
 	{
@@ -90,7 +117,7 @@ class DossierPdf {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getModalites()
 	{

@@ -1,26 +1,49 @@
 <?php
-
-// Manque insert
+/**
+ * @Project: FEG Project
+ * @File: /Entities/DossierManager.php
+ * @Purpose: Entité Dossier
+ * @Author: Lionel Guissani
+ */
 class DossierManager {
+	/**
+	 * @var PDO Connexion à la base de données
+	 */
+	private $db;
 
-    private $db;
+	/**
+	 * @param PDO $db Connexion à la base de données
+	 */
+	function __construct(PDO $db) {
+		$this->setDb($db);
+	}
 
-    function __construct(PDO $db) {
-        $this->setDb($db);
-    }
+	/**
+	 * Accesseur en écriture de l'attribut db
+	 * @param PDO $db
+	 */
+	public function setDb(PDO $db) {
+		$this->db = $db;
+	}
 
-    public function setDb(PDO $db) {
-        $this->db = $db;
-    }
-
-    public function find($idEtudiant, $codeFormation) {
+	/**
+	 * Récupère un dossier étudiant en fonction de son identifiant et d'un code formation
+	 * @param $idEtudiant Identifiant de l'étudiant
+	 * @param $codeFormation Code formation
+	 * @return Dossier Dossier de l'étudiant
+	 */
+	public function find($idEtudiant, $codeFormation) {
         $q = $this->db->prepare("SELECT * FROM `dossier` WHERE `ID_ETUDIANT` = ? AND `CODE_FORMATION` = ?;");
         $q->execute(array($idEtudiant, $codeFormation));
         $rs = $q->fetch();
         return new Dossier($rs['ID_ETUDIANT'], $rs['INE'], $rs['GENRE'], $rs['CODE_FORMATION'], $rs['AUTRE'], $rs['NOM'], $rs['PRENOM'], $rs['ADRESSE'], $rs['COMPLEMENT'], $rs['CODE_POSTAL'], $rs['VILLE'], $rs['DATE_NAISSANCE'], $rs['LIEU_NAISSANCE'], $rs['FIXE'], $rs['PORTABLE'], $rs['MAIL'], $rs['LANGUES'], $rs['NATIONALITE'], $rs['SERIE_BAC'], $rs['ANNEE_BAC'], $rs['ETABLISSEMENT_BAC'], $rs['DEPARTEMENT_BAC'], $rs['PAYS_BAC'], $rs['ACTIVITE'], $rs['TITULAIRE'], $rs['VILLE_PREFEREE'], $rs['AUTRES_ELEMENTS'], $rs['INFORMATIONS']);
     }
 
-    public function findAllByFormation(Formation $formation) {
+	/**
+	 * @param Formation $formation Formation
+	 * @return array Tous les dossiers étudiants dans cette formation
+	 */
+	public function findAllByFormation(Formation $formation) {
         $dossiers = array();
         $q        = $this->db->prepare("SELECT * FROM `dossier` WHERE `CODE_FORMATION` = ?;");
         $q->execute(array($formation->getCodeFormation()));
@@ -31,7 +54,12 @@ class DossierManager {
         return $dossiers;
     }
 
-    public function insert(Dossier $dossier) {
+	/**
+	 * Enregistre un dossier étudiant
+	 * @param Dossier $dossier Dossier étudiant
+	 * @return bool R2sultat de l'opération
+	 */
+	public function insert(Dossier $dossier) {
         return $this->db->prepare("INSERT INTO `dossier` (`ID_ETUDIANT`, `INE`, `GENRE`, `CODE_FORMATION`, `AUTRE`, `NOM`, `PRENOM`, `ADRESSE`, `COMPLEMENT`, `CODE_POSTAL`, `VILLE`, `DATE_NAISSANCE`, `LIEU_NAISSANCE`, `FIXE`, `PORTABLE`, `MAIL`, `LANGUES`, `NATIONALITE`, `SERIE_BAC`, `ANNEE_BAC`, `ETABLISSEMENT_BAC`, `DEPARTEMENT_BAC`, `PAYS_BAC`, `ACTIVITE`, `VILLE_PREFEREE`, `TITULAIRE`, `AUTRES_ELEMENTS`, `INFORMATIONS`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);")
             ->execute(array(
 				$dossier->getIdEtudiant(),
@@ -65,7 +93,12 @@ class DossierManager {
             ));
     }
 
-    public function delete(Dossier $dossier) {
+	/**
+	 * Supprime un dossier étudiant
+	 * @param Dossier $dossier Dossier étudiant
+	 * @return bool Résultat de l'opération
+	 */
+	public function delete(Dossier $dossier) {
         return $this->db->prepare("DELETE FROM `dossier` WHERE `ID_ETUDIANT` = ?;")
             ->execute(array(
                 $dossier->getIdEtudiant()

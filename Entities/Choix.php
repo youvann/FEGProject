@@ -1,39 +1,83 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/Choix.php
+ * @Purpose: Entité Choix
+ * @Author: Lionel Guissani
+ */
 class Choix {
+	/**
+	 * @var string Identifiant
+	 */
 	private $id;
+	/**
+	 * @var string Indentifiant de
+	 * l'nformation à laquelle il appartient
+	 */
 	private $information;
+	/**
+	 * @var string Texte
+	 */
 	private $texte;
-	
+
+	/**
+	 * Contructeur
+	 * @param $id string Identifiant
+	 * @param $information string Indentifiant de
+	 * l'nformation à laquelle il appartient
+	 * @param $texte string Texte
+	 */
 	function __construct($id, $information, $texte) {
 		$this->id = $id;
 		$this->information = $information;
 		$this->texte = $texte;
 	}
 
-	public function getId() {
-		return $this->id;
-	}
-
-	public function getInformation() {
-		return $this->information;
-	}
-
-	public function getTexte() {
-		return $this->texte;
-	}
-
-	public function setId($id) {
+	/**
+	 * @param string $id
+	 */
+	public function setId($id)
+	{
 		$this->id = $id;
 	}
 
-	public function setInformation($information) {
+	/**
+	 * @return string
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * @param string $information
+	 */
+	public function setInformation($information)
+	{
 		$this->information = $information;
 	}
 
-	public function setTexte($texte) {
+	/**
+	 * @return string
+	 */
+	public function getInformation()
+	{
+		return $this->information;
+	}
+
+	/**
+	 * @param string $texte
+	 */
+	public function setTexte($texte)
+	{
 		$this->texte = $texte;
 	}
 
-
+	/**
+	 * @return string
+	 */
+	public function getTexte()
+	{
+		return $this->texte;
+	}
 }

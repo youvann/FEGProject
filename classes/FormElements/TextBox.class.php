@@ -12,19 +12,19 @@ class TextBox extends FormElement {
 	 */
 	private $id;
 	/**
-	 * @var Nom de la zone de texte HTML
+	 * @var string Nom de la zone de texte HTML
 	 */
 	private $name;
 	/**
-	 * @var Valeur de la zone de texte HTML
+	 * @var string Valeur de la zone de texte HTML
 	 */
 	private $value;
 
 	/**
 	 * Constructeur de la zone de texte HTML
-	 * @param $id Identifiant
-	 * @param $name Nom
-	 * @param $value Valeur
+	 * @param $id string Identifiant
+	 * @param $name string Nom
+	 * @param $value string Valeur
 	 */
 	public function __construct($id, $name, $value) {
 		$this->id = $id;

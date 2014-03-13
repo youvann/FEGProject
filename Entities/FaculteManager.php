@@ -1,12 +1,27 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/FaculteManager.php
+ * @Purpose: Entité Faculte
+ * @Author: Lionel Guissani
+ */
 class FaculteManager {
+	/**
+	 * @var PDO Connexion à la base de données
+	 */
 	private $db;
 
+	/**
+	 * @param PDO $db Connexion à la base de données
+	 */
 	function __construct(PDO $db) {
 		$this->setDb($db);
 	}
 
+	/**
+	 * Accesseur en écriture de l'attribut db
+	 * @param PDO $db
+	 */
 	public function setDb(PDO $db) {
 		$this->db = $db;
 	}

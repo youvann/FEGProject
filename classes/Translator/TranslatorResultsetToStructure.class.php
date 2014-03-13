@@ -12,7 +12,7 @@ class TranslatorResulsetToStructure {
 	/**
 	 * Traduire le résultat de la requête demandant 
 	 * les informations supplémentaires en tableau PHP.
-	 * @param PDOStatement $resultset
+	 * @param PDOStatement $rs Résultat de la requête
 	 * @return array Structure des informations supplémentaires
 	 */
 	public function translate($rs) {
