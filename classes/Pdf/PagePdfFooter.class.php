@@ -1,28 +1,34 @@
 <?php
+
 /*
  * @Project: FEG Project
  * @File: /classes/Pdf/PagePdfFooter.class.php
- * @Purpose: Footer du PDF
- * @Author:
+ * @Purpose: Footer du PDF de candidature
+ * @Author: Kevin Meas
  */
 
 class PagePdfFooter {
-	private $footerText;
+    /**
+     * @var string Texte du pied de page
+     */
+    private $footerText;
 
-	/*public function __construct($footerText){
-		$this->footerText = $footerText;
-	}
-         * 
-         */
+    /**
+     * Permet de modifier le texte du pied de page
+     *
+     * @param $footerText string Texte du pied de page
+     */
+    public function setFooterText ($footerText) {
+        $this->footerText = $footerText;
+    }
 
-	public function setFooterText($footerText){
-		$this->footerText = $footerText;
-	}
-
-	public function __toString (){
-		return ' <page_footer>
-			        ' . $this->footerText . '
-			    </page_footer> ';
-	}
+    /**
+     * Affiche le pied de page du PDF
+     *
+     * @return string Pied de page du PDF
+     */
+    public function __toString () {
+        return ' <page_footer>' . $this->footerText . '</page_footer>';
+    }
 }
 ?>

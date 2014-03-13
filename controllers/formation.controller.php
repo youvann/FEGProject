@@ -170,12 +170,15 @@ switch ($action) {
 		$type          = ($typePdf == "candidature") ? "Candidature" : "Pre-inscription";
 		$typeBool      = ($typePdf == "candidature") ? true : false;
 
+
 		// Récupère tous les voeux du dossier PDF
 		$voeux  = $voeuManager->findAllByDossierPdf ($dossierPdf);
 		$etapes = array ();
 		$cpt = 1;
-		for ($i = 0; $i < 3; $i++) {
-			$etapes[$cpt++] = $voeux[$i]->getEtape ();
+		for ($i = 0; $i < count($voeux); $i++) {
+            if($i < 3){
+                $etapes[$cpt++] = $voeux[$i]->getEtape ();
+            }
 		}
 
 		require_once 'classes/Pdf/PagePdf.class.php';
