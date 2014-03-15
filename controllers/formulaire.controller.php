@@ -311,6 +311,7 @@ switch ($action) {
         /*
          * Génération dossier PDF
          */
+        // Récupération des informations depuis la base de données en utilisant les managers
         $dossier       = $dossierManager->find ($_SESSION['idEtudiant'], $_SESSION['codeFormation']);
         $formation     = $formationManager->find ($_SESSION['codeFormation']);
         $titulaire     = $titulaireManager->findAll ();
@@ -321,7 +322,7 @@ switch ($action) {
 
         $codeFormation = $formation->getCodeFormation ();
 
-        // Récupère les voeux par ordre croissant
+        // Récupère les voeux/étapes par ordre croissant
         $faires      = $faireManager->findAllByDossier ($dossier);
         $codesEtapes = array ();
         $voeux       = array ();
@@ -331,6 +332,7 @@ switch ($action) {
             $voeux[$faire->getOrdre ()] = $voeu;
             $codesEtapes[]              = $faire->getCodeEtape ();
         }
+        // Insertion des informations spécifiques s'il s'agit d'une candidature
         $informationsSpecifiques = ($_SESSION["isCandidature"]) ? $translatorJsonToHTML->translate ($json, $structure) : "";
 
         require_once 'classes/Pdf/PagePdf.class.php';
@@ -339,60 +341,91 @@ switch ($action) {
         /*
          * En-tête du pdf
          */
+        // Détermine s'il s'agit d'une candidature ou d'une pré-inscription
         $typeDossier = ($_SESSION['isCandidature']) ? "Candidature" : "Pre-inscription";
+        // Insertion du logo de la FEG
         $pagePdf->setPagePdfHeaderImgPath ("classes/Pdf/img/feg.png");
+        // Insertion du titre de l'en-tête du PDF
         $pagePdf->setPagePdfHeaderText ("DOSSIER DE " . strtoupper ($typeDossier) . "<br />ANNÉE UNIVERSITAIRE " . $anneeBasse . "-" . $anneeHaute . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
         /*
          * Pied de page du pdf
          */
+        // Affichage des numéros de page du PDF
         $pagePdf->setPagePdfFooterText ("Page [[page_cu]]/[[page_nb]]");
 
         /*
          * Corps du pdf
          */
+        // Chemin du logo du PDF
         $logoPath = "public/img/logos/" . $codeFormation;
+        // Le répertoire contenant le logo du PDF est-il vide ?
         $empty    = is_dir_empty ($logoPath);
+        // S'il est vide le nom du logo est vide sinon le nom du logo prend le nom du fichier contenu dans le répertoire
         $logoName = $empty ? "" : getFileName ($logoPath);
-        if (!$empty) {
+        if (!$empty) { // Répertoire non vide
+            // On définit le chemin où se trouve le logo
             $pagePdf->setLogoPath ($logoPath . "/" . $logoName);
-        } else {
+        } else { // Répertoire vide
+            // Le chemin du logo est vide
             $pagePdf->setLogoPath ("");
         }
 
+        // On indique s'il s'agit d'une candidature ou d'une pré-inscription
         $pagePdf->setIsCandidature ($_SESSION['isCandidature']);
+        // Il ne s'agit pas d'une prévisualisation du PDF
         $pagePdf->setIsPrev (false);
 
+        // Récupère la date de naissance du candidat
         $naissanceArray  = $dossier->getDateNaissance ();
         $naissanceArray  = explode ("-", $naissanceArray);
         $dateDeNaissance = $naissanceArray[2] . "/" . $naissanceArray[1] . "/" . $naissanceArray[0];
 
+        // Récupère le nom du candidat
         $nom          = $dossier->getNom ();
+        // Récupère le prénom du candidat
         $prenom       = $dossier->getPrenom ();
+        // Récuppère le numéro d'inscription de l'étudiant
         $idEtudiant   = $dossier->getIdEtudiant ();
         $typeDossier  = ($_SESSION['isCandidature']) ? "Candidature" : "Pre-inscription";
+        // Récupère l'identifiant du dossier PDF
         $idDossierPdf = $dossierPdf->getId ();
 
+        // Indique l'URL des pièces manquantes
         $urlPiecesManquantes = "http://www.miage-aix-marseille.fr/candid_feg/index.php?uc=formulaire&action=uploadPiecesManquantes&idEtudiant=" . $idEtudiant . "&codeFormation=" . $codeFormation . "&typeDossier=" . $typeDossier . "&idDossierPdf=" . $idDossierPdf;
 
         // Mention de la formation
         $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $dossierPdf->getNom ());
+        // Détermine le titulaire
         $pagePdf->setHolder (' ' . $titulaire[0]->getLibelle (), ' ' . $titulaire[1]->getLibelle (), ' ' . $titulaire[2]->getLibelle (), $dossier->getTitulaire ());
+        // Définit l'url des pièces manquantes
         $pagePdf->setUrlPiecesManquantes ($urlPiecesManquantes);
+        // Définit le numéro d'inscription de l'étudiant
         $pagePdf->setNumInscription ($idEtudiant);
+        // Définit les informations principales de l'étudiant
         $pagePdf->setApplicant ($dossier->getGenre (), $dossier->getNom (), $dossier->getPrenom (), $dossier->getLieuNaissance (), $dateDeNaissance, $dossier->getIne (), $dossier->getAdresse () . ' ' . $dossier->getComplement () . ' ' . $dossier->getVille () . ' ' . $dossier->getCodePostal (), $dossier->getFixe (), $dossier->getPortable (), $dossier->getMail (), $dossier->getActivite ());
+        // Définit les voeux et la ville préférée de l'étudiant
         $pagePdf->setPlanFormation ($voeux, $villePreferee);
+        // Définit les informations concernant le BAC et son cursus Post-bac
         $pagePdf->setPrevFormation ($dossier->getSerieBac (), $dossier->getAnneeBac (), $dossier->getEtablissementBac (), $dossier->getDepartementBac (), $dossier->getPaysBac (), $cursus);
+        // Définit les expériences du candidat
         $pagePdf->setProExperience ($experiences);
+        // Définit les langues étrangères et les autres éléments de l'étudiant
         $pagePdf->setOther ($dossier->getLangues (), $dossier->getAutresElements ());
+        // Définit les informations spécifiques
         $pagePdf->setInformationsSpecifiques ($informationsSpecifiques);
-
+        // Définit les modalités de la formation
         $pagePdf->setDossierModalites ($dossierPdf->getModalites ());
+        // Définit les informations de la formation
         $pagePdf->setDossierInformations ($dossierPdf->getInformations ());
 
+        // Définit les voeux présent dans le cadre de la commission pédagogique
         $pagePdf->setCadreAdministrationVoeux ($voeux);
+        // Indique le dernier diplôme obtenu ou le BAC
         $pagePdf->setDernierDiplome ($lastCursus);
+        // Indique que plusieurs voeux doivent apparaître sur la fiche de commission pédagogique
         $pagePdf->setVoeuxMultiple (true);
+        // Indique que la ligne admin doit apparaître dans la fiche de commission pédagogique
         $pagePdf->setRowAdmin (true);
 
         ob_start ();
@@ -410,6 +443,7 @@ switch ($action) {
 
             $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier . "s";
             $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
+            // Création du dossier PDF dans le premier voeu que l'étudiant a choisi
             $html2pdf->Output ($dirPath . "/" . $dirName . '/' . $typeDossier . '-' . $dirName . '.pdf', 'F');
 
             // Copie du répertoire correspondant au voeu n°1 dans les deux autres répertoires
@@ -429,11 +463,16 @@ switch ($action) {
         }
     }
         break;
+    // Action qui dirige vers une page récapitulative
     case "recapitulatif" :
     {
+        // Indique le type de dossier
         $typeDossier = ($_SESSION['isCandidature']) ? "Candidature" : "Pre-inscription";
+        // Détermine le nom du répertoire
         $dirName     = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
+        // Détermine le chemin
         $dirPath     = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier . "s";
+        // Détermine le chemin complet du PDF
         $pathPdf     = $dirPath . "/" . $dirName . "/" . $typeDossier . "-" . $dirName;
         $dossierPdf  = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
         echo $twig->render ('formulaire/recapitulatif.html.twig', array ('dossierPdf' => $dossierPdf->getNom (), 'pathPdf' => $pathPdf, 'typeDossier' => $typeDossier, 'idEtudiant' => $_SESSION['idEtudiant'], 'codeFormation' => $_SESSION['codeFormation'], "idDossierPdf" => $_SESSION['idDossierPdf']));
