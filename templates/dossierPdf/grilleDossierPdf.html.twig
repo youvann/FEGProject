@@ -13,9 +13,15 @@
 
     <h2 class="titre_rubrique">Gestion des dossiers</h2>
 
+    <p class="text-info">
+        Les dossiers que vous créez apparaissent dans le formulaire "Choix de la formation".
+        Les étapes que vous faites glisser dans un dossier apparaissent dans le formulaire
+        principal en tant que voeu.
+    </p>
+
     <button data-html="true" title="<p>En fonction des droits accordés à votre type de compte, vous pouvez ici ajouter, modifier et supprimer des dossiers de candidatures/préinscription</p>
         <p>Dans le cadre gris 'Etapes' se trouvent les étapes qu'offre la formation, s'il y en a pas, ajoutez-les en vous rendant dans la section
-        'Gérer les voeux'.</p>
+        'Gérer les étapes'.</p>
     <p>Après avoir créé un dossier et ajouté les étapes proposées par la formation, faites glisser les étapes du cadre gris à l'un des dossiers où
         cette étape doit apparaître.</p>"
             data-placement="left" data-toggle="tooltip" class="btn btn-lg btn-info pull-right">
@@ -27,8 +33,8 @@
         <span class="glyphicon glyphicon-plus-sign"></span> Ajouter un dossier
     </button>
     {% endif %}
-    <a class="btn btn-primary btn-lg" href="index.php?uc=voeu&action=grille&code=5BIG">
-        <span class="glyphicon glyphicon-briefcase"></span> Gérer les voeux
+    <a class="btn btn-primary btn-lg" href="index.php?uc=voeu&action=grille&code={{ code }}">
+        <span class="glyphicon glyphicon-briefcase"></span> Gérer les étapes
     </a>
     <hr/>
     <div class="row">

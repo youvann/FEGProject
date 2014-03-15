@@ -6,11 +6,11 @@
         <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
         <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
         <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
-        <li><a href="index.php?uc=voeu&action=grille&code={{ code }}">Liste des voeux</a></li>
-        <li class="active">Ajouter un voeu</li>
+        <li><a href="index.php?uc=voeu&action=grille&code={{ code }}">Liste des étapes</a></li>
+        <li class="active">Ajouter une étape</li>
     </ol>
 
-    <h2 class="titre_rubrique">Ajouter un voeu</h2>
+    <h2 class="titre_rubrique">Ajouter une étape</h2>
 
     <form action="index.php?uc=voeu&action=ajout" method="POST">
         <input type="hidden" id="code_formation" name="code_formation" value="{{ code }}"/>
