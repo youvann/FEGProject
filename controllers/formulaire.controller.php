@@ -43,12 +43,12 @@ switch ($action) {
         // Place le code la formation dans une variable SESSION
         $_SESSION['codeFormation'] = $codeFormation;
         // Création de l'identifiant étudiant grâce à la fonction microtime()
-        $microtime = microtime ();
-        $microtime = explode (' ', $microtime);
-        // Place l'identifiant de l'étudiant dans une variable SESSION
-        $_SESSION['idEtudiant'] = intval (substr ($microtime[1], 4) . substr ($microtime[0], 2, 4));
 
-        header ('location:index.php?uc=formulaire&action=main');
+        $microtime = microtime ();
+	    $microtime = explode (' ', $microtime);
+        // Place l'identifiant de l'étudiant dans une variable SESSION
+        $_SESSION['idEtudiant'] = (int)substr ($microtime[1], 4) . substr ($microtime[0], 2, 4);
+		header ('location:index.php?uc=formulaire&action=main');
     }
         break;
     case "domainesDeCompatibilite":

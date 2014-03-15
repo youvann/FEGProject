@@ -83,10 +83,10 @@ class CursusManager
 		$q = $this->db->prepare("SELECT IF(count(*) > 0,
 									(SELECT `CURSUS`
 										FROM `cursus` c1
-									WHERE c1.`ID_ETUDIANT` = c.`ID_ETUDIANT`
+									WHERE c1.`ID_ETUDIANT` = ?
 									AND c1.`VALIDE` = 1
 									AND c1.`ANNEE_FIN` =
-									(SELECT MAX(`ANNEE_FIN`) FROM `cursus` c2 WHERE c2.`ID_ETUDIANT` = c.`ID_ETUDIANT` AND `VALIDE` = 1)),
+									(SELECT MAX(`ANNEE_FIN`) FROM `cursus` c2 WHERE c2.`ID_ETUDIANT` = ? AND `VALIDE` = 1)),
 									(SELECT CONCAT('Bac : ', d1.`SERIE_BAC`)
 										FROM `dossier` d1
 									WHERE d1.`ID_ETUDIANT` = d.`ID_ETUDIANT`)
