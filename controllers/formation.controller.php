@@ -1,10 +1,12 @@
 <?php
-
 /**
  * @Project: FEG Project
  * @File   : /controllers/formation.controller.php
  * @Purpose: Ce contrôleur gère l'entité Formation
- * @Author : Lionel Guissani
+ *           Il également permet de prévisualiser les dossiers PDF
+ *           Ajouter et supprimer le logo de la formation
+ *           Générer la synthèse CSV
+ * @Author : Lionel Guissani & Kévin Meas
  */
 if (!isset($_GET['action'])) {
 	$action = "grille";
@@ -141,93 +143,129 @@ switch ($action) {
         echo $twig->render ('formation/syntheseCsv.html.twig', array ('code' => $_GET['code']));
 	}
 		break;
+    // Cette action permet d'accèder à la vue HTML qui permet de prévisualiser le dossier PDF
 	case "previsualiserPdf":
 	{
-		$idDossierPdf = $_GET['idDossierPdf'];
-		$typePdf      = $_GET['typePdf'];
-		$dossierPdf   = $dossierPdfManager->find ($idDossierPdf);
-
+        // Récupère l'ID du dossier PDF
+		$idDossierPdf  = $_GET['idDossierPdf'];
+        // Récupère le type de PDF que l'on souhaite générer : Candidature ou Pré-inscritpion
+		$typePdf       = $_GET['typePdf'];
+        // Récupère le bon objet dossier PDF
+		$dossierPdf    = $dossierPdfManager->find ($idDossierPdf);
+        // Récupère le nom du dossier PDF
 		$nomDossierPdf = $dossierPdf->getNom ();
+        // Récupère le code la formation
 		$codeFormation = $dossierPdf->getCodeFormation ();
+        // Si c'est une candidature la $type = "Candidature" sinon $type = "Pre-inscription"
 		$type          = ($typePdf == "candidature") ? "Candidature" : "Pre-inscription";
 
 		echo $twig->render ('formation/previsualiserPdfFormation.html.twig', array (
 			'codeFormation' => $codeFormation,
-			'typePdf' => $type,
+			'typePdf'       => $type,
 			'nomDossierPdf' => $nomDossierPdf
 		));
 	}
 		break;
+    // Génère le dossier PDF de prévisualisation
 	case "previsualisationPdf":
 	{
+        // Récupère l'ID du dossier PDF
 		$idDossierPdf  = $_GET['idDossierPdf'];
-		$typePdf       = $_GET['typePdf'];
+        // Récupère le type de PDF que l'on souhaite générer : Candidature ou Pré-inscritpion
+        $typePdf       = $_GET['typePdf'];
+        // Récupère le bon objet dossier PDF
 		$dossierPdf    = $dossierPdfManager->find ($idDossierPdf);
-		$informations = $informationManager->findAllByDossierPdf($dossierPdf);
-
+        // Récupère les informations
+		$informations  = $informationManager->findAllByDossierPdf($dossierPdf);
+        // Récupère code de la formation
 		$codeFormation = $dossierPdf->getCodeFormation ();
+        // Récupère le bon objet formation
 		$formation     = $formationManager->find ($codeFormation);
 		$type          = ($typePdf == "candidature") ? "Candidature" : "Pre-inscription";
 		$typeBool      = ($typePdf == "candidature") ? true : false;
-
 
 		// Récupère tous les voeux du dossier PDF
 		$voeux  = $voeuManager->findAllByDossierPdf ($dossierPdf);
 		$etapes = array ();
 		$cpt = 1;
 		for ($i = 0; $i < count($voeux); $i++) {
+            // On n'affiche que 3 voeux maximum
             if($i < 3){
                 $etapes[$cpt++] = $voeux[$i]->getEtape ();
             }
 		}
 
 		require_once 'classes/Pdf/PagePdf.class.php';
+        // Créé un nouveau PDF
 		$pagePdf = new PagePdf("classes/Pdf/style/pdf.css", "30mm", "7mm", "0mm", "10mm");
 
 		/*
 		 * En-tête du pdf
 		 */
+        // Insertion du logo de la FEG
 		$pagePdf->setPagePdfHeaderImgPath ("classes/Pdf/img/feg.png");
+        // Insertion du titre de l'en-tête du PDF
 		$pagePdf->setPagePdfHeaderText ("DOSSIER DE " . strtoupper($type) . "<br />ANNÉE UNIVERSITAIRE " . $anneeBasse . "-" . $anneeHaute . "<br />FACULTÉ D'ÉCONOMIE ET DE GESTION");
 
 		/*
 		 * Pied de page du pdf
 		 */
+        // Affichage des numéros de page du PDF
 		$pagePdf->setPagePdfFooterText ("Page [[page_cu]]/[[page_nb]]");
 
 		/*
 		 * Corps du pdf
 		 */
+        // Chemin du logo du PDF
 		$logoPath = "public/img/logos/" . $formation->getCodeFormation ();
+        // Le répertoire contenant le logo du PDF est-il vide ?
 		$empty    = is_dir_empty ($logoPath);
+        // S'il est vide le nom du logo est vide sinon le nom du logo prend le nom du fichier contenu dans le répertoire
 		$logoName = $empty ? "" : getFileName ($logoPath);
-		if (!$empty) {
+		if (!$empty) {// Répertoire pas vide
+            // On définit le chemin où se trouve le logo
 			$pagePdf->setLogoPath ($logoPath . "/" . $logoName);
-		} else {
+		} else { // Répertoire vide
+            // Le chemin du logo est vide
 			$pagePdf->setLogoPath ("");
 		}
 
+        // On indique s'il s'agit d'une candidature ou d'une pré-inscription
 		$pagePdf->setIsCandidature($typeBool);
+        // Il s'agit d'une prévisualisation du PDF
 		$pagePdf->setIsPrev(true);
+        // Défintion du nom de la formation
 		$pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $dossierPdf->getNom ());
+        // Aucune formation prévue n'est ajouté
 		$pagePdf->setPlanFormation ($etapes, "");
+        // Aucune expérience n'est ajouté
 		$pagePdf->setProExperience (array ());
 
+        // Création d'un tableau qui récupère les informations spécifiques
 		$informationsSpecifiques = array ();
+
+        // Création d'un tableau contenant les types des informations spécifiques (ex : checkbox, radiobox ...)
 		$typeInformations        = array ();
 		foreach ($informations as $information) {
 			$informationsSpecifiques[] = $information->getLibelle ();
 			$typeInformations[]        = $information->getType ();
 		}
+        // Définit les types d'informations spécifiques
 		$pagePdf->setTypeInformations($typeInformations);
+        // Définit les informations spécifiques
 		$pagePdf->setInformationsSpecifiques ($informationsSpecifiques);
 
+        // Définit les voeux figurant dans le cadre d'administration
 		$pagePdf->setCadreAdministrationVoeux ($etapes);
 
+        // Définit les modalités
 		$pagePdf->setDossierModalites ($dossierPdf->getModalites ());
+        // Définit les informations liées à la formation
 		$pagePdf->setDossierInformations ($dossierPdf->getInformations ());
 
+        // Indique que l'on veut voir apparaître plusieurs voeux
 		$pagePdf->setVoeuxMultiple (true);
+        // Indique qu'il faut fait apparaître la ligne administration
 		$pagePdf->setRowAdmin (true);
 
 		ob_start ();
@@ -241,6 +279,7 @@ switch ($action) {
 			$html2pdf->setDefaultFont ('arial');
 			$html2pdf->pdf->SetDisplayMode ('fullpage');
 			$html2pdf->writeHTML ($content, isset($_GET['vuehtml']));
+            // Création du PDF dans le répertoire Dossier-type
 			$html2pdf->Output ('dossiers/' . $codeFormation . '/Dossier-type/' . $type . '-' . $dossierPdf->getNom () . '.pdf', 'F');
 		} catch (HTML2PDF_exception $e) {
 			echo $e;
@@ -248,28 +287,41 @@ switch ($action) {
 		}
 	}
 		break;
+    // Affiche la vue qui sert à gérer le logo du dossier PDF
 	case 'logoDossierPdf' :
 	{
+        // Récupère le code de la formation
 		$code     = $_GET['code'];
+        // Récupère la mention de la formation
 		$mention  = $_GET['mention'];
+        // Récupère le chemin du logo
 		$logoPath = "public/img/logos/" . $code;
+        // Indique si le répertoire est vide ou non
 		$empty    = is_dir_empty ($logoPath);
 		$logoName = $empty ? "" : getFileName ($logoPath);
 
 		echo $twig->render ('formation/logoDossierPdf.html.twig', array ('code' => $code, 'empty' => $empty, 'logoName' => $logoName, 'mention' => $mention));
 	}
 		break;
+    // Sert à supprimer le logo du dossier PDF
 	case 'suppressionLogo' :
 	{
+        // Récupère le code de la formation
 		$code         = $_GET['code'];
+        // Récupère le nom du logo
 		$logoName     = $_GET['logoName'];
+        // Récupère le chemin du logo
 		$logoPathName = "public/img/logos/" . $code . "/" . $logoName;
+        // Supprime le logo
 		unlink ($logoPathName);
 	}
 		break;
+    // Permet d'ajouter un nouveau logo
 	case 'uploadLogo' :
 	{
+        // Récupère le code la formation
 		$code = $_GET['code'];
+        // Ajout du nouveau logo
 		upload ('public/img/logos/' . $code . '/');
 	}
 		break;

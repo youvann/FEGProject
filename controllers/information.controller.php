@@ -1,11 +1,11 @@
 <?php
-
 /**
  * @Project: FEG Project
- * @File: /controllers/information.controller.php
+ * @File   : /controllers/information.controller.php
  * @Purpose: Ce contrôleur gère l'entité informations spécifiques
- * @Author:
+ * @Author : Lionel Guissani & Kévin Meas
  */
+
 if (!isset($_GET['action'])) {
     $action = "grille";
 } else {
@@ -77,12 +77,16 @@ switch ($action) {
         header ('location:index.php?uc=information&action=grille&dossierPdf=' . $information->getDossierPdf ());
     }
         break;
+    // Cette action permet d'ordonner les informations spécifiques
     case "ordonnancement":
     {
         $i = 1;
+        // On récupère les informations
         foreach ($_POST['info'] as $id) {
             $information = $informationManager->find ($id);
+            // On change l'ordre des informations
             $information->setOrdre ($i++);
+            // On met à jour l'ordre des informations
             $informationManager->update ($information);
         }
     }

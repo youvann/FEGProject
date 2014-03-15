@@ -68,76 +68,132 @@ class Cursus {
 		$this->valide = $valide;
 	}
 
-	/**
-	 * @param string $anneeDebut
-	 */
-	public function setAnneeDebut($anneeDebut)
-	{
-		$this->anneeDebut = $anneeDebut;
-	}
+    /**
+     * @param string $anneeDebut
+     */
+    public function setAnneeDebut ($anneeDebut) {
+        $this->anneeDebut = $anneeDebut;
+    }
 
-	/**
-	 * @param string $anneeFin
-	 */
-	public function setAnneeFin($anneeFin)
-	{
-		$this->anneeFin = $anneeFin;
-	}
+    /**
+     * @return string
+     */
+    public function getAnneeDebut () {
+        return $this->anneeDebut;
+    }
 
-	/**
-	 * @param string $codeFormation
-	 */
-	public function setCodeFormation($codeFormation)
-	{
-		$this->codeFormation = $codeFormation;
-	}
+    /**
+     * @param string $anneeFin
+     */
+    public function setAnneeFin ($anneeFin) {
+        $this->anneeFin = $anneeFin;
+    }
 
-	/**
-	 * @param string $cursus
-	 */
-	public function setCursus($cursus)
-	{
-		$this->cursus = $cursus;
-	}
+    /**
+     * @return string
+     */
+    public function getAnneeFin () {
+        return $this->anneeFin;
+    }
 
-	/**
-	 * @param string $etablissement
-	 */
-	public function setEtablissement($etablissement)
-	{
-		$this->etablissement = $etablissement;
-	}
+    /**
+     * @param string $codeFormation
+     */
+    public function setCodeFormation ($codeFormation) {
+        $this->codeFormation = $codeFormation;
+    }
 
-	/**
-	 * @param string $id
-	 */
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
+    /**
+     * @return string
+     */
+    public function getCodeFormation () {
+        return $this->codeFormation;
+    }
 
-	/**
-	 * @param string $idEtudiant
-	 */
-	public function setIdEtudiant($idEtudiant)
-	{
-		$this->idEtudiant = $idEtudiant;
-	}
+    /**
+     * @param string $cursus
+     */
+    public function setCursus ($cursus) {
+        $this->cursus = $cursus;
+    }
 
-	/**
-	 * @param string $note
-	 */
-	public function setNote($note)
-	{
-		$this->note = $note;
-	}
+    /**
+     * @return string
+     */
+    public function getCursus () {
+        return $this->cursus;
+    }
 
-	/**
-	 * @param string $valide
-	 */
-	public function setValide($valide)
-	{
-		$this->valide = $valide;
-	}
+    /**
+     * @param string $etablissement
+     */
+    public function setEtablissement ($etablissement) {
+        $this->etablissement = $etablissement;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEtablissement () {
+        return $this->etablissement;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId ($id) {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId () {
+        return $this->id;
+    }
+
+    /**
+     * @param string $idEtudiant
+     */
+    public function setIdEtudiant ($idEtudiant) {
+        $this->idEtudiant = $idEtudiant;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdEtudiant () {
+        return $this->idEtudiant;
+    }
+
+    /**
+     * @param string $note
+     */
+    public function setNote ($note) {
+        $this->note = $note;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNote () {
+        return $this->note;
+    }
+
+    /**
+     * @param string $valide
+     */
+    public function setValide ($valide) {
+        $this->valide = $valide;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValide () {
+        return $this->valide;
+    }
+
+
 
 }
