@@ -4,7 +4,7 @@
 $dbname = 'fegtest2';
 $host = 'localhost';
 $user = 'root';
-$password = '';
+$password = 'root';
 
 static $conn = null;
 

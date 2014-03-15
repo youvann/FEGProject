@@ -178,6 +178,10 @@
             returnType: "json",
             multiple: true,
             autoSubmit: false,
+            allowedTypes: "png,gif,jpg,jpeg,bmp,doc,docx,odt,rtf,pdf,zip,rar,7z,txt",
+            extErrorStr: "n'est pas autorisé. Extensions autorisées : ",
+            maxFileSize : 10485760, // 10 MO max
+            sizeErrorStr: "n'est pas autorisé. Admis taille max : ",
             dragDropStr: "<span><b>Faites glisser et déposez les fichiers</b></span>",
             abortStr: "Abandonner",
             cancelStr: "Annuler",
