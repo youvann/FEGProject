@@ -1,11 +1,11 @@
 <?php
-
 /**
  * @Project: FEG Project
- * @File: /controllers/informationSupp.controller.php
+ * @File   : /controllers/informationSupp.controller.php
  * @Purpose: Ce contrôleur gère les différentes fonctionnalités de l'intranet
- * @Author: Lionel Guissani
+ * @Author : Lionel Guissani & Kévin Meas
  */
+
 if (!isset($_GET['action'])) {
     $action = "accueil";
 } else {
@@ -31,6 +31,7 @@ switch ($action) {
         echo $twig->render ('intranet/explorateur.html.twig', array ('directory' => str_replace (DIRECTORY_SEPARATOR, '/', realpath (dirname (__FILE__))) . '/../dossiers/'));
     }
         break;
+    // Cette action permet de télécharger les répertoires de l'explorateur de fichiers
     case "telechargerDossier" :
     {
         // Récupère le chemin complet du répertoire à télécharger
@@ -46,29 +47,33 @@ switch ($action) {
         $fileName = $fileName[sizeof ($fileName) - 1];
         $zip      = false;
 
+        // Si le répertoire n'est pas un ZIP
         if ($dirName !== 'ZIP') {
             // Vérifie si le répertoire et les sous répertoires sont vides
             $empty = IsEmptySubFolders ($pathFolder);
             // Chemin où se trouve le zip à télécharger
-            if ($isFile) {
+            if ($isFile) { // Il s'agit d'un fichier
                 // Faire correspondre URL au serveur ICI
                 $path = $pathFolder;
-            } else {
+            } else { // Il s'agit d'un répertoire
                 $path = Zip ($pathFolder, 'dossiers/ZIP/' . $dirName . "-" . time () . '.zip');
             }
-        } else {
+        } else { // Le répertoire est le répertoire ZIP
             $path  = '#';
             $empty = IsEmptySubFolders ($pathFolder);
             $zip   = true;
         }
-
         echo $twig->render ('intranet/telechargerDossier.html.twig', array ('path' => $path, 'dirName' => $dirName, 'pathFolder' => $pathFolder, 'empty' => $empty, 'zip' => $zip, 'isFile' => $isFile, 'fileName' => $fileName));
     }
         break;
+    // Cette action permet de supprimer un répertoire
     case "supprimerRepertoire" :
     {
-        $isFile = $_GET["isFile"];
-        $zip = $_GET["zip"];
+        // S'agit-il d'un fichier ou d'un répertoire ?
+        $isFile     = $_GET["isFile"];
+        // S'agit-il d'un zip?
+        $zip        = $_GET["zip"];
+        // Récupère le chemin du répertoire
         $pathFolder = $_GET["pathFolder"];
         if($isFile){ // fichier
             if(file_exists($pathFolder)){
@@ -80,7 +85,6 @@ switch ($action) {
                 removeDirContent($pathFolder);
             }else{
                 // Suppression du contenu du répertoire concerné
-                // Supprime le contenu des répertoires
                 listAndRemoveDir ($pathFolder);
             }
         }
