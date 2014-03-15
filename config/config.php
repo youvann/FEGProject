@@ -19,10 +19,6 @@ require_once 'Entities/loader.php';
 // Variables utiles
 require_once 'vars.php';
 
-
-// Chargement des ressources francais/anglais
-//$ressources = xml2array(simplexml_load_file('./ressources/ressources_1.xml'));
-
 // Module connexion
 session_start();
 
