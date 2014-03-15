@@ -6,10 +6,10 @@
         <li><a href="index.php?uc=intranet&action">Accueil</a></li>
         <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
         <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
-        <li class="active">Liste des voeux</li>
+        <li class="active">Liste des étapes</li>
     </ol>
 
-    <h2 class="titre_rubrique">Liste des voeux</h2>
+    <h2 class="titre_rubrique">Liste des étapes</h2>
 
     <button data-html="true" title="<p>En fonction des droits accordés à votre type de compte, vous pouvez ici ajouter,
             consulter, modifier, supprimer les étapes proposées par la formation en cliquant sur les différents boutons.</p>
@@ -21,7 +21,7 @@
 
     {% if session.grade > 1 %}
         <a href="index.php?uc=voeu&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
-            <span class="glyphicon glyphicon-plus-sign"></span> Ajouter un voeu
+            <span class="glyphicon glyphicon-plus-sign"></span> Ajouter une étape
         </a>
     {% endif %}
     <a href="index.php?uc=dossierPdf&action=grille&code={{ code }}" class="btn btn-lg btn-primary">
