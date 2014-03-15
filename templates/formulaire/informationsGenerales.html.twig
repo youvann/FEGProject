@@ -216,6 +216,9 @@
                     <span class="en">Complement</span>
                     <input type="text" class="form-control" id="complement"
                            name="complement"
+                           data-validation-optional="true"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                            placeholder="Bâtiment, étage, appartement ..."/>
                 </div>
             </div>
@@ -253,7 +256,7 @@
                            placeholder="Votre numéro" data-validation-optional="true"
                            data-validation="custom"
                            data-validation-regexp="^(0[1-68])(?:[ _.-]?(\d{2})){4}$"
-                           data-validation-error-msg="Veuillez fournir tel. valide"/>
+                           data-validation-error-msg="Veuillez fournir un n° de tel. valide"/>
                 </div>
             </div>
             <div class="col-md-4">
@@ -265,7 +268,7 @@
                            placeholder="Votre numéro" data-validation-optional="true"
                            data-validation="custom"
                            data-validation-regexp="^(0[1-68])(?:[ _.-]?(\d{2})){4}$"
-                           data-validation-error-msg="Veuillez fournir tel. valide"/>
+                           data-validation-error-msg="Veuillez fournir un n° de tel. valide"/>
                 </div>
             </div>
             <div class="col-md-4">

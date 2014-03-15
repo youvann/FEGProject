@@ -47,7 +47,9 @@ switch ($action) {
         $microtime = microtime ();
 	    $microtime = explode (' ', $microtime);
         // Place l'identifiant de l'étudiant dans une variable SESSION
-        $_SESSION['idEtudiant'] = (int)(substr ($microtime[1], 4) . substr ($microtime[0], 2, 4));
+        //$_SESSION['idEtudiant'] = (int)(substr ($microtime[1], 4) . substr ($microtime[0], 2, 4));
+        // Prend les 10 dernies chiffres de microtime()
+        $_SESSION['idEtudiant'] = substr (microtime (), -10);
 		header ('location:index.php?uc=formulaire&action=main');
     }
         break;
