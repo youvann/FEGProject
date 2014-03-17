@@ -60,7 +60,7 @@ class DossierPdfManager {
 	 */
     public function findAll(){
         $dossiers = array ();
-        $rs = $this->db->query("SELECT * FROM `dossier_pdf`;")->fetchAll();
+        $rs = $this->db->query("SELECT * FROM `dossier_pdf` ORDER BY `CODE_FORMATION`;")->fetchAll();
         foreach ($rs as $dossier) {
             $dossiers[] = new DossierPdf($dossier['ID'], $dossier['NOM'], $dossier['INFORMATIONS'], $dossier['MODALITES'], $dossier['CODE_FORMATION']);
         }
