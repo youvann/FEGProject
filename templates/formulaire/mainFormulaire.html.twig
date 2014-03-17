@@ -50,6 +50,13 @@
                 <button type="input" id="customSubmit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-cloud-upload"></span> Envoyer
                 </button>
+                <br/>
+                <br/>
+
+                <div id="traitement" class="alert alert-warning">Traitement de votre
+                    dossier en cours, veuillez ne pas recharger votre page et patienter ...
+                    <br/><i>Please, do not reload the page and wait ...</i>
+                </div>
             </form>
         </div>
     </div>
@@ -108,14 +115,17 @@
         $('.linkDocumentSpecifique').on('click', function () {
             window.open(this.href);
             return false;
-        })
+        });
 
         // L'upload a-t-il été fait ?
         uploadGlobal = false;
         // y a-t-il un fichier qui a été ajouté dans la zone de drag & drop?
         isFileAjouterGlobal = false;
 
-        /*/ Jeu d'essai formulaire
+        // Cache par défaut le message de traitement du dossier
+        $("#traitement").hide();
+
+        // Jeu d'essai formulaire
         $('#nom').val('Pierre');
         $('#prenom').val('Paul');
         $('#lieu_naissance').val('Kingston');
@@ -134,7 +144,7 @@
         $('#cursus').eq(0).val('DUT Informatique');
         $('#ville_preferee').val('1');
         $('#entreprise').val('Sporstec');
-        $('#fonction').val('Développeur PHP');*/
+        $('#fonction').val('Développeur PHP');
 
         var boutonOK = $('#boutonOk');
         //ancrage bouton OK
@@ -195,7 +205,7 @@
                     voeu1: $('#voeu-1').val(),
                     voeu2: $('#voeu-2').length > 0 ? ($('#voeu-2').val() !== '2' ? $('#voeu-2').val() : null) : null,
                     voeu3: $('#voeu-3').length > 0 ? ($('#voeu-2').val() !== '3' ? $('#voeu-2').val() : null) : null
-                }
+                };
                 return data;
             },
             afterUploadAll: function () {
@@ -212,28 +222,6 @@
                 boutonOK.removeClass('champsManquants voeuxIdentiques noDocuments');
                 $('#myModal').modal('show');
             }
-        });
-
-        // Envoi du formulaire
-        $("#customSubmit").click(function () {
-            //var modal = $('.modal-body');
-            //modal.html('');
-            // Test si les voeux sont tous différents
-            /*voeux = [];
-            $('select[name="voeu[]"]').each(function () {
-                voeux.push($(this).val());
-            });*/
-            /*if (!isFileAjouterGlobal) {
-             $('.modal-body').html($('.modal-body').html() + '<br>Veuillez ajouter les documents à joindre');
-             }*/
-            /*if (!voeux.uniqueValues()) {
-                $('.modal-body').html('Les voeux doivent être différents');
-            }*/
-            /*if (!modal.html() == '') {
-                boutonOK.removeClass('champsManquants');
-                $('#myModal').modal('show');
-                return false;
-            }*/
         });
 
         // Message d'erreurs champs formulaire
@@ -302,6 +290,7 @@
                     }
                     if (!uploadGlobal) {
                         uploadObj.startUpload();
+                        $("#traitement").fadeIn('normal');
                         return false;
                     }
                 }

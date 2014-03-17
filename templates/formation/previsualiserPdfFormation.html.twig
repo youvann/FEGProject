@@ -11,7 +11,7 @@
     <h2 class="titre_rubrique">
         Prévisualisation du dossier PDF de {{ typePdf }} {{ nomDossierPdf }}
     </h2>
-    <p>(Si le PDF ne s'affiche pas correctement, veuillez <a href="" class="refresh">recharger</a> la page)</p>
+    <p>(Si le PDF ne s'affiche pas, cliquez <a download="{{ typePdf }}-{{ nomDossierPdf }}.pdf" href="dossiers/{{ codeFormation }}/Dossier-type/{{ typePdf }}-{{ nomDossierPdf }}.pdf">ici </a>pour le télécharger)</p>
     <div  class="well">
         <div id="loading" style="text-align: center;"></div>
         <object id="pdfPreview" data="dossiers/{{ codeFormation }}/Dossier-type/{{ typePdf }}-{{ nomDossierPdf }}.pdf" type="application/pdf"

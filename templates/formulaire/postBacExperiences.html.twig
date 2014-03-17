@@ -50,6 +50,7 @@
                         <div class="form-group">
                             <label for="valide[]">Année validée
                                 ?</label>
+                            <span class="label label-danger">Requis</span>
                             <select class="form-control" name="valide[]"
                                     id="valide-1">
                                 <option value="1">Oui</option>
@@ -64,7 +65,10 @@
                             </label> /
                             <span class="en">Mark</span>
                             <input type="text" class="form-control" id="note-1"
-                                   name="note[]" maxlength="50"/>
+                                   name="note[]" maxlength="50"
+                                   data-validation-optional="true"
+                                   data-validation="custom"
+                                   data-validation-regexp="^([0-9a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"/>
                         </div>
                     </div>
                 </div>
@@ -78,8 +82,9 @@
                             <input type="text" class="form-control required"
                                    id="etablissement-1"
                                    name="etablissement[]"
-                                   data-validation="required"
-                                   data-validation-error-msg="Veuillez indiquer le nom de l'établissement où vous avez effectué votre parcours post bac"/>
+                                   data-validation="custom"
+                                   data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
+                                   data-validation-error-msg="Veuillez indiquer le nom de l'établissement où vous avez effectué votre parcours post-bac"/>
                         </div>
                     </div>
 
@@ -90,7 +95,8 @@
                             <span class="label label-danger">Requis</span>
                             <input type="text" class="form-control required"
                                    id="cursus-1" name="cursus[]"
-                                   data-validation="required"
+                                   data-validation="custom"
+                                   data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                                    data-validation-error-msg="Veuillez remplir le cursus suivi"/>
                         </div>
                     </div>
@@ -111,7 +117,7 @@
                 <div class="alert alert-info alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <p><strong>Veuillez renseigner vos expériences professionnelles</strong></p>
-                    <p>Vous pouvez renseigner jusqu'à 10 expériences professionnelles ou n'en reseigner aucune.</p>
+                    <p>Vous pouvez renseigner jusqu'à 10 expériences professionnelles ou n'en renseigner aucune.</p>
                     <p>Vous devez renseigner vos expériences professionnelles passées en partant de la plus récente à la plus ancienne.</p>
                     <p>Utilisez les boutons <strong>Ajouter</strong> et <strong>Retirer</strong> prévus à cet effet.</p>
                 </div>
@@ -137,6 +143,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="moisDebut-1">Mois de début</label>
+                            <span class="label label-danger">Requis</span>
                             <select class="form-control" id="moisDebut[]"
                                     name="moisDebut[]">
                                 {% for unMois in mois %}
@@ -148,6 +155,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="anneeDebut[]">Année de début</label>
+                            <span class="label label-danger">Requis</span>
                             <select class="form-control" id="anneeDebut[]"
                                     name="anneeDebut[]">
                                 {% set ecart = anneeBasse - 60 %}
@@ -160,6 +168,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="moisFin[]">Mois de fin</label>
+                            <span class="label label-danger">Requis</span>
                             <select class="form-control" id="moisFin[]"
                                     name="moisFin[]">
                                 {% for unMois in mois %}
@@ -171,6 +180,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="anneeFin[]">Année de fin</label>
+                            <span class="label label-danger">Requis</span>
                             <select class="form-control" id="anneeFin[]"
                                     name="anneeFin[]">
                                 {% set ecart = anneeBasse - 60 %}
@@ -187,17 +197,21 @@
                         <div class="form-group">
                             <label for="entreprise[]">Entreprise</label>
                             <span class="label label-danger">Requis</span>
-                            <input type="text" class="form-control required" id="entreprise[]"
-                                   name="entreprise[]" data-validation="required"
-                                   data-validation-error-msg="Veuillez remplir l'entreprise"/>
+                            <input type="text" class="form-control" id="entreprise[]"
+                                   name="entreprise[]"
+                                   data-validation="custom"
+                                   data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
+                                   data-validation-error-msg="Veuillez remplir le nom de l'entreprise"/>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="emploi[]">Fonction</label>
                             <span class="label label-danger">Requis</span>
-                            <input type="text" class="form-control required" id="fonction[]"
-                                   name="fonction[]" data-validation="required"
+                            <input type="text" class="form-control" id="fonction[]"
+                                   name="fonction[]"
+                                   data-validation="custom"
+                                   data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                                    data-validation-error-msg="Veuillez remplir votre fonction dans l'entreprise"/>
                         </div>
                     </div>

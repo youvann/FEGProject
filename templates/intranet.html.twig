@@ -22,9 +22,9 @@
                                         href="index.php?uc=intranet&action=accueil">Accueil</a></li>-->
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="gestion">Gestion
-                                    {% if session.name == "Administrateur" %}<span class="label label-danger">{% endif %}
-                                    {% if session.name == "Responsable" %}<span class="label label-info">{% endif %}
-                                    {% if session.name == "Secrétaire" %}<span class="label label-warning">{% endif %}
+                                    {% if session.name == "administrateur" %}<span class="label label-danger">{% endif %}
+                                    {% if session.name == "responsable" %}<span class="label label-info">{% endif %}
+                                    {% if session.name == "secrétaire" %}<span class="label label-warning">{% endif %}
                                     {{ session.name }}</span> <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -72,38 +72,6 @@
                 <!--/.container-fluid -->
             </div>
 
-            <!--<div class="col-md-2">
-			<div class="panel panel-primary">
-				<div class="panel-heading">Accueil ({{ session.name}})</div>
-				<div class="panel-body">
-					<ul class="nav nav-pills nav-stacked">
-						<li class="{% if get.uc == 'intranet' and get.action == 'accueil' %}active{% endif %}"><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
-						<li class="{% if get.uc == 'intranet' and get.action == 'carte' %}active{% endif %}"><a href="index.php?uc=intranet&action=carte">Carte</a></li>
-						<li class="{% if get.uc == 'intranet' and get.action == 'explorateur' %}active{% endif %}"><a href="index.php?uc=intranet&action=explorateur">Explorateur</a></li>
-						<li><a href="index.php?uc=utilisateur&action=deconnexion">Se déconnecter</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="panel panel-primary">
-				<div class="panel-heading">Formations</div>
-				<div class="panel-body">
-					<ul class="nav nav-pills nav-stacked">
-						<li class="{% if get.uc == 'formation' and get.action == 'grille' %}active{% endif %}"><a href="index.php?uc=formation&action=grille">Liste</a></li>
-						<li class="{% if get.uc == 'formation' and get.action == 'ajouter' %}active{% endif %}"><a href="index.php?uc=formation&action=ajouter">Ajouter</a></li>
-                        <li class="{% if get.uc == 'intranet' and get.action == 'liensFormation' %}active{% endif %}"><a href="index.php?uc=intranet&action=liensFormation">Liens</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="panel panel-primary">
-				<div class="panel-heading">Documents généraux à joindre</div>
-				<div class="panel-body">
-					<ul class="nav nav-pills nav-stacked">
-						<li class="{% if get.uc == 'documentGeneral' and get.action != 'ajouter' %}active{% endif %}"><a href="index.php?uc=documentGeneral&action=grille">Liste</a></li>
-						<li class="{% if get.uc == 'documentGeneral' and get.action == 'ajouter' %}active{% endif %}"><a href="index.php?uc=documentGeneral&action=ajouter">Ajouter</a></li>
-					</ul>
-				</div>
-			</div>
-        </div>-->
             <div id="content" class="col-md-12 well-feg">
                 {% block content %}
 

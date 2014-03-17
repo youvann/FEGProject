@@ -22,6 +22,7 @@
                 <div class="form-group">
                     <label for="valide[]">Année validée
                         ?</label>
+                    <span class="label label-danger">Requis</span>
                     <select class="form-control" name="valide[]"
                             id="valide-{{ indice }}">
                         <option value="1">Oui</option>
@@ -36,7 +37,10 @@
                     </label> /
                     <span class="en">Mark</span>
                     <input type="text" class="form-control" id="note-{{ indice }}"
-                           name="note[]" maxlength="50"/>
+                           name="note[]" maxlength="50"
+                           data-validation-optional="true"
+                           data-validation="custom"
+                           data-validation-regexp="^([0-9a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"/>
                 </div>
             </div>
         </div>
@@ -47,10 +51,11 @@
                     <label for="etablissement[]">Etablissement</label> /
                     <span class="en">Establishment</span>
                     <span class="label label-danger">Requis</span>
-                    <input type="text" class="form-control required"
+                    <input type="text" class="form-control"
                            id="etablissement-{{ indice }}"
                            name="etablissement[]"
-                           data-validation="required"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                            data-validation-error-msg="Veuillez indiquer le nom de l'établissement où vous avez effectué votre parcours post bac."/>
                 </div>
             </div>
@@ -62,7 +67,8 @@
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required"
                            id="cursus-{{ indice }}" name="cursus[]"
-                           data-validation="required"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                            data-validation-error-msg="Veuillez remplir le cursus suivi."/>
                 </div>
             </div>

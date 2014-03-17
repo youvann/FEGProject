@@ -5,6 +5,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="moisDebut-{{ indice }}">Mois de début</label>
+                    <span class="label label-danger">Requis</span>
                     <select class="form-control" id="moisDebut-{{ indice }}"
                             name="moisDebut[]">
                         {% for unMois in mois %}
@@ -16,6 +17,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="anneeDebut-{{ indice }}">Année de début</label>
+                    <span class="label label-danger">Requis</span>
                     <select class="form-control" id="anneeDebut-{{ indice }}"
                             name="anneeDebut[]">
                         {% set ecart = anneeBasse - 60 %}
@@ -28,6 +30,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="moisFin-{{ indice }}">Mois de fin</label>
+                    <span class="label label-danger">Requis</span>
                     <select class="form-control" id="moisFin-{{ indice }}"
                             name="moisFin[]">
                         {% for unMois in mois %}
@@ -39,6 +42,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="anneeFin-{{ indice }}">Année de fin</label>
+                    <span class="label label-danger">Requis</span>
                     <select class="form-control" id="anneeFin-{{ indice }}"
                             name="anneeFin[]">
                         {% set ecart = anneeBasse - 60 %}
@@ -54,17 +58,21 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="entreprise-{{ indice }}">Entreprise</label>
+                    <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" 
                            id="entreprise-{{ indice }}" name="entreprise[]"
-                           data-validation="required"/>
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"/>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="emploi1">Fonction</label>
+                    <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required"
                            id="fonction-{{ indice }}" name="fonction[]"
-                           data-validation="required"/>
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"/>
                 </div>
             </div>
         </div>
