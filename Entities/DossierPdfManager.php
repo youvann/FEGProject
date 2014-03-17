@@ -127,6 +127,6 @@ class DossierPdfManager {
 	 * @return array Liste des liens
 	 */
 	public function getLinks() {
-		return $this->db->query("SELECT CONCAT('<a href=\"http://miage-aix-marseille.fr/?uc=formulaire&action=choixFormation&formationchoisie=', `ID`, '\">', `NOM`, '</a>') as lien FROM `dossier_pdf`;")->fetchAll();
+		return $this->db->query("SELECT CONCAT('<a href=\"http://miage-aix-marseille.fr/candid_feg/?uc=formulaire&action=choixFormation&dossierPdf=', `ID`, '\">', `NOM`, '</a>') as lien FROM `dossier_pdf`;")->fetchAll();
 	}
 }
