@@ -1,5 +1,6 @@
 <?php
 /**
+ * Génère un document PDF
  * @Project: FEG Project
  * @File   : /classes/Pdf/PagePdf.class.php
  * @Purpose: Construit la page d'un document HTML qui va être transformé en PDF
