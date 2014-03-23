@@ -387,7 +387,7 @@ class PagePdf {
      */
     public function isCandidature () {
         if ($this->isCandidature) {
-            return $this->printOther () . $this->getPageEnd () . $this->getNewPage () . $this->printInformationsSpecifiques ();
+            return $this->printOther () . $this->getPageEnd () . $this->printInformationsSpecifiques ();
         }
         return "";
     }
@@ -882,7 +882,11 @@ class PagePdf {
             }
             return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $informationsSpecifiquesLibelles;
         } else { // Ce n'est pas une prévisualisation
-            return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $this->informationsSpecifiques;
+            if($this->informationsSpecifiques == ""){
+                return "";
+            }else{
+                return $this->getNewPage() . '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $this->informationsSpecifiques . $this->getPageEnd ();
+            }
         }
     }
 
@@ -1106,7 +1110,7 @@ class PagePdf {
      * @return string
      */
     public function __toString () {
-        return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->printFormationTitle () . $this->printDegreeHolder () . $this->printApplicant () . $this->getPlanFormation () . $this->getPageEnd () . $this->getNewPage () . $this->printPrevFormation () . $this->printProExperienceHeader () . $this->isCandidature () . $this->getPageEnd () . $this->getNewPage () . $this->printDossierModalites () . $this->printDossierInformations () . $this->getPageEnd () . $this->getNewPage () . $this->printFicheCommissionPeda () . $this->printCadreAdministration () . $this->getPageEnd ();
+        return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->printFormationTitle () . $this->printDegreeHolder () . $this->printApplicant () . $this->getPlanFormation () . $this->getPageEnd () . $this->getNewPage () . $this->printPrevFormation () . $this->printProExperienceHeader () . $this->isCandidature () . $this->getNewPage () . $this->printDossierModalites () . $this->printDossierInformations () . $this->getPageEnd () . $this->getNewPage () . $this->printFicheCommissionPeda () . $this->printCadreAdministration () . $this->getPageEnd ();
     }
 }
 

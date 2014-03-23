@@ -29,11 +29,10 @@
                     {% endif %}
                 {% endif %}
 
-                {% include 'formulaire/documentsGeneraux.html.twig' %}
-
                 {% if dossierPdf.modalites is not empty %}
                     <div class="bs-callout bs-callout-warning">
                         <h3>Modalités</h3>
+                        <div class="alert alert-info">Ces informations sont disponibles dans le document PDF que vous allez devoir télécharger à la fin de votre demande.</div>
 
                         <p>{{ dossierPdf.modalites | raw }}</p>
                     </div>
@@ -43,9 +42,16 @@
                     <div class="bs-callout bs-callout-info">
                         <h3>Informations</h3>
 
+                        <div class="alert alert-info">Ces informations sont
+                            disponibles dans le document PDF que vous allez devoir
+                            télécharger à la fin de votre demande.
+                        </div>
+
                         <p>{{ dossierPdf.informations | raw }}</p>
                     </div>
                 {% endif %}
+
+                {% include 'formulaire/documentsGeneraux.html.twig' %}
 
                 <button type="input" id="customSubmit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-cloud-upload"></span> Envoyer
