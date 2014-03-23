@@ -264,6 +264,7 @@
                 scrollToTopOnError: false,
                 onError: function () {
                     $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
+                    boutonOK.removeClass('champsManquants voeuxIdentiques noDocuments');
                     boutonOK.addClass('champsManquants');
                     $('#myModal').modal('show');
                 },
@@ -274,6 +275,7 @@
                         voeux.push($(this).val());
                     });
                     if (!voeux.uniqueValues()) {
+                        console.log("voeux identiques");
                         isVoeuxOk = false;
                         boutonOK.removeClass('champsManquants voeuxIdentiques noDocuments');
                         boutonOK.addClass('voeuxIdentiques');
@@ -282,6 +284,7 @@
                         return false;
                     }
                     if (!isFileAjouterGlobal && isVoeuxOk) {
+                        console.log("pas de documents");
                         boutonOK.removeClass('champsManquants voeuxIdentiques noDocuments');
                         boutonOK.addClass('noDocuments');
                         $('.modal-body').html('Veuillez ajouter les documents à joindre');
