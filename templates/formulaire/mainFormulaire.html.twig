@@ -199,9 +199,16 @@
             showDone: false,
             dynamicFormData: function () {
                 // Récupération des champs nom et prénom de l'étudiant
+                var nomEtudiant = $('#nom').val();
+                var prenomEtudiant = $('#prenom').val();
+                if(nomEtudiant == "" || prenomEtudiant == ""){
+                    $('.modal-body').html('Une erreur s\'est produite, veuillez recommencer. <i>There is a problem, please try again.</i>');
+                    $('#myModal').modal('show');
+                    return false;
+                }
                 var data = {
-                    nom: $('#nom').val(),
-                    prenom: $('#prenom').val(),
+                    nom: nomEtudiant,
+                    prenom: prenomEtudiant,
                     voeu1: $('#voeu-1').val(),
                     voeu2: $('#voeu-2').length > 0 ? ($('#voeu-2').val() !== '2' ? $('#voeu-2').val() : null) : null,
                     voeu3: $('#voeu-3').length > 0 ? ($('#voeu-2').val() !== '3' ? $('#voeu-2').val() : null) : null
@@ -218,7 +225,7 @@
                 return true; //to allow file submission.
             },
             onError: function (files, status, errMsg) {
-                $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées.');
+                $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées. Veuillez recommencer ...');
                 boutonOK.removeClass('champsManquants voeuxIdentiques noDocuments');
                 $('#myModal').modal('show');
             }
@@ -292,8 +299,13 @@
                         return false;
                     }
                     if (!uploadGlobal) {
+                        // Tout est ok, on peut lancer l'upload des pièces
                         uploadObj.startUpload();
+                        // Affichage du message "Traitement en cours ..."
                         $("#traitement").fadeIn('normal');
+                        // Bouton de validation du formulaire se grise
+                        $("#customSubmit").attr("disabled", "disabled").removeClass("btn-primary").addClass("btn-warning").html("Traitement en cours ...");
+
                         return false;
                     }
                 }
