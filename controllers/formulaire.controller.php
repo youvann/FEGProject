@@ -403,7 +403,7 @@ switch ($action) {
         // Définit l'url des pièces manquantes
         $pagePdf->setUrlPiecesManquantes ($urlPiecesManquantes);
         // Définit le numéro d'inscription de l'étudiant
-        $pagePdf->setNumInscription ($idEtudiant);
+        $pagePdf->setNumDossier ($idEtudiant);
         // Définit les informations principales de l'étudiant
         $pagePdf->setApplicant ($dossier->getGenre (), $dossier->getNom (), $dossier->getPrenom (), $dossier->getLieuNaissance (), $dateDeNaissance, $dossier->getIne (), $dossier->getAdresse () . ' ' . $dossier->getComplement () . ' ' . $dossier->getVille () . ' ' . $dossier->getCodePostal (), $dossier->getFixe (), $dossier->getPortable (), $dossier->getMail (), $dossier->getActivite ());
         // Définit les voeux et la ville préférée de l'étudiant

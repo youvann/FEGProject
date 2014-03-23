@@ -46,7 +46,7 @@ class PagePdf {
     /**
      * @var int Numéro d'inscription qui permet d'identifier un étudiant et son dossier
      */
-    private $numInscription;
+    private $numDossier;
     /**
      * @var string URL qui permet d'ajouter les pièces manquantes
      */
@@ -395,10 +395,10 @@ class PagePdf {
     /**
      * Définit le numéro d'inscription de l'étudiant
      *
-     * @param int $numInscription
+     * @param int $numDossier
      */
-    public function setNumInscription ($numInscription) {
-        $this->numInscription = $numInscription;
+    public function setNumDossier ($numDossier) {
+        $this->numDossier = $numDossier;
     }
 
     /**
@@ -406,8 +406,8 @@ class PagePdf {
      *
      * @return string
      */
-    public function printNumInscription () {
-        return "<span><b>Votre numéro d'inscription : </b>" . $this->numInscription . "</span>";
+    public function printNumDossier () {
+        return "<span><b>Votre numéro de dossier : </b>" . $this->numDossier . "</span>";
     }
 
     /**
@@ -570,14 +570,21 @@ class PagePdf {
     }
 
     /**
+     * @return string Affiche le titre 1 : CANDIDAT ou ETUDIANT
+     */
+    public function printTitreRubrique1(){
+        return ($this->isCandidature) ? "CANDIDAT" : "ETUDIANT";
+    }
+
+    /**
      * Affiche les informations principles du candidat sur le dossier PDF
      *
      * @return string
      */
     public function printApplicant () {
-        return '<div class="titre_encadre">CANDIDAT</div>
+        return '<div class="titre_encadre">' . $this->printTitreRubrique1() . '</div>
                 <br>
-                ' . $this->printUrlPiecesmanquantes () . '<br/>' . $this->printNumInscription () . '<br/><br/>
+                ' . $this->printUrlPiecesmanquantes () . '<br/>' . $this->printNumDossier () . '<br/><br/>
                 <span class="bold">' . $this->applicantSex . '</span>
                 <br><br>
                 <table>
@@ -636,12 +643,19 @@ class PagePdf {
     }
 
     /**
+     * @return string Affiche le titre 2 : FORMATION ENVISAGEE ou PRE-INSCRIPTION DEMANDEE
+     */
+    public function printTitreRubrique2(){
+        return ($this->isCandidature) ? "FORMATION ENVISAGEE" : "PRE-INSCRIPTION DEMANDEE";
+    }
+
+    /**
      * Affiche contenant les étapes et la ville préférée que l'étudiant a choisi
      *
      * @return string
      */
     public function getPlanFormation () {
-        return '<br/><div class="titre_encadre">FORMATION ENVISAGE</div><br>
+        return '<br/><div class="titre_encadre">' . $this->printTitreRubrique2 () . '</div><br>
                 <table>
                     <col style="width: 8%">
                     <col style="width: 97%">
@@ -943,6 +957,7 @@ class PagePdf {
         return $this->voeuxMultiple . '<br><br><img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/>  S1
                 <img src="classes/Pdf/img/case_a_cocher.jpg" alt=""/>  S2';
     }
+
 
     /**
      * Affiche le cadre réservé à la commission pédagogique
