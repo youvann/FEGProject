@@ -7,13 +7,23 @@
  * @Author: Lionel Guissani
  */
 class RadioButtonGroup extends FormElement {
-
+	/**
+	 * @var Boutons radio
+	 */
 	private $radioButtons;
 
+	/**
+	 * @return string Code HTML du groupe de boutons radio
+	 */
 	public function __toString() {
+		// Le groupe de boutons radio est composé de son
+		// label et d'une DIV qui contient les boutons radio
 		$return = $this->label . "<div>";
 		$i = 0;
+		// On parcours la liste des boutons radio
+		// pour récupérer leur code HTML
 		foreach ($this->radioButtons as $radioButton) {
+			// On coche par défaut le 1er bouton radio
 			if ($i === 0) {
 				$radioButton->setChecked(true);
 			}

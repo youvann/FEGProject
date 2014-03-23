@@ -2,9 +2,9 @@
 
 /**
  * @Project: FEG Project
- * @File: /controllers/informationSupp.controller.php
- * @Purpose:
- * @Author:
+ * @File: /controllers/choix.controller.php
+ * @Purpose: Ce contrôleur gère l'entité choix
+ * @Author: Lionel Guissani
  */
 if (!isset($_GET['action'])) {
 	$action = "ajout";
@@ -12,18 +12,8 @@ if (!isset($_GET['action'])) {
 	$action = $_GET['action'];
 }
 
-/* autorisations
-  $pageAction = array("ordonner", "ajouter", "ajout", "modifier", "modification", "suppression");
-
-  if (in_array($action, $pageAction) && !$utilisateur->isConnected()) {
-  header('location:index.php?uc=utilisateur&action=connecter');
-  } */
-
 switch ($action) {
-	case "ajouter": {
-			$types = $typeManager->findAll();
-			echo $twig->render('choix/ajouterChoix.html.twig', array('information' => $_GET['information'], 'code' => $_GET['code']));
-		} break;
+	// Cette action ajoute des choix en base données
 	case "ajout": {
 			foreach ($_POST['tb'] as $tb) {
 				$choixManager->insert(new Choix(0, $_POST['information'], $tb));

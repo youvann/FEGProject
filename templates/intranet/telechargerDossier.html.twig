@@ -1,7 +1,7 @@
 {% extends 'intranet.html.twig' %}
 
 {% block content %}
-    <h2 class="titre_rubrique">Options répertoire {{ dirName }}</h2>
+    <h2 class="titre_rubrique">Options {% if isFile %}fichier{% else %}dossier{% endif %} {{ dirName }}</h2>
     <div class="alert alert-info">
         <ul>
             <li>Cliquer sur <b>télécharger</b> pour obtenir le répertoire compressé.</li>
@@ -10,14 +10,19 @@
     </div>
 
     <div class="alert alert-warning">
-       Uniquement le <b>contenu</b> des répertoires Candidatures, Dossier_Type et Preinscriptions est supprimé.
+       Uniquement le <b>contenu</b> des répertoires Candidatures, Dossier-type et Pré-inscriptions est supprimé.
     </div>
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <a href="{{ path }}" class="btn btn-primary btn-block" {% if (zip or empty) %}disabled="disabled"{% endif %}>Télécharger {{ dirName }}</a>
-            <a href="#" class="btn btn-danger btn-block" {% if empty %}disabled="disabled"{% endif %}>Supprimer le
-                contenu de {{ dirName }}</a>
+            <a href="{{ path }}" class="btn btn-info btn-block" {% if (zip or empty) and not isFile %}disabled="disabled"{% endif %}>
+                <span class="glyphicon glyphicon-download"></span>
+                Télécharger {% if isFile %}le fichier {{ fileName }}{% else %}le contenu de {{ dirName }}{% endif %}
+            </a>
+            <a href="#" class="btn btn-danger btn-block" {% if empty and not isFile %}disabled="disabled"{% endif %}>
+                <span class="glyphicon glyphicon-trash"></span>
+                Supprimer {% if isFile %}le fichier {{ fileName }}{% else %}le contenu de {{ dirName }}{% endif %}
+            </a>
         </div>
     </div>
 
@@ -58,7 +63,7 @@
                 return false;
             });
             $('#btnOk').click(function () {
-                document.location.href = "index.php?uc=intranet&action=supprimerRepertoire&pathFolder={{ pathFolder }}";
+                document.location.href = "index.php?uc=intranet&action=supprimerRepertoire&pathFolder={{ pathFolder }}&isFile={{ isFile }}&zip={{ zip }}";
             });
         });
     </script>

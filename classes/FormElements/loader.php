@@ -1,9 +1,9 @@
 <?php
 
-// Classe mère
+// Chargement des classe de la biblithèque FormElements
+
 require_once(__DIR__ . '/Form.class.php');
 require_once(__DIR__ . '/FormElement.class.php');
-
 require_once(__DIR__ . '/CheckBox.class.php');
 require_once(__DIR__ . '/CheckBoxGroup.class.php');
 require_once(__DIR__ . '/File.class.php');

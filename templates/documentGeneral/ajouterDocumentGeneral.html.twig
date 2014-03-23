@@ -11,12 +11,23 @@
     <h2 class="titre_rubrique">Ajouter un document général</h2>
 
     <form action="index.php?uc=documentGeneral&action=ajout" method="POST">
-
         <div class="form-group">
             <label for="nom">Nom</label>
-            <input class="form-control" type="text" id="nom" name="nom"/>
+            <input class="form-control" type="text" id="nom" name="nom" required="required"/>
         </div>
-
+        <div class="form-group">
+            <label>Requis pour un pré-inscription</label>
+            <div class="radio">
+                <label for="visible-1">
+                    <input type="radio" id="visible-1" name="visible" value="1" /> Oui
+                </label>
+            </div>
+            <div class="radio">
+                <label for="visible-0">
+                    <input type="radio" id="visible-0" name="visible" value="0" checked /> Non
+                </label>
+            </div>
+        </div>
         <button class="btn btn-primary" type="submit">
             <span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer
         </button>

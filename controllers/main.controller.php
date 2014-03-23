@@ -3,7 +3,7 @@
 /**
  * @Project: FEG Project
  * @File   : /controllers/main.controller.php
- * @Purpose:
+ * @Purpose: Ce super contrôleur charge le bon contrôleur en fonction de la variable $uc
  * @Author :
  */
 if (!isset($_GET['uc'])){
@@ -18,6 +18,16 @@ switch ($uc){
         require_once 'controllers/formation.controller.php';
     }
         break;
+	case "dependre":
+	{
+		require_once 'controllers/dependre.controller.php';
+	}
+		break;
+	case "diplome":
+	{
+		require_once 'controllers/diplome.controller.php';
+	}
+		break;
     case "documentGeneral":
     {
         require_once 'controllers/documentGeneral.controller.php';
@@ -47,6 +57,11 @@ switch ($uc){
     {
         require_once 'controllers/formulaire.controller.php';
     }
+		break;
+	case "dossierPdf":
+	{
+		require_once 'controllers/dossierPdf.controller.php';
+	}
         break;
     case "utilisateur":
     {

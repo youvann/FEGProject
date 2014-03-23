@@ -2,103 +2,128 @@
 
 {% block content %}
 
-<ol class="breadcrumb">
-	<li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
-	<li class="active">Liste des formations</li>
-</ol>
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+        <li class="active">Liste des formations</li>
+    </ol>
 
-<h2 class="titre_rubrique">Liste des formations</h2>
+    <h2 class="titre_rubrique">Liste des formations</h2>
 
-<a href="index.php?uc=formation&action=ajouter" class="btn btn-lg btn-primary">
-	<span class="glyphicon glyphicon-plus-sign"></span> Ajouter une formation
-</a>
+    <button data-html="true" title="<p>En fonction des droits accordés à votre type de compte, vous pouvez ici ajouter,
+    consulter, modifier, supprimer ou gérer une formation en cliquant sur les différents boutons.</p>"
+            data-placement="left" data-toggle="tooltip" class="btn btn-lg btn-info pull-right">
+        <span class="glyphicon glyphicon-question-sign"></span> Aide
+    </button>
 
-{% if formations is not empty %}
+    {% if session.grade > 2 %}
+        <a href="index.php?uc=formation&action=ajouter" class="btn btn-lg btn-primary">
+            <span class="glyphicon glyphicon-plus-sign"></span> Ajouter une formation
+        </a>
+    {% endif %}
+    {% if formations is not empty %}
 
-<hr />
+        <hr/>
 
-<table class="table table-hover table-bordered table-striped">
-	<tr>
-		<th>Code</th>
-		<th>Mention</th>
-		<th>Ouverte</th>
-		<th>Options</th>
-	</tr>
-	{% for formation in formations %}
-	<tr>
-		<td>{{ formation.codeformation }}</td>
-		<td>{{ formation.mention }}</td>
-		<td>{% if formation.ouverte == 1 %}Oui{% else %}Non{% endif %}</td>
-		<td>
-			<div class="btn-group">
-				<a href="index.php?uc=formation&action=consulter&code={{ formation.codeformation }}" class="btn btn-info">
-					<span class="glyphicon glyphicon-check"></span> Consulter
-				</a>
-				<a href="index.php?uc=formation&action=modifier&code={{ formation.codeformation }}"  class="btn btn-warning">
-					<span class="glyphicon glyphicon-edit"></span> Modifier
-				</a>
-				<a href="index.php?uc=formation&action=suppression&code={{ formation.codeformation }}"  class="btn btn-danger">
-					<span class="glyphicon glyphicon-trash"></span> Supprimer
-				</a>
-			</div>
-		</td>
-	</tr>
-	{% endfor %}
-</table>
-{% endif %}
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content panel-danger">
-            <div class="modal-header panel-heading">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+        <table class="table table-hover table-bordered table-striped">
+            <tr>
+                <th>Code</th>
+                <th>Mention</th>
+                <th>Options</th>
+            </tr>
+            {% for formation in formations %}
+                <tr>
+                    <td>{{ formation.codeformation }}</td>
+                    <td>{{ formation.mention }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="index.php?uc=formation&action=consulter&code={{ formation.codeformation }}"
+                               class="btn btn-info">
+                                <span class="glyphicon glyphicon-check"></span> Consulter
+                            </a>
+                            {% if session.grade > 1 %}
+                                <a href="index.php?uc=formation&action=modifier&code={{ formation.codeformation }}"
+                                   class="btn btn-warning">
+                                    <span class="glyphicon glyphicon-edit"></span> Modifier
+                                </a>
+                                {% if session.grade > 2 %}
+                                    <a href="index.php?uc=formation&action=suppression&code={{ formation.codeformation }}"
+                                       class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-trash"></span> Supprimer
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                Gestion de la formation <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="index.php?uc=voeu&action=grille&code={{ formation.codeformation }}">
+                                        <span class="glyphicon glyphicon-briefcase"></span> Gérer les étapes
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="index.php?uc=formation&action=logoDossierPdf&code={{ formation.codeFormation }}&mention={{ formation.mention }}">
+                                        <span class="glyphicon glyphicon-picture"></span> Gérer le logo
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="index.php?uc=dossierPdf&action=grille&code={{ formation.codeformation }}">
+                                        <span class="glyphicon glyphicon-paperclip"></span> Gérer les dossiers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="index.php?uc=formation&action=syntheseCsv&code={{ formation.codeformation }}">
+                                        <span class="glyphicon glyphicon-list"></span> Synthèse Excel
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sûr(e) de vouloir réaliser cette action ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnOk">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </div>
             </div>
-            <div class="modal-body">
-                Etes-vous sûr(e) de vouloir réaliser cette action ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btnOk">Ok</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 {% endblock %}
 
 {% block scripts %}
     {{ parent() }}
-    <script type="text/javascript" src="./public/js/bootstrap-progressbar.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            $('button[data-toggle="tooltip"]').tooltip();
+
             var lastPushedButton = null;
 
             $('.btn-danger').click(function () {
                 $('#myModal').modal('show');
                 lastPushedButton = $(this);
-                console.log(lastPushedButton);
                 return false;
             });
             $('#btnOk').click(function () {
                 window.location.href = lastPushedButton.attr("href");
             });
-
-            $('#prevPdf').click(function () {
-                $('#loadingModal').modal('show');
-                $('.progress .progress-bar').progressbar({
-                    display_text: 'fill',
-                    use_percentage: true,
-                    refresh_speed: 50
-                });
-                $.ajax({
-                    url: "index.php?uc=formation&action=previsualisationPdf&code={{ formation.codeformation }}",
-                    success: function (data) {
-                        window.location.replace("index.php?uc=formation&action=previsualiserPdf&code={{ formation.codeformation }}");
-                    }
-                });
-            });
-
         });
     </script>
 {% endblock %}

@@ -1,17 +1,21 @@
 <?php
-
+// Chargement des classes représentant les entités
 require_once(__DIR__ . '/Choix.php');
 require_once(__DIR__ . '/ChoixManager.php');
 require_once(__DIR__ . '/Cursus.php');
 require_once(__DIR__ . '/CursusManager.php');
+require_once(__DIR__ . '/Dependre.php');
+require_once(__DIR__ . '/DependreManager.php');
+require_once(__DIR__ . '/Diplome.php');
+require_once(__DIR__ . '/DiplomeManager.php');
 require_once(__DIR__ . '/DocumentGeneral.php');
 require_once(__DIR__ . '/DocumentGeneralManager.php');
 require_once(__DIR__ . '/DocumentSpecifique.php');
 require_once(__DIR__ . '/DocumentSpecifiqueManager.php');
 require_once(__DIR__ . '/Dossier.php');
 require_once(__DIR__ . '/DossierManager.php');
-require_once(__DIR__ . '/Etudiant.php');
-require_once(__DIR__ . '/EtudiantManager.php');
+require_once(__DIR__ . '/DossierPdf.php');
+require_once(__DIR__ . '/DossierPdfManager.php');
 require_once(__DIR__ . '/Experience.php');
 require_once(__DIR__ . '/ExperienceManager.php');
 require_once(__DIR__ . '/Faculte.php');
@@ -36,10 +40,12 @@ require_once(__DIR__ . '/VoeuManager.php');
 // Instanciations des Managers
 $choixManager = new ChoixManager($conn);
 $cursusManager = new CursusManager($conn);
+$dependreManager = new DependreManager($conn);
+$diplomeManager = new DiplomeManager($conn);
 $documentGeneralManager = new DocumentGeneralManager($conn);
 $documentSpecifiqueManager = new DocumentSpecifiqueManager($conn);
 $dossierManager = new DossierManager($conn);
-$etudiantManager = new EtudiantManager($conn);
+$dossierPdfManager = new DossierPdfManager($conn);
 $experienceManager = new ExperienceManager($conn);
 $faculteManager = new FaculteManager($conn);
 $faireManager = new FaireManager($conn);

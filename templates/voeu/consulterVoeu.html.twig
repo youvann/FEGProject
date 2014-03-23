@@ -7,35 +7,84 @@
 	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
 	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
 	<li><a href="index.php?uc=voeu&action=grille&code={{ code }}">Liste des voeux</a></li>
-	<li class="active">Fiche voeu</li>
+	<li class="active">Fiche étape</li>
 </ol>
 
-<h2 class="titre_rubrique">Fiche voeu</h2>
+<h2 class="titre_rubrique">Fiche étape</h2>
 
 <p class="text-muted">Code étape</p>
 <p class="text-info">{{ voeu.codeEtape }}</p>
 <p class="text-muted">Etape</p>
 <p class="text-info">{{ voeu.etape }}</p>
-<p class="text-muted">Responsable</p>
-<p class="text-info">{{ voeu.responsable }}</p>
-<p class="text-muted">Ville(s)</p>
-	{% if voeu.villes is not empty %}
-		<ul class="list-unstyled">
-			{% for ville in voeu.villes %}
-				<li class="text-info">{{ ville.nom }}</li>
-			{% endfor %}
-		</ul>
-	{% endif %}
+    {% if lesSeDerouler is not empty %}
+        <p class="text-muted">Ville(s)</p>
+        <table class="table table-bordered">
+            <tr>
+                <th>Ville</th>
+                <th>Responsable</th>
+                <th>Mail</th>
+            </tr>
+        {% for ville in villes %}
+            {% for seDerouler in lesSeDerouler %}
+                {% if ville.id == seDerouler.id %}
+                    <tr>
+                        <td>{{ ville.nom }}</td>
+                        <td>{{ seDerouler.responsable }}</td>
+                        <td>
+                            <a href="mailto:{{ seDerouler.mailResponsable }}">{{ seDerouler.mailResponsable }}</a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </table>
+    {% endif %}
 <hr />
 
 <a href="index.php?uc=voeu&action=grille&code={{ code }}"  class="btn btn-primary">
 	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
 </a>
-<a href="index.php?uc=voeu&action=modifier&codeetape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-warning">
-	<span class="glyphicon glyphicon-check"></span> Modifier
+<a href="index.php?uc=voeu&action=modifier&codeEtape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-warning">
+	<span class="glyphicon glyphicon-edit"></span> Modifier
 </a>
-<a href="index.php?uc=voeu&action=suppression&codeetape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-danger">
+<a href="index.php?uc=voeu&action=suppression&codeEtape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-danger">
 	<span class="glyphicon glyphicon-trash"></span> Supprimer
 </a>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sûr(e) de vouloir réaliser cette action ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnOk">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+
+            $('.btn-danger').click(function () {
+                $('#myModal').modal('show');
+                return false;
+            });
+            $('#btnOk').click(function () {
+                window.location.href = $('.btn-danger').attr("href");
+            });
+
+        });
+    </script>
 {% endblock %}

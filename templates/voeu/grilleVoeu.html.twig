@@ -2,52 +2,108 @@
 
 {% block content %}
 
-<ol class="breadcrumb">
-	<li><a href="index.php?uc=intranet&action">Accueil</a></li>
-	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
-	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
-	<li class="active">Liste des voeux</li>
-</ol>
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action">Accueil</a></li>
+        <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
+        <li class="active">Liste des étapes</li>
+    </ol>
 
-<h2 class="titre_rubrique">Liste des voeux</h2>
+    <h2 class="titre_rubrique">Liste des étapes</h2>
 
-<a href="index.php?uc=voeu&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
-	<span class="glyphicon glyphicon-plus-sign"></span> Ajouter un voeu
-</a>
+    <button data-html="true" title="<p>En fonction des droits accordés à votre type de compte, vous pouvez ici ajouter,
+            consulter, modifier, supprimer les étapes proposées par la formation en cliquant sur les différents boutons.</p>
+        <p>Vous pouvez ensuite placer ces étapes dans les dossiers de candidature/préinscription en vous rendant dans la section
+        'Gérer les dossiers'</p>"
+            data-placement="left" data-toggle="tooltip" class="btn btn-lg btn-info pull-right">
+        <span class="glyphicon glyphicon-question-sign"></span> Aide
+    </button>
 
-{% if voeux is not empty %}
+    {% if session.grade > 1 %}
+        <a href="index.php?uc=voeu&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
+            <span class="glyphicon glyphicon-plus-sign"></span> Ajouter une étape
+        </a>
+    {% endif %}
+    <a href="index.php?uc=dossierPdf&action=grille&code={{ code }}" class="btn btn-lg btn-primary">
+        <span class="glyphicon glyphicon-paperclip"></span> Gérer les dossiers
+    </a>
+    {% if voeux is not empty %}
 
-<table style="margin-top: 1em;" class="table table-hover table-bordered table-striped">
-	<tr>
-		<th class="col-md-6">Etape</th>
-		<th class="col-md-2">Responsable</th>
-		<th class="col-md-4">Options</th>
-	</tr>
-        {% for voeu in voeux %}
-	<tr>
-		<td>{{ voeu.etape }}</td>
-		<td>{{ voeu.responsable }}</td>
-		<td>
-			<div class="btn-group">
-				<a href="index.php?uc=voeu&action=consulter&codeetape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-info">
-					<span class="glyphicon glyphicon-check"></span> Consulter
-				</a>
-				<a href="index.php?uc=voeu&action=modifier&codeetape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-warning">
-					<span class="glyphicon glyphicon-check"></span> Modifier
-				</a>
-				<a href="index.php?uc=voeu&action=suppression&codeetape={{ voeu.codeEtape }}&code={{ code }}" class="btn btn-danger">
-					<span class="glyphicon glyphicon-trash"></span> Supprimer
-				</a>
-			</div>
-		</td>
-	</tr>
-        {% endfor %}
-</table>
+        <table style="margin-top: 1em;" class="table table-hover table-bordered table-striped">
+            <tr>
+                <th class="col-md-6">Etape</th>
+                <th class="col-md-4">Options</th>
+            </tr>
+            {% for voeu in voeux %}
+                <tr>
+                    <td>{{ voeu.etape }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="index.php?uc=voeu&action=consulter&codeEtape={{ voeu.codeEtape }}&code={{ code }}"
+                               class="btn btn-info">
+                                <span class="glyphicon glyphicon-check"></span> Consulter
+                            </a>
+                            <a href="index.php?uc=voeu&action=modifier&codeEtape={{ voeu.codeEtape }}&code={{ code }}"
+                               class="btn btn-warning">
+                                <span class="glyphicon glyphicon-edit"></span> Modifier
+                            </a>
+                            <a href="index.php?uc=voeu&action=suppression&codeEtape={{ voeu.codeEtape }}&code={{ code }}"
+                               class="btn btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span> Supprimer
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
 
-{% endif %}
-<hr />
-<a href="index.php?uc=formation&action=consulter&code={{ code }}"  class="btn btn-primary">
-	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
-</a>
+    {% endif %}
+    <hr/>
+    <a href="index.php?uc=formation&action=consulter&code={{ code }}" class="btn btn-primary">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+    </a>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sûr(e) de vouloir réaliser cette action ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnOk">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            $('button[data-toggle="tooltip"]').tooltip();
+
+            var lastPushedButton = null;
+
+            $('.btn-danger').click(function () {
+                $('#myModal').modal('show');
+                lastPushedButton = $(this);
+                console.log(lastPushedButton);
+                return false;
+            });
+            $('#btnOk').click(function () {
+                window.location.href = lastPushedButton.attr("href");
+            });
+
+        });
+    </script>
 {% endblock %}

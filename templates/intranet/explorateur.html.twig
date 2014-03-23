@@ -6,7 +6,8 @@
     <div class="alert alert-info">
         <ul>
             <li>Pour ouvrir un répertoire, effectuez un clique <b>gauche</b>.</li>
-            <li>Pour accèder aux options (suppression et téléchargement), effectuez un clique <b>droit</b>.</li>
+            <li>Pour accèder aux options du répertoire (suppression et téléchargement), effectuez un clique <b>droit</b>.</li>
+            <li>Pour télécharger un <b>fichier</b>, effectuez un clique gauche.</li>
         </ul>
 
     </div>
@@ -17,18 +18,20 @@
 {% block scripts %}
     {{ parent() }}
 
-    <script type="text/javascript" src="./public/js/jqueryFileTree/jqueryFileTree.js"></script>
+    <script type="text/javascript" src="public/js/jqueryFileTree/jqueryFileTree.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
+
+            $(document).ready(function () {
             $('#explorateur').fileTree({
                 // root : ne pas oublier de mettre slash à la fin du chemin !
                 root: '{{ directory }}',
-                script: './public/js/jqueryFileTree/connectors/jqueryFileTree.php'
+                script: 'public/js/jqueryFileTree/connectors/jqueryFileTree.php'
             }, function(file) {
-                //window.open(file.replace("Applications/", ""));
+
+                window.open(file.replace('/homez.808/miageaix/www/candid_feg/', ''));
             });
 			$('.directory').first().dblclick(function() {
-				alert($(this).attr("rel"));
+				//alert($(this).attr("rel"));
 			});
         });
     </script>

@@ -10,30 +10,39 @@
 
     <h2 class="titre_rubrique">Fiche formation : {{ formation.mention }} </h2>
 
+    <button data-html="true" title="<p>En fonction des droits accordés à votre type de compte, vous pouvez ici gérer
+            la formation en ajoutant des étape à la formation, des dossiers de candidatures/préinscription, éditer le
+            logo de la formation qui appraraît sur les dossiers, et générer la synthèse Excel des candidatures/préinscription.</p>"
+            data-placement="left" data-toggle="tooltip" class="btn btn-lg btn-info pull-right">
+        <span class="glyphicon glyphicon-question-sign"></span> Aide
+    </button>
+
     <p class="text-muted">Code</p>
     <p class="text-info">{{ formation.codeformation }}</p>
-    <p class="text-muted">Informations</p>
-    <div>{{ formation.informations|raw }}</div>
-    <p class="text-muted">Modalités</p>
-    <div>{{ formation.modalites|raw }}</div>
     <p class="text-muted">Mention</p>
     <p class="text-info">{{ formation.mention }}</p>
-    <p class="text-muted">Ouverte</p>
-    <p class="text-info">{{ formation.ouverte }}</p>
     <p class="text-muted">Faculté</p>
-    <p class="text-info">{{ formation.faculte }}</p>
+    <p class="text-info">
+        {% for faculte in facultes %}
+            {% if formation.faculte == faculte.id %}
+                {{ faculte.nom }}
+            {% endif %}
+        {% endfor %}
+    </p>
     <hr/>
     <a href="index.php?uc=formation&action=grille" class="btn btn-primary">
         <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
     </a>
-
-    <a href="index.php?uc=formation&action=modifier&code={{ formation.codeformation }}" class="btn btn-warning">
-        <span class="glyphicon glyphicon-edit"></span> Modifier
-    </a>
-    <a href="index.php?uc=formation&action=suppression&code={{ formation.codeformation }}" class="btn btn-danger">
-        <span class="glyphicon glyphicon-trash"></span> Supprimer
-    </a>
-
+    {% if session.grade > 1 %}
+        <a href="index.php?uc=formation&action=modifier&code={{ formation.codeformation }}" class="btn btn-warning">
+            <span class="glyphicon glyphicon-edit"></span> Modifier
+        </a>
+    {% endif %}
+    {% if session.grade > 2 %}
+        <a href="index.php?uc=formation&action=suppression&code={{ formation.codeformation }}" class="btn btn-danger">
+            <span class="glyphicon glyphicon-trash"></span> Supprimer
+        </a>
+    {% endif %}
     <div class="btn-group">
         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
             Gestion de la formation <span class="caret"></span>
@@ -41,17 +50,17 @@
         <ul class="dropdown-menu" role="menu">
             <li>
                 <a href="index.php?uc=voeu&action=grille&code={{ formation.codeformation }}">
-                    <span class="glyphicon glyphicon-briefcase"></span> Gérer les voeux
+                    <span class="glyphicon glyphicon-briefcase"></span> Gérer les étapes
                 </a>
             </li>
             <li>
-                <a href="index.php?uc=information&action=grille&code={{ formation.codeformation }}">
-                    <span class="glyphicon glyphicon-info-sign"></span> Gérer les informations spécifiques
+                <a href="index.php?uc=formation&action=logoDossierPdf&code={{ formation.codeFormation }}&mention={{ formation.mention }}">
+                    <span class="glyphicon glyphicon-picture"></span> Gérer le logo
                 </a>
             </li>
             <li>
-                <a href="index.php?uc=documentSpecifique&action=grille&code={{ formation.codeformation }}">
-                    <span class="glyphicon glyphicon-paperclip"></span> Gérer les documents à joindre
+                <a href="index.php?uc=dossierPdf&action=grille&code={{ formation.codeformation }}">
+                    <span class="glyphicon glyphicon-paperclip"></span> Gérer les dossiers
                 </a>
             </li>
             <li>
@@ -61,48 +70,6 @@
             </li>
         </ul>
     </div>
-
-    <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-           Prévisualisation <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            <li>
-                <a class="prevPdf candidature" href="#">
-                    <span class="glyphicon glyphicon-file"></span> Prévisualiser le dossier de candidature PDF
-                </a>
-            </li>
-            <li>
-                <a class="prevPdf preinscription" href="#">
-                    <span class="glyphicon glyphicon-file"></span> Prévisualiser le dossier de pré-inscription PDF
-                </a>
-            </li>
-        </ul>
-    </div>
-    <a class="btn btn-info" href="index.php?uc=formation&action=dependances&code={{ formation.codeformation }}">
-        <span class="glyphicon glyphicon-briefcase"></span> Domaines de compatibilité
-    </a>
-    <!-- Modal -->
-    <div class="modal" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Veuillez patienter, création du dossier PDF ...</h4>
-                </div>
-                <div class="modal-body center-block">
-                    <div class="progress">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-info six-sec-ease-in-out"
-                                 aria-valuetransitiongoal="99"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -129,9 +96,9 @@
 
 {% block scripts %}
     {{ parent() }}
-    <script type="text/javascript" src="./public/js/bootstrap-progressbar.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            $('button[data-toggle="tooltip"]').tooltip();
             $('.btn-danger').click(function () {
                 $('#myModal').modal('show');
                 return false;
@@ -139,27 +106,6 @@
             $('#btnOk').click(function () {
                 window.location.href = $('.btn-danger').attr("href");
             });
-
-            var typePdf = 'null';
-            $('.prevPdf').click(function () {
-                typePdf = ($(this).hasClass('candidature')) ? 'candidature' : 'preinscription';
-
-                $('#loadingModal').modal('show');
-                $('.progress .progress-bar').progressbar({
-                    display_text: 'fill',
-                    use_percentage: true,
-                    refresh_speed: 50
-                });
-                var linkPdf = (typePdf == 'candidature') ? "index.php?uc=formation&action=previsualisationPdfCandidature&code={{ formation.codeformation }}&typePdf=" + typePdf
-                                                         : "index.php?uc=formation&action=previsualisationPdfPreinscription&code={{ formation.codeformation }}&typePdf=" + typePdf
-                $.ajax({
-                    url: linkPdf,
-                    success: function (data) {
-                        window.location.replace("index.php?uc=formation&action=previsualiserPdf&code={{ formation.codeformation }}&typePdf=" + typePdf);
-                    }
-                });
-            });
-
         });
     </script>
 {% endblock %}

@@ -1,67 +1,103 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/Voeu.php
+ * @Purpose: Entité Voeu
+ * @Author: Lionel Guissani
+ */
 class Voeu {
+	/**
+	 * @var string Code étape
+	 */
 	private $codeEtape;
+	/**
+	 * @var string Code formation
+	 */
 	private $codeFormation;
+	/**
+	 * @var string Etape
+	 */
 	private $etape;
-	private $responsable;
-	private $mailResponsable;
-	private $villes;
-	
-	function __construct($codeEtape, $codeFormation, $etape, $responsable, $mailResponsable) {
+	/**
+	 * @var string Dossier pdf
+	 */
+	private $dossierPdf;
+
+	/**
+	 * Constructeur
+	 * @param $codeEtape string Code étape
+	 * @param $codeFormation string Code formation
+	 * @param $etape string Etape
+	 * @param $dossierPdf string Dossier pdf
+	 */
+	function __construct($codeEtape, $codeFormation, $etape, $dossierPdf) {
 		$this->codeEtape = $codeEtape;
 		$this->codeFormation = $codeFormation;
 		$this->etape = $etape;
-		$this->responsable = $responsable;
-		$this->mailResponsable = $mailResponsable;
-		$this->villes = NULL;
+		$this->dossierPdf = $dossierPdf;
 	}
 
-	public function getCodeEtape() {
-		return $this->codeEtape;
-	}
-
-	public function getCodeFormation() {
-		return $this->codeFormation;
-	}
-
-	public function getEtape() {
-		return $this->etape;
-	}
-
-	public function getResponsable() {
-		return $this->responsable;
-	}
-
-	public function getMailResponsable() {
-		return $this->mailResponsable;
-	}
-	
-	public function getVilles() {
-		return $this->villes;
-	}
-
-	public function setCodeEtape($codeEtape) {
+	/**
+	 * @param string $codeEtape Code Etape
+	 */
+	public function setCodeEtape($codeEtape)
+	{
 		$this->codeEtape = $codeEtape;
 	}
 
-	public function setCodeFormation($codeFormation) {
-		$this->code = $codeFormation;
+	/**
+	 * @return string Code Etape
+	 */
+	public function getCodeEtape()
+	{
+		return $this->codeEtape;
 	}
 
-	public function setEtape($etape) {
+	/**
+	 * @param string $codeFormation Code Formation
+	 */
+	public function setCodeFormation($codeFormation)
+	{
+		$this->codeFormation = $codeFormation;
+	}
+
+	/**
+	 * @return string Code Formation
+	 */
+	public function getCodeFormation()
+	{
+		return $this->codeFormation;
+	}
+
+	/**
+	 * @param string $dossierPdf Dossier Pdf
+	 */
+	public function setDossierPdf($dossierPdf)
+	{
+		$this->dossierPdf = $dossierPdf;
+	}
+
+	/**
+	 * @return string Dossier Pdf
+	 */
+	public function getDossierPdf()
+	{
+		return $this->dossierPdf;
+	}
+
+	/**
+	 * @param string $etape Etape
+	 */
+	public function setEtape($etape)
+	{
 		$this->etape = $etape;
 	}
 
-	public function setResponsable($responsable) {
-		$this->responsable = $responsable;
-	}
-
-	public function setMailResponsable($mailResponsable) {
-		$this->mailResponsable = $mailResponsable;
-	}
-
-	public function setVilles($villes) {
-		$this->villes = $villes;
+	/**
+	 * @return string Etape
+	 */
+	public function getEtape()
+	{
+		return $this->etape;
 	}
 }

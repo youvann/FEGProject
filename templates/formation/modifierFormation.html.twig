@@ -14,38 +14,19 @@
 	<input type="hidden" id="code" name="code_formation" value="{{ formation.codeformation }}" />
 	<div class="form-group">
 		<label for="mention">Mention</label>
-		<input class="form-control" type="text" id="mention" name="mention" value="{{ formation.mention }}" />
+		<input class="form-control" type="text" id="mention" name="mention"
+               data-validation="required" data-validation-error-msg="Veuillez renseigner la mention de la formation"
+               value="{{ formation.mention }}" />
 	</div>
-    <div class="form-group">
-        <label for="informations">Informations</label>
-        <textarea class="form-control" id="informations" name="informations">{{ formation.informations }}</textarea>
-    </div>
-	<div class="form-group">
-		<label for="modalites">Modalités</label>
-		<textarea class="form-control" id="modalites" name="modalites">{{ formation.modalites }}</textarea>
-	</div>
-	<div class="form-group">
-		<label>Ouverte</label>
-		<div class="radio">
-			<label for="ouverte_oui">
-				<input type="radio" id="ouverte_oui" name="ouverte" value="1" {% if formation.ouverte == 1 %}checked{% endif %} /> Oui
-			</label>
-		</div>
-		<div class="radio">
-			<label for="ouverte_non">
-				<input type="radio" id="ouverte_non" name="ouverte" value="0" {% if formation.ouverte == 0 %}checked{% endif %} /> Non
-			</label>
-		</div>
-	</div>
-	
-	<div class="form-group">
+    <input type="hidden" id="faculte" name="faculte" value="1">
+	<!--<div class="form-group">
 		<label for="faculte">Faculté</label>
 		<select class="form-control" id="faculte" name="faculte">
-			{% for faculte in facultes %}
-			<option {% if formation.faculte == faculte.id %} selected="selected" {% endif %} value="{{ faculte.id}}">{{ faculte.nom}}</option>
-			{% endfor %}
+			{# for faculte in facultes #}
+			<option {# if formation.faculte == faculte.id #} selected="selected" {# endif #} value="{# faculte.id}}">{# faculte.nom#}</option>
+			{# endfor #}
 		</select>
-	</div>
+	</div>-->
 	<button class="btn btn-primary" type="submit">
 		<span class="glyphicon glyphicon-floppy-disk"></span> Enregistrer
 	</button>
@@ -60,18 +41,11 @@
 {% endblock %}
 
 {% block scripts %}
-{{ parent() }}
-<script src="./public/js/tinymce/tinymce.min.js" type="text/javascript"></script>
+    {{ parent() }}
 <script type="text/javascript">
-	tinymce.init({
-        selector: "textarea",
-        plugins: [
-            "advlist autolink lists link image charmap print preview anchor",
-            "searchreplace visualblocks code fullscreen",
-            "insertdatetime media table contextmenu paste"
-        ],
-        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+    $(function () {
+        $.validate();
     });
-
 </script>
+
 {% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="row" style="margin-top: 1em;">
+        <div class="col-md-12">
+            <h2 class="titre_rubrique">Transmission des pièces manquantes</h2>
+
+            <h3 class="titre_rubrique2">Dossier de {{ typeDossier }}
+                en {{ nomDossierPdf }} ({{ nom }} {{ prenom }} {{ idEtudiant }})</h3>
+            <br/>
+
+            <div class="well">
+                <b>Pièces générales à transmettre / <span
+                            class="en">Mains documents</span> :</b>
+                <ul>
+                    {% for documentGeneral in documentsGeneraux %}
+                        <li><p>{{ documentGeneral.nom }}</p></li>
+                    {% endfor %}
+                </ul>
+                {% if documentsSpecifiques is not null %}
+                    <b>Pièces spécifiques à transmettre /
+                        <span class="en">Specific documents</span> : </b>
+                    <ul>
+                        {% for documentSpecifique in documentsSpecifiques %}
+                            <li><p>{{ documentSpecifique.nom }}</p>
+                                {% if documentSpecifique is not null %}
+
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="alert alert-warning"><span class="glyphicon glyphicon-warning-sign"></span>
+                Veuillez vérifier que vos fichiers n'ont pas les mêmes noms / <i>Please check your filenames, they must not have the same name</i></div>
+
+            <div id="upload">Ajouter / <i>Add</i></div>
+            <br/>
+            <button id="startUpload" type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-cloud-upload"></span>
+                Transmettre les pièces manquantes
+            </button>
+            <br/>
+            <br/>
+            <div id="msg"></div>
+
+            {% for codeEtape in codesEtapes %}
+                <input class="hidden" type="hidden" name="voeu[]" id="voeu-{{ codeEtape }}" value="{{ codeEtape }}"/>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sûr(e) de vouloir réaliser cette action ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">Ok
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="public/js/jquery-upload/jquery.uploadfile.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var linkUpload = "index.php?uc=formulaire&action=uploaderPiecesManquantes&codeFormation={{ codeFormation }}&nom={{ nom }}&prenom={{ prenom }}&idEtudiant={{ idEtudiant }}&typeDossier={{ typeDossier }}&" + $('.hidden').serialize();
+            console.log(linkUpload);
+            var uploadObj = $("#upload").uploadFile({
+                url: linkUpload,
+                dragDrop: true,
+                fileName: "myfile",
+                returnType: "json",
+                multiple: true,
+                autoSubmit: false,
+                allowedTypes: "png,gif,jpg,jpeg,bmp,doc,docx,odt,rtf,pdf,zip,rar,7z,txt",
+                extErrorStr: "n'est pas autorisé. Extensions autorisées : ",
+                maxFileSize: 10485760, // 10 MO max
+                sizeErrorStr: "n'est pas autorisé. Admis taille max : ",
+                dragDropStr: "<span><b>Faîtes glisser les pièces manquantes</b></span>",
+                abortStr: "Abandonner",
+                cancelStr: "Annuler",
+                deletelStr: "Supprimer",
+                showDone: false,
+                afterUploadAll: function () {
+                    var msg = $('<div/>').addClass('alert alert-success').html("<span class='glyphicon glyphicon-saved'></span> Vos nouvelles pièces ont bien été prises en compte / <i>Upload successful</i>");
+                    msg.appendTo('#msg');
+                },
+                onError: function (files, status, errMsg) {
+                    $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées.');
+                    $('#myModal').modal('show');
+                }
+            });
+
+            $("#startUpload").click(function(){
+                //$(location).attr('href', linkUpload);
+                uploadObj.startUpload();
+            });
+
+
+
+        });
+    </script>
+{% endblock %}

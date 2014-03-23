@@ -7,71 +7,56 @@
 
             <h2 class="titre_rubrique">Votre parcours</h2>
 
-            <form role="form" action="index.php?uc=formulaire&action=traiterChoixFormation"
+            <form role="form"
+                  action="index.php?uc=formulaire&action=traiterChoixFormation"
                   id="formChoixFormation" method="post">
+
                 <fieldset>
                     <legend>Formation souhaitée</legend>
                     <div class="well well-fg">
-                        <div id="textboxIne" class="form-group has-success">
-                            <label for="ine">Votre numéro INE </label> <span class="en">INE number</span> <span class="label label-danger">Requis</span>
-                            <input class="form-control" type="text" id="ine" name="ine" placeholder="123456789A"
-                                   data-validation="required"
-                                   data-validation-error-msg="Veuillez entrer un numéro d'INE valide"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="derniere">Sélectionnez votre dernière formation effectuée</label>
-                            <span class="en">Training followed</span>
-                            <select class="form-control" id="derniere" name="derniere">
-                                <option value="">&mdash; Sélectionnez &mdash;</option>
-                                {% for formation in formations %}
-                                    <option value="{{ formation.codeformation }}">{{ formation.mention }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <!-- /form-group -->
-                        <div id="autre_formation">
-                            <div class="form-group">
-                                <label for="nomAutreFormation">Veuillez entrer le nom de la dernière
-                                    formation que vous avez effectuée</label>
-
-                                <input type="text" class="form-control" id="nomAutreFormation"
-                                       name="nomAutreFormation">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="choisie">Sélectionnez la formation souhaitée pour l'année scolaire
-                                2014-2015</label>
+                        <div id="divChoisie" class="form-group">
+                            <label for="choisie">Sélectionnez la formation souhaitée
+                                pour l'année scolaire
+                                {{ "now" | date("Y") }}
+                                -{{ "now" | date("Y") + 1 }}</label> /
                             <span class="en">Whish training</span>
+                            <span class="label label-danger">Requis</span>
                             <select class="form-control" id="choisie" name="choisie">
-                                <option value="">&mdash; Sélectionnez &mdash;</option>
-                                {% for formation in formations %}
-                                    <option value="{{ formation.codeformation }}">{{ formation.mention }}</option>
+                                <option value="">&mdash;
+                                    Sélectionnez &mdash;</option>
+                                {% for dossierPdf in dossiersPdf %}
+                                    <option value="{{ dossierPdf.id }}">{{ dossierPdf.nom }}</option>
                                 {% endfor %}
                             </select>
                         </div>
-                        <div id="displayDocuments"></div>
-                        <div id="divAllDocuments" class="form-group">
-                            <label>Etez-vous en possession de tous les documents demandés ?</label>
+                        <div id="divDerniere" class="form-group"></div>
+                        <div id="divDocuments"></div>
+                        <div id="divRadioButtons" class="form-group">
+                            <label>Etes-vous en possession de tous les documents
+                                demandés ?</label>
 
                             <div class="radio">
                                 <label for="oui">
-                                    <input type="radio" id="oui" name="allDocuments" value="oui"/> Oui
+                                    <input type="radio" id="oui" name="allDocuments"
+                                           value="oui"/> Oui
                                 </label>
                             </div>
                             <div class="radio">
                                 <label for="non">
-                                    <input type="radio" id="non" name="allDocuments" value="non" checked/> Non
+                                    <input type="radio" id="non" name="allDocuments"
+                                           value="non" checked/> Non
                                 </label>
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-primary"/>
-                        <br/><br/>
-
-                        <div id="msgErrorIne"></div>
+                        <div id="divSubmit">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-check"></span>
+                                Remplir mon dossier
+                            </button>
+                        </div>
                     </div>
                 </fieldset>
             </form>
-
         </div>
     </div>
 
@@ -79,130 +64,177 @@
 
 {% block scripts %}
     {{ parent() }}
-    <script src="./public/js/jquery-form-validator/jquery.form-validator.min.js"></script>
+    <script src="public/js/jquery-form-validator/jquery.form-validator.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('input[type=submit]').hide();
-            $('#divAllDocuments').hide();
-            $('#msgError').hide();
 
-            //var choixFormation = $("select[name='derniere'] > option:selected").val();
-            var choixFormation = $('#derniere').val();
-            var autreFormation = $("#autre_formation");
-
-            (choixFormation === "Autre") ? autreFormation.fadeIn("slow") : autreFormation.hide();
-
-            $('#derniere').on('change', function () {
-                choixFormation = $(this).val();
-                (choixFormation === "0000") ? autreFormation.fadeIn("slow") : autreFormation.fadeOut("fast");
-            });
+            $('#divDerniere').hide();
+            $('#divRadioButtons').hide();
+            $('#divSubmit').hide();
 
             $('input[type=radio]').on('change', function () {
                 if ($(this).val() == 'oui') {
-                    $('input[type=submit]').show();
+                    $('#divSubmit').fadeIn(1000);
                 } else {
-                    $('input[type=submit]').hide();
+                    $('#divSubmit').fadeOut(1000);
                 }
             });
 
-            $('#ine').on('input', function () {
-                checkCreationDossierPossible();
-            });
             $('#choisie').on('change', function () {
-                $('#divAllDocuments').show();
-                checkCreationDossierPossible();
+                if ($(this).val() !== '')
+                    loadDomains();
+                else {
+                    $('#divSubmit').fadeOut(250, function () {
+                        $('#divRadioButtons').fadeOut(250, function () {
+                            $('#divDocuments').fadeOut(250, function () {
+                                $('#divDerniere').fadeOut(250, function () {
+                                    $('#divDocuments').empty();
+                                    $('#divDerniere').empty();
+                                });
+                            });
+                        });
+                    });
+                }
+            });
+
+            var displayDerniereSelect = function (json) {
+                $('#divDerniere').empty();
+                var divDerniere = $('<div></div>').attr('id', 'divDerniere').addClass('form-group');
+                var label = $('<label></label>').attr('for', 'derniere').html('Etes-vous en possession d\'un diplôme parmi celui ou ceux proposés ?');
+                var select = $('<select/>').attr('id', 'derniere').attr('name', 'derniere').addClass('form-control').on('change', function () {
+                    if ($(this).val() !== '0' && $(this).val() !== '') {
+                        loadDocuments(1);
+                    }
+                    else if ($(this).val() === '') {
+                        $('#divDocuments').fadeOut(1000, function () {
+                            $('#divRadioButtons').fadeOut(1000, function () {
+                                $('#divSubmit').fadeOut(1000);
+                            });
+                        });
+                    }
+                    else if ($(this).val() === '0') {
+                        loadDocuments(0);
+                        $('input[name="allDocuments"][value="non"]').prop('checked', true);
+                        $('#divSubmit').fadeOut(1000);
+                    }
+                });
+                select.append($('<option></option>').attr('value', '').html('&mdash; Sélectionnez &mdash;'));
+                for (var i = 0; i < json.length; ++i) {
+                    select.append($('<option></option>').attr('value', json[i].codeEtape).html(json[i].etape));
+                }
+                select.append($('<option></option>').attr('value', '0').html('Autre'));
+                $('#divDerniere').append(label);
+                $('#divDerniere').append(select);
+                $('#divDerniere').fadeIn(1000);
+            };
+
+            var displayDerniereHidden = function () {
+                $('#divDerniere').fadeOut(1000, function () {
+                    $('#divDerniere').empty();
+                    var hidden = $('<input/>').attr('type', 'hidden').attr('id', 'derniere').attr('name', 'derniere').attr('value', '0');
+                    $('#divDerniere').append(hidden);
+                    loadDocuments(0);
+                });
+            };
+
+            var displayDocuments = function (json) {
+                $('#divDocuments').empty();
+                if (!$('#divDocuments').hasClass('alert') && !$('#divDocuments').hasClass('alert-warning')) {
+                    $('#divDocuments').addClass('alert');
+                    $('#divDocuments').addClass('alert-warning');
+                }
+                // On liste les documents généraux du JSON
+                var documentsGeneraux = json.general;
+                // On liste les documents spécifiques du JSON
+                var documentsSpecifiques = json.specifique;
+                // On crée une liste HTML pour afficher les documents généraux
+                var listeDocumentsGeneraux = $('<ul></ul>');
+                // On crée une liste HTML pour afficher les documents spécifiques
+                var listeDocumentsSpecifiques = $('<ul></ul>');
+
+                // Pour chaque document général, on ajoute un élément LI à la liste HTML
+                documentsGeneraux.forEach(function (doc) {
+                    // On crée un élément LI ayant comme contenu le nom du document général
+                    var li = $('<li></li>').append(doc)
+                    // On ajoute l'élément LI à la liste HTML
+                    listeDocumentsGeneraux.append(li);
+                });
+                // Pour chaque document spécifique, on ajoute un élément LI à la liste HTML
+                documentsSpecifiques.forEach(function (doc) {
+                    // On crée un élément LI ayant comme contenu le nom du document général spécifique
+                    var li = $('<li></li>').append(doc[0]);
+                    if (doc[1] !== "") {
+                        var link = $('<a></a>').on('click', function () {
+                            window.open(this.href);
+                            return false;
+                        })
+                                .addClass('linkDocumentSpecifique')
+                                .attr('href', doc[1]).
+                                append('Cliquez ici pour télécharger le document');
+                        li.append(' - ')
+                                .append(link);
+                    }
+                    // On ajoute l'élément LI à la liste HTML
+                    listeDocumentsSpecifiques.append(li);
+                });
+                // On crée un cadre Alert Bootstrap
+                var alert = $('<div></div>')
+                        .addClass('alert')
+                        .addClass('alert-danger')
+                        .append($('<button></button>')
+                                        .addClass('close')
+                                        .attr('data-dismiss', 'alert')
+                                        .attr('aria-hidden', 'true')
+                                        .append('&times;')
+                        ).append('Pour postuler à cette formation, assurez vous d\'être en possession des documents ci-dessous :');
+                // On ajoute le cadre Alert Bootstrap à la DIV#divDocuments
+                $('#divDocuments').append(alert);
+                // On ajoute la liste des documents généraux avec un titre
+                $('#divDocuments').append('<h4>Documents communs</h4>')
+                        .append(listeDocumentsGeneraux);
+                // S'il y a au moins 1 document spécifique, on ajoute la liste des documents spécifiques avec un titre
+                if (documentsSpecifiques.length > 0) {
+                    $('#divDocuments').append('<br/><h4>Documents spécifiques à la formation choisie</h4>')
+                            .append(listeDocumentsSpecifiques);
+                }
+                $('#divDocuments').fadeIn(1000);
+            };
+
+            var loadDomains = function () {
+                $.ajax({
+                    url: 'index.php?uc=formulaire&action=domainesDeCompatibilite',
+                    type: 'post',
+                    data: 'idDossierPdf=' + $('#choisie').val(),
+                    dataType: 'json',
+                    success: function (json) {
+                        if (json.length > 0) {
+                            displayDerniereSelect(json);
+                        } else {
+                            displayDerniereHidden();
+                        }
+                    }
+                });
+            };
+
+            var loadDocuments = function (pi) {
                 $.ajax({
                     url: 'index.php?uc=formulaire&action=displayDocuments',
                     type: 'post',
-                    data: 'code=' + $('#choisie').val(),
+                    data: 'idDossierPdf=' + $('#choisie').val() + '&preinscription=' + pi,
                     dataType: 'json',
                     success: function (json) {
-                        $('#displayDocuments').empty();
-                        if (!$('#displayDocuments').hasClass('alert') && !$('#displayDocuments').hasClass('alert-warning')) {
-                            $('#displayDocuments').addClass('alert');
-                            $('#displayDocuments').addClass('alert-warning');
-                        }
-
-                        var documentsGeneraux = json.general;
-                        var documentsSpecifiques = json.specifique;
-                        var listeDocumentsGeneraux = $('<ul></ul>');
-                        var listeDocumentsSpecifiques = $('<ul></ul>');
-
-                        documentsGeneraux.forEach(function (doc) {
-                            var li = $('<li></li>').append(doc)
-                            listeDocumentsGeneraux.append(li);
-                        });
-                        documentsSpecifiques.forEach(function (doc) {
-                            console.log(doc)
-                            var li = $('<li></li>').append(doc[0]);
-                            if (doc[1] !== "") {
-                                var link = $('<a></a>')
-                                        .attr('href', doc[1]).
-                                        append('Cliquez ici pour télécharger le document');
-                                li.append(' - ')
-                                        .append(link);
-                            }
-                            listeDocumentsSpecifiques.append(li);
-                        });
-                        var alert = $('<div></div>')
-                                .addClass('alert')
-                                .addClass('alert-danger')
-                                .append(
-                                        $('<button></button>')
-                                                .addClass('close')
-                                                .attr('data-dismiss', 'alert')
-                                                .attr('aria-hidden', 'true')
-                                                .append('&times;')
-                                ).append('Pour postuler à cette formation, assurez vous d\'être en possession des documents ci dessous :');
-
-                        $('#displayDocuments').before().append(alert);
-
-                        $('#displayDocuments').append('<h4>Documents communs</h4>')
-                                .append(listeDocumentsGeneraux);
-                        if (documentsSpecifiques.length > 0) {
-                            $('#displayDocuments').append('<br/><h4>Documents spécifiques à la formation choisie</h4>')
-                                    .append(listeDocumentsSpecifiques);
-                        }
+                        displayDocuments(json);
                     }
                 });
-            });
-            function checkCreationDossierPossible() {
-                var ine = $('#ine').val();
-                var codeFormation = $('#choisie').val();
-                $.ajax({
-                    url: 'index.php?uc=formulaire&action=candidaturePossible',
-                    type: 'post',
-                    data: 'ine=' + ine + '&code_formation=' + codeFormation,
-                    dataType: 'json',
-                    success: function (json) {
-                        if (json.response == 0) {
-                            if ($('#textboxIne').hasClass('has-success')) {
-                                $('#textboxIne').removeClass('has-success').addClass('has-error');
-                            }
-                        } else {
-                            if ($('#textboxIne').hasClass('has-error')) {
-                                $('#textboxIne').removeClass('has-error').addClass('has-success');
-                            }
-                        }
-                    }
-                });
-            }
+                $('input[name="allDocuments"][value="non"]').prop('checked', true);
+                $('#divRadioButtons').fadeIn(1000);
+            };
 
-            // Vérification formulaire
-            $.validate({
-                onError: function () {
-                    $('#msgErrorIne')
-                            .attr('class', 'alert alert-danger alert-dismissable')
-                            .append(
-                                    $('<button/>')
-                                            .attr('class', 'close')
-                                            .attr('data-dismiss', 'alert')
-                                            .attr('aria-hidden', 'true')
-                                            .html('&times;'))
-                            .append('<strong>Attention!</strong> Veuillez indiquer votre numéro INE.')
-                            .show('fast');
-                }
-            });
+            {% if get.dossier is defined %}
+            $('#choisie').val('{{ get.dossier }}');
+            loadDomains();
+            {% endif %}
+
         });
     </script>
 {% endblock %}

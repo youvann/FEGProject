@@ -5,7 +5,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Form To Json</title>
 		<link rel="stylesheet" href="../../../public/css/bootstrap.min.css" />
-		<!--<link rel="stylesheet" href="../../../public/css/bootstrap-theme.min.css" />-->
     </head>
 
     <body>
@@ -20,12 +19,12 @@
 
 					require_once '../../../model/PDO.php';
 
-					$rs = $conn->query("SELECT `information`.`id` as idInfo, `information`.`libelle` as libelleInfo, `type`.`id` as typeInfo, `choix`.`texte` as libellesInfo
+					$rs = $conn->query("SELECT `information`.`ID` as idInfo, `information`.`LIBELLE` as libelleInfo, `type`.`ID` as typeInfo, `choix`.`TEXTE` as libellesInfo
 						FROM `information` 
-							INNER JOIN `type` ON (`information`.`type` = `type`.`id`)
-							LEFT JOIN `choix` ON (`information`.`id` = `choix`.`information`) 
-						WHERE `information`.`code_formation` = '3BAS'
-						ORDER BY `information`.`ordre`;")->fetchAll();
+							INNER JOIN `type` ON (`information`.`TYPE` = `type`.`ID`)
+							LEFT JOIN `choix` ON (`information`.`ID` = `choix`.`INFORMATION`)
+						WHERE `information`.`DOSSIER_PDF` = 2
+						ORDER BY `information`.`ORDRE`;")->fetchAll();
 
 					$structure = array();
 
@@ -49,11 +48,10 @@
 						$structure[] = $array;
 					}
 
-					var_dump($structure, $_POST);
-					if (!empty($_POST)) {
+					//if (!empty($_POST)) {
 						$translator = new TranslatorFormToJson();
-						var_dump($translator->translate($structure, $_POST));
-					}
+						var_dump('____________ - Resultat - ____________', $translator->translate($structure, $_POST));
+					//}
 
 					// Faire gaffe aux true et false entoures ou non de guillemets pour passer du php a json et inversement
 					// $translator = new TranslatorStructureToForm();
@@ -64,7 +62,7 @@
 			</div><!-- /row -->
 		</div><!-- container -->
 
-		<script type="text/javascript" src="../../../js/jquery-2.0.3.min.js"></script>
-		<script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../../../public/js/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="../../../public/js/bootstrap.min.js"></script>
     </body>
 </html>

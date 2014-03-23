@@ -1,0 +1,112 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+        <li><a href="index.php?uc=formation&action=grille">Liste des formations</a>
+        </li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche
+                formation</a></li>
+        <li class="active">Gestion du logo</li>
+    </ol>
+    <h2 class="titre_rubrique">Gestion du logo {{ mention }} ({{ code }})</h2>
+
+    <div class="msg-logo"></div>
+
+    <div class="well well-lg">
+        <div id="noLogo">Aucun logo</div>
+        <img id="logo" class="" src=""
+             alt="Logo de la formation" style="width: 200px; height: auto"/>
+    </div>
+
+    <div id="logoUpload">Sélectionner le logo</div>
+    <div id="eventsmessage">
+
+    </div>
+    <hr/>
+    <a href="index.php?uc=formation&action=consulter&code={{ code }}"
+       class="btn btn-primary">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+    </a>
+
+    <button id="btnAdd" type="button" class="btn btn-info">
+        <span class="glyphicon glyphicon-plus-sign"></span> Ajouter le logo
+    </button>
+    <button id="btnRemove" type="button" class="btn btn-danger">
+        <span class="glyphicon glyphicon-trash"></span> Supprimer le logo
+    </button>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="public/js/jquery-upload/jquery.uploadfile.js"></script>
+    <script type="text/javascript">
+        var fileName = "";
+        $(document).ready(function () {
+            var logoUpload = $('#logoUpload');
+            var logo = $('#logo');
+            var uploadObj = $("#logoUpload").uploadFile({
+                url: "index.php?uc=formation&action=uploadLogo&code={{ code  }}",
+                fileName: "myfile",
+                autoSubmit: false,
+                multiple: false,
+                maxFileCount: 1,
+                dragDropStr: "<span><b>Déposez le logo ici</b></span>",
+                onSuccess: function (files, data, xhr) {
+                    noLogo.hide();
+                    logo.attr("src", "public/img/logos/" + "{{ code }}" + "/" + files);
+                    fileName = files;
+                    logo.show().addClass('hasLogo');
+                    btnAdd.attr('disabled', 'disabled');
+                    btnRemove.removeAttr('disabled');
+                }
+            });
+
+            var btnAdd = $('#btnAdd');
+            var btnRemove = $('#btnRemove');
+            var noLogo = $('#noLogo');
+            var empty = "{{ empty }}" ? true : false;
+
+            function hideLogo() {
+                btnAdd.removeAttr('disabled');
+                btnRemove.attr('disabled', 'disabled');
+                logo.hide();
+                noLogo.show();
+            }
+
+            function showLogo() {
+                btnAdd.attr('disabled', 'disabled');
+                btnRemove.removeAttr('disabled');
+                noLogo.hide();
+                logo.attr("src", "public/img/logos/" + "{{ code }}" + "/" + "{{ logoName }}");
+            }
+
+            if (empty) { // Pas de logo
+                hideLogo();
+            } else { // logo présent
+                showLogo();
+            }
+
+            btnAdd.click(function () {
+                uploadObj.startUpload();
+            });
+
+            btnRemove.click(function () {
+                // Suppression juste après l'upload ou suppression en arrivant d'une autre page ?
+                var file = (fileName == "") ? "{{ logoName }}" : fileName;
+                $.ajax({
+                    url: 'index.php?uc=formation&action=suppressionLogo&code={{ code }}&logoName=' + file,
+                    type: "POST",
+                    success: function () {
+                        hideLogo();
+                        $('.msg-logo').removeClass().addClass('alert alert-success').text("Le logo a bien été supprimé");
+                    }
+                });
+            });
+        });
+
+    </script>
+{% endblock %}
+

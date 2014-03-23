@@ -21,7 +21,10 @@ header {
 }
 
 #content{
-    padding: 2em;
+    padding-right: 3em;
+    padding-left: 3em;
+    padding-top: 1em;
+    padding-bottom: 2em;
 }
 
 .nav-title{
@@ -44,6 +47,11 @@ header {
     font-family: Oswald;
     color: #0071b9;
     line-height: 35px;
+}
+
+.titre_rubrique2{
+    font-family: oswald;
+    color: #23B9EB;
 }
 
 #footer {
@@ -175,5 +183,60 @@ p, label{
 
 .en{
     color : gray;
+}
+
+.en_cadre{
+    color : #D8D8D8;
+}
+
+.panel-body{
+    background-color : #FAFAFA;
+}
+
+.droppable-info {
+    background-color: #BCE8F1;
+}
+
+.bs-callout {
+    margin: 20px 0;
+    padding-left: 20px;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    border-left: 3px solid #FBBA00;
+}
+
+.bs-callout-warning {
+    background-color: #fcf8f2;
+    border-color: #FBBA00;
+}
+
+.bs-callout-warning h3 {
+    color: #FBBA00;
+}
+
+.bs-callout-warning h4 {
+    color: #FBBA00;
+}
+
+.bs-callout-info {
+    background-color: #f4f8fa;
+    border-color: #22BBEA;
+}
+
+.bs-callout-info h3 {
+    color: #22BBEA;
+}
+
+.bs-callout-info h4 {
+    color: #22BBEA;
+}
+
+.bs-callout-danger {
+    background-color: #fdf7f7;
+    border-color: #d9534f;
+}
+
+.bs-callout-danger h4 {
+    color: #d9534f;
 }
 

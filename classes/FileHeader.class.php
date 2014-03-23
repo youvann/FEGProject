@@ -96,5 +96,4 @@ class FileHeader {
 	public static function headerZip() {
 		header("Content-Type: application/zip");
 	}
-
 }

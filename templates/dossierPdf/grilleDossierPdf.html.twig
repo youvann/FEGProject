@@ -1,0 +1,363 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action">Accueil</a></li>
+        <li><a href="index.php?uc=formation&action=grille">Liste des formations</a>
+        </li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche
+                formation</a></li>
+        <li class="active">Liste des dossiers</li>
+    </ol>
+
+    <h2 class="titre_rubrique">Gestion des dossiers</h2>
+
+    <p class="text-info">
+        Les dossiers que vous créez apparaissent dans le formulaire "Choix de la formation".
+        Les étapes que vous faites glisser dans un dossier apparaissent dans le formulaire
+        principal en tant que voeu.
+    </p>
+
+    <button data-html="true" title="<p>En fonction des droits accordés à votre type de compte, vous pouvez ici ajouter, modifier et supprimer des dossiers de candidatures/préinscription</p>
+        <p>Dans le cadre gris 'Etapes' se trouvent les étapes qu'offre la formation, s'il y en a pas, ajoutez-les en vous rendant dans la section
+        'Gérer les étapes'.</p>
+    <p>Après avoir créé un dossier et ajouté les étapes proposées par la formation, faites glisser les étapes du cadre gris à l'un des dossiers où
+        cette étape doit apparaître.</p>"
+            data-placement="left" data-toggle="tooltip" class="btn btn-lg btn-info pull-right">
+        <span class="glyphicon glyphicon-question-sign"></span> Aide
+    </button>
+
+    {% if session.grade > 1 %}
+    <button id="btnToggleModalNewEdit" class="btn btn-primary btn-lg">
+        <span class="glyphicon glyphicon-plus-sign"></span> Ajouter un dossier
+    </button>
+    {% endif %}
+    <a class="btn btn-primary btn-lg" href="index.php?uc=voeu&action=grille&code={{ code }}">
+        <span class="glyphicon glyphicon-briefcase"></span> Gérer les étapes
+    </a>
+    <hr/>
+    <div class="row">
+        <div class="col-md-4">
+            <div id="panel-0" class="panel panel-default">
+                <div class="panel-heading">Etapes</div>
+                <div id="panel-body-0" class="panel-body">
+                    {% for voeu in voeux %}
+                        {% if voeu.dossierPdf is null %}
+                            <div id="{{ voeu.codeEtape }}"
+                                 class="etape well">{{ voeu.etape }}</div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% for dossierPdf in dossiersPdf %}
+            <div class="col-md-4">
+                <div id="panel-{{ dossierPdf.id }}" class="panel panel-primary">
+                    <div id="panel-heading-{{ dossierPdf.id }}"
+                         class="panel-heading">{{ dossierPdf.nom }}</div>
+                    <div id="panel-body-{{ dossierPdf.id }}" class="panel-body">
+                        {% for voeu in voeux %}
+                            {% if voeu.dossierPdf == dossierPdf.id %}
+                                <div id="{{ voeu.codeEtape }}"
+                                     class="etape well">
+                                    <span class="glyphicon glyphicon-move"></span>
+                                    {{ voeu.etape }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="panel-footer">
+                        <div class="btn-group">
+                            <button type="button"
+                                    class="btn btn-default dropdown-toggle"
+                                    data-toggle="dropdown">
+                                Gestion du dossier <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                {% if session.grade > 1 %}
+                                <li>
+                                    <a href="#"
+                                       id="btnModifierDossier-{{ dossierPdf.id }}"
+                                       class="btnModifierDossier">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        Modifier
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                       id="btnSupprimerDossier-{{ dossierPdf.id }}"
+                                       class="btnSupprimerDossier">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                        Supprimer
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="index.php?uc=dependre&action=modifier&dossierPdf={{ dossierPdf.id }}">
+                                        <span class="glyphicon glyphicon-briefcase"></span>
+                                        Domaines de compatibilité
+                                    </a>
+                                </li>
+                                {% endif %}
+                                <li>
+                                    <a href="index.php?uc=information&action=grille&dossierPdf={{ dossierPdf.id }}">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                        Informations spécifiques
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="index.php?uc=documentSpecifique&action=grille&dossierPdf={{ dossierPdf.id }}">
+                                        <span class="glyphicon glyphicon-file"></span>
+                                        Documents spécifiques
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="prevPdf candidature" id="{{ dossierPdf.id }}" href="#">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        Prévisualisation du dossier PDF de
+                                        candidature
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="prevPdf preinscription" id="{{ dossierPdf.id }}" href="#">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        Prévisualisation du dossier PDF de
+                                        pré-inscription
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <button data-html="true" title="<p>Vous pouvez ajouter des
+                        informations et documents spécifiques qui seront demandés à la candidature d'un étudiant, et
+                        à la préinscription selon votre choix.</p><p>Vous pouvez ensuite choisir pour chaque dossier
+                        quel(s) diplôme(s) de la Faculté d'Economie Gestion donne droit à l'étudiant à une préinscription,
+                        et ajouter des compatibilités pour des diplômes hors Faculté d'Economie Gestion.</p>
+                        <p>Vous pouvez enfin prévisualiser les dossiers que vous avez créés et édités.</p>"
+                                data-placement="top" data-toggle="tooltip" class="btn btn-info">
+                            <span class="glyphicon glyphicon-question-sign"></span> Aide
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <hr/>
+    <a class="btn btn-primary"
+       href="index.php?uc=formation&action=consulter&code={{ code }}">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+    </a>
+
+    <div id="modalNewEdit" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Ajouter un dossier</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="formNewEdit" method="post"
+                          action="index.php?uc=dossierPdf&action=ajout">
+                        <input type="hidden" id="id" name="id" value="0"/>
+                        <input type="hidden" id="code_formation"
+                               name="code_formation" value="{{ code }}"/>
+                        <div class="form-group">
+                            <label for="nom">Nom</label>
+                            <input class="form-control" type="text" id="nom"
+                                   name="nom" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label for="informations">Informations</label>
+                            <textarea class="form-control" id="informations" name="informations"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalites">Modalités</label>
+                            <textarea class="form-control" id="modalites" name="modalites"></textarea>
+                        </div>
+                        <button class="btn btn-primary" type="submit">
+                            <span class="glyphicon glyphicon-floppy-save"></span>
+                            Enregistrer
+                        </button>
+                        <button class="btn btn-default" type="button"
+                                data-dismiss="modal">Annuler
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="modalConfirmDelete" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Supprimer un dossier</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Etes-vous sûr(e) de vouloir supprimer le dossier ?</p>
+                    <button id="btnSupprimerDossier" class="btn btn-primary"
+                            type="button">
+                        <span class="glyphicon glyphicon-trash"></span> Supprimer
+                    </button>
+                    <button class="btn btn-default" type="button"
+                            data-dismiss="modal">Annuler
+                    </button>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- Modal -->
+    <div class="modal" id="loadingModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel"
+         aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Veuillez patienter,
+                        création du dossier PDF ...</h4>
+                </div>
+                <div class="modal-body center-block">
+                    <div class="progress">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info six-sec-ease-in-out"
+                                 aria-valuetransitiongoal="99"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="public/js/tinymce/tinymce.min.js" type="text/javascript"></script>
+    <script type="text/javascript"
+            src="public/js/jquery-ui-1.10.4.custom.min.js"></script>
+    <script type="text/javascript"
+            src="public/js/bootstrap-progressbar.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            tinymce.init({
+                selector: "textarea",
+                plugins: [
+                    "advlist autolink lists link image charmap print preview anchor",
+                    "searchreplace visualblocks code fullscreen",
+                    "insertdatetime media table contextmenu paste"
+                ],
+                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+            });
+            $('button[data-toggle="tooltip"]').tooltip();
+            // Prévisualisation des dossiers de pré-inscriptions ou de candidatures
+            var typePdf = 'null';
+            $('.prevPdf').click(function () {
+                typePdf = ($(this).hasClass('candidature')) ? 'candidature' : 'preinscription';
+
+                $('#loadingModal').modal('show');
+                $('.progress .progress-bar').progressbar({
+                    display_text: 'fill',
+                    use_percentage: true,
+                    refresh_speed: 50
+                });
+                var idDossierPdf = $(this).attr('id');
+                var linkPdf = "index.php?uc=formation&action=previsualisationPdf&idDossierPdf=" + idDossierPdf + "&typePdf=" + typePdf;
+                //$(location).attr('href', linkPdf);
+                $.ajax({
+                    url: linkPdf,
+                    success: function (data) {
+                        window.location.replace("index.php?uc=formation&action=previsualiserPdf&idDossierPdf=" + idDossierPdf + "&typePdf=" + typePdf);
+                    }
+                });
+            });
+
+            // Actions sur la vue
+            $('#btnToggleModalNewEdit').click(function () {
+                $('#modalNewEdit').find('h4').html('Ajouter un dossier');
+                $('#formNewEdit').attr('action', 'index.php?uc=dossierPdf&action=ajout');
+                $('#id').val('0');
+                $('#nom').val('');
+
+                //$('#informations').html('');
+                tinymce.editors[0].setContent('');
+                //$('#modalites').html('');
+                tinymce.editors[1].setContent('');
+
+                $('#modalNewEdit').modal('show');
+                return false;
+            });
+
+            $('.btnModifierDossier').click(function () {
+                var idDossierPdf = this.id.replace('btnModifierDossier-', '');
+                $.ajax({
+                    url: 'index.php?uc=dossierPdf&action=consulter',
+                    type: 'post',
+                    data: 'idDossierPdf=' + idDossierPdf,
+                    dataType: 'json',
+                    success: function (json) {
+                        $('#modalNewEdit').find('h4').html('Modifier un dossier');
+                        $('#formNewEdit').attr('action', 'index.php?uc=dossierPdf&action=modification');
+                        $('#id').val(json.dossierPdf.id);
+                        $('#nom').val(json.dossierPdf.nom);
+                        //$('#informations').html(json.dossierPdf.informations);
+                        tinymce.editors[0].setContent(json.dossierPdf.informations);
+                        //$('#modalites').html(json.dossierPdf.modalites);
+                        tinymce.editors[1].setContent(json.dossierPdf.modalites);
+                        $('#modalNewEdit').modal('show');
+                    }
+                });
+                return false;
+            });
+
+            var lastBtnSupprimerPushed = null;
+            $('.btnSupprimerDossier').click(function () {
+                lastBtnSupprimerPushed = $(this);
+                $('#btnSupprimerDossier').click(function () {
+                    var id = lastBtnSupprimerPushed.attr('id');
+                    id = id.replace('btnSupprimerDossier-', '');
+                    location.href = 'index.php?uc=dossierPdf&action=suppression&idDossier=' + id;
+                });
+                $('#modalConfirmDelete').modal('show');
+                return false;
+            });
+
+
+            $(".etape").draggable({zIndex: 99999999999, revert: 'invalid'});
+            $(".panel-body").droppable({
+                hoverClass: "droppable-info",
+                drop: function (event, ui) {
+                    var drag = $(ui.draggable[0]);
+                    var dossierPdf = $(this).attr("id");
+                    dossierPdf = dossierPdf.replace("panel-body-", "");
+                    $(drag).remove();
+
+                    $.ajax({
+                        url: 'index.php?uc=voeu&action=deplacerVoeuDansDossier',
+                        type: 'post',
+                        data: 'dossierPdf=' + dossierPdf + '&etape=' + $(drag).attr("id"),
+                        dataType: 'json',
+                        success: function (json) {
+                            if (json.response === true) {
+                                //alert("ok");
+                            }
+                        }
+                    });
+
+                    $(this).append($('<div></div>').addClass('etape').addClass('well').draggable({revert: 'invalid'}).html(drag.html()));
+                }
+            });
+        });
+    </script>
+{% endblock %}
+

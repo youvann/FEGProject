@@ -1,0 +1,78 @@
+<div id="blockCursus-{{ indice }}">
+    <div class="well well-lg">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="anneeCursus[]">Années</label> /
+                    <span class="en">Years</span>
+                    <span class="label label-danger">Requis</span>
+                    <select class="form-control"
+                            id="anneeCursus-{{ indice }}"
+                            name="anneeCursus[]">
+                        {% set ecart = anneeBasse - 60 %}
+                        {% for i in ecart..anneeBasse %}
+                            <option {% if i == "now" | date('Y') %}selected="selected"
+                                    {% endif %}value="{{ i - 1 }}-{{ i }}">{{ i - 1 }}-{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="valide[]">Année validée
+                        ?</label>
+                    <span class="label label-danger">Requis</span>
+                    <select class="form-control" name="valide[]"
+                            id="valide-{{ indice }}">
+                        <option value="1">Oui</option>
+                        <option value="0" selected>Non</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="note[]">Note (résultat)
+                    </label> /
+                    <span class="en">Mark</span>
+                    <input type="text" class="form-control" id="note-{{ indice }}"
+                           name="note[]" maxlength="50"
+                           data-validation-optional="true"
+                           data-validation="custom"
+                           data-validation-regexp="^([0-9a-zA-Z-\'\séêèëààâäôœöûüùîïç]+)$"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="etablissement[]">Etablissement</label> /
+                    <span class="en">Establishment</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control"
+                           id="etablissement-{{ indice }}"
+                           name="etablissement[]"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\'\séêèëààâäôœöûüùîïç]+)$"
+                           data-validation-error-msg="Veuillez indiquer le nom de l'établissement où vous avez effectué votre parcours post bac."/>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="cursus[]">Cursus suivi</label> / <span
+                            class="en">Followed formation</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control required"
+                           id="cursus-{{ indice }}" name="cursus[]"
+                           data-validation="custom"
+                           data-validation-regexp="^([0-9a-zA-Z-\'\séêèëààâäôœöûüùîïç]+)$"
+                           data-validation-error-msg="Veuillez remplir le cursus suivi."/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

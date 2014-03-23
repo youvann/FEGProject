@@ -1,49 +1,104 @@
 <?php
-
+/**
+ * @Project: FEG Project
+ * @File: /Entities/Faire.php
+ * @Purpose: Entité Faire
+ * @Author: Lionel Guissani
+ */
 class Faire {
+	/**
+	 * @var string Code étape
+	 */
 	private $codeEtape;
-	private $ine;
+	/**
+	 * @var string Identifiant de l'étudiant
+	 */
+	private $idEtudiant;
+	/**
+	 * @var string Code formation
+	 */
 	private $codeFormation;
+	/**
+	 * @var string Ordre
+	 */
 	private $ordre;
-	
-	function __construct($codeEtape, $ine, $codeFormation, $ordre) {
+
+	/**
+	 * Constructeur
+	 * @param $codeEtape string Code étape
+	 * @param $idEtudiant string Identifiant de l'étudiant
+	 * @param $codeFormation string Code formation
+	 * @param $ordre string Ordre
+	 */
+	function __construct($codeEtape, $idEtudiant, $codeFormation, $ordre) {
 		$this->codeEtape = $codeEtape;
-		$this->ine = $ine;
+		$this->idEtudiant = $idEtudiant;
 		$this->codeFormation = $codeFormation;
 		$this->ordre = $ordre;
 	}
 
-	public function getCodeEtape() {
+	/**
+	 * @param string $codeEtape
+	 */
+	public function setCodeEtape($codeEtape)
+	{
+		$this->codeEtape = $codeEtape;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCodeEtape()
+	{
 		return $this->codeEtape;
 	}
 
-	public function getIne() {
-		return $this->ine;
-	}
-
-	public function getCodeFormation() {
-		return $this->codeFormation;
-	}
-
-	public function getOrdre() {
-		return $this->ordre;
-	}
-
-	public function setCodeEtape($codeEtape) {
-		$this->codeEtape = $codeEtape;
-	}
-
-	public function setIne($ine) {
-		$this->ine = $ine;
-	}
-
-	public function setCodeFormation($codeFormation) {
+	/**
+	 * @param string $codeFormation
+	 */
+	public function setCodeFormation($codeFormation)
+	{
 		$this->codeFormation = $codeFormation;
 	}
 
-	public function setOrdre($ordre) {
+	/**
+	 * @return string
+	 */
+	public function getCodeFormation()
+	{
+		return $this->codeFormation;
+	}
+
+	/**
+	 * @param string $idEtudiant
+	 */
+	public function setIdEtudiant($idEtudiant)
+	{
+		$this->idEtudiant = $idEtudiant;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getIdEtudiant()
+	{
+		return $this->idEtudiant;
+	}
+
+	/**
+	 * @param string $ordre
+	 */
+	public function setOrdre($ordre)
+	{
 		$this->ordre = $ordre;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getOrdre()
+	{
+		return $this->ordre;
+	}
 
 }

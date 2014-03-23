@@ -2,12 +2,12 @@
 
 {% block content %}
 
-    div.row>div.col-md-12
     <ol class="breadcrumb">
         <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
         <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
-        <li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
-        <li><a href="index.php?uc=information&action=grille&code={{ code }}">Liste des informations</a></li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ dossierPdf.codeFormation }}">Fiche formation</a></li>
+        <li><a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}">Liste des dossiers</a></li>
+        <li><a href="index.php?uc=information&action=grille&dossierPdf={{ information.dossierPdf }}">Liste des informations</a></li>
         <li class="active">Fiche information</li>
     </ol>
 
@@ -17,20 +17,26 @@
     <p class="text-info">{{ information.libelle }}</p>
     <p class="text-muted">Explications</p>
     <p class="text-info">{{ information.explications }}</p>
-    <p class="text-info">Type</p>
-    <p class="text-muted">{{ information.nom }}</p>
-    <p class="text-info">Ordre</p>
-    <p class="text-muted">{{ information.ordre }}</p>
+    <p class="text-muted">Type</p>
+    <p class="text-info">
+        {% for type in types %}
+            {% if information.type == type.id %}
+                {{ type.libelle }}
+            {% endif %}
+        {% endfor %}
+    </p>
+    <p class="text-muted">Ordre</p>
+    <p class="text-info">{{ information.ordre }}</p>
     {% if choix is not empty %}
         <p class="text-muted">Choix</p>
-        <ul class="list-unstyled">
+        <ul class="list-inline">
             {% for unChoix in choix %}
                 <li class="text-info">{{ unChoix.texte }}</li>
             {% endfor %}
         </ul>
     {% endif %}
     <hr/>
-    <a href="index.php?uc=information&action=grille&code={{ code }}" class="btn btn-primary">
+    <a href="index.php?uc=information&action=grille&dossierPdf={{ information.dossierPdf }}" class="btn btn-primary">
         <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
     </a>
 

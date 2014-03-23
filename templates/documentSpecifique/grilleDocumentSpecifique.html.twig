@@ -2,49 +2,116 @@
 
 {% block content %}
 
-<ol class="breadcrumb">
-	<li><a href="index.php?uc=intranet&action">Accueil</a></li>
-	<li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
-	<li><a href="index.php?uc=formation&action=consulter&code={{ code }}">Fiche formation</a></li>
-	<li class="active">Liste des documents spécifiques</li>
-</ol>
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action">Accueil</a></li>
+        <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ dossierPdf.codeFormation }}">Fiche formation</a>
+        </li>
+        <li><a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}">Liste des dossiers</a>
+        </li>
+        <li class="active">Liste des documents spécifiques</li>
+    </ol>
 
-<h2 class="titre_rubrique">Documents requis par la formation</h2>
+    <h2 class="titre_rubrique">Documents requis par la formation</h2>
 
-<a href="index.php?uc=documentSpecifique&action=ajouter&code={{ code }}" class="btn btn-lg btn-primary">
-	<span class="glyphicon glyphicon-plus-sign"></span> Ajouter un document à joindre
-</a>
+    <button data-html="true" title="<p>Vous pouvez ici ajouter des documents spécifiques qui
+     seront demandés dans le dossier de candidature et dans le dossier de préinscription selon votre choix.</p>"
+            data-placement="left" data-toggle="tooltip" class="btn btn-lg btn-info pull-right">
+        <span class="glyphicon glyphicon-question-sign"></span> Aide
+    </button>
 
-{% if documentsSpecifiques is not empty %}
+    {% if session.grade > 1 %}
+    <a href="index.php?uc=documentSpecifique&action=ajouter&dossierPdf={{ dossierPdf.id }}"
+       class="btn btn-lg btn-primary">
+        <span class="glyphicon glyphicon-plus-sign"></span> Ajouter un document à joindre
+    </a>
+    {% endif %}
+    <hr />
+    {% if documentsSpecifiques is not empty %}
 
-<table style="margin-top: 1em;" class="table table-hover table-bordered table-striped">
-	<tr>
-		<th>Nom</th>
-		<th>Url</th>
-		<th>Options</th>
-	</tr>
-        {% for documentSpecifique in documentsSpecifiques %}
-	<tr>
-		<td>{{ documentSpecifique.nom }}</td>
-		<td>{{ documentSpecifique.url }}</td>
-		<td>
-			<div class="btn-group">
-				<a href="index.php?uc=documentSpecifique&action=modifier&id={{ documentSpecifique.id }}&code={{ code }}" type="button" class="btn btn-warning">
-					<span class="glyphicon glyphicon-edit"></span> Modifier
-				</a>
-				<a href="index.php?uc=documentSpecifique&action=suppression&id={{ documentSpecifique.id }}&code={{ code }}" type="button" class="btn btn-danger">
-					<span class="glyphicon glyphicon-trash"></span> Supprimer
-				</a>
-			</div>
-		</td>
-	</tr>
-        {% endfor %}
-</table>
+        <table style="margin-top: 1em;" class="table table-hover table-bordered table-striped">
+            <tr>
+                <th>Nom</th>
+                <th>Url</th>
+                <th>Options</th>
+            </tr>
+            {% for documentSpecifique in documentsSpecifiques %}
+                {% if documentSpecifique.visible == 1 %}
+                    <tr class="success">
+                {% else %}
+                    <tr class="active">
+                {% endif %}
+                <td>{{ documentSpecifique.nom }}</td>
+                <td><a class="linkDocument" href="{{ documentSpecifique.url }}">{{ documentSpecifique.url }}</a></td>
+                <td>
+                    {% if session.grade > 1 %}
+                    <div class="btn-group">
+                        <a href="index.php?uc=documentSpecifique&action=modifier&id={{ documentSpecifique.id }}"
+                           type="button" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-edit"></span> Modifier
+                        </a>
+                        <a href="index.php?uc=documentSpecifique&action=suppression&id={{ documentSpecifique.id }}"
+                           type="button" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span> Supprimer
+                        </a>
+                    </div>
+                    {% endif %}
+                </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <span class="label label-default">Requis uniquement pour une candidature</span>
+        <span class="label label-success">Requis aussi pour une pré-inscritpion</span>
+    {% endif %}
+    <hr/>
+    <a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}" class="btn btn-primary">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+    </a>
 
-{% endif %}
-<hr />
-<a href="index.php?uc=formation&action=consulter&code={{ code }}"  class="btn btn-primary">
-	<span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
-</a>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Attention !</h4>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sûr(e) de vouloir réaliser cette action ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnOk">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function () {
+            $('button[data-toggle="tooltip"]').tooltip();
+            var lastPushedButton = null;
+
+            $('.btn-danger').click(function () {
+                $('#myModal').modal('show');
+                lastPushedButton = $(this);
+                return false;
+            });
+            $('#btnOk').click(function () {
+                window.location.href = lastPushedButton.attr("href");
+            });
+
+            $('a.linkDocument').click(function() {
+                window.open(this.href);
+                return false;
+            });
+        });
+    </script>
 {% endblock %}

@@ -1,231 +1,387 @@
+{% set mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"] %}
+
 <input type="hidden" id="autre" name="autre" value=""/>
-<fieldset>
-    <legend>Candidat</legend>
-    <div class="well well-lg">
 
-        <div class="radio"><label for="titulaire_1"><input type="radio" name="titulaire" id="titulaire_1" value="1"
-                                                           checked><b>Titulaire
-                    d'un diplôme français - Date de limite dépôt du dossier le {{ limitDate }}</b></label></div>
-        <div class="radio"><label for="titulaire_2"><input type="radio" name="titulaire" id="titulaire_2" value="2"><b>Titulaire
-                    d'un diplôme de l'Union Européenne - Date de limite dépôt du dossier le {{ limitDate }}</b></label>
+<div class="panel panel-primary">
+    <div class="panel-heading">Candidat <span class="en_cadre"> / Applicant</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="radio">
+                        <label for="titulaire_1">
+                            <input type="radio" name="titulaire" id="titulaire_1"
+                                   value="1" checked>
+                            <b>Titulaire d'un diplôme français - Date de limite dépôt
+                                du dossier
+                                le {{ limitDate }}</b>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label for="titulaire_2">
+                            <input type="radio" name="titulaire" id="titulaire_2"
+                                   value="2">
+                            <b>Titulaire d'un diplôme de l'Union Européenne - Date de
+                                limite dépôt du dossier
+                                le {{ limitDate }}</b></label>
+                    </div>
+                    <div class="radio">
+                        <label for="titulaire_3">
+                            <input type="radio" name="titulaire" id="titulaire_3"
+                                   value="3">
+                            <b>Titulaire d'un diplôme hors Union Européenne * - Date
+                                de limite dépôt du dossier
+                                le {{ limitDate }}</b>
+                        </label>
+                    </div>
+                    <p class="help-block">
+                        <i>* Dossier à utiliser si vous résidez dans l’Espace
+                            européen, ou dans un pays où il
+                            n’existe
+                            pas
+                            d’espace Campus-France (voir www.campusfrance.org). Tout
+                            dossier contrevenant à cette
+                            prescription
+                            ne sera pas examiné.</i>
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="radio"><label for="titulaire_3"><input type="radio" name="titulaire" id="titulaire_3" value="3"><b>Titulaire
-                    d'un diplôme hors Union Européenne * - Date de limite dépôt du dossier
-                    le {{ limitDate }}</b></label>
-        </div>
-        <p class=""><i>* Dossier à utiliser si vous résidez dans l’Espace européen, ou dans un pays où il n’existe pas
-                d’espace Campus-France (voir www.campusfrance.org). Tout dossier contrevenant à cette prescription ne
-                sera
-                pas examiné.</i></p>
+
         <hr/>
-        <div class="radio">
-            <label>
-                <input type="radio" name="genre" id="femme" value="Madame" checked>
-                Madame <span class="en">Mrs.</span>
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                <input type="radio" name="genre" id="homme" value="Monsieur">
-                Monsieur <span class="en">Mr.</span>
-            </label>
-        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="genre" id="femme"
+                                   value="Madame" checked>
+                            Madame / <span class="en">Mrs.</span>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="nom">Nom</label> <span class="en">Last name</span>
-                    <input type="text" class="form-control required" id="nom" name="nom" placeholder="Votre nom"
-                           data-validation="required" data-validation="length" data-validation-length="min4"/>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="genre" id="homme"
+                                   value="Monsieur">
+                            Monsieur / <span class="en">Mr.</span>
+                        </label>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="prenom">Prénom</label> <span class="en">First name</span>
-                    <input type="text" class="form-control required" id="prenom" name="prenom"
-                           placeholder="Votre prenom" data-validation="required"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="nom">Nom</label> / <span class="en">Last name</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control required" id="nom"
+                           name="nom" placeholder="Votre nom"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
+                           data-validation-error-msg="Veuillez remplir le champ nom"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="prenom">Prénom</label> / <span
+                            class="en">First name</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control required" id="prenom"
+                           name="prenom" placeholder="Votre prenom"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
+                           data-validation-error-msg="Veuillez remplir le champ prénom"/>
                 </div>
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="date_naissance">Date de naissance</label> <span class="en">Birthdate</span>
-                    <input type="text" class="form-control required" id="date_naissance" name="date_naissance"
-                           placeholder="aaaa-mm-jj" data-validation="required"
-                           data-validation-error-msg="Veuillez entrer une date valide"/>
+        <div class="row">
+            <div id="datePickerNaissance" class="col-md-6">
+                <label for="dateNaissance">Date de naissance</label> /
+                <span class="en">Birthdate</span>
+                <span class="label label-danger">Requis</span>
+
+                <div class="input-group date">
+                    <input type="text" class="form-control" id="dateNaissance"
+                           name="dateNaissance"
+                           data-validation="date" data-validation-format="dd/mm/yyyy"
+                           value="{{ "now" | date("d/m/Y") }}"
+                           data-validation-error-msg="Veuillez remplir le champ date de naissance"/>
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-th"></i>
+                    </span>
                 </div>
-                <div class="col-md-4">
-                    <label for="lieu_naissance">Lieu de naissance</label> <span class="en">Brith place</span>
-                    <input type="text" class="form-control required" id="lieu_naissance" name="lieu_naissance"
-                           placeholder="Votre lieu de naissance" data-validation="required"/>
+            </div>
+
+            <!--<div class="col-md-6">
+                <label for="annee_date_naissance">Date de naissance</label>
+                <span class="en">Birthdate</span>
+                <span class="label label-danger">Requis</span>
+
+
+
+
+                <div class="form-group form-inline">
+
+                    <select class="form-control"
+                            id="jour_date_naissance" name="jour_date_naissance"
+                            style="width: 100px;">
+                        {% for i in 1..31 %}
+                            <option value="{% if i < 10 %}0{% endif %}{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                    <select class="form-control"
+                            id="mois_date_naissance" name="mois_date_naissance"
+                            style="width: 200px;">
+                        {% for unMois in mois %}
+                            <option value="{% if loop.index < 10 %}0{% endif %}{{ loop.index }}">{{ unMois }}</option>
+                        {% endfor %}
+                    </select>
+                    <select class="form-control"
+                            id="annee_date_naissance"
+                            name="annee_date_naissance" style="width: 180px;">
+                        {% set ecart = anneeBasse - 60 %}
+                        {% for i in ecart..anneeBasse %}
+                            <option {% if i == "now" | date('Y') %}selected="selected" {% endif %}
+                                    value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+
                 </div>
-                <div class="col-md-4">
-                    <label for="nationalite">Nationalité</label> <span class="en">Citizenship</span>
-                    <input type="text" class="form-control required" id="nationalite" name="nationalite"
-                           placeholder="Votre nationalité" data-validation="required"/>
+            </div>-->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="lieu_naissance">Lieu de naissance</label> /
+                    <span class="en">Birth place</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control required"
+                           id="lieu_naissance" name="lieu_naissance"
+                           placeholder="Votre lieu de naissance"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
+                           data-validation-error-msg="Veuillez remplir le champ lieu de naissance"/>
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="ine">N° INE (pour étudiants en France)</label> <span class="en">INE number (only for students already in Frane)</span>
-                    <input type="text" class="form-control required" id="ine" name="ine" placeholder="Ex : 1234567891A"
-                           data-validation="required" data-validation-error-msg="Veuillez entrer un numéro d'INE valide"/>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="nationalite">Nationalité</label> / <span class="en">Citizenship</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control required" id="nationalite"
+                           name="nationalite"
+                           placeholder="Votre nationalité"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
+                           data-validation-error-msg="Veuillez remplir le champ nationalité"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="ine">N° INE (pour étudiants en France)</label>
+                    / <span
+                            class="en">INE number (only for students already in Frane)</span>
+                    <input type="text" class="form-control" id="ine"
+                           name="ine"
+                           placeholder="Ex : 1234567891A"/>
                 </div>
             </div>
         </div>
     </div>
-</fieldset>
+</div>
 
-<fieldset>
-    <legend>Coordonnées & contact <span class="en">Address & contact</span></legend>
-    <div class="well well-lg">
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="adresses">Adresse</label> <span class="en">Adresse</span>
-                    <input type="text" class="form-control required" id="adresse" name="adresse"
-                           placeholder="Votre adresse" data-validation="required"/>
+<div class="panel panel-primary">
+    <div class="panel-heading">Coordonnées & contact <span class="en_cadre"> / Address & contact</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="adresses">Adresse</label> /
+                    <span class="en">Adresse</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control required" id="adresse"
+                           name="adresse"
+                           placeholder="Votre adresse" data-validation="required"
+                           data-validation-error-msg="Veuillez remplir le champ adresse"/>
                 </div>
-                <div class="col-md-4">
-                    <label for="complement">Complément d'adresse</label>
-                    <span class="label label-info">Optionnel</span>
-                    <input type="text" class="form-control" id="complement" name="complement"
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="complement">Complément d'adresse</label> /
+                    <span class="en">Complement</span>
+                    <input type="text" class="form-control" id="complement"
+                           name="complement"
+                           data-validation-optional="true"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
                            placeholder="Bâtiment, étage, appartement ..."/>
                 </div>
-                <div class="col-md-4">
-                    <label for="code_postal">Code postal</label> <span class="en">Zip code</span>
-                    <input type="text" class="form-control required" id="code_postal" name="code_postal"
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="code_postal">Code postal</label> / <span class="en">Zip code</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control required" id="code_postal"
+                           name="code_postal"
                            placeholder="Votre code postal" data-validation="custom"
                            data-validation-regexp="(^[0-9]{5}$)"
                            data-validation-error-msg="Veuillez entrer un code postal valide"/>
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="ville">Ville</label> <span class="en">City</span>
-                    <input type="text" class="form-control required" id="ville" name="ville" placeholder="Votre ville"
-                           data-validation="required"/>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="ville">Ville</label> / <span class="en">City</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control required" id="ville"
+                           name="ville"
+                           placeholder="Votre ville"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
+                           data-validation-error-msg="Veuillez remplir le champ ville"/>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="fixe">Téléphone fixe</label> <span class="en">Phone number</span>
-                    <span class="label label-info">Optionnel</span>
-                    <input type="tel" class="form-control" id="fixe" name="fixe" placeholder="Votre numéro"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="portable">Téléphone mobile</label> <span class="en">Mobile number</span>
-                    <input type="tel" class="form-control required" id="portable" name="portable"
-                           placeholder="Votre numéro" data-validation="custom"
-                           data-validation-regexp="(^(06|07)[0-9]{8}$)"
-                           data-validation-error-msg="Veuillez entrer un numéro valide"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="mail">Adresse électronique</label> <span class="en">E-mail</span>
-                    <input type="email" class="form-control required" id="mail" name="mail" placeholder="Votre mail"
-                           data-validation="email"/>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="fixe">Téléphone fixe</label> / <span class="en">Phone number</span>
+                    <input type="tel" class="form-control" id="fixe" name="fixe"
+                           placeholder="Votre numéro" data-validation-optional="true"
+                           data-validation="custom"
+                           data-validation-regexp="^(0[1-68])(?:[ _.-]?(\d{2})){4}$"
+                           data-validation-error-msg="Veuillez fournir un n° de tel. valide"/>
                 </div>
             </div>
-        </div>
-    </div>
-</fieldset>
-
-<fieldset>
-    <legend>Baccalauréat ou équivalent <span class="en">High school diploma</span></legend>
-    <div class="well well-lg">
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="serie_bac">Série</label> <span class="en">Type</span>
-                    <input type="text" class="form-control required" id="serie_bac" name="serie_bac"
-                           placeholder="Votre série" data-validation="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="annee_bac">Année d'obtention du bac</label> <span class="en">Year</span>
-                    <input type="text" class="form-control required" id="annee_bac" name="annee_bac"
-                           placeholder="Votre année d'obtention" data-validation="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="etablissement_bac">Etablissement</label> <span class="en">Establishment</span>
-                    <input type="text" class="form-control required" id="etablissement_bac" name="etablissement_bac"
-                           placeholder="Votre établissement" data-validation="required"/>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="portable">Téléphone mobile</label> / <span
+                            class="en">Mobile number</span>
+                    <input type="tel" class="form-control" id="portable"
+                           name="portable"
+                           placeholder="Votre numéro" data-validation-optional="true"
+                           data-validation="custom"
+                           data-validation-regexp="^(0[1-68])(?:[ _.-]?(\d{2})){4}$"
+                           data-validation-error-msg="Veuillez fournir un n° de tel. valide"/>
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="departement_bac">Département</label> <span class="en">Department</span>
-                    <input type="text" class="form-control required" id="departement_bac" name="departement_bac"
-                           placeholder="Votre département" data-validation="required"/>
-                </div>
-                <div class="col-md-6">
-                    <label for="pays_bac">Pays</label> <span class="en">Country</span>
-                    <input type="text" class="form-control required" id="pays_bac" name="pays_bac"
-                           placeholder="Votre pays" data-validation="required"/>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="mail">Courriel</label> / <span
+                            class="en">E-mail</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="email" class="form-control required" id="mail"
+                           name="mail" placeholder="Votre mail"
+                           data-validation="email"
+                           data-validation-error-msg="Veuillez entrer un email valide"/>
                 </div>
             </div>
         </div>
     </div>
-</fieldset>
+</div>
 
-<fieldset>
-    <legend>Langues étrangères <span class="en">Foreign languages</span></legend>
-    <div class="well well-lg">
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="langues">Lue(s), écrite(s), parlée(s)</label> <span class="en">reading, writing, speaking</span>
-                    <textarea class="form-control required" id="langues" name="langues"
-                              data-validation="required"></textarea>
+<div class="panel panel-primary">
+    <div class="panel-heading">Baccalauréat ou équivalent <span class="en_cadre"> / High school diploma</span>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="serie_bac">Série</label> / <span
+                            class="en">Type</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control required" id="serie_bac"
+                           name="serie_bac"
+                           placeholder="Votre série" data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\'\séêèëààâäôœöûüùîïç]+)$"
+                           data-validation-error-msg="Veuillez remplir le champ série"/>
                 </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="etablissement_bac">Etablissement</label> / <span
+                            class="en">Establishment</span>
+                    <span class="label label-danger">Requis</span>
+                    <input type="text" class="form-control required"
+                           id="etablissement_bac" name="etablissement_bac"
+                           placeholder="Votre établissement"
+                           data-validation="custom"
+                           data-validation-regexp="^([a-zA-Z-\'\séêèëààâäôœöûüùîïç]+)$"
+                           data-validation-error-msg="Veuillez indiquer le nom de l'établissement où vous avez eu votre baccalauréat"/>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="departement_bac">Département</label> / <span
+                            class="en">Department</span>
+                    <span class="label label-danger">Requis</span>
+                    <select class="form-control" id="departement_bac"
+                            name="departement_bac"
+                            placeholder="Votre département"
+                            data-validation-error-msg="Veuillez sélectionner un département">
+                        <option value="Autre">Autre</option>
+                        {% for num,departement in departements %}
+                            <option value="{{ departement }}">{{ departement }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="pays_bac">Pays</label> / <span
+                            class="en">Country</span>
+                    <span class="label label-danger">Requis</span>
+                    <select class="form-control" id="pays_bac"
+                            name="pays_bac"
+                            placeholder="Votre pays"
+                            data-validation-error-msg="Veuillez sélectionner un pays">
+                        {% for num,unPaysUe in paysUe %}
+                            <option {% if num == 'FR' %}selected="selected"{% endif %}
+                                    value="{{ num }}">{{ unPaysUe }} ({{ num }})
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+            </div>
+            <div class="col-md-4" id="datePickerYearBac">
+                <label for="annee_bac">Année d'obtention</label> / <span
+                        class="en">Year</span>
+                <span class="label label-danger">Requis</span>
+
+                <div class="input-group date">
+                    <input type="text" class="form-control" id="annee_bac"
+                           name="annee_bac"
+                           data-validation="required"
+                           value="{{ "now" | date("Y") }}"/>
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-th"></i>
+                    </span>
+                </div>
+                <!--<div class="form-group">
+                    <label for="annee_bac">Année d'obtention du bac</label> <span
+                            class="en">Year</span>
+                    <span class="label label-danger">Requis</span>
+                    <select class="form-control"
+                            id="annee_bac"
+                            name="annee_bac">
+                        {% set ecart = anneeBasse - 60 %}
+                        {% for i in ecart..anneeBasse %}
+                            <option {% if i == "now" | date('Y') %}selected="selected" {% endif %}
+                                    value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>-->
             </div>
         </div>
     </div>
-</fieldset>
-
-<fieldset>
-    <legend>Autres <span class="en">Others</span></legend>
-    <div class="well well-lg">
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="autres_elements">Autres éléments appuyant votre candidature</label> <span class="en">More informations</span>
-                    <span class="label label-info">Optionnel</span>
-                    <textarea class="form-control" id="autres_elements" name="autres_elements"></textarea>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="activite">Activité actuelle *</label> <span class="en">Current situation (student, employee, other)</span>
-                    <textarea class="form-control required" id="activite" name="activite"
-                              data-validation="required"></textarea>
-                    <br>
-
-                    <p><i>* Vous êtes salarié, vous souhaitez bénéficier d'un congé individuel de formation (CIF, DIF)
-                            ou
-                            d'une période professionnalisation, vous êtes demandeur d'emploi, bénéficiaire du RSA, vous
-                            souhaitez effectuer une procédure de VAE ou de VAP, vous avez cessé vos études depuis au
-                            moins 2
-                            ans, vous avez suivi un cursus de formation en alternance, vous avez plus de 28 ans :
-                            Contactez
-                            rapidement le secrétariat de la formation afin que votre dossier et les possibilités de
-                            financement vous concernant soient examinés au plus tôt.</i></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</fieldset>
+</div>
