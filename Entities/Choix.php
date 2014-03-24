@@ -12,7 +12,7 @@ class Choix {
 	private $id;
 	/**
 	 * @var string Indentifiant de
-	 * l'nformation à laquelle il appartient
+	 * l'information à laquelle il appartient
 	 */
 	private $information;
 	/**

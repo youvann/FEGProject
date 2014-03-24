@@ -29,11 +29,10 @@
                     {% endif %}
                 {% endif %}
 
-                {% include 'formulaire/documentsGeneraux.html.twig' %}
-
                 {% if dossierPdf.modalites is not empty %}
                     <div class="bs-callout bs-callout-warning">
                         <h3>Modalités</h3>
+                        <div class="alert alert-info">Ces informations sont disponibles dans le document PDF que vous allez devoir télécharger à la fin de votre demande.</div>
 
                         <p>{{ dossierPdf.modalites | raw }}</p>
                     </div>
@@ -43,9 +42,16 @@
                     <div class="bs-callout bs-callout-info">
                         <h3>Informations</h3>
 
+                        <div class="alert alert-info">Ces informations sont
+                            disponibles dans le document PDF que vous allez devoir
+                            télécharger à la fin de votre demande.
+                        </div>
+
                         <p>{{ dossierPdf.informations | raw }}</p>
                     </div>
                 {% endif %}
+
+                {% include 'formulaire/documentsGeneraux.html.twig' %}
 
                 <button type="input" id="customSubmit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-cloud-upload"></span> Envoyer
@@ -199,9 +205,16 @@
             showDone: false,
             dynamicFormData: function () {
                 // Récupération des champs nom et prénom de l'étudiant
+                var nomEtudiant = $('#nom').val();
+                var prenomEtudiant = $('#prenom').val();
+                if(nomEtudiant == "" || prenomEtudiant == ""){
+                    $('.modal-body').html('Une erreur s\'est produite, veuillez recommencer. <i>There is a problem, please try again.</i>');
+                    $('#myModal').modal('show');
+                    return false;
+                }
                 var data = {
-                    nom: $('#nom').val(),
-                    prenom: $('#prenom').val(),
+                    nom: nomEtudiant,
+                    prenom: prenomEtudiant,
                     voeu1: $('#voeu-1').val(),
                     voeu2: $('#voeu-2').length > 0 ? ($('#voeu-2').val() !== '2' ? $('#voeu-2').val() : null) : null,
                     voeu3: $('#voeu-3').length > 0 ? ($('#voeu-2').val() !== '3' ? $('#voeu-2').val() : null) : null
@@ -218,7 +231,7 @@
                 return true; //to allow file submission.
             },
             onError: function (files, status, errMsg) {
-                $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées.');
+                $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées. Veuillez recommencer ...');
                 boutonOK.removeClass('champsManquants voeuxIdentiques noDocuments');
                 $('#myModal').modal('show');
             }
@@ -264,6 +277,7 @@
                 scrollToTopOnError: false,
                 onError: function () {
                     $('.modal-body').html('Veuillez renseigner tous les champs obligatoires du formulaire');
+                    boutonOK.removeClass('champsManquants voeuxIdentiques noDocuments');
                     boutonOK.addClass('champsManquants');
                     $('#myModal').modal('show');
                 },
@@ -274,6 +288,7 @@
                         voeux.push($(this).val());
                     });
                     if (!voeux.uniqueValues()) {
+                        console.log("voeux identiques");
                         isVoeuxOk = false;
                         boutonOK.removeClass('champsManquants voeuxIdentiques noDocuments');
                         boutonOK.addClass('voeuxIdentiques');
@@ -282,6 +297,7 @@
                         return false;
                     }
                     if (!isFileAjouterGlobal && isVoeuxOk) {
+                        console.log("pas de documents");
                         boutonOK.removeClass('champsManquants voeuxIdentiques noDocuments');
                         boutonOK.addClass('noDocuments');
                         $('.modal-body').html('Veuillez ajouter les documents à joindre');
@@ -289,8 +305,13 @@
                         return false;
                     }
                     if (!uploadGlobal) {
+                        // Tout est ok, on peut lancer l'upload des pièces
                         uploadObj.startUpload();
+                        // Affichage du message "Traitement en cours ..."
                         $("#traitement").fadeIn('normal');
+                        // Bouton de validation du formulaire se grise
+                        $("#customSubmit").attr("disabled", "disabled").removeClass("btn-primary").addClass("btn-warning").html("Traitement en cours ...");
+
                         return false;
                     }
                 }

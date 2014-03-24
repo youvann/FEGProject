@@ -1,5 +1,6 @@
 <?php
 /**
+ * Fonctions utilisées pour le projet
  * @Project: FEG Project
  * @File   : /lib/functions.php
  * @Purpose: Regroupe plusieurs fonctions utiles pour le projet
@@ -10,7 +11,7 @@
  * Compresse un répertoire
  *
  * @param string $source      Chemin du dossier à compresser
- * @param string $destination Chemin dossier compressé
+ * @param string $destination Chemin du dossier compressé
  *
  * @return bool Indique si l'opération s'est bien passée ou pas
  */
@@ -234,8 +235,6 @@ function upload ($output_dir) {
         $ret = array ();
 
         $error = $_FILES["myfile"]["error"];
-        //You need to handle  both cases
-        //If Any browser does not support serializing of multiple files using FormData()
         //single file
         if (!is_array ($_FILES["myfile"]["name"])) {
             $fileName = $_FILES["myfile"]["name"];
