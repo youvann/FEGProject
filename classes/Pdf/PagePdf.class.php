@@ -76,7 +76,7 @@ class PagePdf {
     /**
      * @var string Sexe du candidat
      */
-    private $applicantSex;
+    private $applicantSex = "Madame/Monsieur";
     /**
      * @var string Nom du candidat
      */
@@ -174,6 +174,10 @@ class PagePdf {
      *            Ex : checkbox, textbx, radiobox ...
      */
     private $typeInformations = array ();
+    /**
+     * @var string contient les informations préalabes du dossier
+     */
+    private $informationsPrealables;
     /**
      * @var string Contient les modalités de la formation
      */
@@ -391,7 +395,7 @@ class PagePdf {
         if ($this->isCandidature) {
             return $this->printOther () . $this->getPageEnd () . $this->printInformationsSpecifiques ();
         }
-        return "";
+        return $this->getPageEnd();
     }
 
     /**
@@ -514,21 +518,31 @@ class PagePdf {
      *
      * @return mixed
      */
-    public function numHolder ($num) {
-        switch ($num) {
+    public function printDegreeHolder () {
+        $msgDiplome  = '<br/><span class="note bold">Diplôme : </span>';
+        $msgDate     = '<br/><span class="note bold">Date limite de réception des pièces manquantes : </span>';
+        $dateLimite1 = (count ($this->dateLimite) == 0) ? "Non renseigné" : $this->dateLimite[0];
+        $dateLimite2 = (count ($this->dateLimite) == 0) ? "Non renseigné" : $this->dateLimite[1];
+        $dateLimite3 = (count ($this->dateLimite) == 0) ? "Non renseigné" : $this->dateLimite[2];
+        switch ($this->checkboxHolder) {
             case 1 :
             {
-                return $this->holder1;
+                return $msgDiplome . $this->holder1 . $msgDate . $dateLimite1 . '<br/>';
             }
                 break;
             case 2 :
             {
-                return $this->holder2;
+                return $msgDiplome . $this->holder2 . $msgDate . $dateLimite2 . '<br/>';
             }
                 break;
             case 3 :
             {
-                return $this->holder3;
+                return $msgDiplome . $this->holder3 . $msgDate . $dateLimite3 . '<br/>';
+            }
+                break;
+            case 4 :
+            {
+                return '<b>' . $this->holder1 . '</b> : ' . $dateLimite1 . '<br/>' . '<b>' . $this->holder2 . '</b> : ' . $dateLimite2 . '<br/>' . '<b>' . $this->holder3 . '</b> : ' . $dateLimite3 . '<br/>';
             }
                 break;
             default:
@@ -536,22 +550,22 @@ class PagePdf {
         }
     }
 
-    public function printDateLimite ($num) {
-        return ($this->dateLimite[$num]) ? $this->dateLimite[$num] : "";
-    }
+    /*public function printDateLimite ($num) {
+        return (count($this->dateLimite) == 0) ? "Non renseigné" : $this->dateLimite[$num];
+    }*/
 
     /**
      * Affiche le type de diplôme dont dipose l'étudiant (Titulaire d'un diplôme ...)
      *
      * @return string
      */
-    public function printDegreeHolder () {
-        $checkbox = '<br/><span class="note bold">' . $this->numHolder ($this->checkboxHolder) . '.<br/>Date limite de réception des pièces manquantes : ' . $this->printDateLimite ($this->checkboxHolder) . '</span><br/><br/>';
-        /*if ($this->checkboxHolder == 3) {
-            $checkbox .= '<p class="note">' . $this->note . '</p>';
-        }*/
+    /*public function printDegreeHolder () {
+        $checkbox = '<br/><span class="note bold">Diplôme : </span>' . $this->numHolder ($this->checkboxHolder) . '<br/><span class="note bold">Date limite de réception des pièces manquantes : </span>' . $this->printDateLimite ($this->checkboxHolder) . '<br/><br/>';
+        //if ($this->checkboxHolder == 3) {
+          //  $checkbox .= '<p class="note">' . $this->note . '</p>';
+       // }
         return $checkbox;
-    }
+    }*/
 
     /**
      * Définit les informations principales du candidat
@@ -802,8 +816,8 @@ class PagePdf {
      * @return string
      */
     public function printProExperienceHeader () {
-        return count ($this->proExperience) == 0 ? '' : '<br/><div class="bold_underline">Expérience professionnelle (emplois, stages, jobs étdudiants):</div><br/>
-
+        return (count ($this->proExperience) == 0 && !$this->isPrev) ? '' :
+                '<br/><div class="bold_underline">Expérience professionnelle (emplois, stages, jobs étdudiants):</div><br/>
                 <table class="t_postBac">
                     <col style="width: 15%">
                     <col style="width: 13%">
@@ -893,14 +907,40 @@ class PagePdf {
                 $informationsSpecifiquesLibelles .= "<b>" . $informationSpecifique . "</b> :<br/><i>" . $type . "</i><br/><br/>";
 
             }
-            return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $informationsSpecifiquesLibelles;
-        } else { // Ce n'est pas une prévisualisation
-            if ($this->informationsSpecifiques == "") {
+            if (count ($this->informationsSpecifiques) == 0) { // Pas d'informations spécifiques
+                // On n'affiche pas le titre de la rubrique informations spécifiques
                 return "";
             } else {
+                // On affiche le titre de la rubrique
+                return $this->getNewPage () . '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $informationsSpecifiquesLibelles . $this->getPageEnd ();
+            }
+        } else { // Ce n'est pas une prévisualisation
+            if ($this->informationsSpecifiques == "") { // Pas d'informations spécifiques
+                // On n'affiche pas le titre de la rubrique informations spécifiques
+                return "";
+            } else {
+                // On affiche le titre de la rubrique
                 return $this->getNewPage () . '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $this->informationsSpecifiques . $this->getPageEnd ();
             }
         }
+    }
+
+    /**
+     * Affiche les informations préalables
+     *
+     * @return string
+     */
+    public function printInformationsPrealables () {
+        return ($this->informationsPrealables == "") ? "<br/>" : $this->informationsPrealables;
+    }
+
+    /**
+     * Définit les informations préalables
+     *
+     * @param string $informationsPrealables
+     */
+    public function setInformationsPrealablesDossier ($informationsPrealables) {
+        $this->informationsPrealables = $informationsPrealables;
     }
 
     /**
@@ -1123,6 +1163,10 @@ class PagePdf {
      * @return string
      */
     public function __toString () {
-        return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->printFormationTitle () . $this->printDegreeHolder () . $this->printApplicant () . $this->getPlanFormation () . $this->getPageEnd () . $this->getNewPage () . $this->printPrevFormation () . $this->printProExperienceHeader () . $this->isCandidature () . $this->getNewPage () . $this->printDossierModalites () . $this->printDossierInformations () . $this->getPageEnd () . $this->getNewPage () . $this->printFicheCommissionPeda () . $this->printCadreAdministration () . $this->getPageEnd ();
+        return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->printFormationTitle () . '<br/>' .
+               $this->printDegreeHolder () . $this->printInformationsPrealables () . $this->printApplicant () . $this->getPlanFormation () . $this->getPageEnd () .
+               $this->getNewPage () . $this->printPrevFormation () . $this->printProExperienceHeader () . $this->isCandidature () .
+               $this->getNewPage () . $this->printDossierModalites () . $this->printDossierInformations () . $this->getPageEnd () .
+               $this->getNewPage () . $this->printFicheCommissionPeda () . $this->printCadreAdministration () . $this->getPageEnd ();
     }
 }

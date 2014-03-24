@@ -183,6 +183,16 @@ switch ($action) {
 		$formation     = $formationManager->find ($codeFormation);
 		$type          = ($typePdf == "candidature") ? "Candidature" : "Pre-inscription";
 		$typeBool      = ($typePdf == "candidature") ? true : false;
+        
+        $titulaire     = $titulaireManager->findAll();
+
+        $dateLimite = $dateLimiteManager->findAllByDossierPdf($dossierPdf);
+
+        $arrayDateLimite = array ();
+        foreach ($dateLimite as $date) {
+            $dateTemp          = explode ("-", $date->getDate ());
+            $arrayDateLimite[] = $dateTemp[2] . "/" . $dateTemp[1] . "/" . $dateTemp[0];
+        }
 
 		// Récupère tous les voeux du dossier PDF
 		$voeux  = $voeuManager->findAllByDossierPdf ($dossierPdf);
@@ -236,6 +246,9 @@ switch ($action) {
 		$pagePdf->setIsPrev(true);
         // Défintion du nom de la formation
 		$pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $dossierPdf->getNom ());
+        // 4 = on affiche tous les diplômes pour la prévisualisation
+        $pagePdf->setHolder($titulaire[0]->getLibelle(), $titulaire[1]->getLibelle (), $titulaire[2]->getLibelle (), 4);
+        $pagePdf->setDateLimite($arrayDateLimite);
         // Aucune formation prévue n'est ajouté
 		$pagePdf->setPlanFormation ($etapes, "");
         // Aucune expérience n'est ajouté
@@ -258,6 +271,8 @@ switch ($action) {
         // Définit les voeux figurant dans le cadre d'administration
 		$pagePdf->setCadreAdministrationVoeux ($etapes);
 
+        // Définit les informations préalables
+        $pagePdf->setInformationsPrealablesDossier($dossierPdf->getInformationsPrealables());
         // Définit les modalités
 		$pagePdf->setDossierModalites ($dossierPdf->getModalites ());
         // Définit les informations liées à la formation
