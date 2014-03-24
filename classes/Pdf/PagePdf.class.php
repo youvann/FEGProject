@@ -1,6 +1,7 @@
 <?php
 /**
  * Génère un document PDF
+ *
  * @Project: FEG Project
  * @File   : /classes/Pdf/PagePdf.class.php
  * @Purpose: Construit la page d'un document HTML qui va être transformé en PDF
@@ -70,6 +71,7 @@ class PagePdf {
     private $holder3;
     private $checkboxHolder;
     private $note;
+    private $dateLimite;
 
     /**
      * @var string Sexe du candidat
@@ -446,6 +448,13 @@ class PagePdf {
         $this->checkboxHolder = $checkboxHolder;
     }
 
+    /**
+     * @param array $dateLimite tableau contenant les dates limites
+     */
+    public function setDateLimite ($dateLimite) {
+        $this->dateLimite = $dateLimite;
+    }
+
     public function setNote ($note) {
         $this->note = $note;
     }
@@ -527,16 +536,20 @@ class PagePdf {
         }
     }
 
+    public function printDateLimite ($num) {
+        return ($this->dateLimite[$num]) ? $this->dateLimite[$num] : "";
+    }
+
     /**
      * Affiche le type de diplôme dont dipose l'étudiant (Titulaire d'un diplôme ...)
      *
      * @return string
      */
     public function printDegreeHolder () {
-        $checkbox = '<br/><span class="note bold">' . $this->numHolder ($this->checkboxHolder) . '</span><br/><br/>';
-        if ($this->checkboxHolder == 3) {
+        $checkbox = '<br/><span class="note bold">' . $this->numHolder ($this->checkboxHolder) . '.<br/>Date limite de réception des pièces manquantes : ' . $this->printDateLimite ($this->checkboxHolder) . '</span><br/><br/>';
+        /*if ($this->checkboxHolder == 3) {
             $checkbox .= '<p class="note">' . $this->note . '</p>';
-        }
+        }*/
         return $checkbox;
     }
 
@@ -572,7 +585,7 @@ class PagePdf {
     /**
      * @return string Affiche le titre 1 : CANDIDAT ou ETUDIANT
      */
-    public function printTitreRubrique1(){
+    public function printTitreRubrique1 () {
         return ($this->isCandidature) ? "CANDIDAT" : "ETUDIANT";
     }
 
@@ -582,7 +595,7 @@ class PagePdf {
      * @return string
      */
     public function printApplicant () {
-        return '<div class="titre_encadre">' . $this->printTitreRubrique1() . '</div>
+        return '<div class="titre_encadre">' . $this->printTitreRubrique1 () . '</div>
                 <br>
                 ' . $this->printUrlPiecesmanquantes () . '<br/>' . $this->printNumDossier () . '<br/><br/>
                 <span class="bold">' . $this->applicantSex . '</span>
@@ -645,7 +658,7 @@ class PagePdf {
     /**
      * @return string Affiche le titre 2 : FORMATION ENVISAGEE ou PRE-INSCRIPTION DEMANDEE
      */
-    public function printTitreRubrique2(){
+    public function printTitreRubrique2 () {
         return ($this->isCandidature) ? "FORMATION ENVISAGEE" : "PRE-INSCRIPTION DEMANDEE";
     }
 
@@ -882,10 +895,10 @@ class PagePdf {
             }
             return '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $informationsSpecifiquesLibelles;
         } else { // Ce n'est pas une prévisualisation
-            if($this->informationsSpecifiques == ""){
+            if ($this->informationsSpecifiques == "") {
                 return "";
-            }else{
-                return $this->getNewPage() . '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $this->informationsSpecifiques . $this->getPageEnd ();
+            } else {
+                return $this->getNewPage () . '<div class="titre_encadre">INFORMATIONS SPECIFIQUES A LA FORMATION</div><br/>' . $this->informationsSpecifiques . $this->getPageEnd ();
             }
         }
     }
@@ -1113,4 +1126,3 @@ class PagePdf {
         return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->printFormationTitle () . $this->printDegreeHolder () . $this->printApplicant () . $this->getPlanFormation () . $this->getPageEnd () . $this->getNewPage () . $this->printPrevFormation () . $this->printProExperienceHeader () . $this->isCandidature () . $this->getNewPage () . $this->printDossierModalites () . $this->printDossierInformations () . $this->getPageEnd () . $this->getNewPage () . $this->printFicheCommissionPeda () . $this->printCadreAdministration () . $this->getPageEnd ();
     }
 }
-

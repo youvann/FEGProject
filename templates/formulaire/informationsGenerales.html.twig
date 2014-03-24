@@ -13,26 +13,24 @@
                         <label for="titulaire_1">
                             <input type="radio" name="titulaire" id="titulaire_1"
                                    value="1" checked>
-                            <b>Titulaire d'un diplôme français - Date de limite dépôt
-                                du dossier
-                                le {{ limitDate }}</b>
+                            <b>{{ titulaire1 }}{% if dateTitulaire1 != "" %} - Veuillez remplir le formulaire et joindre les documents avant le {{ dateTitulaire1 }}
+                            {% endif %}</b>
                         </label>
                     </div>
                     <div class="radio">
                         <label for="titulaire_2">
                             <input type="radio" name="titulaire" id="titulaire_2"
                                    value="2">
-                            <b>Titulaire d'un diplôme de l'Union Européenne - Date de
-                                limite dépôt du dossier
-                                le {{ limitDate }}</b></label>
+                            <b>{{ titulaire2 }}{% if dateTitulaire2 != "" %} - Veuillez remplir le formulaire et joindre les documents avant le {{ dateTitulaire2 }}
+                                {% endif %}</b></label>
                     </div>
                     <div class="radio">
                         <label for="titulaire_3">
                             <input type="radio" name="titulaire" id="titulaire_3"
                                    value="3">
-                            <b>Titulaire d'un diplôme hors Union Européenne * - Date
-                                de limite dépôt du dossier
-                                le {{ limitDate }}</b>
+                            <b>{{ titulaire3 }}*{% if dateTitulaire3 != "" %} - Veuillez remplir le formulaire et joindre les documents avant le {{ dateTitulaire3 }}
+                                {% endif %}</b>
+                            </b>
                         </label>
                     </div>
                     <p class="help-block">

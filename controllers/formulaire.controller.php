@@ -121,6 +121,7 @@ switch ($action) {
         // Chargement des voeux
         $formation  = $formationManager->find ($_SESSION['codeFormation']);
         $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
+        $dateLimite = $dateLimiteManager->findAllByDossierPdf($dossierPdf);
         $voeux      = $voeuManager->findAllByDossierPdf ($dossierPdf);
         $nbVoeux    = count ($voeux);
 
@@ -136,8 +137,48 @@ switch ($action) {
         // Chargement des villes préférables
         $villesPreferables = $villeManager->findAllByDossierPdf ($dossierPdf);
 
+        // Récupération des 3 titulaires
+        $arrayTitulaire = $titulaireManager->findAll();
+        $titulaire1 = $arrayTitulaire[0]->getLibelle();
+        $titulaire2 = $arrayTitulaire[1]->getLibelle ();
+        $titulaire3 = $arrayTitulaire[2]->getLibelle ();
+
+        // Récupération des dates des titulaires
+        if(count($dateLimite) == 0){
+            $dateTitulaire1 = "";
+            $dateTitulaire2 = "";
+            $dateTitulaire3 = "";
+        }else{
+            $arrayDateLimite = array ();
+            foreach ($dateLimite as $date) {
+                $dateTemp          = explode ("-", $date->getDate ());
+                $arrayDateLimite[] = $dateTemp[2] . "/" . $dateTemp[1] . "/" . $dateTemp[0];
+            }
+            $dateTitulaire1 = $arrayDateLimite[0];
+            $dateTitulaire2 = $arrayDateLimite[1];
+            $dateTitulaire3 = $arrayDateLimite[2];
+        }
+
+
         $typeDossier = ($_SESSION["isCandidature"]) ? "CA" : "PI";
-        echo $twig->render ('formulaire/mainFormulaire.html.twig', array ('dossierPdf' => $dossierPdf, 'formation' => $formation, 'voeux' => $voeux, 'nbVoeux' => $nbVoeux, 'form' => $formHTML, 'villesPreferables' => $villesPreferables, 'documentsGeneraux' => $documentsGeneraux, 'documentsSpecifiques' => $documentsSpecifiques, 'typeDossier' => $typeDossier));
+        echo $twig->render ('formulaire/mainFormulaire.html.twig',
+            array (
+                'dossierPdf'           => $dossierPdf,
+                'formation'            => $formation,
+                'voeux'                => $voeux,
+                'nbVoeux'              => $nbVoeux,
+                'form'                 => $formHTML,
+                'villesPreferables'    => $villesPreferables,
+                'documentsGeneraux'    => $documentsGeneraux,
+                'documentsSpecifiques' => $documentsSpecifiques,
+                'typeDossier'          => $typeDossier,
+                'titulaire1'           => $titulaire1,
+                'titulaire2'           => $titulaire2,
+                'titulaire3'           => $titulaire3,
+                'dateTitulaire1'       => $dateTitulaire1,
+                'dateTitulaire2'       => $dateTitulaire2,
+                'dateTitulaire3'       => $dateTitulaire3
+            ));
     }
         break;
     case "uploadDocuments" :
@@ -321,6 +362,7 @@ switch ($action) {
         $lastCursus    = $cursusManager->findLastDiplomaObtainedByDossier ($dossier);
         $experiences   = $experienceManager->findAllByDossierOrderedByAnneeFin ($dossier);
         $villePreferee = $dossier->getVillePreferee ();
+        $dateLimite    = $dateLimiteManager->findAllByDossierPdf($dossierPdf);
 
         $codeFormation = $formation->getCodeFormation ();
 
@@ -398,8 +440,15 @@ switch ($action) {
 
         // Mention de la formation
         $pagePdf->setTitle ("Institut supérieur en sciences de Gestion", $dossierPdf->getNom ());
-        // Détermine le titulaire
-        $pagePdf->setHolder (' ' . $titulaire[0]->getLibelle (), ' ' . $titulaire[1]->getLibelle (), ' ' . $titulaire[2]->getLibelle (), $dossier->getTitulaire ());
+        // Détermine le titulaire $dossier->getTitulaire() a pour valeur possible 1, 2, 3
+        $pagePdf->setHolder ($titulaire[0]->getLibelle (), $titulaire[1]->getLibelle (), $titulaire[2]->getLibelle (), $dossier->getTitulaire ());
+        $arrayDateLimite = array();
+        foreach($dateLimite as $date){
+            $dateTemp = explode("-", $date->getDate());
+            $arrayDateLimite[] = $dateTemp[2] . "/" . $dateTemp[1] . "/" . $dateTemp[0];
+        }
+
+        $pagePdf->setDateLimite($arrayDateLimite);
         // Définit l'url des pièces manquantes
         $pagePdf->setUrlPiecesManquantes ($urlPiecesManquantes);
         // Définit le numéro d'inscription de l'étudiant
