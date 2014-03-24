@@ -20,13 +20,17 @@
         {% for titulaire in titulaires %}
             <div class="form-group">
                 <label>{{ titulaire.libelle }}</label>
-                <input class="form-control" type="date" id="date_limite_{{ titulaire.id }}" name="date_limite_{{ titulaire.id }}"
-                    {% for dateLimite in datesLimites %}
-                        {% if dateLimite.titulaire == titulaire.id %}
-                            value="{{ dateLimite.date }}"
-                        {% endif %}
-                    {% endfor %}
-                />
+                <div class="input-group date">
+                    <input class="form-control " type="text" id="date_limite_{{ titulaire.id }}" name="date_limite_{{ titulaire.id }}"
+                        {% for dateLimite in datesLimites %}
+                            {% if dateLimite.titulaire == titulaire.id %}
+                                value="{{ dateLimite.date|date("m/d/Y") }}"
+                            {% endif %}
+                        {% endfor %}
+                    /><span class="input-group-addon">
+                        <i class="glyphicon glyphicon-th"></i>
+                    </span>
+                </div>
             </div>
         {% endfor %}
 
@@ -38,4 +42,20 @@
         <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
     </a>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script src="public/js/datepicker/bootstrap-datepicker.js"></script>
+    <script>
+        $(function(){
+            $(".form-control").datepicker({
+                language: "fr",
+                autoclose: true,
+                todayHighlight: true,
+                startView: 2,
+                keyboardNavigation: false
+            });
+        });
+    </script>
 {% endblock %}
