@@ -1,0 +1,41 @@
+{% extends 'intranet.html.twig' %}
+
+{% block content %}
+
+    <ol class="breadcrumb">
+        <li><a href="index.php?uc=intranet&action=accueil">Accueil</a></li>
+        <li><a href="index.php?uc=formation&action=grille">Liste des formations</a></li>
+        <li><a href="index.php?uc=formation&action=consulter&code={{ dossierPdf.codeFormation }}">Fiche formation</a>
+        </li>
+        <li><a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}">Liste des dossiers</a>
+        </li>
+        <li class="active">Dates limites</li>
+    </ol>
+
+    <h2 class="titre_rubrique">Date limite pour le dossier {{ dossierPdf.nom }}</h2>
+
+    <form method="post" action="index.php?uc=dateLimite&action=modification">
+        <input type="hidden" id="dossier_pdf" name="dossier_pdf" />
+
+        {% for titulaire in titulaires %}
+            <div class="form-group">
+                <label>{{ titulaire.libelle }}</label>
+                <input class="form-control" type="date" id="date_limite_{{ titulaire.id }}" name="date_limite_{{ titulaire.id }}"
+                    {% for dateLimite in datesLimites %}
+                        {% if dateLimite.titulaire == titulaire.id %}
+                            value="{{ dateLimite.date }}"
+                        {% endif %}
+                    {% endfor %}
+                />
+            </div>
+        {% endfor %}
+
+    </form>
+
+    <hr/>
+
+    <a href="index.php?uc=dossierPdf&action=grille&code={{ dossierPdf.codeFormation }}" class="btn btn-primary">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Précédent
+    </a>
+
+{% endblock %}

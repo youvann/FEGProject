@@ -60,7 +60,7 @@ class DossierPdfManager {
 	 */
     public function findAll(){
         $dossiers = array ();
-        $rs = $this->db->query("SELECT * FROM `dossier_pdf`;")->fetchAll();
+        $rs = $this->db->query("SELECT * FROM `dossier_pdf` ORDER BY `CODE_FORMATION`;")->fetchAll();
         foreach ($rs as $dossier) {
             $dossiers[] = new DossierPdf($dossier['ID'], $dossier['NOM'], $dossier['INFORMATIONS'], $dossier['MODALITES'], $dossier['CODE_FORMATION']);
         }
@@ -127,6 +127,6 @@ class DossierPdfManager {
 	 * @return array Liste des liens
 	 */
 	public function getLinks() {
-		return $this->db->query("SELECT CONCAT('<a href=\"http://miage-aix-marseille.fr/?uc=formulaire&action=choixFormation&formationchoisie=', `ID`, '\">', `NOM`, '</a>') as lien FROM `dossier_pdf`;")->fetchAll();
+		return $this->db->query("SELECT CONCAT('<a href=\"http://miage-aix-marseille.fr/candid_feg/?uc=formulaire&action=choixFormation&dossierPdf=', `ID`, '\">', `NOM`, '</a>') as lien FROM `dossier_pdf`;")->fetchAll();
 	}
 }

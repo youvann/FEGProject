@@ -230,8 +230,8 @@
                 $('#divRadioButtons').fadeIn(1000);
             };
 
-            {% if get.dossier is defined %}
-            $('#choisie').val('{{ get.dossier }}');
+            {% if get.dossierPdf is defined %}
+            $('#choisie').val('{{ get.dossierPdf }}');
             loadDomains();
             {% endif %}
 
