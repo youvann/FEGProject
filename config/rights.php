@@ -42,6 +42,8 @@ $droits = array(
 	),array(// Responsable
 		array("choix", "ajouter"),
 		array("choix", "ajout"),
+		array("dateLimite", "modifier"),
+		array("dateLimite", "modification"),
 		array("documentSpecifique", "ajouter"),
 		array("documentSpecifique", "ajout"),
 		array("documentSpecifique", "modifier"),
