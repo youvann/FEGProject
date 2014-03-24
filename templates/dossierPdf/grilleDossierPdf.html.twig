@@ -174,7 +174,11 @@
                                    name="nom" required="required" />
                         </div>
                         <div class="form-group">
-                            <label for="informations">Informations</label>
+                            <label for="informations">Informations préalables</label>
+                            <textarea class="form-control" id="informations_prealables" name="informations_prealables"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="informations">Informations importantes</label>
                             <textarea class="form-control" id="informations" name="informations"></textarea>
                         </div>
                         <div class="form-group">
@@ -295,10 +299,9 @@
                 $('#id').val('0');
                 $('#nom').val('');
 
-                //$('#informations').html('');
                 tinymce.editors[0].setContent('');
-                //$('#modalites').html('');
                 tinymce.editors[1].setContent('');
+                tinymce.editors[2].setContent('');
 
                 $('#modalNewEdit').modal('show');
                 return false;
@@ -316,10 +319,10 @@
                         $('#formNewEdit').attr('action', 'index.php?uc=dossierPdf&action=modification');
                         $('#id').val(json.dossierPdf.id);
                         $('#nom').val(json.dossierPdf.nom);
-                        //$('#informations').html(json.dossierPdf.informations);
-                        tinymce.editors[0].setContent(json.dossierPdf.informations);
-                        //$('#modalites').html(json.dossierPdf.modalites);
-                        tinymce.editors[1].setContent(json.dossierPdf.modalites);
+
+                        tinymce.editors[0].setContent(json.dossierPdf.informationsPrealables);
+                        tinymce.editors[1].setContent(json.dossierPdf.informations);
+                        tinymce.editors[2].setContent(json.dossierPdf.modalites);
                         $('#modalNewEdit').modal('show');
                     }
                 });

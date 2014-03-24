@@ -15,7 +15,7 @@
     <h2 class="titre_rubrique">Date limite pour le dossier {{ dossierPdf.nom }}</h2>
 
     <form method="post" action="index.php?uc=dateLimite&action=modification">
-        <input type="hidden" id="dossier_pdf" name="dossier_pdf" />
+        <input type="hidden" id="dossier_pdf" name="dossier_pdf" value="{{ dossierPdf.id }}" />
 
         {% for titulaire in titulaires %}
             <div class="form-group">
@@ -33,7 +33,9 @@
                 </div>
             </div>
         {% endfor %}
-
+        <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-floppy-save"></span> Enregistrer
+        </button>
     </form>
 
     <hr/>

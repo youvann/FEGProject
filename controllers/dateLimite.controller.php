@@ -24,13 +24,25 @@ switch ($action) {
 			echo $twig->render('dateLimite/modifierDatesLimites.html.twig', array(
 				'dossierPdf' => $dossierPdf,
 				'formations' => $formations,
-				'dateLimites' => $datesLimites,
+				'datesLimites' => $datesLimites,
 				'titulaires' => $titulaires));
 		} break;
 	// Cette action modifie les date limite d'un dossier en base données
 	case "modification":
 	{
+		$datesLimites = $dateLimiteManager->findAllByDossierPdf($dossierPdfManager->find($_POST['dossier_pdf']));
+		$titulaires = $titulaireManager->findAll();
 
+		foreach($datesLimites as $dateLimite) {
+			$dateLimiteManager->delete($dateLimite);
+		}
+
+		foreach($titulaires as $titulaire) {
+			$dateLimite = explode("/", $_POST['date_limite_'.$titulaire->getId()]);
+			$dateLimite = $dateLimite[2] . $dateLimite[0] . $dateLimite[1];
+			var_dump($dateLimiteManager->insert(new DateLimite($_POST['dossier_pdf'], $titulaire->getId(), $dateLimite)));
+		}
+		header("location:index.php?uc=dateLimite&action=modifier&dossierPdf=".$_POST['dossier_pdf']);
 	}
 		break;
 	default:

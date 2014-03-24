@@ -15,6 +15,10 @@ class DossierPdf {
 	 */
 	private $nom;
 	/**
+	 * @var string Informations préalables
+	 */
+	private $informationsPrealables;
+	/**
 	 * @var string Informations
 	 */
 	private $informations;
@@ -31,14 +35,16 @@ class DossierPdf {
 	 * Constructeur
 	 * @param $id string Identifiant
 	 * @param $nom string Nom
+	 * @param $informationsPrealables string Informations préalables
 	 * @param $informations string Informations
 	 * @param $modalites string Modalités
 	 * @param $codeFormation string Code formation
 	 */
-	function __construct($id, $nom, $informations, $modalites, $codeFormation)
+	function __construct($id, $nom, $informationsPrealables, $informations, $modalites, $codeFormation)
 	{
 		$this->id = $id;
 		$this->nom = $nom;
+		$this->informationsPrealables = $informationsPrealables;
 		$this->informations = $informations;
 		$this->modalites = $modalites;
 		$this->codeFormation = $codeFormation;
@@ -90,6 +96,22 @@ class DossierPdf {
 	public function getCodeFormation()
 	{
 		return $this->codeFormation;
+	}
+
+	/**
+	 * @param string $informationsPrealables
+	 */
+	public function setInformationsPrealables($informationsPrealables)
+	{
+		$this->informationsPrealables = $informationsPrealables;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getInformationsPrealables()
+	{
+		return $this->informationsPrealables;
 	}
 
 	/**
