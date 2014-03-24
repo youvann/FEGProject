@@ -251,7 +251,7 @@ switch ($action) {
             $laVillePreferee = ($villeManager->find ($_POST["ville_preferee"]));
             $villePreferee   = $laVillePreferee->getNom ();
         } else {
-            $villePreferee = 'Non renseigné';
+            $villePreferee = 'Non renseignée';
         }
 
         // Si c'est une candidature, on affiche les autres éléments

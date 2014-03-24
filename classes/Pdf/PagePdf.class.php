@@ -521,9 +521,9 @@ class PagePdf {
     public function printDegreeHolder () {
         $msgDiplome  = '<br/><span class="note bold">Diplôme : </span>';
         $msgDate     = '<br/><span class="note bold">Date limite de réception des pièces manquantes : </span>';
-        $dateLimite1 = (count ($this->dateLimite) == 0) ? "Non renseigné" : $this->dateLimite[0];
-        $dateLimite2 = (count ($this->dateLimite) == 0) ? "Non renseigné" : $this->dateLimite[1];
-        $dateLimite3 = (count ($this->dateLimite) == 0) ? "Non renseigné" : $this->dateLimite[2];
+        $dateLimite1 = (count ($this->dateLimite) == 0) ? "Non renseignée" : $this->dateLimite[0];
+        $dateLimite2 = (count ($this->dateLimite) == 0) ? "Non renseignée" : $this->dateLimite[1];
+        $dateLimite3 = (count ($this->dateLimite) == 0) ? "Non renseignée" : $this->dateLimite[2];
         switch ($this->checkboxHolder) {
             case 1 :
             {
@@ -551,7 +551,7 @@ class PagePdf {
     }
 
     /*public function printDateLimite ($num) {
-        return (count($this->dateLimite) == 0) ? "Non renseigné" : $this->dateLimite[$num];
+        return (count($this->dateLimite) == 0) ? "Non renseignée" : $this->dateLimite[$num];
     }*/
 
     /**
@@ -1163,7 +1163,7 @@ class PagePdf {
      * @return string
      */
     public function __toString () {
-        return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->printFormationTitle () . '<br/>' .
+        return $this->getCssPath () . $this->getPageBegin () . $this->pagePdfHeader . $this->pagePdfFooter . $this->printFormationTitle () .
                $this->printDegreeHolder () . $this->printInformationsPrealables () . $this->printApplicant () . $this->getPlanFormation () . $this->getPageEnd () .
                $this->getNewPage () . $this->printPrevFormation () . $this->printProExperienceHeader () . $this->isCandidature () .
                $this->getNewPage () . $this->printDossierModalites () . $this->printDossierInformations () . $this->getPageEnd () .

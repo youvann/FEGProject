@@ -1,7 +1,9 @@
 {% set mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"] %}
 
 <input type="hidden" id="autre" name="autre" value=""/>
-<div class="well">{{ dossierPdf.getInformationsPrealables | raw }}</div>
+{% if dossierPdf.informationsPrealables is not empty %}
+    <div class="well">{{ dossierPdf.informationsPrealables | raw }}</div>
+{% endif %}
 <div class="panel panel-primary">
     <div class="panel-heading">Candidat <span class="en_cadre"> / Applicant</span>
     </div>
