@@ -17,7 +17,7 @@ switch ($action) {
 	// Cette action ajoute des choix en base données
 	case "modifier":
 	{
-		$dossierPdf = $dossierPdfManager->find($_GET['dossierPdf']);
+		$dossierPdf = $dossierPdfManager->find($_GET['idDossier']);
 		$formations = $formationManager->findAll();
 		$datesLimites = $dateLimiteManager->findAllByDossierPdf($dossierPdf);
 		$titulaires = $titulaireManager->findAll();
@@ -30,7 +30,22 @@ switch ($action) {
 	// Cette action modifie les date limite d'un dossier en base données
 	case "modification":
 	{
+		var_dump($_POST);
 
+		$datesLimites = $dateLimiteManager->findAllByDossierPdf($dossierPdfManager->find($_POST['dossier_pdf']));
+		$titulaires = $titulaireManager->findAll();
+
+		foreach($datesLimites as $dateLimite) {
+			$dateLimiteManager->delete($dateLimite);
+		}
+
+		foreach($titulaires as $titulaire) {
+			$dateLimite = explode("/", $_POST['date_limite_'.$titulaire->getId()]);
+			$dateLimite = $dateLimite[2] . $dateLimite[0] . $dateLimite[1];
+			var_dump($dateLimiteManager->insert(new DateLimite($_POST['dossier_pdf'], $titulaire->getId(), $dateLimite)));
+		}
+
+		//header("location:index.php?uc=dateLimite&action=modifier&idDossier=".$_POST['dossier_pdf']);
 	}
 		break;
 	default:
