@@ -35,7 +35,7 @@ class DossierPdfManager {
         $q = $this->db->prepare("SELECT * FROM `dossier_pdf` WHERE `ID` = ?;");
         $q->execute(array($id));
         $rs = $q->fetch();
-        return new DossierPdf($rs['ID'], $rs['NOM'], $rs['INFORMATIONS'], $rs['MODALITES'], $rs['CODE_FORMATION']);
+        return new DossierPdf($rs['ID'], $rs['NOM'], $rs['INFORMATIONS_PREALABLES'], $rs['INFORMATIONS'], $rs['MODALITES'], $rs['CODE_FORMATION']);
     }
 
 	/**
@@ -49,7 +49,7 @@ class DossierPdfManager {
         $q->execute(array($formation->getCodeFormation()));
         $rs = $rs = $q->fetchAll();
         foreach ($rs as $dossier) {
-            $dossiers[] = new DossierPdf($dossier['ID'], $dossier['NOM'], $dossier['INFORMATIONS'], $dossier['MODALITES'], $dossier['CODE_FORMATION']);
+            $dossiers[] = new DossierPdf($dossier['ID'], $dossier['NOM'], $dossier['INFORMATIONS_PREALABLES'], $dossier['INFORMATIONS'], $dossier['MODALITES'], $dossier['CODE_FORMATION']);
         }
         return $dossiers;
     }
@@ -62,7 +62,7 @@ class DossierPdfManager {
         $dossiers = array ();
         $rs = $this->db->query("SELECT * FROM `dossier_pdf` ORDER BY `CODE_FORMATION`;")->fetchAll();
         foreach ($rs as $dossier) {
-            $dossiers[] = new DossierPdf($dossier['ID'], $dossier['NOM'], $dossier['INFORMATIONS'], $dossier['MODALITES'], $dossier['CODE_FORMATION']);
+            $dossiers[] = new DossierPdf($dossier['ID'], $dossier['NOM'], $dossier['INFORMATIONS_PREALABLES'], $dossier['INFORMATIONS'], $dossier['MODALITES'], $dossier['CODE_FORMATION']);
         }
         return $dossiers;
     }
@@ -75,7 +75,7 @@ class DossierPdfManager {
 		$dossiers = array ();
 		$rs = $this->db->query("SELECT * FROM `dossier_pdf` ORDER BY `NOM`;")->fetchAll();
 		foreach ($rs as $dossier) {
-			$dossiers[] = new DossierPdf($dossier['ID'], $dossier['NOM'], $dossier['INFORMATIONS'], $dossier['MODALITES'], $dossier['CODE_FORMATION']);
+			$dossiers[] = new DossierPdf($dossier['ID'], $dossier['NOM'], $dossier['INFORMATIONS_PREALABLES'], $dossier['INFORMATIONS'], $dossier['MODALITES'], $dossier['CODE_FORMATION']);
 		}
 		return $dossiers;
 	}
@@ -86,9 +86,10 @@ class DossierPdfManager {
 	 * @return bool Résultat de l'opération
 	 */
 	public function insert(DossierPdf $dossierPdf) {
-        return $this->db->prepare("INSERT INTO `dossier_pdf` (`NOM`, `INFORMATIONS`, `MODALITES`, `CODE_FORMATION`) VALUES (?, ?, ?, ?);")
+        return $this->db->prepare("INSERT INTO `dossier_pdf` (`NOM`, `INFORMATIONS_PREALABLES`, `INFORMATIONS`, `MODALITES`, `CODE_FORMATION`) VALUES (?, ?, ?, ?, ?);")
             ->execute(array(
                 $dossierPdf->getNom(),
+		        $dossierPdf->getInformationsPrealables(),
 				$dossierPdf->getInformations(),
 				$dossierPdf->getModalites(),
                 $dossierPdf->getCodeFormation()
@@ -101,9 +102,10 @@ class DossierPdfManager {
 	 * @return bool Résultat de l'opération
 	 */
     public function update(DossierPdf $dossierPdf) {
-        return $this->db->prepare("UPDATE `dossier_pdf` SET `NOM` = ?, `INFORMATIONS` = ?, `MODALITES` = ?, `CODE_FORMATION` = ? WHERE `ID` = ?;")
+        return $this->db->prepare("UPDATE `dossier_pdf` SET `NOM` = ?, `INFORMATIONS_PREALABLES` = ?, `INFORMATIONS` = ?, `MODALITES` = ?, `CODE_FORMATION` = ? WHERE `ID` = ?;")
             ->execute(array(
                 $dossierPdf->getNom(),
+		        $dossierPdf->getInformationsPrealables(),
 				$dossierPdf->getInformations(),
 				$dossierPdf->getModalites(),
 				$dossierPdf->getCodeFormation(),

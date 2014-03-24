@@ -176,34 +176,34 @@ switch ($action) {
 
         // Récupère les données depuis le formulaire ($_POST)
         $idEtudiant    = $_SESSION['idEtudiant'];
-        $ine           = $_POST['ine'];
-        $genre         = $_POST["genre"];
+        $ine           = strip_tags($_POST['ine']);
+        $genre         = strip_tags($_POST["genre"]);
         $codeFormation = $_SESSION['codeFormation'];
-        $autre         = $_POST["autre"];
-        $nom           = formatString ($_POST["nom"]);
-        $prenom        = formatString ($_POST["prenom"]);
-        $adresse       = formatString ($_POST["adresse"]);
-        $complement    = $_POST["complement"];
-        $codePostal    = formatString ($_POST["code_postal"]);
-        $ville         = formatString ($_POST["ville"]);
+        $autre         = strip_tags($_POST["autre"]);
+        $nom           = formatString (strip_tags($_POST["nom"]));
+        $prenom        = formatString (strip_tags($_POST["prenom"]));
+        $adresse       = formatString (strip_tags($_POST["adresse"]));
+        $complement    = strip_tags($_POST["complement"]);
+        $codePostal    = formatString (strip_tags($_POST["code_postal"]));
+        $ville         = formatString (strip_tags($_POST["ville"]));
 
-        $naissanceArray  = $_POST["dateNaissance"];
+        $naissanceArray  = strip_tags($_POST["dateNaissance"]);
         $naissanceArray  = explode ("/", $naissanceArray);
         $dateDeNaissance = $naissanceArray[2] . "-" . $naissanceArray[1] . "-" . $naissanceArray[0];
 
-        $lieuNaissance    = formatString ($_POST["lieu_naissance"]);
-        $fixe             = $_POST["fixe"];
-        $portable         = $_POST["portable"];
-        $mail             = $_POST["mail"];
+        $lieuNaissance    = formatString (strip_tags($_POST["lieu_naissance"]));
+        $fixe             = strip_tags($_POST["fixe"]);
+        $portable         = strip_tags($_POST["portable"]);
+        $mail             = strip_tags($_POST["mail"]);
         $langues          = isset($_POST['langues']) ? (($isCandidature) ? formatString (implode (', ', $_POST["langues"])) : "") : "";
-        $nationalite      = formatString ($_POST["nationalite"]);
-        $serieBac         = $_POST["serie_bac"];
-        $anneeBac         = $_POST["annee_bac"];
-        $etablissementBac = formatString ($_POST["etablissement_bac"]);
-        $departementBac   = $_POST["departement_bac"];
-        $paysBac          = $_POST["pays_bac"];
-        $activite         = ($isCandidature) ? $_POST["activite"] : "";
-        $titulaire        = $_POST["titulaire"];
+        $nationalite      = formatString (strip_tags($_POST["nationalite"]));
+        $serieBac         = strip_tags($_POST["serie_bac"]);
+        $anneeBac         = strip_tags($_POST["annee_bac"]);
+        $etablissementBac = formatString (strip_tags($_POST["etablissement_bac"]));
+        $departementBac   = strip_tags($_POST["departement_bac"]);
+        $paysBac          = strip_tags($_POST["pays_bac"]);
+        $activite         = ($isCandidature) ? strip_tags($_POST["activite"]) : "";
+        $titulaire        = strip_tags($_POST["titulaire"]);
 
         // Si la ville préférée existe ...
         if (isset($_POST["ville_preferee"])) {
@@ -215,7 +215,7 @@ switch ($action) {
 
         // Si c'est une candidature, on affiche les autres éléments
         // Si c'est une pré-inscriptions aucune opération n'est effectuée
-        $autresElements = ($isCandidature) ? formatString ($_POST["autres_elements"]) : "";
+        $autresElements = ($isCandidature) ? formatString (strip_tags($_POST["autres_elements"])) : "";
 
         // Récupération des informations spécifiques
         $structure = $translatorResultsetToStructure->translate ($informationManager->getResultset ($dossierPdf));
@@ -231,27 +231,27 @@ switch ($action) {
         $arrayCursus = array (); // Tableau à deux dimensions
         $i           = 0;
         foreach ($_POST['anneeCursus'] as $anneeCursus) {
-            $arrayCursus['cursus-' . $i]['anneeCursus'] = $anneeCursus;
+            $arrayCursus['cursus-' . $i]['anneeCursus'] = strip_tags($anneeCursus);
             $i++;
         }
         $i = 0;
         foreach ($_POST['etablissement'] as $etablissement) {
-            $arrayCursus['cursus-' . $i]['etablissement'] = $etablissement;
+            $arrayCursus['cursus-' . $i]['etablissement'] = strip_tags($etablissement);
             $i++;
         }
         $i = 0;
         foreach ($_POST['valide'] as $valide) {
-            $arrayCursus['cursus-' . $i]['valide'] = $valide;
+            $arrayCursus['cursus-' . $i]['valide'] = strip_tags($valide);
             $i++;
         }
         $i = 0;
         foreach ($_POST['note'] as $note) {
-            $arrayCursus['cursus-' . $i]['note'] = $note;
+            $arrayCursus['cursus-' . $i]['note'] = strip_tags($note);
             $i++;
         }
         $i = 0;
         foreach ($_POST['cursus'] as $cursus) {
-            $arrayCursus['cursus-' . $i]['cursus'] = $cursus;
+            $arrayCursus['cursus-' . $i]['cursus'] = strip_tags($cursus);
             $i++;
         }
 
@@ -269,32 +269,32 @@ switch ($action) {
             $arrayExperiences = array (); // Tableau à deux dimensions
             $i                = 0;
             foreach ($_POST['moisDebut'] as $anneeFin) {
-                $arrayExperiences['experience-' . $i]['moisDebut'] = $anneeFin;
+                $arrayExperiences['experience-' . $i]['moisDebut'] = strip_tags($anneeFin);
                 $i++;
             }
             $i = 0;
             foreach ($_POST['anneeDebut'] as $anneeDebut) {
-                $arrayExperiences['experience-' . $i]['anneeDebut'] = $anneeDebut;
+                $arrayExperiences['experience-' . $i]['anneeDebut'] = strip_tags($anneeDebut);
                 $i++;
             }
             $i = 0;
             foreach ($_POST['moisFin'] as $moisFin) {
-                $arrayExperiences['experience-' . $i]['moisFin'] = $moisFin;
+                $arrayExperiences['experience-' . $i]['moisFin'] = strip_tags($moisFin);
                 $i++;
             }
             $i = 0;
             foreach ($_POST['anneeFin'] as $anneeFin) {
-                $arrayExperiences['experience-' . $i]['anneeFin'] = $anneeFin;
+                $arrayExperiences['experience-' . $i]['anneeFin'] = strip_tags($anneeFin);
                 $i++;
             }
             $i = 0;
             foreach ($_POST['entreprise'] as $entreprise) {
-                $arrayExperiences['experience-' . $i]['entreprise'] = $entreprise;
+                $arrayExperiences['experience-' . $i]['entreprise'] = strip_tags($entreprise);
                 $i++;
             }
             $i = 0;
             foreach ($_POST['fonction'] as $fonction) {
-                $arrayExperiences['experience-' . $i]['fonction'] = $fonction;
+                $arrayExperiences['experience-' . $i]['fonction'] = strip_tags($fonction);
                 $i++;
             }
             foreach ($arrayExperiences as $experience) {
