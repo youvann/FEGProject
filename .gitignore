@@ -3,6 +3,7 @@
 /classes/Pdf/fpdf17
 /.idea
 /nbproject
+/dossiers/ZIP
 
 # OS generated files #
 .DS_Store

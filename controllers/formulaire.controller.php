@@ -251,7 +251,7 @@ switch ($action) {
             $laVillePreferee = ($villeManager->find ($_POST["ville_preferee"]));
             $villePreferee   = $laVillePreferee->getNom ();
         } else {
-            $villePreferee = 'Non renseigné';
+            $villePreferee = 'Non renseignée';
         }
 
         // Si c'est une candidature, on affiche les autres éléments
@@ -465,6 +465,8 @@ switch ($action) {
         $pagePdf->setOther ($dossier->getLangues (), $dossier->getAutresElements ());
         // Définit les informations spécifiques
         $pagePdf->setInformationsSpecifiques ($informationsSpecifiques);
+        // Définit les informations préalables
+        $pagePdf->setInformationsPrealablesDossier ($dossierPdf->getInformationsPrealables ());
         // Définit les modalités de la formation
         $pagePdf->setDossierModalites ($dossierPdf->getModalites ());
         // Définit les informations de la formation
