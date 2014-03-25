@@ -22,7 +22,7 @@
                             name="anneeDebut[]">
                         {% set ecart = anneeBasse - 60 %}
                         {% for i in ecart..anneeBasse %}
-                            <option value="{{ i }}">{{ i }}</option>
+                            <option {% if i == anneeBasse %}selected{% endif %} value="{{ i }}">{{ i }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -47,7 +47,7 @@
                             name="anneeFin[]">
                         {% set ecart = anneeBasse - 60 %}
                         {% for i in ecart..anneeBasse %}
-                            <option value="{{ i }}">{{ i }}</option>
+                            <option {% if i == anneeBasse %}selected{% endif %} value="{{ i }}">{{ i }}</option>
                         {% endfor %}
                     </select>
                 </div>
