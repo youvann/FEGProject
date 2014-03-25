@@ -40,7 +40,7 @@ switch ($action) {
 		foreach($titulaires as $titulaire) {
 			$dateLimite = explode("/", $_POST['date_limite_'.$titulaire->getId()]);
 			$dateLimite = $dateLimite[2] . $dateLimite[0] . $dateLimite[1];
-			var_dump($dateLimiteManager->insert(new DateLimite($_POST['dossier_pdf'], $titulaire->getId(), $dateLimite)));
+			$dateLimiteManager->insert(new DateLimite($_POST['dossier_pdf'], $titulaire->getId(), $dateLimite));
 		}
 		header("location:index.php?uc=dateLimite&action=modifier&dossierPdf=".$_POST['dossier_pdf']);
 	}

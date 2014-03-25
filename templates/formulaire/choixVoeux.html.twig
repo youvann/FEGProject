@@ -27,17 +27,26 @@
                 </select>
             </div>
         {% endfor %}
-        {% if villesPreferables is not empty %}
-            <div class="form-group">
-                <label for="ville_preferee">Ville préférée parmi celles où se déroulent les spécialités</label> /
-                <span class="en">Prefer city</span>
-                <select class="form-control" id="ville_preferee" name="ville_preferee">
-                    {% for villePreferable in villesPreferables %}
-                        <option value="{{ villePreferable.id }}">{{ villePreferable.nom }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+
+        {% if voeux|length == 1 %}
+            {% if villesPreferables is not empty and villesPreferables|length > 1 %}
+                <div class="form-group">
+                    <label for="ville_preferee">Ville préférée parmi celles où se déroulent les spécialités</label> /
+                    <span class="en">Prefer city</span>
+                    <select class="form-control" id="ville_preferee" name="ville_preferee">
+                        {% for villePreferable in villesPreferables %}
+                            <option value="{{ villePreferable.id }}">{{ villePreferable.nom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% else %}
+                <input type="hidden" id="ville_preferee" name="ville_preferee" value="Non demandée" />
+            {% endif %}
+        {% else %}
+            <input type="hidden" id="ville_preferee" name="ville_preferee" value="Non demandée" />
         {% endif %}
+
+
     </div>
 </div>
 
