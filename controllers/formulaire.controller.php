@@ -247,7 +247,7 @@ switch ($action) {
         $titulaire        = strip_tags($_POST["titulaire"]);
 
         // Si la ville préférée existe ...
-        if (isset($_POST["ville_preferee"])) {
+        if ($_POST["ville_preferee"] !== '0') {
             $laVillePreferee = ($villeManager->find ($_POST["ville_preferee"]));
             $villePreferee   = $laVillePreferee->getNom ();
         } else {
