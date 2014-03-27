@@ -11,7 +11,7 @@
                 <br/>
                 Veuillez conserver votre <b>numéro de dossier</b> : {{ idEtudiant }} / <i>Please, keep your <b>file number</b>: {{ idEtudiant }}</i>.
             </div>
-            <div class="alert alert-warning">
+            <div class="alert alert-danger">
                 <span class="glyphicon glyphicon-warning-sign"></span>
                  Veuillez <b>conserver</b> le dossier de {{ typeDossier | lower }} PDF ci-dessous / <i>Please, keep this PDF file</i>.
                 <br/>
@@ -38,6 +38,21 @@
 {% block scripts %}
     {{ parent() }}
     <script type="text/javascript">
+        var confirmOnLeave = function(msg) {
+            window.onbeforeunload = function (e) {
+                e = e || window.event;
+                msg = msg || '';
+                // For IE and Firefox
+                if (e) {
+                    e.returnValue = msg;
+                }
+                // For Chrome and Safari
+                return msg;
+            };
+        };
+        // message de confirmation personnalisé
+        confirmOnLeave('Assurez-vous d\'avoir bien enregistré le fichier PDF avant de quitter la page.?');
+
         $(document).ready(function () {
             $('#pdfPreview').hide();
             $('#loading').append(
