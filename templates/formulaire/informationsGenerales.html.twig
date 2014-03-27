@@ -160,7 +160,7 @@
                            id="lieu_naissance" name="lieu_naissance"
                            placeholder="Votre lieu de naissance"
                            data-validation="custom"
-                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
+                           data-validation-regexp="^([a-zA-Z-\'\séêèëààâäôœöûüùîïç]+)$"
                            data-validation-error-msg="Veuillez remplir le champ lieu de naissance"/>
                 </div>
             </div>
@@ -174,7 +174,7 @@
                            name="nationalite"
                            placeholder="Votre nationalité"
                            data-validation="custom"
-                           data-validation-regexp="^([a-zA-Z-\séêèëààâäôœöûüùîïç]+)$"
+                           data-validation-regexp="^([a-zA-Z-\'\séêèëààâäôœöûüùîïç]+)$"
                            data-validation-error-msg="Veuillez remplir le champ nationalité"/>
                 </div>
             </div>
@@ -218,8 +218,9 @@
                            name="complement"
                            data-validation-optional="true"
                            data-validation="custom"
-                           data-validation-regexp="^([a-zA-Z-\'\séêèëààâäôœöûüùîïç]+)$"
-                           placeholder="Bâtiment, étage, appartement ..."/>
+                           data-validation-regexp="^([a-zA-Z0-9-\'\séêèëààâäôœöûüùîïç]+)$"
+                           placeholder="Bâtiment, étage, appartement ..."
+                           data-validation-error-msg="Veuillez remplir le champ complément d'adresse"/>
                 </div>
             </div>
             <div class="col-md-4">
@@ -312,7 +313,7 @@
                            id="etablissement_bac" name="etablissement_bac"
                            placeholder="Votre établissement"
                            data-validation="custom"
-                           data-validation-regexp="^([a-zA-Z-\'\séêèëààâäôœöûüùîïç]+)$"
+                           data-validation-regexp="^([a-zA-Z0-9-\'\séêèëààâäôœöûüùîïç]+)$"
                            data-validation-error-msg="Veuillez indiquer le nom de l'établissement où vous avez eu votre baccalauréat"/>
                 </div>
             </div>

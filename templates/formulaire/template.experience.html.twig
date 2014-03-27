@@ -61,8 +61,8 @@
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required" 
                            id="entreprise-{{ indice }}" name="entreprise[]"
-                           data-validation="custom"
-                           data-validation-regexp="^([0-9a-zA-Z-\'\séêèëààâäôœöûüùîïç]+)$"/>
+                           data-validation="required"
+                           data-validation-error-msg="Veuillez remplir le nom de l'entreprise"/>
                 </div>
             </div>
             <div class="col-md-6">
@@ -71,8 +71,8 @@
                     <span class="label label-danger">Requis</span>
                     <input type="text" class="form-control required"
                            id="fonction-{{ indice }}" name="fonction[]"
-                           data-validation="custom"
-                           data-validation-regexp="^([a-zA-Z-\'\séêèëààâäôœöûüùîïç]+)$"/>
+                           data-validation="required"
+                           data-validation-error-msg="Veuillez remplir votre fonction dans l'entreprise"/>
                 </div>
             </div>
         </div>
