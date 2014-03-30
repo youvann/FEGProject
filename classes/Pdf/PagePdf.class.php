@@ -707,7 +707,16 @@ class PagePdf {
      * @return string
      */
     public function printValide ($cpb) {
-        return ($cpb->getValide ()) ? "Oui" : "Non";
+        switch($cpb->getValide ()){
+            case 0 : return "Non";
+                break;
+            case 1 : return "Oui";
+                break;
+            case 2 : return "En cours";
+                break;
+            default : return "Erreur";
+        }
+        //return ($cpb->getValide ()) ? "Oui" : "Non";
     }
 
     /**
@@ -949,7 +958,7 @@ class PagePdf {
      * @return string
      */
     public function printDossierModalites () {
-        return '<div class="titre_encadre">MODALITES</div>' . $this->modalites;
+        return ($this->isCandidature) ? '<div class="titre_encadre">MODALITES</div>' . $this->modalites : "";
     }
 
     /**

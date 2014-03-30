@@ -88,14 +88,14 @@ class TranslatorJsonToHTML extends Translator {
 	 * @param string $labels Libellés des données à afficher
 	 * @return string Données avec leurs libellés au format HTML
 	 */
-	private function checkBoxGroupJsonToHTML($datas, $idInfo, $label, $labels) {
-		$return = "<span class='bold'>" .$label . " : </span>";
-		// Pour chaque réponse possible, on met Oui ou Non
-		for ($i = 0; $i < count($datas[$idInfo]); ++$i) {
-			$return .= "<span class='bold'>" . $labels[$i] . ' : </span>' . $datas[$idInfo][$i] . ($i === count($datas[$idInfo]) - 1 ? '.<br /><br />' : ', ');
-		}
-		return $return;
-	}
+    private function checkBoxGroupJsonToHTML ($datas, $idInfo, $label, $labels) {
+        $return = "<span class='bold'>" . $label . "</span><br/>";
+        // Pour chaque réponse possible, on met Oui ou Non
+        for ($i = 0; $i < count ($datas[$idInfo]); ++$i) {
+            $return .= "<span class='bold'>" . $labels[$i] . ' : </span>' . $datas[$idInfo][$i] . ($i === count ($datas[$idInfo]) - 1 ? '<br/><br/>' : '<br/>');
+        }
+        return $return;
+    }
 	
 	/**
 	 * Récupère la donnée à afficher et la traite pour la rendre
