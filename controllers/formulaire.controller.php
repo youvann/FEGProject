@@ -22,7 +22,7 @@ switch ($action) {
         // On récupère toutes les formations
         $formations = $formationManager->findAll ();
         // On récupère tous les dossiers pdf
-        $dossiersPdf = $dossierPdfManager->findAll ();
+        $dossiersPdf = $dossierPdfManager->myFindAll ();
 
         echo $twig->render ('formulaire/choixFormation.html.twig', array ('formations' => $formations, 'voeux' => $voeux, 'dossiersPdf' => $dossiersPdf));
     }

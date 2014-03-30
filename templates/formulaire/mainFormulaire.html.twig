@@ -29,7 +29,7 @@
                     {% endif %}
                 {% endif %}
 
-                {% if dossierPdf.modalites is not empty %}
+                {% if typeDossier == 'CA' and dossierPdf.modalites is not empty %}
                     <div class="bs-callout bs-callout-warning">
                         <h3>Modalités</h3>
                         <div class="alert alert-info">Ces informations sont disponibles dans le document PDF que vous allez devoir télécharger à la fin de votre demande.</div>
@@ -131,7 +131,7 @@
         // Cache par défaut le message de traitement du dossier
         $("#traitement").hide();
 
-        // Jeu d'essai formulaire
+        /*/ Jeu d'essai formulaire
         $('#nom').val('Pierre');
         $('#prenom').val('Paul');
         $('#lieu_naissance').val('Kingston');
@@ -149,7 +149,7 @@
         $('#etablissement').eq(0).val('IUT Aix-en-Provence');
         $('#cursus').eq(0).val('DUT Informatique');
         $('#entreprise').val('Sporstec');
-        $('#fonction').val('Développeur PHP');
+        $('#fonction').val('Développeur PHP');*/
 
         var boutonOK = $('#boutonOk');
         //ancrage bouton OK

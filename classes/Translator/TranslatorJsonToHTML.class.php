@@ -37,7 +37,7 @@ class TranslatorJsonToHTML extends Translator {
 				case "CheckBoxGroup": $html .= $this->checkBoxGroupJsonToHTML($json[$i], $structure[$i][0], $structure[$i][1], $structure[$i][3]); break;
 				// Récupération des données formatées dans le cas d'un groupe de boutons radio.
 				case "RadioButtonGroup": $html .= $this->radioButtonGroupJsonToHTML($json[$i], $structure[$i][0], $structure[$i][1]); break;
-			default: echo '<div class="alert alert-danger">Il y a un problème dans le script ' . __FILE__ . '.<br />La variable du switch vaut <span class="label label-danger">'.$structure[$i][2].'</span></div>'; break;
+			default: echo '<div class="alert alert-danger">Il y a un problème dans le script ' . __FILE__ . '.<br>La variable du switch vaut <span class="label label-danger">'.$structure[$i][2].'</span></div>'; break;
 			}
 		}
 		return $html;
@@ -52,7 +52,7 @@ class TranslatorJsonToHTML extends Translator {
 	 * @return string Donnée avec son libellé au format HTML
 	 */
 	private function textBoxJsonToHTML($data, $idInfo, $label) {
-		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . "<br /><br />";
+		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . "<br><br>";
 	}
 
 	/**
@@ -64,7 +64,7 @@ class TranslatorJsonToHTML extends Translator {
 	 * @return string Donnée avec son libellé au format HTML
 	 */
 	private function textAreaJsonToHTML($data, $idInfo, $label) {
-		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . "<br /><br />";
+		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . "<br><br>";
 	}
 	
 	/**
@@ -76,13 +76,13 @@ class TranslatorJsonToHTML extends Translator {
 	 * @return string Donnée avec son libellé au format HTML
 	 */
 	private function checkBoxJsonToHTML($data, $idInfo, $label) {
-		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . '<br /><br />';
+		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . '<br><br>';
 	}
 	
 	/**
 	 * Récupère les données à afficher et la traite pour la rendre
 	 * au format HTML ajusté pour un un groupe de cases à cocher.
-	 * @param array $data Tableau contenant la donnée à afficher
+	 * @param array $datas Tableau contenant la donnée à afficher
 	 * @param string $idInfo Clé du tableau contenant la donnée à afficher
 	 * @param string $label Libellé du groupe de données à afficher
 	 * @param string $labels Libellés des données à afficher
@@ -92,7 +92,7 @@ class TranslatorJsonToHTML extends Translator {
 		$return = "<span class='bold'>" .$label . " : </span>";
 		// Pour chaque réponse possible, on met Oui ou Non
 		for ($i = 0; $i < count($datas[$idInfo]); ++$i) {
-			$return .= "<span class='bold'>" . $labels[$i] . ' : </span>' . $datas[$idInfo][$i] . ($i === count($datas[$idInfo]) - 1 ? '.<br /><br />' : ', ');
+			$return .= "<span class='bold'>" . $labels[$i] . ' : </span>' . $datas[$idInfo][$i] . ($i === count($datas[$idInfo]) - 1 ? '.<br><br>' : ', ');
 		}
 		return $return;
 	}
@@ -106,6 +106,6 @@ class TranslatorJsonToHTML extends Translator {
 	 * @return string Donnée avec son libellé au format HTML
 	 */
 	private function radioButtonGroupJsonToHTML($data, $idInfo, $label) {
-		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . '<br /><br />';
+		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . '<br><br>';
 	}
 }
