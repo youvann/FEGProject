@@ -181,7 +181,7 @@ switch ($action) {
             ));
     }
         break;
-    case "uploadDocuments" :
+    case "creationRepertoire" :
     {
         // Récupère le nom de l'étudiant depuis le formulaire
         $_SESSION['nom'] = formatString (stripAccents ($_POST['nom']));
@@ -203,7 +203,34 @@ switch ($action) {
         // Nom du répertoire de l'étudiant
         $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
         // Création du répertoire de l'étudiant
-        myMkdirBase ($dirPath . "/" . $dirNameId . "/");
+        $bool = myMkdirBase ($dirPath . "/" . $dirNameId . "/");
+        $reponse = ($bool) ? 1 : 0;
+        echo json_encode ($reponse);
+    }
+        break;
+    case "uploadDocuments" :
+    {
+        // Récupère le nom de l'étudiant depuis le formulaire
+        /*$_SESSION['nom'] = formatString (stripAccents ($_POST['nom']));
+        // Récupère le prénom de l'étudiant depuis le formulaire
+        $_SESSION['prenom'] = formatString (stripAccents ($_POST['prenom']));
+
+        // Récupère le voeu1
+        $_SESSION['voeu1'] = $_POST['voeu1'];
+        // Récupère le voeu2
+        $_SESSION['voeu2'] = $_POST['voeu2'];
+        // Récupère le voeu3
+        $_SESSION['voeu3'] = $_POST['voeu3'];*/
+
+        // S'agit-il d'un dossier de candidature ou de pré-inscription ?
+        $typeDossier = ($_SESSION['isCandidature']) ? "Candidatures" : "Pre-inscriptions";
+
+        // Chemin du répetoire qui contient le répertoire de l'étudiant
+        $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier;
+        // Nom du répertoire de l'étudiant
+        $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
+        // Création du répertoire de l'étudiant
+        //myMkdirBase ($dirPath . "/" . $dirNameId . "/");
         // Ajout des pièces à jointes dans le répertoire de l'étudiant
         upload ($dirPath . "/" . $dirNameId . "/");
     }
