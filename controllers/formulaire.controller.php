@@ -549,13 +549,18 @@ switch ($action) {
         // Indique le type de dossier
         $typeDossier = ($_SESSION['isCandidature']) ? "Candidature" : "Pre-inscription";
         // Détermine le nom du répertoire
-        $dirName     = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
+        $dirName = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
         // Détermine le chemin
-        $dirPath     = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier . "s";
+        $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier . "s";
         // Détermine le chemin complet du PDF
-        $pathPdf     = $dirPath . "/" . $dirName . "/" . $typeDossier . "-" . $dirName;
-        $dossierPdf  = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
-        echo $twig->render ('formulaire/recapitulatif.html.twig', array ('dossierPdf' => $dossierPdf->getNom (), 'pathPdf' => $pathPdf, 'typeDossier' => $typeDossier, 'idEtudiant' => $_SESSION['idEtudiant'], 'codeFormation' => $_SESSION['codeFormation'], "idDossierPdf" => $_SESSION['idDossierPdf']));
+        $pathPdf    = $dirPath . "/" . $dirName . "/" . $typeDossier . "-" . $dirName;
+        $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
+        echo $twig->render ('formulaire/recapitulatif.html.twig', array ('dossierPdf'    => $dossierPdf->getNom (),
+                                                                         'pathPdf'       => $pathPdf,
+                                                                         'typeDossier'   => $typeDossier,
+                                                                         'idEtudiant'    => $_SESSION['idEtudiant'],
+                                                                         'codeFormation' => $_SESSION['codeFormation'],
+                                                                         "idDossierPdf"  => $_SESSION['idDossierPdf']));
     }
         break;
     // Cette action retourne un cadre Cursus pour le formulaire principal
@@ -580,9 +585,9 @@ switch ($action) {
 
         $dossier = $dossierManager->find ($idEtudiant, $codeFormation);
         // Suppression des accents pour le nom
-        $nom     = stripAccents ($dossier->getNom ());
+        $nom = stripAccents ($dossier->getNom ());
         // Suppression des accents pour le prénom
-        $prenom  = stripAccents ($dossier->getPrenom ());
+        $prenom = stripAccents ($dossier->getPrenom ());
 
         // Récupère le nom des voeux où l'étudiant a postulé
         $faires      = $faireManager->findAllByDossier ($dossier);
@@ -598,7 +603,21 @@ switch ($action) {
         $documentsGeneraux    = ($typeDossier == "candidature") ? $documentGeneralManager->findAll () : $documentGeneralManager->findAllVisible ();
         $documentsSpecifiques = ($typeDossier == "candidature") ? $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf) : $documentSpecifiqueManager->findAllByDossierPdf ($dossierPdf);
 
-        echo $twig->render ('formulaire/uploadPiecesManquantes.html.twig', array ("nom" => $nom, "prenom" => $prenom, "idEtudiant" => $idEtudiant, "typeDossier" => $typeDossier, "codeFormation" => $codeFormation, "codesEtapes" => $codesEtapes, "nomDossierPdf" => $nomDossierPdf, "documentsGeneraux" => $documentsGeneraux, "documentsSpecifiques" => $documentsSpecifiques));
+        // Le répertoire contenant le premier voeu existe il ? Si oui l'étudiant peut uploader les pièces maquantes
+        // Si non le répertoire a été supprimé, l'étudiant ne pourra plus rien uploader
+        $path     = "dossiers/" . $codeFormation . "/" . $codesEtapes[0] . "/" . ucfirst ($typeDossier) . "s/" . $nom . "-" . $prenom . "-" . $idEtudiant;
+        $dirExist = (is_dir ($path)) ? true : false;
+
+        echo $twig->render ('formulaire/uploadPiecesManquantes.html.twig', array ("nom"                  => $nom,
+                                                                                  "prenom"               => $prenom,
+                                                                                  "idEtudiant"           => $idEtudiant,
+                                                                                  "typeDossier"          => $typeDossier,
+                                                                                  "codeFormation"        => $codeFormation,
+                                                                                  "codesEtapes"          => $codesEtapes,
+                                                                                  "nomDossierPdf"        => $nomDossierPdf,
+                                                                                  "documentsGeneraux"    => $documentsGeneraux,
+                                                                                  "documentsSpecifiques" => $documentsSpecifiques,
+                                                                                  "dirExist"             => $dirExist));
     }
         break;
     case "uploaderPiecesManquantes" :
@@ -608,7 +627,7 @@ switch ($action) {
         $prenom        = $_GET['prenom'];
         $idEtudiant    = $_GET['idEtudiant'];
         // La première lettre est transformée en majuscule
-        $typeDossier   = ucfirst ($_GET['typeDossier']);
+        $typeDossier = ucfirst ($_GET['typeDossier']);
 
         // Obtention des voeux
         $voeux = array ();
@@ -619,9 +638,9 @@ switch ($action) {
         // Nom du répertoire de l'étudiant
         $dirNameId = $nom . "-" . $prenom . "-" . $idEtudiant;
         // Code formation
-        $path1     = "dossiers/" . $codeFormation;
+        $path1 = "dossiers/" . $codeFormation;
         // type du dossier + nom du répertoire de l'étudiant
-        $path2     = $typeDossier . "s" . "/" . $dirNameId;
+        $path2 = $typeDossier . "s" . "/" . $dirNameId;
         // Upload des pièces jointes dans tous les répertoires voeux correspondants (upload multi destinations).
         uploadMultiLocations ($path1, $path2, $voeux);
     }

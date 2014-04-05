@@ -9,6 +9,10 @@
                 en {{ nomDossierPdf }} ({{ nom }} {{ prenom }} {{ idEtudiant }})</h3>
             <br/>
 
+            {% if dirExist == false %}
+                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Vous avez dépassé la date limite de transmission des documents. Veuillez contacter le secrétariat de la formation pour plus d'informations.</div>
+            {% endif %}
+
             <div class="well">
                 <b>Pièces générales à transmettre / <span
                             class="en">Mains documents</span> :</b>
@@ -37,7 +41,7 @@
 
             <div id="upload">Ajouter / <i>Add</i></div>
             <br/>
-            <button id="startUpload" type="button" class="btn btn-primary">
+            <button id="startUpload" type="button" class="btn btn-primary" {% if dirExist == false %} disabled="disabled" {% endif %}>
                 <span class="glyphicon glyphicon-cloud-upload"></span>
                 Transmettre les pièces manquantes
             </button>
@@ -114,6 +118,7 @@
                     msg.appendTo('#msg');
                     setTimeout(function () {
                         msg.fadeOut('slow');
+                        $("#traitement").fadeOut('slow');
                     }, 5000);
 
                 },
