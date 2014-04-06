@@ -38,11 +38,19 @@ switch ($action) {
 		}
 
 		foreach($titulaires as $titulaire) {
-			$dateLimiteCandidature = explode("/", $_POST['date_limite_'.$titulaire->getId().'_ca']);
-			$dateLimiteCandidature = $dateLimiteCandidature[2] . $dateLimiteCandidature[1] . $dateLimiteCandidature[0];
+            if($_POST['date_limite_'.$titulaire->getId().'_ca'] !== ""){
+                $dateLimiteCandidature = explode("/", $_POST['date_limite_'.$titulaire->getId().'_ca']);
+			    $dateLimiteCandidature = $dateLimiteCandidature[2] . $dateLimiteCandidature[1] . $dateLimiteCandidature[0];
+            }else{
+                $dateLimiteCandidature = "2020-01-01";
+            }
 
-			$dateLimitePreinscription = explode("/", $_POST['date_limite_'.$titulaire->getId().'_pi']);
-			$dateLimitePreinscription = $dateLimitePreinscription[2] . $dateLimitePreinscription[1] . $dateLimitePreinscription[0];
+            if($_POST['date_limite_'.$titulaire->getId().'_pi'] !== ""){
+                $dateLimitePreinscription = explode("/", $_POST['date_limite_'.$titulaire->getId().'_pi']);
+			    $dateLimitePreinscription = $dateLimitePreinscription[2] . $dateLimitePreinscription[1] . $dateLimitePreinscription[0];
+            }else{
+                $dateLimitePreinscription = "2020-01-01";
+            }
 
 			$dateLimiteManager->insert(new DateLimite($_POST['dossier_pdf'], $titulaire->getId(), $dateLimiteCandidature, $dateLimitePreinscription));
 		}
