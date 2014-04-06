@@ -9,6 +9,10 @@
                 en {{ nomDossierPdf }} ({{ nom }} {{ prenom }} {{ idEtudiant }})</h3>
             <br/>
 
+            {% if dirExist == false %}
+                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Vous avez dépassé la date limite de transmission des documents. Veuillez contacter le secrétariat de la formation pour plus d'informations.</div>
+            {% endif %}
+
             <div class="well">
                 <b>Pièces générales à transmettre / <span
                             class="en">Mains documents</span> :</b>
@@ -37,7 +41,7 @@
 
             <div id="upload">Ajouter / <i>Add</i></div>
             <br/>
-            <button id="startUpload" type="button" class="btn btn-primary">
+            <button id="startUpload" type="button" class="btn btn-primary" {% if dirExist == false %} disabled="disabled" {% endif %}>
                 <span class="glyphicon glyphicon-cloud-upload"></span>
                 Transmettre les pièces manquantes
             </button>
@@ -49,6 +53,11 @@
                 <input class="hidden" type="hidden" name="voeu[]" id="voeu-{{ codeEtape }}" value="{{ codeEtape }}"/>
             {% endfor %}
 
+            <div id="traitement" class="alert alert-warning">Traitement de votre
+                dossier en cours, veuillez ne pas recharger votre page et patienter
+                ...
+                <br/><i>Please, do not reload the page and wait ...</i>
+            </div>
         </div>
     </div>
 
@@ -83,6 +92,7 @@
     <script src="public/js/jquery-upload/jquery.uploadfile.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#traitement").hide();
             var linkUpload = "index.php?uc=formulaire&action=uploaderPiecesManquantes&codeFormation={{ codeFormation }}&nom={{ nom }}&prenom={{ prenom }}&idEtudiant={{ idEtudiant }}&typeDossier={{ typeDossier }}&" + $('.hidden').serialize();
             console.log(linkUpload);
             var uploadObj = $("#upload").uploadFile({
@@ -102,12 +112,25 @@
                 deletelStr: "Supprimer",
                 showDone: false,
                 afterUploadAll: function () {
+                    $('#traitement').hide();
+                    $('#startUpload').removeClass('btn-warning').addClass('btn-primary').html('Transmettre les pièces manquantes').removeAttr('disabled');
                     var msg = $('<div/>').addClass('alert alert-success').html("<span class='glyphicon glyphicon-saved'></span> Vos nouvelles pièces ont bien été prises en compte / <i>Upload successful</i>");
                     msg.appendTo('#msg');
+                    setTimeout(function () {
+                        msg.fadeOut('slow');
+                        $("#traitement").fadeOut('slow');
+                    }, 5000);
+
                 },
                 onError: function (files, status, errMsg) {
                     $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées.');
                     $('#myModal').modal('show');
+                },
+                onSubmit: function (files) {
+                    // Affichage du message "Traitement en cours ..."
+                    $("#traitement").fadeIn('normal');
+                    // Bouton de validation du formulaire se grise
+                    $(this).attr("disabled", "disabled").removeClass("btn-primary").addClass("btn-warning").html("Envoie en cours ...");
                 }
             });
 
@@ -115,8 +138,6 @@
                 //$(location).attr('href', linkUpload);
                 uploadObj.startUpload();
             });
-
-
 
         });
     </script>

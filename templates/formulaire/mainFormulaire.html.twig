@@ -131,7 +131,7 @@
         // Cache par défaut le message de traitement du dossier
         $("#traitement").hide();
 
-        /*/ Jeu d'essai formulaire
+        // Jeu d'essai formulaire
         $('#nom').val('Dupont');
         $('#prenom').val('Jean');
         $('#lieu_naissance').val('Marseille');
@@ -149,7 +149,7 @@
         $('#etablissement').eq(0).val('IUT Aix-en-Provence');
         $('#cursus').eq(0).val('DUT Informatique');
         $('#entreprise').val('Sporstec');
-        $('#fonction').val('Développeur PHP');*/
+        $('#fonction').val('Développeur PHP');
 
         var boutonOK = $('#boutonOk');
         //ancrage bouton OK
@@ -201,24 +201,25 @@
             abortStr: "Abandonner",
             cancelStr: "Annuler",
             deletelStr: "Supprimer",
+            showAbort: false,
             showDone: false,
             dynamicFormData: function () {
                 // Récupération des champs nom et prénom de l'étudiant
-                var nomEtudiant = $('#nom').val();
+                /*var nomEtudiant = $('#nom').val();
                 var prenomEtudiant = $('#prenom').val();
                 if(nomEtudiant == "" || prenomEtudiant == ""){
                     $('.modal-body').html('Une erreur s\'est produite, veuillez recommencer. <i>There is a problem, please try again.</i>');
                     $('#myModal').modal('show');
                     return false;
-                }
-                var data = {
+                }*/
+                /*var data = {
                     nom: nomEtudiant,
                     prenom: prenomEtudiant,
                     voeu1: $('#voeu-1').val(),
                     voeu2: $('#voeu-2').length > 0 ? ($('#voeu-2').val() !== '2' ? $('#voeu-2').val() : null) : null,
                     voeu3: $('#voeu-3').length > 0 ? ($('#voeu-2').val() !== '3' ? $('#voeu-2').val() : null) : null
                 };
-                return data;
+                return data;*/
             },
             afterUploadAll: function () {
                 uploadGlobal = true;
@@ -230,6 +231,8 @@
                 return true; //to allow file submission.
             },
             onError: function (files, status, errMsg) {
+                $('#traitement').hide();
+                $('#startUpload').removeClass('btn-warning').addClass('btn-primary').html('Envoyer').removeAttr('disabled');
                 $('.modal-body').html('Les pièces jointes n\'ont pas été bien envoyées. Veuillez recommencer ...');
                 boutonOK.removeClass('champsManquants voeuxIdentiques noDocuments');
                 $('#myModal').modal('show');
@@ -304,13 +307,38 @@
                         return false;
                     }
                     if (!uploadGlobal) {
-                        // Tout est ok, on peut lancer l'upload des pièces
-                        uploadObj.startUpload();
-                        // Affichage du message "Traitement en cours ..."
-                        $("#traitement").fadeIn('normal');
-                        // Bouton de validation du formulaire se grise
-                        $("#customSubmit").attr("disabled", "disabled").removeClass("btn-primary").addClass("btn-warning").html("Traitement en cours ...");
-
+                        // On récupère le nom et le prénom de l'étudiant pour créer le répertoire
+                        var nomEtudiant = $('#nom').val();
+                        var prenomEtudiant = $('#prenom').val();
+                        if (nomEtudiant == "" || prenomEtudiant == "") { // Le nom et le prénom ne sont pas bien récupérés
+                            $('.modal-body').html('Une erreur s\'est produite, veuillez recommencer. <i>There is a problem, please try again.</i>');
+                            $('#myModal').modal('show');
+                            return false;
+                        }else{ // Tout est ok nous pouvons créer le répertoire de l'étudiant
+                            var voeu1 = $('#voeu-1').val();
+                            var voeu2 = $('#voeu-2').length > 0 ? ($('#voeu-2').val() !== '2' ? $('#voeu-2').val() : null) : null;
+                            var voeu3 = $('#voeu-3').length > 0 ? ($('#voeu-2').val() !== '3' ? $('#voeu-2').val() : null) : null;
+                            $.ajax({
+                                url: 'index.php?uc=formulaire&action=creationRepertoire',
+                                type: 'POST',
+                                data: 'nom=' + nomEtudiant + '&prenom=' + prenomEtudiant + '&voeu1=' + voeu1 + '&voeu2=' + voeu2 + '&voeu3=' + voeu3,
+                                success: function (data) {
+                                    console.log(data);
+                                    if(data == 1){
+                                        console.log('répertoire bien créé');
+                                        // Tout est ok, on peut lancer l'upload des pièces
+                                        uploadObj.startUpload();
+                                        // Affichage du message "Traitement en cours ..."
+                                        $("#traitement").fadeIn('normal');
+                                        // Bouton de validation du formulaire se grise
+                                        $("#customSubmit").attr("disabled", "disabled").removeClass("btn-primary").addClass("btn-warning").html("Traitement en cours ...");
+                                    }else{
+                                        $('.modal-body').html('Une erreur s\'est produite, veuillez recommencer. <i>There is a problem, please try again.</i>');
+                                        $('#myModal').modal('show');
+                                    }
+                                }
+                            });
+                        }
                         return false;
                     }
                 }
