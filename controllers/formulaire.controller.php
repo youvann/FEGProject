@@ -286,7 +286,8 @@ switch ($action) {
         $structure = $translatorResultsetToStructure->translate ($informationManager->getResultset ($dossierPdf));
         // Flag indique l'endroit où commence le cadre des informations spécifiques
         $json      = ($isCandidature) ? $translatorFormToJson->translate ($structure, array_slice ($_POST, array_search ('flag', array_keys ($_POST)) + 1)) : "";
-
+		var_dump(array_slice ($_POST, array_search ('flag', array_keys ($_POST)) + 1), $json);
+		exit;
         // Création d'un objet Dossier contenant toutes les informations que l'étudiant vient de rentrer dans le formulaire
         $dossier = new Dossier($idEtudiant, $ine, $genre, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateDeNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $villePreferee, $autresElements, $json);
         // Insertion du dossier dans la base de données

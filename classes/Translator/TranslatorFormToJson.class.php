@@ -48,7 +48,7 @@ class TranslatorFormToJson extends Translator
 				// Récupération de la donnée dans le cas d'un groupe de cases à cocher.
 			case "CheckBoxGroup":
 			{
-				if (array_key_exists("elem-" . $j, $post)) {
+				if (array_key_exists("elem-" . $i, $post)) {
 					// Si au moins une case est cochée, on récupères les informations
 					$json[] = $this->checkBoxGroupPostToJson($structure[$i][0], $post[$keys[$j]], $structure[$i][3]);
 				} else {
