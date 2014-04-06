@@ -97,7 +97,7 @@ switch ($action) {
 		// les codes formation
 		echo '^(';
 		foreach ($formations as $formation) {
-			echo '(?!'.$formation->getCodFormation().')';
+			echo '(?!'.$formation->getCodeFormation().')';
 		}
 		echo '.)*$';
 	}
