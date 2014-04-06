@@ -39,10 +39,10 @@ switch ($action) {
 
 		foreach($titulaires as $titulaire) {
 			$dateLimiteCandidature = explode("/", $_POST['date_limite_'.$titulaire->getId().'_ca']);
-			$dateLimiteCandidature = $dateLimiteCandidature[2] . $dateLimiteCandidature[0] . $dateLimiteCandidature[1];
+			$dateLimiteCandidature = $dateLimiteCandidature[2] . $dateLimiteCandidature[1] . $dateLimiteCandidature[0];
 
 			$dateLimitePreinscription = explode("/", $_POST['date_limite_'.$titulaire->getId().'_pi']);
-			$dateLimitePreinscription = $dateLimitePreinscription[2] . $dateLimitePreinscription[0] . $dateLimitePreinscription[1];
+			$dateLimitePreinscription = $dateLimitePreinscription[2] . $dateLimitePreinscription[1] . $dateLimitePreinscription[0];
 
 			$dateLimiteManager->insert(new DateLimite($_POST['dossier_pdf'], $titulaire->getId(), $dateLimiteCandidature, $dateLimitePreinscription));
 		}

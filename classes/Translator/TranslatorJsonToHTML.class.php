@@ -8,14 +8,14 @@
  * @Author: Lionel Guissani
  */
 class TranslatorJsonToHTML extends Translator {
-	
+
 	/**
-	 * Traduit les informations supplémentaires stockées au 
+	 * Traduit les informations supplémentaires stockées au
 	 * format JSON en base de donnée au format HTML
 	 * @param string $json informations supplémentaires au format Json
 	 * @param array $structure Le tableau php contenant les
 	 * informations supplémentaires demandées par une formation.
-	 * @return string Le résultat HTML des réponses aux 
+	 * @return string Le résultat HTML des réponses aux
 	 * informations supplémentaires
 	 */
 	public function translate($json, $structure) {
@@ -66,7 +66,7 @@ class TranslatorJsonToHTML extends Translator {
 	private function textAreaJsonToHTML($data, $idInfo, $label) {
 		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . "<br><br>";
 	}
-	
+
 	/**
 	 * Récupère la donnée à afficher et la traite pour la rendre
 	 * au format HTML ajusté pour une case à cocher.
@@ -78,7 +78,7 @@ class TranslatorJsonToHTML extends Translator {
 	private function checkBoxJsonToHTML($data, $idInfo, $label) {
 		return "<span class='bold'>" . $label . " : </span>" . $data[$idInfo] . '<br><br>';
 	}
-	
+
 	/**
 	 * Récupère les données à afficher et la traite pour la rendre
 	 * au format HTML ajusté pour un un groupe de cases à cocher.
@@ -96,7 +96,7 @@ class TranslatorJsonToHTML extends Translator {
         }
         return $return;
     }
-	
+
 	/**
 	 * Récupère la donnée à afficher et la traite pour la rendre
 	 * au format HTML ajusté pour un groupe de boutons radio.

@@ -190,7 +190,7 @@ switch ($action) {
 
         $arrayDateLimite = array ();
         foreach ($dateLimite as $date) {
-            $dateTemp          = explode ("-", $date->getDate ());
+            $dateTemp          = $typeBool ? explode ("-", $date->getDateCandidature ()) : explode ("-", $date->getDatePreinscription ());
             $arrayDateLimite[] = $dateTemp[2] . "/" . $dateTemp[1] . "/" . $dateTemp[0];
         }
 
@@ -272,11 +272,16 @@ switch ($action) {
 		$pagePdf->setCadreAdministrationVoeux ($etapes);
 
         // Définit les informations préalables
-        $pagePdf->setInformationsPrealablesDossier($dossierPdf->getInformationsPrealables());
+        if($typeBool){
+            $pagePdf->setInformationsPrealablesDossier($dossierPdf->getInformationsPrealablesCandidature());
+        }else{
+            $pagePdf->setInformationsPrealablesDossier($dossierPdf->getInformationsPrealablesPreinscription());
+        }
+
         // Définit les modalités
 		$pagePdf->setDossierModalites ($dossierPdf->getModalites ());
         // Définit les informations liées à la formation
-		$pagePdf->setDossierInformations ($dossierPdf->getInformations ());
+		$pagePdf->setDossierInformations ($dossierPdf->getInformationsGenerales());
 
         // Indique que l'on veut voir apparaître plusieurs voeux
 		$pagePdf->setVoeuxMultiple (true);

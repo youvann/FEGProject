@@ -35,7 +35,7 @@
                             <input class="form-control " type="text" id="date_limite_{{ titulaire.id }}_ca" name="date_limite_{{ titulaire.id }}_ca"
                                 {% for dateLimite in datesLimites %}
                                     {% if dateLimite.titulaire == titulaire.id %}
-                                        value="{{ dateLimite.dateCandidature|date("m/d/Y") }}"
+                                        value="{{ dateLimite.dateCandidature|date("d/m/Y")}}"
                                     {% endif %}
                                 {% endfor %}
                             /><span class="input-group-addon">
@@ -51,7 +51,7 @@
                             <input class="form-control " type="text" id="date_limite_{{ titulaire.id }}_pi" name="date_limite_{{ titulaire.id }}_pi"
                                     {% for dateLimite in datesLimites %}
                                         {% if dateLimite.titulaire == titulaire.id %}
-                                            value="{{ dateLimite.datePreinscription|date("m/d/Y") }}"
+                                            value="{{ dateLimite.datePreinscription|date("d/m/Y")}}"
                                         {% endif %}
                                     {% endfor %}
                                     /><span class="input-group-addon">
@@ -85,7 +85,8 @@
                 autoclose: true,
                 todayHighlight: true,
                 startView: 2,
-                keyboardNavigation: false
+                keyboardNavigation: false,
+                format: "dd/mm/yyyy"
             });
         });
     </script>

@@ -1,11 +1,17 @@
 {% set mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"] %}
 
 <input type="hidden" id="autre" name="autre" value=""/>
-{% if dossierPdf.informationsPrealables is not empty %}
-    <div class="well">{{ dossierPdf.informationsPrealables | raw }}</div>
+{% if typeDossier == "CA" %}
+    {% if dossierPdf.informationsPrealablesCandidature is not empty %}
+        <div class="well">{{ dossierPdf.informationsPrealablesCandidature | raw }}</div>
+    {% endif %}
+{% else %}
+    {% if dossierPdf.informationsPrealablesPreinscription is not empty %}
+        <div class="well">{{ dossierPdf.informationsPrealablesPreinscription | raw }}</div>
+    {% endif %}
 {% endif %}
 <div class="panel panel-primary">
-    <div class="panel-heading">Candidat <span class="en_cadre"> / Applicant</span>
+    <div class="panel-heading">{% if typeDossier == "CA" %}Candidat <span class="en_cadre"> / Applicant</span>{% else %}Etudiant<span class="en_cadre"> / Student</span>{% endif %}
     </div>
     <div class="panel-body">
         <div class="row">

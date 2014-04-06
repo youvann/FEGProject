@@ -150,8 +150,9 @@ switch ($action) {
             $dateTitulaire3 = "";
         }else{
             $arrayDateLimite = array ();
+
             foreach ($dateLimite as $date) {
-                $dateTemp          = explode ("-", $date->getDate ());
+                $dateTemp          = $_SESSION['isCandidature'] ? explode ("-", $date->getDateCandidature ()) : explode ("-", $date->getDatePreinscription ());
                 $arrayDateLimite[] = $dateTemp[2] . "/" . $dateTemp[1] . "/" . $dateTemp[0];
             }
             $dateTitulaire1 = $arrayDateLimite[0];
@@ -159,26 +160,22 @@ switch ($action) {
             $dateTitulaire3 = $arrayDateLimite[2];
         }
 
-
         $typeDossier = ($_SESSION["isCandidature"]) ? "CA" : "PI";
-        echo $twig->render ('formulaire/mainFormulaire.html.twig',
-            array (
-                'dossierPdf'           => $dossierPdf,
-                'formation'            => $formation,
-                'voeux'                => $voeux,
-                'nbVoeux'              => $nbVoeux,
-                'form'                 => $formHTML,
-                'villesPreferables'    => $villesPreferables,
-                'documentsGeneraux'    => $documentsGeneraux,
-                'documentsSpecifiques' => $documentsSpecifiques,
-                'typeDossier'          => $typeDossier,
-                'titulaire1'           => $titulaire1,
-                'titulaire2'           => $titulaire2,
-                'titulaire3'           => $titulaire3,
-                'dateTitulaire1'       => $dateTitulaire1,
-                'dateTitulaire2'       => $dateTitulaire2,
-                'dateTitulaire3'       => $dateTitulaire3
-            ));
+        echo $twig->render ('formulaire/mainFormulaire.html.twig', array ('dossierPdf'           => $dossierPdf,
+                                                                          'formation'            => $formation,
+                                                                          'voeux'                => $voeux,
+                                                                          'nbVoeux'              => $nbVoeux,
+                                                                          'form'                 => $formHTML,
+                                                                          'villesPreferables'    => $villesPreferables,
+                                                                          'documentsGeneraux'    => $documentsGeneraux,
+                                                                          'documentsSpecifiques' => $documentsSpecifiques,
+                                                                          'typeDossier'          => $typeDossier,
+                                                                          'titulaire1'           => $titulaire1,
+                                                                          'titulaire2'           => $titulaire2,
+                                                                          'titulaire3'           => $titulaire3,
+                                                                          'dateTitulaire1'       => $dateTitulaire1,
+                                                                          'dateTitulaire2'       => $dateTitulaire2,
+                                                                          'dateTitulaire3'       => $dateTitulaire3));
     }
         break;
     case "creationRepertoire" :
@@ -471,7 +468,7 @@ switch ($action) {
         $pagePdf->setHolder ($titulaire[0]->getLibelle (), $titulaire[1]->getLibelle (), $titulaire[2]->getLibelle (), $dossier->getTitulaire ());
         $arrayDateLimite = array();
         foreach($dateLimite as $date){
-            $dateTemp = explode("-", $date->getDate());
+            $dateTemp = ($_SESSION['isCandidature']) ? explode("-", $date->getDateCandidature()) : explode("-", $date->getDatePreinscription());
             $arrayDateLimite[] = $dateTemp[2] . "/" . $dateTemp[1] . "/" . $dateTemp[0];
         }
 
@@ -493,11 +490,16 @@ switch ($action) {
         // Définit les informations spécifiques
         $pagePdf->setInformationsSpecifiques ($informationsSpecifiques);
         // Définit les informations préalables
-        $pagePdf->setInformationsPrealablesDossier ($dossierPdf->getInformationsPrealables ());
+        if($_SESSION['isCandidature']){
+            $pagePdf->setInformationsPrealablesDossier ($dossierPdf->getInformationsPrealablesCandidature());
+        }else{
+            $pagePdf->setInformationsPrealablesDossier ($dossierPdf->getInformationsPrealablesPreinscription());
+        }
+
         // Définit les modalités de la formation
         $pagePdf->setDossierModalites ($dossierPdf->getModalites ());
         // Définit les informations de la formation
-        $pagePdf->setDossierInformations ($dossierPdf->getInformations ());
+        $pagePdf->setDossierInformations ($dossierPdf->getInformationsGenerales());
 
         // Définit les voeux présent dans le cadre de la commission pédagogique
         $pagePdf->setCadreAdministrationVoeux ($voeux);

@@ -542,7 +542,7 @@ class PagePdf {
                 break;
             case 4 :
             {
-                return '<b>' . $this->holder1 . '</b> : ' . $dateLimite1 . '<br/>' . '<b>' . $this->holder2 . '</b> : ' . $dateLimite2 . '<br/>' . '<b>' . $this->holder3 . '</b> : ' . $dateLimite3 . '<br/>';
+                return '<br/><b>' . $this->holder1 . '</b> : ' . $dateLimite1 . '<br/>' . '<b>' . $this->holder2 . '</b> : ' . $dateLimite2 . '<br/>' . '<b>' . $this->holder3 . '</b> : ' . $dateLimite3 . '<br/>';
             }
                 break;
             default:

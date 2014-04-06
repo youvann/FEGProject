@@ -15,7 +15,7 @@
             <form role="form" id="mainFormulaire"
                   action="index.php?uc=formulaire&action=traiterMainFormulaire"
                   method="post" autocomplete="on">
-                {% include 'formulaire/informationsGenerales.html.twig' with {'dossierPdf' : dossierPdf, 'titulaire1': titulaire1, 'titulaire2': titulaire2, 'titulaire3': titulaire3, "dateTitulaire1" : dateTitulaire1, "dateTitulaire2" : dateTitulaire2, "dateTitulaire3" : dateTitulaire3 } %}
+                {% include 'formulaire/informationsGenerales.html.twig' with {'dossierPdf' : dossierPdf, 'titulaire1': titulaire1, 'titulaire2': titulaire2, 'titulaire3': titulaire3, "dateTitulaire1" : dateTitulaire1, "dateTitulaire2" : dateTitulaire2, "dateTitulaire3" : dateTitulaire3, "typeDossier" : typeDossier } %}
 
                 {% if typeDossier == 'CA' %}
                     {% include 'formulaire/languesAutres.html.twig' %}
@@ -38,7 +38,7 @@
                     </div>
                 {% endif %}
 
-                {% if dossierPdf.informations is not empty %}
+                {% if dossierPdf.informationsGenerales is not empty %}
                     <div class="bs-callout bs-callout-info">
                         <h3>Informations</h3>
 
@@ -47,7 +47,7 @@
                             télécharger à la fin de votre demande.
                         </div>
 
-                        <p>{{ dossierPdf.informations | raw }}</p>
+                        <p>{{ dossierPdf.informationsGenerales | raw }}</p>
                     </div>
                 {% endif %}
 
