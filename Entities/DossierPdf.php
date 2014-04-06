@@ -15,13 +15,18 @@ class DossierPdf {
 	 */
 	private $nom;
 	/**
-	 * @var string Informations préalables
+	 * @var string Informations préalables candidature
 	 */
-	private $informationsPrealables;
+	private $informationsPrealablesCandidature;
+
 	/**
-	 * @var string Informations
+	 * @var string Informations préalables préinscription
 	 */
-	private $informations;
+	private $informationsPrealablesPreinscription;
+	/**
+	 * @var string InformationsGenerales
+	 */
+	private $informationsGenerales;
 	/**
 	 * @var string Modalités
 	 */
@@ -35,17 +40,19 @@ class DossierPdf {
 	 * Constructeur
 	 * @param $id string Identifiant
 	 * @param $nom string Nom
-	 * @param $informationsPrealables string Informations préalables
-	 * @param $informations string Informations
+	 * @param $informationsPrealablesCandidature string Informations préalables en Candidature
+	 * @param $informationsPrealablesPreinscription string Informations préalables en Préinscription
+	 * @param $informationsGenerales string Informations Générales
 	 * @param $modalites string Modalités
 	 * @param $codeFormation string Code formation
 	 */
-	function __construct($id, $nom, $informationsPrealables, $informations, $modalites, $codeFormation)
+	function __construct($id, $nom, $informationsPrealablesCandidature, $informationsPrealablesPreinscription, $informationsGenerales, $modalites, $codeFormation)
 	{
 		$this->id = $id;
 		$this->nom = $nom;
-		$this->informationsPrealables = $informationsPrealables;
-		$this->informations = $informations;
+		$this->informationsPrealablesCandidature = $informationsPrealablesCandidature;
+		$this->informationsPrealablesPreinscription = $informationsPrealablesPreinscription;
+		$this->informationsGenerales = $informationsGenerales;
 		$this->modalites = $modalites;
 		$this->codeFormation = $codeFormation;
 	}
@@ -99,35 +106,51 @@ class DossierPdf {
 	}
 
 	/**
-	 * @param string $informationsPrealables
+	 * @param string $informationsPrealablesCandidature
 	 */
-	public function setInformationsPrealables($informationsPrealables)
+	public function setInformationsPrealablesCandidature($informationsPrealablesCandidature)
 	{
-		$this->informationsPrealables = $informationsPrealables;
+		$this->informationsPrealablesCandidature = $informationsPrealablesCandidature;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getInformationsPrealables()
+	public function getInformationsPrealablesCandidature()
 	{
-		return $this->informationsPrealables;
+		return $this->informationsPrealablesCandidature;
 	}
 
 	/**
-	 * @param string $informations
+	 * @param string $informationsPrealablesPreinscription
 	 */
-	public function setInformations($informations)
+	public function setInformationsPrealablesPreinscription($informationsPrealablesPreinscription)
 	{
-		$this->informations = $informations;
+		$this->informationsPrealablesPreinscription = $informationsPrealablesPreinscription;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getInformations()
+	public function getInformationsPrealablesPreinscription()
 	{
-		return $this->informations;
+		return $this->informationsPrealablesPreinscription;
+	}
+
+	/**
+	 * @param string $informationsGenerales
+	 */
+	public function setInformationsGenerales($informationsGenerales)
+	{
+		$this->informationsGenerales = $informationsGenerales;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getInformationsGenerales()
+	{
+		return $this->informationsGenerales;
 	}
 
 	/**

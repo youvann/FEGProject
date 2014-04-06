@@ -17,37 +17,59 @@ class DateLimite
 	 */
 	private $titulaire;
 	/**
-	 * @var string Date limite du dossier pdf en fonction de la titularisation
+	 * @var string Date limite du dossier pdf en fonction de la titularisation en candidature
 	 */
-	private $date;
+	private $dateCandidature;
+	/**
+	 * @var string Date limite du dossier pdf en fonction de la titularisation en préinscription
+	 */
+	private $datePreinscription;
 
 	/**
 	 * Constructeur
 	 * @param $dossierPdf string Identitiant du dossier pdf
 	 * @param $titulaire string Identitiant de la titularisation
-	 * @param $date string Date limite du dossier pdf en fonction de la titularisation
+	 * @param $dateCandidature string Date limite du dossier pdf en fonction de la titularisation en candidature
+	 * @param $datePreinscription string Date limite du dossier pdf en fonction de la titularisation en préinscription
 	 */
-	function __construct($dossierPdf, $titulaire, $date)
+	function __construct($dossierPdf, $titulaire, $dateCandidature, $datePreinscription)
 	{
 		$this->dossierPdf = $dossierPdf;
 		$this->titulaire = $titulaire;
-		$this->date = $date;
+		$this->dateCandidature = $dateCandidature;
+		$this->datePreinscription = $datePreinscription;
 	}
 
 	/**
-	 * @param string $date Date limite du dossier pdf en fonction de la titularisation
+	 * @param string $dateCandidature Date limite du dossier pdf en fonction de la titularisation en candidature
 	 */
-	public function setDate($date)
+	public function setDateCandidature($dateCandidature)
 	{
-		$this->date = $date;
+		$this->dateCandidature = $dateCandidature;
+	}
+
+	/**
+	 * @return string Date limite du dossier pdf en fonction de la titularisation en candidature
+	 */
+	public function getDateCandidature()
+	{
+		return $this->dateCandidature;
+	}
+
+	/**
+	 * @param string $datePreinscription Date limite du dossier pdf en fonction de la titularisation
+	 */
+	public function setDatePreinscription($datePreinscription)
+	{
+		$this->datePreinscription = $datePreinscription;
 	}
 
 	/**
 	 * @return string Date limite du dossier pdf en fonction de la titularisation
 	 */
-	public function getDate()
+	public function getDatePreinscription()
 	{
-		return $this->date;
+		return $this->datePreinscription;
 	}
 
 	/**

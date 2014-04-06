@@ -46,7 +46,7 @@ class DateLimiteManager
 		$rs = $q->fetchAll();
 
 		foreach ($rs as $dateLimite) {
-			$lesDatesLimites[] = new DateLimite($dateLimite['DOSSIER_PDF'], $dateLimite['TITULAIRE'], $dateLimite['DATE']);
+			$lesDatesLimites[] = new DateLimite($dateLimite['DOSSIER_PDF'], $dateLimite['TITULAIRE'], $dateLimite['DATE_CANDIDATURE'], $dateLimite['DATE_PREINSCRIPTION']);
 		}
 		return $lesDatesLimites;
 	}
@@ -60,11 +60,12 @@ class DateLimiteManager
 	 */
 	public function insert(DateLimite $dateLimite)
 	{
-		return $this->db->prepare("INSERT INTO `date_limite` (`DOSSIER_PDF`, `TITULAIRE`, `DATE`) VALUES (?, ?, ?);")
+		return $this->db->prepare("INSERT INTO `date_limite` (`DOSSIER_PDF`, `TITULAIRE`, `DATE_CANDIDATURE`, `DATE_PREINSCRIPTION`) VALUES (?, ?, ?, ?);")
 			->execute(array(
 				$dateLimite->getDossierPdf(),
 				$dateLimite->getTitulaire(),
-				$dateLimite->getDate()
+				$dateLimite->getDateCandidature(),
+				$dateLimite->getDatePreinscription(),
 			));
 	}
 

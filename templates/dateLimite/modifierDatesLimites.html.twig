@@ -17,19 +17,48 @@
     <form method="post" action="index.php?uc=dateLimite&action=modification">
         <input type="hidden" id="dossier_pdf" name="dossier_pdf" value="{{ dossierPdf.id }}" />
 
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="titre_rubrique">Candidature</h3>
+            </div>
+            <div class="col-md-6">
+                <h3 class="titre_rubrique">Préinscription</h3>
+            </div>
+        </div>
+
         {% for titulaire in titulaires %}
-            <div class="form-group">
-                <label>{{ titulaire.libelle }}</label>
-                <div class="input-group date">
-                    <input class="form-control " type="text" id="date_limite_{{ titulaire.id }}" name="date_limite_{{ titulaire.id }}"
-                        {% for dateLimite in datesLimites %}
-                            {% if dateLimite.titulaire == titulaire.id %}
-                                value="{{ dateLimite.date|date("m/d/Y") }}"
-                            {% endif %}
-                        {% endfor %}
-                    /><span class="input-group-addon">
-                        <i class="glyphicon glyphicon-th"></i>
-                    </span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ titulaire.libelle }}</label>
+                        <div class="input-group date">
+                            <input class="form-control " type="text" id="date_limite_{{ titulaire.id }}_ca" name="date_limite_{{ titulaire.id }}_ca"
+                                {% for dateLimite in datesLimites %}
+                                    {% if dateLimite.titulaire == titulaire.id %}
+                                        value="{{ dateLimite.dateCandidature|date("m/d/Y") }}"
+                                    {% endif %}
+                                {% endfor %}
+                            /><span class="input-group-addon">
+                                <i class="glyphicon glyphicon-th"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>{{ titulaire.libelle }}</label>
+                        <div class="input-group date">
+                            <input class="form-control " type="text" id="date_limite_{{ titulaire.id }}_pi" name="date_limite_{{ titulaire.id }}_pi"
+                                    {% for dateLimite in datesLimites %}
+                                        {% if dateLimite.titulaire == titulaire.id %}
+                                            value="{{ dateLimite.datePreinscription|date("m/d/Y") }}"
+                                        {% endif %}
+                                    {% endfor %}
+                                    /><span class="input-group-addon">
+                                <i class="glyphicon glyphicon-th"></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endfor %}

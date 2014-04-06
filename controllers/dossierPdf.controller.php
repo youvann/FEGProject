@@ -40,10 +40,14 @@ switch ($action) {
 		$json['id'] = $dossierPdf->getId();
 		// On renseigne le nom dans le JSON
 		$json['nom'] = $dossierPdf->getNom();
-		// On renseigne les informations préalables dans le JSON
-		$json['informationsPrealables'] = $dossierPdf->getInformationsPrealables() === NULL ? '' : $dossierPdf->getInformationsPrealables();
+
+		// On renseigne les informations préalables de candidature dans le JSON
+		$json['informationsPrealablesCandidature'] = $dossierPdf->getInformationsPrealablesCandidature() === NULL ? '' : $dossierPdf->getInformationsPrealablesCandidature();
+		// On renseigne les informations préalables de préinscription dans le JSON
+		$json['informationsPrealablesPreinscription'] = $dossierPdf->getInformationsPrealablesPreinscription() === NULL ? '' : $dossierPdf->getInformationsPrealablesPreinscription();
 		// On renseigne les informations dans le JSON
-		$json['informations'] = $dossierPdf->getInformations() === NULL ? '' : $dossierPdf->getInformations();
+		$json['informationsGenerales'] = $dossierPdf->getInformationsGenerales() === NULL ? '' : $dossierPdf->getInformationsGenerales();
+
 		// On renseigne les modalités dans le JSON
 		$json['modalites'] = $dossierPdf->getModalites() === NULL ? '' : $dossierPdf->getModalites();
 		// On renseigne le code formation dans le JSON
@@ -56,7 +60,7 @@ switch ($action) {
 	case 'ajout' :
 	{
 		// On insère un dossier pdf en base de données à travers le manager
-		$dossierPdfManager->insert(new DossierPdf(0, $_POST['nom'], $_POST['informations_prealables'], $_POST['informations'], $_POST['modalites'], $_POST['code_formation']));
+		$dossierPdfManager->insert(new DossierPdf(0, $_POST['nom'], $_POST['informations_prealables_candidature'], $_POST['informations_prealables_preinscription'], $_POST['informations_generales'], $_POST['modalites'], $_POST['code_formation']));
 		header('location:index.php?uc=dossierPdf&action=grille&code=' . $_POST['code_formation']);
 	}
 		break;
@@ -64,7 +68,7 @@ switch ($action) {
 	case 'modification' :
 	{
 		// On met à jour un dossier pdf en base de données à travers le manager
-		$dossierPdfManager->update(new DossierPdf($_POST['id'], $_POST['nom'], $_POST['informations_prealables'], $_POST['informations'], $_POST['modalites'], $_POST['code_formation']));
+		$dossierPdfManager->update(new DossierPdf($_POST['id'], $_POST['nom'], $_POST['informations_prealables_candidature'], $_POST['informations_prealables_preinscription'], $_POST['informations_generales'], $_POST['modalites'], $_POST['code_formation']));
 		header('location:index.php?uc=dossierPdf&action=grille&code=' . $_POST['code_formation']);
 	}
 		break;

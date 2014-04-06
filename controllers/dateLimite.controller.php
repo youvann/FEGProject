@@ -38,9 +38,13 @@ switch ($action) {
 		}
 
 		foreach($titulaires as $titulaire) {
-			$dateLimite = explode("/", $_POST['date_limite_'.$titulaire->getId()]);
-			$dateLimite = $dateLimite[2] . $dateLimite[0] . $dateLimite[1];
-			$dateLimiteManager->insert(new DateLimite($_POST['dossier_pdf'], $titulaire->getId(), $dateLimite));
+			$dateLimiteCandidature = explode("/", $_POST['date_limite_'.$titulaire->getId().'_ca']);
+			$dateLimiteCandidature = $dateLimiteCandidature[2] . $dateLimiteCandidature[0] . $dateLimiteCandidature[1];
+
+			$dateLimitePreinscription = explode("/", $_POST['date_limite_'.$titulaire->getId().'_pi']);
+			$dateLimitePreinscription = $dateLimitePreinscription[2] . $dateLimitePreinscription[0] . $dateLimitePreinscription[1];
+
+			$dateLimiteManager->insert(new DateLimite($_POST['dossier_pdf'], $titulaire->getId(), $dateLimiteCandidature, $dateLimitePreinscription));
 		}
 		header("location:index.php?uc=dateLimite&action=modifier&dossierPdf=".$_POST['dossier_pdf']);
 	}
