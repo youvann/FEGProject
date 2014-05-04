@@ -1,6 +1,7 @@
 <?php
 /**
  * Fonctions utilisées pour le projet
+ *
  * @Project: FEG Project
  * @File   : /lib/functions.php
  * @Purpose: Regroupe plusieurs fonctions utiles pour le projet
@@ -15,7 +16,8 @@
  *
  * @return bool Indique si l'opération s'est bien passée ou pas
  */
-function Zip ($source, $destination) {
+function Zip($source, $destination)
+{
     if (!extension_loaded ('zip') || !file_exists ($source)) {
         return false;
     }
@@ -31,22 +33,32 @@ function Zip ($source, $destination) {
             $file = str_replace ('\\', '/', $file);
 
             // Ignore "." and ".." folders
-            if (in_array (substr ($file, strrpos ($file, '/') + 1), array ('.', '..')))
+            if (in_array (substr ($file, strrpos ($file, '/') + 1), array ('.',
+                                                                           '..'))
+            ) {
                 continue;
+            }
 
             $file = realpath ($file);
 
             if (is_dir ($file) === true) {
                 $zip->addEmptyDir (str_replace ($source . '/', '', $file . '/'));
-            } else if (is_file ($file) === true) {
-                $zip->addFromString (str_replace ($source . '/', '', $file), file_get_contents ($file));
+            }
+            else {
+                if (is_file ($file) === true) {
+                    $zip->addFromString (str_replace ($source . '/', '', $file), file_get_contents ($file));
+                }
             }
         }
-    } else if (is_file ($source) === true) {
-        $zip->addFromString (basename ($source), file_get_contents ($source));
+    }
+    else {
+        if (is_file ($source) === true) {
+            $zip->addFromString (basename ($source), file_get_contents ($source));
+        }
     }
 
     $zip->close ();
+
     return $destination;
 }
 
@@ -55,10 +67,12 @@ function Zip ($source, $destination) {
  *
  * @param string $dir Nom du répertoire
  */
-function myMkdirBase ($dir) {
+function myMkdirBase($dir)
+{
     if (!file_exists ($dir)) {
         mkdir ($dir, 0777);
     }
+
     return 1;
 }
 
@@ -68,7 +82,8 @@ function myMkdirBase ($dir) {
  *
  * @param string $dir Nom du répertoire
  */
-function myMkdirDossier ($dir) {
+function myMkdirDossier($dir)
+{
     if (!file_exists ("dossiers/" . $dir)) {
         mkdir ("dossiers/" . $dir, 0777);
         mkdir ("dossiers/" . $dir . "/Candidatures", 0777);
@@ -82,14 +97,16 @@ function myMkdirDossier ($dir) {
  * @param string $src Indique le chemin source du répertoire à copier
  * @param string $dst Indique l'endroit où le répertoire est copié
  */
-function copyDir ($src, $dst) {
+function copyDir($src, $dst)
+{
     $dir = opendir ($src);
     @mkdir ($dst);
     while (false !== ($file = readdir ($dir))) {
         if (($file != '.') && ($file != '..')) {
             if (is_dir ($src . '/' . $file)) {
                 copyDir ($src . '/' . $file, $dst . '/' . $file);
-            } else {
+            }
+            else {
                 copy ($src . '/' . $file, $dst . '/' . $file);
             }
         }
@@ -104,16 +121,22 @@ function copyDir ($src, $dst) {
  *
  * @return bool
  */
-function removeDir ($path) {
+function removeDir($path)
+{
     if (is_dir ($path) === true) {
         $files = array_diff (scandir ($path), array ('.', '..'));
         foreach ($files as $file) {
             removeDir (realpath ($path) . '/' . $file);
         }
+
         return rmdir ($path);
-    } else if (is_file ($path) === true) {
-        return unlink ($path);
     }
+    else {
+        if (is_file ($path) === true) {
+            return unlink ($path);
+        }
+    }
+
     return false;
 }
 
@@ -124,16 +147,22 @@ function removeDir ($path) {
  *
  * @return bool
  */
-function removeDirContent ($path) {
+function removeDirContent($path)
+{
     if (is_dir ($path) === true) {
         $files = array_diff (scandir ($path), array ('.', '..'));
         foreach ($files as $file) {
             removeDir (realpath ($path) . '/' . $file);
         }
+
         return true;
-    } else if (is_file ($path) === true) {
-        return unlink ($path);
     }
+    else {
+        if (is_file ($path) === true) {
+            return unlink ($path);
+        }
+    }
+
     return false;
 }
 
@@ -143,7 +172,8 @@ function removeDirContent ($path) {
  *
  * @param string $path
  */
-function listAndRemoveDir ($path) {
+function listAndRemoveDir($path)
+{
     $pathsDelete = array ();
     $othersPath  = array ();
     $path        = realpath ($path);
@@ -182,11 +212,13 @@ function listAndRemoveDir ($path) {
  *
  * @return bool
  */
-function IsEmptySubFolders ($path) {
+function IsEmptySubFolders($path)
+{
     $empty = true;
     foreach (glob ($path . DIRECTORY_SEPARATOR . "*") as $file) {
         $empty &= is_dir ($file) && IsEmptySubFolders ($file);
     }
+
     return $empty;
 }
 
@@ -197,15 +229,18 @@ function IsEmptySubFolders ($path) {
  *
  * @return bool|null
  */
-function is_dir_empty ($dir) {
-    if (!is_readable ($dir))
+function is_dir_empty($dir)
+{
+    if (!is_readable ($dir)) {
         return null;
+    }
     $handle = opendir ($dir);
     while (false !== ($entry = readdir ($handle))) {
         if ($entry != "." && $entry != ".." && $entry != ".DS_Store") {
             return false;
         }
     }
+
     return true;
 }
 
@@ -216,11 +251,13 @@ function is_dir_empty ($dir) {
  *
  * @return string
  */
-function getFileName ($path) {
+function getFileName($path)
+{
     $dir = opendir ($path);
     while ($file = readdir ($dir)) {
         if ($file != '.' && $file != '..' && $file != '.DS_Store' && !is_dir ($path . $file)) {
             closedir ($dir);
+
             return $file;
         }
     }
@@ -231,7 +268,8 @@ function getFileName ($path) {
  *
  * @param $output_dir
  */
-function upload ($output_dir) {
+function upload($output_dir)
+{
     if (isset($_FILES["myfile"])) {
         $ret = array ();
 
@@ -241,7 +279,8 @@ function upload ($output_dir) {
             $fileName = $_FILES["myfile"]["name"];
             move_uploaded_file ($_FILES["myfile"]["tmp_name"], $output_dir . $fileName);
             $ret[] = $fileName;
-        } else { //Multiple files, file[]
+        }
+        else { //Multiple files, file[]
             $fileCount = count ($_FILES["myfile"]["name"]);
             for ($i = 0; $i < $fileCount; $i++) {
                 $fileName = $_FILES["myfile"]["name"][$i];
@@ -249,6 +288,7 @@ function upload ($output_dir) {
                 $ret[] = $fileName;
             }
         }
+        trace("Upload simple réussi");
         echo json_encode ($ret);
     }
 }
@@ -260,7 +300,8 @@ function upload ($output_dir) {
  * @param string $path2
  * @param string $wishes Endroits où les pièces vont être envoyées
  */
-function uploadMultiLocations ($path1, $path2, $wishes) {
+function uploadMultiLocations($path1, $path2, $wishes)
+{
     if (isset($_FILES["myfile"])) {
         $ret = array ();
 
@@ -275,7 +316,8 @@ function uploadMultiLocations ($path1, $path2, $wishes) {
             }
             //move_uploaded_file ($_FILES["myfile"]["tmp_name"], $output_dir . $fileName);
             $ret[] = $fileName;
-        } else { //Multiple files, file[]
+        }
+        else { //Multiple files, file[]
             $fileCount = count ($_FILES["myfile"]["name"]);
             for ($i = 0; $i < $fileCount; $i++) {
                 $fileName = $_FILES["myfile"]["name"][$i];
@@ -286,6 +328,7 @@ function uploadMultiLocations ($path1, $path2, $wishes) {
                 $ret[] = $fileName;
             }
         }
+        trace("Upload multi location réussi");
         echo json_encode ($ret);
     }
 }
@@ -297,11 +340,13 @@ function uploadMultiLocations ($path1, $path2, $wishes) {
  *
  * @return string
  */
-function formatString ($string) {
+function formatString($string)
+{
     $mot = ltrim ($string);
     $mot = rtrim ($mot);
     $mot = strtolower ($mot);
     $mot = ucfirst ($mot);
+
     return $mot;
 }
 
@@ -312,8 +357,19 @@ function formatString ($string) {
  *
  * @return mixed|string
  */
-function stripAccents ($str) {
-    $trans = array ('À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E', 'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ù' => 'U', 'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'ç' => 'c', 'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o', 'ö' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ü' => 'u', 'ý' => 'y', 'ÿ' => 'y');
+function stripAccents($str)
+{
+    $trans = array ('À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A',
+                    'Å' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E', 'Ê' => 'E',
+                    'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I',
+                    'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O',
+                    'Ù' => 'U', 'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y',
+                    'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a',
+                    'å' => 'a', 'ç' => 'c', 'è' => 'e', 'é' => 'e', 'ê' => 'e',
+                    'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i',
+                    'ð' => 'o', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
+                    'ö' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ü' => 'u',
+                    'ý' => 'y', 'ÿ' => 'y');
 
     //On remplace les lettres accentutées par les non accentuées dans $str et on récupère le résultat dans str
     //$str = strtr($str, 'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
@@ -323,4 +379,21 @@ function stripAccents ($str) {
     $str = preg_replace ('/([^.a-z0-9]+)/i', '-', $str);
 
     return $str;
+}
+
+function trace($msg = "none", $dirname = "none", $codeFormation = "none", $typeDossier = "none")
+{
+    $date     = date ("d-m-Y H:i:s");
+    $filename = "logs/feg.log";
+    $ipAdress = $_SERVER["REMOTE_ADDR"];
+
+    if ($file = fopen ($filename, 'a+')) {
+        fputs ($file, "******************************************************************************************\n");
+        fputs ($file, $date . ' Nom du répertoire : ' . $dirname . "\n");
+        fputs ($file, $date . ' Adresse IP : ' . $ipAdress . "\n");
+        fputs ($file, $date . ' Code formation : ' . $codeFormation . "\n");
+        fputs ($file, $date . ' Type dossier : ' . $typeDossier . "\n");
+        fputs ($file, $date . ' Message : ' . $msg . "\n");
+        fclose ($file);
+    }
 }

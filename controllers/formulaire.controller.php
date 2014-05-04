@@ -201,6 +201,10 @@ switch ($action) {
         $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
         // Création du répertoire de l'étudiant
         $bool = myMkdirBase ($dirPath . "/" . $dirNameId . "/");
+
+        trace("--------------- BEGIN --------------- : " . $dirPath . "/" . $dirNameId, $dirNameId, $_SESSION['codeFormation'], $typeDossier);
+        trace("Création du répertoire étudiant : " . $dirPath . "/" . $dirNameId, $dirNameId, $_SESSION['codeFormation'], $typeDossier);
+
         $reponse = ($bool) ? 1 : 0;
         echo json_encode ($reponse);
     }
@@ -228,6 +232,7 @@ switch ($action) {
         $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
         // Création du répertoire de l'étudiant
         //myMkdirBase ($dirPath . "/" . $dirNameId . "/");
+
         // Ajout des pièces à jointes dans le répertoire de l'étudiant
         upload ($dirPath . "/" . $dirNameId . "/");
     }
@@ -528,6 +533,8 @@ switch ($action) {
             // Création du dossier PDF dans le premier voeu que l'étudiant a choisi
             $html2pdf->Output ($dirPath . "/" . $dirName . '/' . $typeDossier . '-' . $dirName . '.pdf', 'F');
 
+            trace("Création du dossier PDF OK", $dirName, $_SESSION['codeFormation'], $typeDossier);
+
             // Copie du répertoire correspondant au voeu n°1 dans les deux autres répertoires
             foreach ($faires as $faire) {
                 if ($faire->getOrdre () != 1) {
@@ -537,10 +544,18 @@ switch ($action) {
                     copyDir ($source, $destination);
                 }
             }
+
+            trace("Upload des documents dans tous les codes étapes OK", $dirName, $_SESSION['codeFormation'], $typeDossier);
+
             header ('location:index.php?uc=formulaire&action=recapitulatif');
 
         } catch (HTML2PDF_exception $e) {
-            echo $e;
+            $dirName     = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
+            $typeDossier = ($_SESSION['isCandidature']) ? "Candidature" : "Pre-inscription";
+
+            trace ("ERREUR création dossier PDF", $dirName, $_SESSION['codeFormation'], $typeDossier);
+
+            echo $e . "<br/>Impossible de créer votre dossier. Veuillez recommencer, si le problème persiste veuillez contacter l'administrateur du site à l'adresse suivante : candiweb-admin[at]miage-aix-marseille[dot]fr";
             exit;
         }
     }
@@ -557,6 +572,9 @@ switch ($action) {
         // Détermine le chemin complet du PDF
         $pathPdf    = $dirPath . "/" . $dirName . "/" . $typeDossier . "-" . $dirName;
         $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
+
+        trace("L'étudiant est bien arrivé sur la page récapitulative.", $dirName, $_SESSION['codeFormation'], $typeDossier);
+
         echo $twig->render ('formulaire/recapitulatif.html.twig', array ('dossierPdf'    => $dossierPdf->getNom (),
                                                                          'pathPdf'       => $pathPdf,
                                                                          'typeDossier'   => $typeDossier,
@@ -643,8 +661,12 @@ switch ($action) {
         $path1 = "dossiers/" . $codeFormation;
         // type du dossier + nom du répertoire de l'étudiant
         $path2 = $typeDossier . "s" . "/" . $dirNameId;
+
+        trace("Upload des pièces manquantes", $dirNameId, $codeFormation, $typeDossier);
+
         // Upload des pièces jointes dans tous les répertoires voeux correspondants (upload multi destinations).
         uploadMultiLocations ($path1, $path2, $voeux);
+
     }
         break;
     default:
