@@ -50,6 +50,9 @@ switch ($action) {
         //$_SESSION['idEtudiant'] = (int)(substr ($microtime[1], 4) . substr ($microtime[0], 2, 4));
         // Prend les 10 dernies chiffres de microtime()
         $_SESSION['idEtudiant'] = substr (microtime (), -10);
+
+        trace2("traiterChoixMainFormulaire POST['choisie'] : " . $_POST['choisie'] . "\n Code formation : " . $codeFormation . "\n idEtudiant : " . $_SESSION['idEtudiant']);
+
 		header ('location:index.php?uc=formulaire&action=main');
     }
         break;
@@ -274,6 +277,8 @@ switch ($action) {
         $paysBac          = strip_tags($_POST["pays_bac"]);
         $activite         = ($isCandidature) ? strip_tags($_POST["activite"]) : "";
         $titulaire        = strip_tags($_POST["titulaire"]);
+
+        trace2("traiterMainFormulaire\nEmail : " . $mail . "\n Nom : " . $nom . "\nPrenom : " . $prenom);
 
         // Si la ville préférée existe ...
         if ($_POST["ville_preferee"] !== '0') {
