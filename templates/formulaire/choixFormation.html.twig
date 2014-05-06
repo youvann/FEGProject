@@ -74,9 +74,9 @@
 
             $('input[type=radio]').on('change', function () {
                 if ($(this).val() == 'oui') {
-                    $('#divSubmit').fadeIn(1000);
+                    $('#divSubmit').fadeIn(250);
                 } else {
-                    $('#divSubmit').fadeOut(1000);
+                    $('#divSubmit').fadeOut(250);
                 }
             });
 
@@ -106,16 +106,16 @@
                         loadDocuments(1);
                     }
                     else if ($(this).val() === '') {
-                        $('#divDocuments').fadeOut(1000, function () {
-                            $('#divRadioButtons').fadeOut(1000, function () {
-                                $('#divSubmit').fadeOut(1000);
+                        $('#divDocuments').fadeOut(250, function () {
+                            $('#divRadioButtons').fadeOut(250, function () {
+                                $('#divSubmit').fadeOut(250);
                             });
                         });
                     }
                     else if ($(this).val() === '0') {
                         loadDocuments(0);
                         $('input[name="allDocuments"][value="non"]').prop('checked', true);
-                        $('#divSubmit').fadeOut(1000);
+                        $('#divSubmit').fadeOut(250);
                     }
                 });
                 select.append($('<option></option>').attr('value', '').html('&mdash; Sélectionnez &mdash;'));
@@ -125,11 +125,11 @@
                 select.append($('<option></option>').attr('value', '0').html('Autre'));
                 $('#divDerniere').append(label);
                 $('#divDerniere').append(select);
-                $('#divDerniere').fadeIn(1000);
+                $('#divDerniere').fadeIn(2500);
             };
 
             var displayDerniereHidden = function () {
-                $('#divDerniere').fadeOut(1000, function () {
+                $('#divDerniere').fadeOut(250, function () {
                     $('#divDerniere').empty();
                     var hidden = $('<input/>').attr('type', 'hidden').attr('id', 'derniere').attr('name', 'derniere').attr('value', '0');
                     $('#divDerniere').append(hidden);
@@ -197,7 +197,7 @@
                     $('#divDocuments').append('<br/><h4>Documents spécifiques à la formation choisie</h4>')
                             .append(listeDocumentsSpecifiques);
                 }
-                $('#divDocuments').fadeIn(1000);
+                $('#divDocuments').fadeIn(250);
             };
 
             var loadDomains = function () {
@@ -227,7 +227,7 @@
                     }
                 });
                 $('input[name="allDocuments"][value="non"]').prop('checked', true);
-                $('#divRadioButtons').fadeIn(1000);
+                $('#divRadioButtons').fadeIn(250);
             };
 
             {% if get.dossierPdf is defined %}
