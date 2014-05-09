@@ -51,7 +51,7 @@ switch ($action) {
         // Prend les 10 dernies chiffres de microtime()
         $_SESSION['idEtudiant'] = substr (microtime (), -10);
 
-        trace2("traiterChoixMainFormulaire POST['choisie'] : " . $_POST['choisie'] . "\n Code formation : " . $codeFormation . "\n idEtudiant : " . $_SESSION['idEtudiant']);
+        trace2("traiterChoixMainFormulaire POST['choisie'] : " . $_POST['choisie'] . " POST['derniere'] : " . $_POST['derniere'] . "\n Code formation : " . $codeFormation . "\n idEtudiant : " . $_SESSION['idEtudiant']);
 
 		header ('location:index.php?uc=formulaire&action=main');
     }

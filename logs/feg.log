@@ -205,3 +205,208 @@ Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like G
 06-05-2014 22:24:26 Browser : Google Chrome 34.0.1847.131 on mac reports: 
 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
 06-05-2014 22:24:26 Message : L'étudiant est bien arrivé sur la page récapitulative.
+#########################################################################
+09-05-2014 18:35:27 Adresse IP : ::1
+09-05-2014 18:35:27 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:27 Message : traiterChoixMainFormulaire POST['choisie'] : 4
+ Code formation : 3SIN
+ idEtudiant : 1399653327
+******************************************************************************************
+09-05-2014 18:35:58 Nom du répertoire : Fdg-Dfdfa-1399653327
+09-05-2014 18:35:58 Adresse IP : ::1
+09-05-2014 18:35:58 Code formation : 3SIN
+09-05-2014 18:35:58 Type dossier : Candidatures
+09-05-2014 18:35:58 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:58 Message : --------------- BEGIN --------------- : dossiers/3SIN/SIN303/Candidatures/Fdg-Dfdfa-1399653327
+******************************************************************************************
+09-05-2014 18:35:58 Nom du répertoire : Fdg-Dfdfa-1399653327
+09-05-2014 18:35:58 Adresse IP : ::1
+09-05-2014 18:35:58 Code formation : 3SIN
+09-05-2014 18:35:58 Type dossier : Candidatures
+09-05-2014 18:35:58 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:58 Message : Création du répertoire étudiant : dossiers/3SIN/SIN303/Candidatures/Fdg-Dfdfa-1399653327
+******************************************************************************************
+09-05-2014 18:35:58 Nom du répertoire : none
+09-05-2014 18:35:58 Adresse IP : ::1
+09-05-2014 18:35:58 Code formation : none
+09-05-2014 18:35:58 Type dossier : none
+09-05-2014 18:35:58 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:58 Message : Upload simple réussi
+******************************************************************************************
+09-05-2014 18:35:59 Nom du répertoire : none
+09-05-2014 18:35:59 Adresse IP : ::1
+09-05-2014 18:35:59 Code formation : none
+09-05-2014 18:35:59 Type dossier : none
+09-05-2014 18:35:59 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:59 Message : Upload simple réussi
+******************************************************************************************
+09-05-2014 18:35:59 Nom du répertoire : none
+09-05-2014 18:35:59 Adresse IP : ::1
+09-05-2014 18:35:59 Code formation : none
+09-05-2014 18:35:59 Type dossier : none
+09-05-2014 18:35:59 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:59 Message : Upload simple réussi
+******************************************************************************************
+09-05-2014 18:35:59 Nom du répertoire : none
+09-05-2014 18:35:59 Adresse IP : ::1
+09-05-2014 18:35:59 Code formation : none
+09-05-2014 18:35:59 Type dossier : none
+09-05-2014 18:35:59 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:59 Message : Upload simple réussi
+******************************************************************************************
+09-05-2014 18:35:59 Nom du répertoire : none
+09-05-2014 18:35:59 Adresse IP : ::1
+09-05-2014 18:35:59 Code formation : none
+09-05-2014 18:35:59 Type dossier : none
+09-05-2014 18:35:59 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:59 Message : Upload simple réussi
+******************************************************************************************
+09-05-2014 18:35:59 Nom du répertoire : none
+09-05-2014 18:35:59 Adresse IP : ::1
+09-05-2014 18:35:59 Code formation : none
+09-05-2014 18:35:59 Type dossier : none
+09-05-2014 18:35:59 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:59 Message : Upload simple réussi
+******************************************************************************************
+09-05-2014 18:35:59 Nom du répertoire : none
+09-05-2014 18:35:59 Adresse IP : ::1
+09-05-2014 18:35:59 Code formation : none
+09-05-2014 18:35:59 Type dossier : none
+09-05-2014 18:35:59 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:59 Message : Upload simple réussi
+******************************************************************************************
+09-05-2014 18:35:59 Nom du répertoire : none
+09-05-2014 18:35:59 Adresse IP : ::1
+09-05-2014 18:35:59 Code formation : none
+09-05-2014 18:35:59 Type dossier : none
+09-05-2014 18:35:59 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:59 Message : Upload simple réussi
+******************************************************************************************
+09-05-2014 18:35:59 Nom du répertoire : none
+09-05-2014 18:35:59 Adresse IP : ::1
+09-05-2014 18:35:59 Code formation : none
+09-05-2014 18:35:59 Type dossier : none
+09-05-2014 18:35:59 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:59 Message : Upload simple réussi
+******************************************************************************************
+09-05-2014 18:35:59 Nom du répertoire : none
+09-05-2014 18:35:59 Adresse IP : ::1
+09-05-2014 18:35:59 Code formation : none
+09-05-2014 18:35:59 Type dossier : none
+09-05-2014 18:35:59 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:59 Message : Upload simple réussi
+#########################################################################
+09-05-2014 18:35:59 Adresse IP : ::1
+09-05-2014 18:35:59 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:35:59 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Fdg
+Prenom : Dfdfa
+******************************************************************************************
+09-05-2014 18:36:07 Nom du répertoire : Fdg-Dfdfa-1399653327
+09-05-2014 18:36:07 Adresse IP : ::1
+09-05-2014 18:36:07 Code formation : 3SIN
+09-05-2014 18:36:07 Type dossier : Candidature
+09-05-2014 18:36:07 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:36:07 Message : Création du dossier PDF OK
+******************************************************************************************
+09-05-2014 18:36:07 Nom du répertoire : Fdg-Dfdfa-1399653327
+09-05-2014 18:36:07 Adresse IP : ::1
+09-05-2014 18:36:07 Code formation : 3SIN
+09-05-2014 18:36:07 Type dossier : Candidature
+09-05-2014 18:36:07 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:36:07 Message : Upload des documents dans tous les codes étapes OK
+******************************************************************************************
+09-05-2014 18:36:07 Nom du répertoire : Fdg-Dfdfa-1399653327
+09-05-2014 18:36:07 Adresse IP : ::1
+09-05-2014 18:36:07 Code formation : 3SIN
+09-05-2014 18:36:07 Type dossier : Candidature
+09-05-2014 18:36:07 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:36:07 Message : L'étudiant est bien arrivé sur la page récapitulative.
+#########################################################################
+09-05-2014 18:37:10 Adresse IP : ::1
+09-05-2014 18:37:10 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 18:37:10 Message : traiterChoixMainFormulaire POST['choisie'] : 2
+ Code formation : 5BIG
+ idEtudiant : 1399653430
+#########################################################################
+09-05-2014 19:03:01 Adresse IP : ::1
+09-05-2014 19:03:01 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 19:03:01 Message : traiterChoixMainFormulaire POST['choisie'] : 2 POST['derniere'] : SIN303
+ Code formation : 5BIG
+ idEtudiant : 1399654981
+******************************************************************************************
+09-05-2014 19:03:27 Nom du répertoire : Fds-Sfsf-1399654981
+09-05-2014 19:03:27 Adresse IP : ::1
+09-05-2014 19:03:27 Code formation : 5BIG
+09-05-2014 19:03:27 Type dossier : Pre-inscriptions
+09-05-2014 19:03:27 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 19:03:27 Message : --------------- BEGIN --------------- : dossiers/5BIG/BIG400/Pre-inscriptions/Fds-Sfsf-1399654981
+******************************************************************************************
+09-05-2014 19:03:27 Nom du répertoire : Fds-Sfsf-1399654981
+09-05-2014 19:03:27 Adresse IP : ::1
+09-05-2014 19:03:27 Code formation : 5BIG
+09-05-2014 19:03:27 Type dossier : Pre-inscriptions
+09-05-2014 19:03:27 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 19:03:27 Message : Création du répertoire étudiant : dossiers/5BIG/BIG400/Pre-inscriptions/Fds-Sfsf-1399654981
+******************************************************************************************
+09-05-2014 19:03:27 Nom du répertoire : none
+09-05-2014 19:03:27 Adresse IP : ::1
+09-05-2014 19:03:27 Code formation : none
+09-05-2014 19:03:27 Type dossier : none
+09-05-2014 19:03:27 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 19:03:27 Message : Upload simple réussi
+#########################################################################
+09-05-2014 19:03:27 Adresse IP : ::1
+09-05-2014 19:03:27 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 19:03:27 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Fds
+Prenom : Sfsf
+******************************************************************************************
+09-05-2014 19:03:36 Nom du répertoire : Fds-Sfsf-1399654981
+09-05-2014 19:03:36 Adresse IP : ::1
+09-05-2014 19:03:36 Code formation : 5BIG
+09-05-2014 19:03:36 Type dossier : Pre-inscription
+09-05-2014 19:03:36 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 19:03:36 Message : Création du dossier PDF OK
+******************************************************************************************
+09-05-2014 19:03:36 Nom du répertoire : Fds-Sfsf-1399654981
+09-05-2014 19:03:36 Adresse IP : ::1
+09-05-2014 19:03:36 Code formation : 5BIG
+09-05-2014 19:03:36 Type dossier : Pre-inscription
+09-05-2014 19:03:36 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 19:03:36 Message : Upload des documents dans tous les codes étapes OK
+******************************************************************************************
+09-05-2014 19:03:36 Nom du répertoire : Fds-Sfsf-1399654981
+09-05-2014 19:03:36 Adresse IP : ::1
+09-05-2014 19:03:36 Code formation : 5BIG
+09-05-2014 19:03:36 Type dossier : Pre-inscription
+09-05-2014 19:03:36 Browser : Google Chrome 34.0.1847.131 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36
+09-05-2014 19:03:36 Message : L'étudiant est bien arrivé sur la page récapitulative.
