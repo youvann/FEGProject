@@ -51,7 +51,7 @@ switch ($action) {
         // Prend les 10 dernies chiffres de microtime()
         $_SESSION['idEtudiant'] = substr (microtime (), -10);
 
-        trace2("traiterChoixMainFormulaire POST['choisie'] : " . $_POST['choisie'] . " POST['derniere'] : " . $_POST['derniere'] . "\n Code formation : " . $codeFormation . "\n idEtudiant : " . $_SESSION['idEtudiant']);
+        trace2("traiterChoixMainFormulaire POST['choisie'] : " . $_POST['choisie'] . " POST['derniere'] : " . $_POST['derniere'] . "\n Code formation : " . $_SESSION['codeFormation'] . "\n idEtudiant : " . $_SESSION['idEtudiant']);
 
 		header ('location:index.php?uc=formulaire&action=main');
     }
@@ -121,6 +121,15 @@ switch ($action) {
         break;
     case "main":
     {
+        $resultTypeDossier = "";
+        if($_SESSION['isCandidature'] == true){
+            $resultTypeDossier = "candidature";
+        }else if($_SESSION['isCandidature'] == false){
+            $resultTypeDossier = "préinscription";
+        }else{
+            $resultTypeDossier = "aucun des deux, erreur !!";
+        }
+        trace2("<<< Case main >>>\nCode formation : " . $_SESSION['codeFormation'] . "\n isCandidature : " . $resultTypeDossier);
         // Chargement des voeux
         $formation  = $formationManager->find ($_SESSION['codeFormation']);
         $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
@@ -265,8 +274,8 @@ switch ($action) {
         $dateDeNaissance = $naissanceArray[2] . "-" . $naissanceArray[1] . "-" . $naissanceArray[0];
 
         $lieuNaissance    = formatString (strip_tags($_POST["lieu_naissance"]));
-        $fixe             = strip_tags($_POST["fixe"]);
-        $portable         = strip_tags($_POST["portable"]);
+        $fixe             = strip_tags(str_replace(" ", "", $_POST["fixe"]));
+        $portable         = strip_tags(str_replace(" ", "", $_POST["portable"]));
         $mail             = strip_tags($_POST["mail"]);
         $langues          = isset($_POST['langues']) ? (($isCandidature) ? formatString (implode (', ', $_POST["langues"])) : "") : "";
         $nationalite      = formatString (strip_tags($_POST["nationalite"]));
@@ -560,7 +569,7 @@ switch ($action) {
 
             trace ("ERREUR création dossier PDF", $dirName, $_SESSION['codeFormation'], $typeDossier);
 
-            echo $e . "<br/>Impossible de créer votre dossier. Veuillez recommencer, si le problème persiste veuillez contacter l'administrateur du site à l'adresse suivante : candiweb-admin[at]miage-aix-marseille[dot]fr";
+            echo $e . "<br/>Impossible de créer votre dossier. Veuillez recommencer votre inscription depuis le début. Si le problème persiste veuillez contacter l'administrateur du site à l'adresse suivante : candiweb-admin[at]miage-aix-marseille[dot]fr";
             exit;
         }
     }
