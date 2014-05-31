@@ -4,6 +4,7 @@
 /.idea
 /nbproject
 /dossiers/ZIP
+/logs/feg.log
 
 # OS generated files #
 .DS_Store

@@ -192,33 +192,48 @@ switch ($action) {
         break;
     case "creationRepertoire" :
     {
-        // Récupère le nom de l'étudiant depuis le formulaire
-        $_SESSION['nom'] = formatString (stripAccents ($_POST['nom']));
-        // Récupère le prénom de l'étudiant depuis le formulaire
-        $_SESSION['prenom'] = formatString (stripAccents ($_POST['prenom']));
+        if(empty($_SESSION['codeFormation']) || empty($_SESSION['idEtudiant'])  ||
+           !isset($_SESSION['codeFormation']) || !isset($_SESSION['idEtudiant'])||
+            $_SESSION['idEtudiant'] == "" || $_SESSION['codeFormation'] == ""){
+            trace2("--------------- BUG SESSION --------------- : ");
+            $reponse = false;
+        }else{
+            // Récupère le nom de l'étudiant depuis le formulaire
+            $_SESSION['nom'] = formatString (stripAccents ($_POST['nom']));
+            // Récupère le prénom de l'étudiant depuis le formulaire
+            $_SESSION['prenom'] = formatString (stripAccents ($_POST['prenom']));
 
-        // Récupère le voeu1
-        $_SESSION['voeu1'] = $_POST['voeu1'];
-        // Récupère le voeu2
-        $_SESSION['voeu2'] = $_POST['voeu2'];
-        // Récupère le voeu3
-        $_SESSION['voeu3'] = $_POST['voeu3'];
+            // Récupère le voeu1
+            $_SESSION['voeu1'] = $_POST['voeu1'];
+            // Récupère le voeu2
+            $_SESSION['voeu2'] = $_POST['voeu2'];
+            // Récupère le voeu3
+            $_SESSION['voeu3'] = $_POST['voeu3'];
 
-        // S'agit-il d'un dossier de candidature ou de pré-inscription ?
-        $typeDossier = ($_SESSION['isCandidature']) ? "Candidatures" : "Pre-inscriptions";
+            // S'agit-il d'un dossier de candidature ou de pré-inscription ?
+            $typeDossier = ($_SESSION['isCandidature']) ? "Candidatures" : "Pre-inscriptions";
 
-        // Chemin du répetoire qui contient le répertoire de l'étudiant
-        $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier;
-        // Nom du répertoire de l'étudiant
-        $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
-        // Création du répertoire de l'étudiant
-        $bool = myMkdirBase ($dirPath . "/" . $dirNameId . "/");
+            // Chemin du répetoire qui contient le répertoire de l'étudiant
+            $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier;
+            // Nom du répertoire de l'étudiant
+            $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
+            // Création du répertoire de l'étudiant
+            $bool = myMkdirBase ($dirPath . "/" . $dirNameId . "/");
 
-        trace("--------------- BEGIN --------------- : " . $dirPath . "/" . $dirNameId, $dirNameId, $_SESSION['codeFormation'], $typeDossier);
-        trace("Création du répertoire étudiant : " . $dirPath . "/" . $dirNameId, $dirNameId, $_SESSION['codeFormation'], $typeDossier);
+            trace("--------------- BEGIN --------------- : " . $dirPath . "/" . $dirNameId, $dirNameId, $_SESSION['codeFormation'], $typeDossier);
+            trace("Création du répertoire étudiant : " . $dirPath . "/" . $dirNameId, $dirNameId, $_SESSION['codeFormation'], $typeDossier);
 
-        $reponse = ($bool) ? 1 : 0;
+            $reponse = ($bool) ? 1 : 0;
+        }
         echo json_encode ($reponse);
+    }
+        break;
+    case "resetSession" :
+    {
+        // On détruit la session
+        session_destroy();
+        // On vide la variable superglobale de session
+        $_SESSION = array();
     }
         break;
     case "uploadDocuments" :
