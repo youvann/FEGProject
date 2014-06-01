@@ -4,6 +4,7 @@
 /.idea
 /nbproject
 /dossiers/ZIP
+*.log
 
 # OS generated files #
 .DS_Store

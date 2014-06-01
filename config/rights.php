@@ -15,6 +15,7 @@ $droits = array(
 		array("formulaire", "getTemplateExperience"),
         array("formulaire", "uploadDocuments"),
         array("formulaire", "creationRepertoire"),
+        array("formulaire", "resetSession"),
         array("formulaire", "uploadPiecesManquantes"),
         array("formulaire", "uploaderPiecesManquantes"),
 		array("utilisateur", "connecter"),

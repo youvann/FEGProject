@@ -11,6 +11,9 @@
                 en {{ dossierPdf.nom }} pour l'année scolaire {{ anneeBasse }}
                 -{{ anneeHaute }}
             </h2>
+            <div class="alert alert-warning">
+                <span class="glyphicon glyphicon-exclamation-sign"></span> Attention, vous disposez d'une heure pour remplir le formulaire. - {{ post.published_at|date("H:i", "Europe/Paris") }}
+            </div>
 
             <form role="form" id="mainFormulaire"
                   action="index.php?uc=formulaire&action=traiterMainFormulaire"
@@ -152,7 +155,7 @@
         $('#fonction').val('Développeur PHP');*/
 
         var boutonOK = $('#boutonOk');
-        //ancrage bouton OK
+        // Ancrage bouton OK
         boutonOK.click(function() {
             if($(this).hasClass('champsManquants')){
                 $('html,body').animate({scrollTop: $("#debut").offset().top}, 'slow');
@@ -162,6 +165,17 @@
             }
             if ($(this).hasClass('noDocuments')) {
                 $('html,body').animate({scrollTop: $("#noDocuments").offset().top}, 'slow');
+            }
+            // Erreur de session
+            if($(this).hasClass('errorSession')){
+                $.ajax({
+                    url: 'index.php?uc=formulaire&action=resetSession',
+                    type: 'POST',
+                    success: function(){
+                        // Erreur de session, on envoie l'utilisateur vers la page d'accueil
+                        $(location).attr('href',"index.php?uc=formulaire");
+                    }
+                });
             }
         });
 
@@ -333,7 +347,9 @@
                                         // Bouton de validation du formulaire se grise
                                         $("#customSubmit").attr("disabled", "disabled").removeClass("btn-primary").addClass("btn-warning").html("Traitement en cours ...");
                                     }else{
-                                        $('.modal-body').html('Une erreur s\'est produite, veuillez recommencer. <i>There is a problem, please try again.</i>');
+                                        boutonOK.removeClass('champsManquants voeuxIdentiques noDocuments');
+                                        boutonOK.addClass('errorSession');
+                                        $('.modal-body').html('Votre session a expiré. Vous avez une heure pour remplir le formulaire. Veuillez recommencer depuis le début. <br><br><i>There is a problem. You only have one hour to submit the form, please try again from the beginning.</i>');
                                         $('#myModal').modal('show');
                                     }
                                 }
@@ -345,6 +361,14 @@
             });
         };
         initValidator();
+
+        // Timer, au bout d'une heure, affichage d'un message d'erreur + redirection de l'utilisateur vers la page d'accueil
+        setTimeout(function(){
+            boutonOK.removeClass('champsManquants voeuxIdentiques noDocuments');
+            boutonOK.addClass('errorSession');
+            $('.modal-body').html('Votre session a expiré. Vous avez une heure pour remplir le formulaire. Veuillez recommencer depuis le début. <br><br><i>There is a problem. You only have one hour to submit the form, please try again from the beginning.</i>');
+            $('#myModal').modal('show');
+        }, 60000 * 60);
 
         $('.form-group').addClass('has-feedback');
 

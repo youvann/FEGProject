@@ -51,7 +51,7 @@ switch ($action) {
         // Prend les 10 dernies chiffres de microtime()
         $_SESSION['idEtudiant'] = substr (microtime (), -10);
 
-        trace2("traiterChoixMainFormulaire POST['choisie'] : " . $_POST['choisie'] . "\n Code formation : " . $codeFormation . "\n idEtudiant : " . $_SESSION['idEtudiant']);
+        trace2("traiterChoixMainFormulaire POST['choisie'] : " . $_POST['choisie'] . " POST['derniere'] : " . $_POST['derniere'] . "\n Code formation : " . $_SESSION['codeFormation'] . "\n idEtudiant : " . $_SESSION['idEtudiant']);
 
 		header ('location:index.php?uc=formulaire&action=main');
     }
@@ -121,6 +121,15 @@ switch ($action) {
         break;
     case "main":
     {
+        $resultTypeDossier = "";
+        if($_SESSION['isCandidature'] == true){
+            $resultTypeDossier = "candidature";
+        }else if($_SESSION['isCandidature'] == false){
+            $resultTypeDossier = "préinscription";
+        }else{
+            $resultTypeDossier = "aucun des deux, erreur !!";
+        }
+        trace2("<<< Case main >>>\nCode formation : " . $_SESSION['codeFormation'] . "\n isCandidature : " . $resultTypeDossier);
         // Chargement des voeux
         $formation  = $formationManager->find ($_SESSION['codeFormation']);
         $dossierPdf = $dossierPdfManager->find ($_SESSION['idDossierPdf']);
@@ -183,33 +192,48 @@ switch ($action) {
         break;
     case "creationRepertoire" :
     {
-        // Récupère le nom de l'étudiant depuis le formulaire
-        $_SESSION['nom'] = formatString (stripAccents ($_POST['nom']));
-        // Récupère le prénom de l'étudiant depuis le formulaire
-        $_SESSION['prenom'] = formatString (stripAccents ($_POST['prenom']));
+        if(empty($_SESSION['codeFormation']) || empty($_SESSION['idEtudiant'])  ||
+           !isset($_SESSION['codeFormation']) || !isset($_SESSION['idEtudiant'])||
+            $_SESSION['idEtudiant'] == "" || $_SESSION['codeFormation'] == ""){
+            trace2("--------------- BUG SESSION --------------- : ");
+            $reponse = false;
+        }else{
+            // Récupère le nom de l'étudiant depuis le formulaire
+            $_SESSION['nom'] = formatString (stripAccents ($_POST['nom']));
+            // Récupère le prénom de l'étudiant depuis le formulaire
+            $_SESSION['prenom'] = formatString (stripAccents ($_POST['prenom']));
 
-        // Récupère le voeu1
-        $_SESSION['voeu1'] = $_POST['voeu1'];
-        // Récupère le voeu2
-        $_SESSION['voeu2'] = $_POST['voeu2'];
-        // Récupère le voeu3
-        $_SESSION['voeu3'] = $_POST['voeu3'];
+            // Récupère le voeu1
+            $_SESSION['voeu1'] = $_POST['voeu1'];
+            // Récupère le voeu2
+            $_SESSION['voeu2'] = $_POST['voeu2'];
+            // Récupère le voeu3
+            $_SESSION['voeu3'] = $_POST['voeu3'];
 
-        // S'agit-il d'un dossier de candidature ou de pré-inscription ?
-        $typeDossier = ($_SESSION['isCandidature']) ? "Candidatures" : "Pre-inscriptions";
+            // S'agit-il d'un dossier de candidature ou de pré-inscription ?
+            $typeDossier = ($_SESSION['isCandidature']) ? "Candidatures" : "Pre-inscriptions";
 
-        // Chemin du répetoire qui contient le répertoire de l'étudiant
-        $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier;
-        // Nom du répertoire de l'étudiant
-        $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
-        // Création du répertoire de l'étudiant
-        $bool = myMkdirBase ($dirPath . "/" . $dirNameId . "/");
+            // Chemin du répetoire qui contient le répertoire de l'étudiant
+            $dirPath = "dossiers/" . $_SESSION['codeFormation'] . "/" . $_SESSION['voeu1'] . "/" . $typeDossier;
+            // Nom du répertoire de l'étudiant
+            $dirNameId = $_SESSION['nom'] . "-" . $_SESSION['prenom'] . "-" . $_SESSION['idEtudiant'];
+            // Création du répertoire de l'étudiant
+            $bool = myMkdirBase ($dirPath . "/" . $dirNameId . "/");
 
-        trace("--------------- BEGIN --------------- : " . $dirPath . "/" . $dirNameId, $dirNameId, $_SESSION['codeFormation'], $typeDossier);
-        trace("Création du répertoire étudiant : " . $dirPath . "/" . $dirNameId, $dirNameId, $_SESSION['codeFormation'], $typeDossier);
+            trace("--------------- BEGIN --------------- : " . $dirPath . "/" . $dirNameId, $dirNameId, $_SESSION['codeFormation'], $typeDossier);
+            trace("Création du répertoire étudiant : " . $dirPath . "/" . $dirNameId, $dirNameId, $_SESSION['codeFormation'], $typeDossier);
 
-        $reponse = ($bool) ? 1 : 0;
+            $reponse = ($bool) ? 1 : 0;
+        }
         echo json_encode ($reponse);
+    }
+        break;
+    case "resetSession" :
+    {
+        // On détruit la session
+        session_destroy();
+        // On vide la variable superglobale de session
+        $_SESSION = array();
     }
         break;
     case "uploadDocuments" :
@@ -265,8 +289,8 @@ switch ($action) {
         $dateDeNaissance = $naissanceArray[2] . "-" . $naissanceArray[1] . "-" . $naissanceArray[0];
 
         $lieuNaissance    = formatString (strip_tags($_POST["lieu_naissance"]));
-        $fixe             = strip_tags($_POST["fixe"]);
-        $portable         = strip_tags($_POST["portable"]);
+        $fixe             = strip_tags(str_replace(" ", "", $_POST["fixe"]));
+        $portable         = strip_tags(str_replace(" ", "", $_POST["portable"]));
         $mail             = strip_tags($_POST["mail"]);
         $langues          = isset($_POST['langues']) ? (($isCandidature) ? formatString (implode (', ', $_POST["langues"])) : "") : "";
         $nationalite      = formatString (strip_tags($_POST["nationalite"]));
@@ -560,7 +584,7 @@ switch ($action) {
 
             trace ("ERREUR création dossier PDF", $dirName, $_SESSION['codeFormation'], $typeDossier);
 
-            echo $e . "<br/>Impossible de créer votre dossier. Veuillez recommencer, si le problème persiste veuillez contacter l'administrateur du site à l'adresse suivante : candiweb-admin[at]miage-aix-marseille[dot]fr";
+            echo $e . "<br/>Impossible de créer votre dossier. Veuillez recommencer votre inscription depuis le début. Si le problème persiste veuillez contacter l'administrateur du site à l'adresse suivante : candiweb-admin[at]miage-aix-marseille[dot]fr";
             exit;
         }
     }
