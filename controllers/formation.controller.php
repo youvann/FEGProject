@@ -105,6 +105,7 @@ switch ($action) {
 	// Cette action retourne la synthèse au format CSV des inscriptions
 	case "syntheseCsv":
 	{
+		ini_set('memory_limit', '1024M');
 		// On crée le nom du fichier CSV avec son chemin complet
 		// pour qu'il soit dans la formation souhaitée
         $csvFileName = 'dossiers/' . $_GET['code'] . '/Synthese.csv';
@@ -112,31 +113,58 @@ switch ($action) {
         if (file_exists ($csvFileName)) {
             unlink ($csvFileName);
         }
-		// On prépare la requête
-        $q = $conn->prepare ("SELECT DISTINCT d.`ID_ETUDIANT` `INE`, d.`NOM`, `PRENOM`, `MAIL`,
-								CONCAT(`FIXE`, '/', `PORTABLE`) as TEL,
-								CONCAT(DAY(`DATE_NAISSANCE`), '/', MONTH(`DATE_NAISSANCE`), '/', YEAR(`DATE_NAISSANCE`)) as DATE_NAISSANCE,
-								`CURSUS` as DERNIER_CURSUS, dp.`NOM` as DOSSIER_PDF_NOM, `ETAPE` as PREMIER_VOEU, `ANNEE_BAC`
-								FROM `dossier` d
-									INNER JOIN `cursus` c1 ON d.`ID_ETUDIANT` = c1.`ID_ETUDIANT`
-									INNER JOIN `faire` f ON d.`ID_ETUDIANT` = f.`ID_ETUDIANT`
-									INNER JOIN `voeu` v ON f.`CODE_ETAPE` = v.`CODE_ETAPE`
-									INNER JOIN `dossier_pdf` dp ON v.`DOSSIER_PDF` = dp.`ID`
-								WHERE `ANNEE_FIN` = (SELECT MAX(`ANNEE_FIN`) FROM `cursus` c2 WHERE c2.`ID_ETUDIANT` = c1.`ID_ETUDIANT`)
-								AND f.`ORDRE` = 1 AND dp.`CODE_FORMATION` = ?
-								GROUP BY d.`ID_ETUDIANT`;");
-		// On execute la requête
-        $q->execute (array ($_GET['code']));
-		// On récupère le résultat sous forme de tableau statistique
-        $rs = $q->fetchAll ();
-		// On crée le nouveau fichier CSV en écriture
+
+		$codeFormation = $_GET['code'];
+		$formation = $formationManager->find($codeFormation);
+
+		$dossiers = $dossierManager->findAllByFormation($formation);
+
+		foreach($dossiers as $dossier) {
+
+			$faires = $faireManager->findAllByDossier($dossier);
+
+
+			$ine = $dossier->getIne();
+			$nom = $dossier->getNom();
+			$prenom = $dossier->getPrenom();
+			$mail = $dossier->getMail();
+			$fixe = $dossier->getFixe();
+			$portable = $dossier->getPortable();
+			$dateDeNaissance = date("d/m/Y", strtotime($dossier->getDateNaissance()));
+			$dernierCursus = "";
+			$formationChoisie = "";
+			if (count($faires) > 0) {
+				$codeVoeu = $faires[0]->getCodeEtape();
+				$voeu = $voeuManager->find($codeVoeu);
+
+				$premierVoeu = $voeu->getEtape();
+			} else {
+				$premierVoeu = "Non renseigné";
+			}
+			$anneeDuBac = $dossier->getAnneeBac();
+		}
+
+		var_dump($ine, $nom, $prenom, $mail, $fixe, $portable, $dateDeNaissance, $dernierCursus, $formationChoisie, $premierVoeu, $anneeDuBac);
+
+		exit;
+
+
         $csv = fopen ($csvFileName, 'w');
 		// On insère l'entête du fichier CSV
-        fputcsv ($csv, array ('INE', 'Nom', utf8_decode ('Prénom'), 'MAIL', utf8_decode ('Téléphone'), 'Date de naissance', 'Dernier cursus', 'Formation choisie', 'Premier voeu', utf8_decode ('Année du BAC')), ';');
+        fputcsv ($csv, array (
+	        utf8_decode ('Num INE'),
+	        utf8_decode ('Nom'),
+	        utf8_decode ('Prénom'),
+	        utf8_decode ('Mail'),
+	        utf8_decode ('Téléphone'),
+	        utf8_decode ('Date de naissance'),
+	        utf8_decode ('Dernier cursus'),
+	        utf8_decode ('Formation choisie'),
+	        utf8_decode ('Premier voeu'),
+	        utf8_decode ('Année du BAC')), ';');
 		// Pour chaque ligne du résultat de la requête, on l'insère dans le fichier CSV
-        foreach ($rs as $row) {
-            fputcsv ($csv, array ($row['INE'], utf8_decode ($row['NOM']), utf8_decode ($row['PRENOM']), $row['MAIL'], $row['TEL'], $row['DATE_NAISSANCE'], utf8_decode ($row['DERNIER_CURSUS']), utf8_decode ($row['DOSSIER_PDF_NOM']), utf8_decode ($row['PREMIER_VOEU']), $row['ANNEE_BAC'],), ';');
-        }
+        fputcsv ($csv, array ($row['INE'], utf8_decode ($row['NOM']), utf8_decode ($row['PRENOM']), $row['MAIL'], $row['TEL'], $row['DATE_NAISSANCE'], utf8_decode ($row['DERNIER_CURSUS']), utf8_decode ($row['DOSSIER_PDF_NOM']), utf8_decode ($row['PREMIER_VOEU']), $row['ANNEE_BAC'],), ';');
+
 		// On ferme le fichier CSV
         fclose ($csv);
 
