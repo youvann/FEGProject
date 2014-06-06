@@ -137,6 +137,7 @@ switch ($action) {
 		foreach($dossiers as $dossier) {
 
 			$faires = $faireManager->findAllByDossier($dossier);
+			$cursus = $cursusManager->findAllByDossier($dossier);
 
 
 			$ine = $dossier->getIne();
@@ -148,6 +149,17 @@ switch ($action) {
 			$dateDeNaissance = date("d/m/Y", strtotime($dossier->getDateNaissance()));
 			$dernierCursus = "";
 			$formationChoisie = "";
+
+
+
+			if (count($cursus) > 0) {
+				$dernierCursus = $cursus[0]->getCursus();
+
+			} else {
+				$dernierCursus = "Non renseigné";
+			}
+
+
 			if (count($faires) > 0) {
 				$codeVoeu = $faires[0]->getCodeEtape();
 				$voeu = $voeuManager->find($codeVoeu);
@@ -166,7 +178,6 @@ switch ($action) {
 				$mail,
 				$fixe,
 				$portable,
-				utf8_decode ($dernierCursus),
 				utf8_decode ($dateDeNaissance),
 				utf8_decode ($dernierCursus), $formationChoisie, $premierVoeu), ';');
 
