@@ -119,6 +119,21 @@ switch ($action) {
 
 		$dossiers = $dossierManager->findAllByFormation($formation);
 
+        $csv = fopen ($csvFileName, 'w');
+		// On insère l'entête du fichier CSV
+        fputcsv ($csv, array (
+	        utf8_decode ('Num INE'),
+	        utf8_decode ('Nom'),
+	        utf8_decode ('Prénom'),
+	        utf8_decode ('Mail'),
+	        utf8_decode ('Fixe'),
+	        utf8_decode ('Portable'),
+	        utf8_decode ('Date de naissance'),
+	        utf8_decode ('Dernier cursus'),
+	        utf8_decode ('Formation choisie'),
+	        utf8_decode ('Premier voeu'),
+	        utf8_decode ('Année du BAC')), ';');
+
 		foreach($dossiers as $dossier) {
 
 			$faires = $faireManager->findAllByDossier($dossier);
@@ -142,28 +157,20 @@ switch ($action) {
 				$premierVoeu = "Non renseigné";
 			}
 			$anneeDuBac = $dossier->getAnneeBac();
+
+			// Pour chaque ligne du résultat de la requête, on l'insère dans le fichier CSV
+			fputcsv ($csv, array (
+				utf8_decode($ine),
+				utf8_decode ($nom),
+				utf8_decode ($prenom),
+				$mail,
+				$fixe,
+				$portable,
+				utf8_decode ($dernierCursus),
+				utf8_decode ($dateDeNaissance),
+				utf8_decode ($dernierCursus), $formationChoisie, $premierVoeu), ';');
+
 		}
-
-		var_dump($ine, $nom, $prenom, $mail, $fixe, $portable, $dateDeNaissance, $dernierCursus, $formationChoisie, $premierVoeu, $anneeDuBac);
-
-		exit;
-
-
-        $csv = fopen ($csvFileName, 'w');
-		// On insère l'entête du fichier CSV
-        fputcsv ($csv, array (
-	        utf8_decode ('Num INE'),
-	        utf8_decode ('Nom'),
-	        utf8_decode ('Prénom'),
-	        utf8_decode ('Mail'),
-	        utf8_decode ('Téléphone'),
-	        utf8_decode ('Date de naissance'),
-	        utf8_decode ('Dernier cursus'),
-	        utf8_decode ('Formation choisie'),
-	        utf8_decode ('Premier voeu'),
-	        utf8_decode ('Année du BAC')), ';');
-		// Pour chaque ligne du résultat de la requête, on l'insère dans le fichier CSV
-        fputcsv ($csv, array ($row['INE'], utf8_decode ($row['NOM']), utf8_decode ($row['PRENOM']), $row['MAIL'], $row['TEL'], $row['DATE_NAISSANCE'], utf8_decode ($row['DERNIER_CURSUS']), utf8_decode ($row['DOSSIER_PDF_NOM']), utf8_decode ($row['PREMIER_VOEU']), $row['ANNEE_BAC'],), ';');
 
 		// On ferme le fichier CSV
         fclose ($csv);
