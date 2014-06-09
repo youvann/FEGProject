@@ -404,7 +404,13 @@ switch ($action) {
         $i = 1;
         foreach ($_POST['voeu'] as $codeEtape) {
             if ($codeEtape !== '2' && $codeEtape !== '3') {
-                $faireManager->insert (new Faire($codeEtape, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $i));
+                $resultInsertFaire = $faireManager->insert(new Faire($codeEtape, $_SESSION['idEtudiant'], $_SESSION['codeFormation'], $i));
+                if ($resultInsertFaire) { // insertion réussie
+                    trace2("insert table faire réussi");
+                } else { // insertion non réussie
+                    // Erreur
+                    trace2("insert table faire pas réussi");
+                }
                 ++$i;
             }
         }

@@ -1,0 +1,1081 @@
+#########################################################################
+01-06-2014 16:06:18 Adresse IP : ::1
+01-06-2014 16:06:18 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:06:18 Message : traiterChoixMainFormulaire POST['choisie'] : 2 POST['derniere'] : 0
+ Code formation : 5BIG
+ idEtudiant : 1401631578
+#########################################################################
+01-06-2014 16:06:18 Adresse IP : ::1
+01-06-2014 16:06:18 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:06:18 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:06:19 Adresse IP : ::1
+01-06-2014 16:06:19 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:06:19 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+******************************************************************************************
+01-06-2014 16:06:37 Nom du répertoire : Dupont-Jean-1401631578
+01-06-2014 16:06:37 Adresse IP : ::1
+01-06-2014 16:06:37 Code formation : 5BIG
+01-06-2014 16:06:37 Type dossier : Candidatures
+01-06-2014 16:06:37 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:06:37 Message : --------------- BEGIN --------------- : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401631578
+******************************************************************************************
+01-06-2014 16:06:37 Nom du répertoire : Dupont-Jean-1401631578
+01-06-2014 16:06:37 Adresse IP : ::1
+01-06-2014 16:06:37 Code formation : 5BIG
+01-06-2014 16:06:37 Type dossier : Candidatures
+01-06-2014 16:06:37 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:06:37 Message : Création du répertoire étudiant : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401631578
+******************************************************************************************
+01-06-2014 16:06:37 Nom du répertoire : none
+01-06-2014 16:06:37 Adresse IP : ::1
+01-06-2014 16:06:37 Code formation : none
+01-06-2014 16:06:37 Type dossier : none
+01-06-2014 16:06:37 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:06:37 Message : Upload simple réussi
+#########################################################################
+01-06-2014 16:06:37 Adresse IP : ::1
+01-06-2014 16:06:37 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:06:37 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Dupont
+Prenom : Jean
+******************************************************************************************
+01-06-2014 16:06:47 Nom du répertoire : Dupont-Jean-1401631578
+01-06-2014 16:06:47 Adresse IP : ::1
+01-06-2014 16:06:47 Code formation : 5BIG
+01-06-2014 16:06:47 Type dossier : Candidature
+01-06-2014 16:06:47 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:06:47 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:06:47 Nom du répertoire : Dupont-Jean-1401631578
+01-06-2014 16:06:47 Adresse IP : ::1
+01-06-2014 16:06:47 Code formation : 5BIG
+01-06-2014 16:06:47 Type dossier : Candidature
+01-06-2014 16:06:47 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:06:47 Message : Upload des documents dans tous les codes étapes OK
+#########################################################################
+01-06-2014 16:06:48 Adresse IP : ::1
+01-06-2014 16:06:48 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:06:48 Message : traiterMainFormulaire
+Email : 
+ Nom : 
+Prenom : 
+******************************************************************************************
+01-06-2014 16:07:01 Nom du répertoire : Dupont-Jean-1401631578
+01-06-2014 16:07:01 Adresse IP : ::1
+01-06-2014 16:07:01 Code formation : 5BIG
+01-06-2014 16:07:01 Type dossier : Candidature
+01-06-2014 16:07:01 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:07:01 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:07:01 Nom du répertoire : Dupont-Jean-1401631578
+01-06-2014 16:07:01 Adresse IP : ::1
+01-06-2014 16:07:01 Code formation : 5BIG
+01-06-2014 16:07:01 Type dossier : Candidature
+01-06-2014 16:07:01 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:07:01 Message : Upload des documents dans tous les codes étapes OK
+#########################################################################
+01-06-2014 16:07:48 Adresse IP : ::1
+01-06-2014 16:07:48 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:07:48 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:07:50 Adresse IP : ::1
+01-06-2014 16:07:50 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:07:50 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:08:14 Adresse IP : ::1
+01-06-2014 16:08:14 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:08:14 Message : traiterChoixMainFormulaire POST['choisie'] : 7 POST['derniere'] : 0
+ Code formation : 5BCD
+ idEtudiant : 1401631694
+#########################################################################
+01-06-2014 16:08:14 Adresse IP : ::1
+01-06-2014 16:08:14 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:08:14 Message : <<< Case main >>>
+Code formation : 5BCD
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:08:16 Adresse IP : ::1
+01-06-2014 16:08:16 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:08:16 Message : <<< Case main >>>
+Code formation : 5BCD
+ isCandidature : candidature
+******************************************************************************************
+01-06-2014 16:08:29 Nom du répertoire : Dupont-Jean-1401631694
+01-06-2014 16:08:29 Adresse IP : ::1
+01-06-2014 16:08:29 Code formation : 5BCD
+01-06-2014 16:08:29 Type dossier : Candidatures
+01-06-2014 16:08:29 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:08:29 Message : --------------- BEGIN --------------- : dossiers/5BCD/BCD4T0/Candidatures/Dupont-Jean-1401631694
+******************************************************************************************
+01-06-2014 16:08:29 Nom du répertoire : Dupont-Jean-1401631694
+01-06-2014 16:08:29 Adresse IP : ::1
+01-06-2014 16:08:29 Code formation : 5BCD
+01-06-2014 16:08:29 Type dossier : Candidatures
+01-06-2014 16:08:29 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:08:29 Message : Création du répertoire étudiant : dossiers/5BCD/BCD4T0/Candidatures/Dupont-Jean-1401631694
+******************************************************************************************
+01-06-2014 16:08:29 Nom du répertoire : none
+01-06-2014 16:08:29 Adresse IP : ::1
+01-06-2014 16:08:29 Code formation : none
+01-06-2014 16:08:29 Type dossier : none
+01-06-2014 16:08:29 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:08:29 Message : Upload simple réussi
+#########################################################################
+01-06-2014 16:08:30 Adresse IP : ::1
+01-06-2014 16:08:30 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:08:30 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Dupont
+Prenom : Jean
+******************************************************************************************
+01-06-2014 16:08:39 Nom du répertoire : Dupont-Jean-1401631694
+01-06-2014 16:08:39 Adresse IP : ::1
+01-06-2014 16:08:39 Code formation : 5BCD
+01-06-2014 16:08:39 Type dossier : Candidature
+01-06-2014 16:08:39 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:08:39 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:08:39 Nom du répertoire : Dupont-Jean-1401631694
+01-06-2014 16:08:39 Adresse IP : ::1
+01-06-2014 16:08:39 Code formation : 5BCD
+01-06-2014 16:08:39 Type dossier : Candidature
+01-06-2014 16:08:39 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:08:39 Message : Upload des documents dans tous les codes étapes OK
+#########################################################################
+01-06-2014 16:08:40 Adresse IP : ::1
+01-06-2014 16:08:40 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:08:40 Message : traiterMainFormulaire
+Email : 
+ Nom : 
+Prenom : 
+******************************************************************************************
+01-06-2014 16:08:49 Nom du répertoire : Dupont-Jean-1401631694
+01-06-2014 16:08:49 Adresse IP : ::1
+01-06-2014 16:08:49 Code formation : 5BCD
+01-06-2014 16:08:49 Type dossier : Candidature
+01-06-2014 16:08:49 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:08:49 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:08:49 Nom du répertoire : Dupont-Jean-1401631694
+01-06-2014 16:08:49 Adresse IP : ::1
+01-06-2014 16:08:49 Code formation : 5BCD
+01-06-2014 16:08:49 Type dossier : Candidature
+01-06-2014 16:08:49 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:08:49 Message : Upload des documents dans tous les codes étapes OK
+#########################################################################
+01-06-2014 16:13:11 Adresse IP : ::1
+01-06-2014 16:13:11 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:13:11 Message : <<< Case main >>>
+Code formation : 5BCD
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:13:13 Adresse IP : ::1
+01-06-2014 16:13:13 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:13:13 Message : <<< Case main >>>
+Code formation : 5BCD
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:13:25 Adresse IP : ::1
+01-06-2014 16:13:25 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:13:25 Message : traiterChoixMainFormulaire POST['choisie'] : 2 POST['derniere'] : 0
+ Code formation : 5BIG
+ idEtudiant : 1401632005
+#########################################################################
+01-06-2014 16:13:25 Adresse IP : ::1
+01-06-2014 16:13:25 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:13:25 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:13:27 Adresse IP : ::1
+01-06-2014 16:13:27 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:13:27 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+******************************************************************************************
+01-06-2014 16:13:43 Nom du répertoire : Dupont-Jean-1401632005
+01-06-2014 16:13:43 Adresse IP : ::1
+01-06-2014 16:13:43 Code formation : 5BIG
+01-06-2014 16:13:43 Type dossier : Candidatures
+01-06-2014 16:13:43 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:13:43 Message : --------------- BEGIN --------------- : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401632005
+******************************************************************************************
+01-06-2014 16:13:43 Nom du répertoire : Dupont-Jean-1401632005
+01-06-2014 16:13:43 Adresse IP : ::1
+01-06-2014 16:13:43 Code formation : 5BIG
+01-06-2014 16:13:43 Type dossier : Candidatures
+01-06-2014 16:13:43 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:13:43 Message : Création du répertoire étudiant : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401632005
+******************************************************************************************
+01-06-2014 16:13:43 Nom du répertoire : none
+01-06-2014 16:13:43 Adresse IP : ::1
+01-06-2014 16:13:43 Code formation : none
+01-06-2014 16:13:43 Type dossier : none
+01-06-2014 16:13:43 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:13:43 Message : Upload simple réussi
+#########################################################################
+01-06-2014 16:13:43 Adresse IP : ::1
+01-06-2014 16:13:43 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:13:43 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Dupont
+Prenom : Jean
+******************************************************************************************
+01-06-2014 16:13:54 Nom du répertoire : Dupont-Jean-1401632005
+01-06-2014 16:13:54 Adresse IP : ::1
+01-06-2014 16:13:54 Code formation : 5BIG
+01-06-2014 16:13:54 Type dossier : Candidature
+01-06-2014 16:13:54 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:13:54 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:13:54 Nom du répertoire : Dupont-Jean-1401632005
+01-06-2014 16:13:54 Adresse IP : ::1
+01-06-2014 16:13:54 Code formation : 5BIG
+01-06-2014 16:13:54 Type dossier : Candidature
+01-06-2014 16:13:54 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:13:54 Message : Upload des documents dans tous les codes étapes OK
+#########################################################################
+01-06-2014 16:13:54 Adresse IP : ::1
+01-06-2014 16:13:54 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:13:54 Message : traiterMainFormulaire
+Email : 
+ Nom : 
+Prenom : 
+******************************************************************************************
+01-06-2014 16:14:06 Nom du répertoire : Dupont-Jean-1401632005
+01-06-2014 16:14:06 Adresse IP : ::1
+01-06-2014 16:14:06 Code formation : 5BIG
+01-06-2014 16:14:06 Type dossier : Candidature
+01-06-2014 16:14:06 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:14:06 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:14:06 Nom du répertoire : Dupont-Jean-1401632005
+01-06-2014 16:14:06 Adresse IP : ::1
+01-06-2014 16:14:06 Code formation : 5BIG
+01-06-2014 16:14:06 Type dossier : Candidature
+01-06-2014 16:14:06 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:14:06 Message : Upload des documents dans tous les codes étapes OK
+#########################################################################
+01-06-2014 16:19:18 Adresse IP : ::1
+01-06-2014 16:19:18 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:19:18 Message : traiterChoixMainFormulaire POST['choisie'] : 2 POST['derniere'] : 0
+ Code formation : 5BIG
+ idEtudiant : 1401632358
+#########################################################################
+01-06-2014 16:19:18 Adresse IP : ::1
+01-06-2014 16:19:18 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:19:18 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:19:20 Adresse IP : ::1
+01-06-2014 16:19:20 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:19:20 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+******************************************************************************************
+01-06-2014 16:19:33 Nom du répertoire : Dupont-Jean-1401632358
+01-06-2014 16:19:33 Adresse IP : ::1
+01-06-2014 16:19:33 Code formation : 5BIG
+01-06-2014 16:19:33 Type dossier : Candidatures
+01-06-2014 16:19:33 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:19:33 Message : --------------- BEGIN --------------- : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401632358
+******************************************************************************************
+01-06-2014 16:19:33 Nom du répertoire : Dupont-Jean-1401632358
+01-06-2014 16:19:33 Adresse IP : ::1
+01-06-2014 16:19:33 Code formation : 5BIG
+01-06-2014 16:19:33 Type dossier : Candidatures
+01-06-2014 16:19:33 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:19:33 Message : Création du répertoire étudiant : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401632358
+******************************************************************************************
+01-06-2014 16:19:33 Nom du répertoire : none
+01-06-2014 16:19:33 Adresse IP : ::1
+01-06-2014 16:19:33 Code formation : none
+01-06-2014 16:19:33 Type dossier : none
+01-06-2014 16:19:33 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:19:33 Message : Upload simple réussi
+#########################################################################
+01-06-2014 16:19:33 Adresse IP : ::1
+01-06-2014 16:19:33 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:19:33 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Dupont
+Prenom : Jean
+******************************************************************************************
+01-06-2014 16:19:45 Nom du répertoire : Dupont-Jean-1401632358
+01-06-2014 16:19:45 Adresse IP : ::1
+01-06-2014 16:19:45 Code formation : 5BIG
+01-06-2014 16:19:45 Type dossier : Candidature
+01-06-2014 16:19:45 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:19:45 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:19:45 Nom du répertoire : Dupont-Jean-1401632358
+01-06-2014 16:19:45 Adresse IP : ::1
+01-06-2014 16:19:45 Code formation : 5BIG
+01-06-2014 16:19:45 Type dossier : Candidature
+01-06-2014 16:19:45 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:19:45 Message : Upload des documents dans tous les codes étapes OK
+#########################################################################
+01-06-2014 16:19:46 Adresse IP : ::1
+01-06-2014 16:19:46 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:19:46 Message : traiterMainFormulaire
+Email : 
+ Nom : 
+Prenom : 
+******************************************************************************************
+01-06-2014 16:19:58 Nom du répertoire : Dupont-Jean-1401632358
+01-06-2014 16:19:58 Adresse IP : ::1
+01-06-2014 16:19:58 Code formation : 5BIG
+01-06-2014 16:19:58 Type dossier : Candidature
+01-06-2014 16:19:58 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:19:58 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:19:58 Nom du répertoire : Dupont-Jean-1401632358
+01-06-2014 16:19:58 Adresse IP : ::1
+01-06-2014 16:19:58 Code formation : 5BIG
+01-06-2014 16:19:58 Type dossier : Candidature
+01-06-2014 16:19:58 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:19:58 Message : Upload des documents dans tous les codes étapes OK
+#########################################################################
+01-06-2014 16:26:12 Adresse IP : ::1
+01-06-2014 16:26:12 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:26:12 Message : traiterChoixMainFormulaire POST['choisie'] : 2 POST['derniere'] : 0
+ Code formation : 5BIG
+ idEtudiant : 1401632772
+#########################################################################
+01-06-2014 16:26:13 Adresse IP : ::1
+01-06-2014 16:26:13 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:26:13 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:26:14 Adresse IP : ::1
+01-06-2014 16:26:14 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:26:14 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+******************************************************************************************
+01-06-2014 16:26:28 Nom du répertoire : Dupont-Jean-1401632772
+01-06-2014 16:26:28 Adresse IP : ::1
+01-06-2014 16:26:28 Code formation : 5BIG
+01-06-2014 16:26:28 Type dossier : Candidatures
+01-06-2014 16:26:28 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:26:28 Message : --------------- BEGIN --------------- : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401632772
+******************************************************************************************
+01-06-2014 16:26:28 Nom du répertoire : Dupont-Jean-1401632772
+01-06-2014 16:26:28 Adresse IP : ::1
+01-06-2014 16:26:28 Code formation : 5BIG
+01-06-2014 16:26:28 Type dossier : Candidatures
+01-06-2014 16:26:28 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:26:28 Message : Création du répertoire étudiant : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401632772
+******************************************************************************************
+01-06-2014 16:26:28 Nom du répertoire : none
+01-06-2014 16:26:28 Adresse IP : ::1
+01-06-2014 16:26:28 Code formation : none
+01-06-2014 16:26:28 Type dossier : none
+01-06-2014 16:26:28 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:26:28 Message : Upload simple réussi
+#########################################################################
+01-06-2014 16:26:28 Adresse IP : ::1
+01-06-2014 16:26:28 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:26:28 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Dupont
+Prenom : Jean
+#########################################################################
+01-06-2014 16:26:28 Adresse IP : ::1
+01-06-2014 16:26:28 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:26:28 Message : insert réussi
+******************************************************************************************
+01-06-2014 16:26:39 Nom du répertoire : Dupont-Jean-1401632772
+01-06-2014 16:26:39 Adresse IP : ::1
+01-06-2014 16:26:39 Code formation : 5BIG
+01-06-2014 16:26:39 Type dossier : Candidature
+01-06-2014 16:26:39 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:26:39 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:26:39 Nom du répertoire : Dupont-Jean-1401632772
+01-06-2014 16:26:39 Adresse IP : ::1
+01-06-2014 16:26:39 Code formation : 5BIG
+01-06-2014 16:26:39 Type dossier : Candidature
+01-06-2014 16:26:39 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:26:39 Message : Upload des documents dans tous les codes étapes OK
+******************************************************************************************
+01-06-2014 16:26:39 Nom du répertoire : Dupont-Jean-1401632772
+01-06-2014 16:26:39 Adresse IP : ::1
+01-06-2014 16:26:39 Code formation : 5BIG
+01-06-2014 16:26:39 Type dossier : Candidature
+01-06-2014 16:26:39 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:26:39 Message : L'étudiant est bien arrivé sur la page récapitulative.
+******************************************************************************************
+01-06-2014 16:26:42 Nom du répertoire : Dupont-Jean-1401632772
+01-06-2014 16:26:42 Adresse IP : ::1
+01-06-2014 16:26:42 Code formation : 5BIG
+01-06-2014 16:26:42 Type dossier : Candidature
+01-06-2014 16:26:42 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:26:42 Message : L'étudiant est bien arrivé sur la page récapitulative.
+#########################################################################
+01-06-2014 16:29:44 Adresse IP : ::1
+01-06-2014 16:29:44 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:29:44 Message : traiterChoixMainFormulaire POST['choisie'] : 2 POST['derniere'] : 0
+ Code formation : 5BIG
+ idEtudiant : 1401632984
+#########################################################################
+01-06-2014 16:29:44 Adresse IP : ::1
+01-06-2014 16:29:44 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:29:44 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:29:46 Adresse IP : ::1
+01-06-2014 16:29:46 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:29:46 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+******************************************************************************************
+01-06-2014 16:29:58 Nom du répertoire : Dupont-Jean-1401632984
+01-06-2014 16:29:58 Adresse IP : ::1
+01-06-2014 16:29:58 Code formation : 5BIG
+01-06-2014 16:29:58 Type dossier : Candidatures
+01-06-2014 16:29:58 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:29:58 Message : --------------- BEGIN --------------- : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401632984
+******************************************************************************************
+01-06-2014 16:29:58 Nom du répertoire : Dupont-Jean-1401632984
+01-06-2014 16:29:58 Adresse IP : ::1
+01-06-2014 16:29:58 Code formation : 5BIG
+01-06-2014 16:29:58 Type dossier : Candidatures
+01-06-2014 16:29:58 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:29:58 Message : Création du répertoire étudiant : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401632984
+******************************************************************************************
+01-06-2014 16:29:58 Nom du répertoire : none
+01-06-2014 16:29:58 Adresse IP : ::1
+01-06-2014 16:29:58 Code formation : none
+01-06-2014 16:29:58 Type dossier : none
+01-06-2014 16:29:58 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:29:58 Message : Upload simple réussi
+#########################################################################
+01-06-2014 16:29:58 Adresse IP : ::1
+01-06-2014 16:29:58 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:29:58 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Dupont
+Prenom : Jean
+#########################################################################
+01-06-2014 16:29:58 Adresse IP : ::1
+01-06-2014 16:29:58 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:29:58 Message : insert table faire réussi
+******************************************************************************************
+01-06-2014 16:30:08 Nom du répertoire : Dupont-Jean-1401632984
+01-06-2014 16:30:08 Adresse IP : ::1
+01-06-2014 16:30:08 Code formation : 5BIG
+01-06-2014 16:30:08 Type dossier : Candidature
+01-06-2014 16:30:08 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:30:08 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:30:08 Nom du répertoire : Dupont-Jean-1401632984
+01-06-2014 16:30:08 Adresse IP : ::1
+01-06-2014 16:30:08 Code formation : 5BIG
+01-06-2014 16:30:08 Type dossier : Candidature
+01-06-2014 16:30:08 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:30:08 Message : Upload des documents dans tous les codes étapes OK
+******************************************************************************************
+01-06-2014 16:30:08 Nom du répertoire : Dupont-Jean-1401632984
+01-06-2014 16:30:08 Adresse IP : ::1
+01-06-2014 16:30:08 Code formation : 5BIG
+01-06-2014 16:30:08 Type dossier : Candidature
+01-06-2014 16:30:08 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:30:08 Message : L'étudiant est bien arrivé sur la page récapitulative.
+******************************************************************************************
+01-06-2014 16:30:10 Nom du répertoire : Dupont-Jean-1401632984
+01-06-2014 16:30:10 Adresse IP : ::1
+01-06-2014 16:30:10 Code formation : 5BIG
+01-06-2014 16:30:10 Type dossier : Candidature
+01-06-2014 16:30:10 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:30:10 Message : L'étudiant est bien arrivé sur la page récapitulative.
+#########################################################################
+01-06-2014 16:31:25 Adresse IP : ::1
+01-06-2014 16:31:25 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:31:25 Message : traiterChoixMainFormulaire POST['choisie'] : 2 POST['derniere'] : 0
+ Code formation : 5BIG
+ idEtudiant : 1401633085
+#########################################################################
+01-06-2014 16:31:25 Adresse IP : ::1
+01-06-2014 16:31:25 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:31:25 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:31:27 Adresse IP : ::1
+01-06-2014 16:31:27 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:31:27 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+******************************************************************************************
+01-06-2014 16:31:43 Nom du répertoire : Dupont-Jean-1401633085
+01-06-2014 16:31:43 Adresse IP : ::1
+01-06-2014 16:31:43 Code formation : 5BIG
+01-06-2014 16:31:43 Type dossier : Candidatures
+01-06-2014 16:31:43 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:31:43 Message : --------------- BEGIN --------------- : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401633085
+******************************************************************************************
+01-06-2014 16:31:43 Nom du répertoire : Dupont-Jean-1401633085
+01-06-2014 16:31:43 Adresse IP : ::1
+01-06-2014 16:31:43 Code formation : 5BIG
+01-06-2014 16:31:43 Type dossier : Candidatures
+01-06-2014 16:31:43 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:31:43 Message : Création du répertoire étudiant : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401633085
+******************************************************************************************
+01-06-2014 16:31:43 Nom du répertoire : none
+01-06-2014 16:31:43 Adresse IP : ::1
+01-06-2014 16:31:43 Code formation : none
+01-06-2014 16:31:43 Type dossier : none
+01-06-2014 16:31:43 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:31:43 Message : Upload simple réussi
+#########################################################################
+01-06-2014 16:31:43 Adresse IP : ::1
+01-06-2014 16:31:43 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:31:43 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Dupont
+Prenom : Jean
+#########################################################################
+01-06-2014 16:31:43 Adresse IP : ::1
+01-06-2014 16:31:43 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:31:43 Message : insert table faire réussi
+******************************************************************************************
+01-06-2014 16:31:55 Nom du répertoire : Dupont-Jean-1401633085
+01-06-2014 16:31:55 Adresse IP : ::1
+01-06-2014 16:31:55 Code formation : 5BIG
+01-06-2014 16:31:55 Type dossier : Candidature
+01-06-2014 16:31:55 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:31:55 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:31:55 Nom du répertoire : Dupont-Jean-1401633085
+01-06-2014 16:31:55 Adresse IP : ::1
+01-06-2014 16:31:55 Code formation : 5BIG
+01-06-2014 16:31:55 Type dossier : Candidature
+01-06-2014 16:31:55 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:31:55 Message : Upload des documents dans tous les codes étapes OK
+******************************************************************************************
+01-06-2014 16:31:55 Nom du répertoire : Dupont-Jean-1401633085
+01-06-2014 16:31:55 Adresse IP : ::1
+01-06-2014 16:31:55 Code formation : 5BIG
+01-06-2014 16:31:55 Type dossier : Candidature
+01-06-2014 16:31:55 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:31:55 Message : L'étudiant est bien arrivé sur la page récapitulative.
+******************************************************************************************
+01-06-2014 16:31:56 Nom du répertoire : Dupont-Jean-1401633085
+01-06-2014 16:31:56 Adresse IP : ::1
+01-06-2014 16:31:56 Code formation : 5BIG
+01-06-2014 16:31:56 Type dossier : Candidature
+01-06-2014 16:31:56 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:31:56 Message : L'étudiant est bien arrivé sur la page récapitulative.
+#########################################################################
+01-06-2014 16:33:37 Adresse IP : ::1
+01-06-2014 16:33:37 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:33:37 Message : traiterChoixMainFormulaire POST['choisie'] : 2 POST['derniere'] : 0
+ Code formation : 5BIG
+ idEtudiant : 1401633217
+#########################################################################
+01-06-2014 16:33:37 Adresse IP : ::1
+01-06-2014 16:33:37 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:33:37 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:33:39 Adresse IP : ::1
+01-06-2014 16:33:39 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:33:39 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+******************************************************************************************
+01-06-2014 16:33:56 Nom du répertoire : Dupont-Jean-1401633217
+01-06-2014 16:33:56 Adresse IP : ::1
+01-06-2014 16:33:56 Code formation : 5BIG
+01-06-2014 16:33:56 Type dossier : Candidatures
+01-06-2014 16:33:56 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:33:56 Message : --------------- BEGIN --------------- : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401633217
+******************************************************************************************
+01-06-2014 16:33:56 Nom du répertoire : Dupont-Jean-1401633217
+01-06-2014 16:33:56 Adresse IP : ::1
+01-06-2014 16:33:56 Code formation : 5BIG
+01-06-2014 16:33:56 Type dossier : Candidatures
+01-06-2014 16:33:56 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:33:56 Message : Création du répertoire étudiant : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401633217
+******************************************************************************************
+01-06-2014 16:33:56 Nom du répertoire : none
+01-06-2014 16:33:56 Adresse IP : ::1
+01-06-2014 16:33:56 Code formation : none
+01-06-2014 16:33:56 Type dossier : none
+01-06-2014 16:33:56 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:33:56 Message : Upload simple réussi
+#########################################################################
+01-06-2014 16:33:57 Adresse IP : ::1
+01-06-2014 16:33:57 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:33:57 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Dupont
+Prenom : Jean
+#########################################################################
+01-06-2014 16:33:57 Adresse IP : ::1
+01-06-2014 16:33:57 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:33:57 Message : insert table faire réussi
+******************************************************************************************
+01-06-2014 16:34:08 Nom du répertoire : Dupont-Jean-1401633217
+01-06-2014 16:34:08 Adresse IP : ::1
+01-06-2014 16:34:08 Code formation : 5BIG
+01-06-2014 16:34:08 Type dossier : Candidature
+01-06-2014 16:34:08 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:34:08 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:34:08 Nom du répertoire : Dupont-Jean-1401633217
+01-06-2014 16:34:08 Adresse IP : ::1
+01-06-2014 16:34:08 Code formation : 5BIG
+01-06-2014 16:34:08 Type dossier : Candidature
+01-06-2014 16:34:08 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:34:08 Message : Upload des documents dans tous les codes étapes OK
+******************************************************************************************
+01-06-2014 16:34:08 Nom du répertoire : Dupont-Jean-1401633217
+01-06-2014 16:34:08 Adresse IP : ::1
+01-06-2014 16:34:08 Code formation : 5BIG
+01-06-2014 16:34:08 Type dossier : Candidature
+01-06-2014 16:34:08 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:34:08 Message : L'étudiant est bien arrivé sur la page récapitulative.
+******************************************************************************************
+01-06-2014 16:34:10 Nom du répertoire : Dupont-Jean-1401633217
+01-06-2014 16:34:10 Adresse IP : ::1
+01-06-2014 16:34:10 Code formation : 5BIG
+01-06-2014 16:34:10 Type dossier : Candidature
+01-06-2014 16:34:10 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:34:10 Message : L'étudiant est bien arrivé sur la page récapitulative.
+#########################################################################
+01-06-2014 16:36:00 Adresse IP : ::1
+01-06-2014 16:36:00 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:00 Message : traiterChoixMainFormulaire POST['choisie'] : 2 POST['derniere'] : 0
+ Code formation : 5BIG
+ idEtudiant : 1401633360
+#########################################################################
+01-06-2014 16:36:00 Adresse IP : ::1
+01-06-2014 16:36:00 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:00 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:36:02 Adresse IP : ::1
+01-06-2014 16:36:02 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:02 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+******************************************************************************************
+01-06-2014 16:36:14 Nom du répertoire : Dupont-Jean-1401633360
+01-06-2014 16:36:14 Adresse IP : ::1
+01-06-2014 16:36:14 Code formation : 5BIG
+01-06-2014 16:36:14 Type dossier : Candidatures
+01-06-2014 16:36:14 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:14 Message : --------------- BEGIN --------------- : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401633360
+******************************************************************************************
+01-06-2014 16:36:14 Nom du répertoire : Dupont-Jean-1401633360
+01-06-2014 16:36:14 Adresse IP : ::1
+01-06-2014 16:36:14 Code formation : 5BIG
+01-06-2014 16:36:14 Type dossier : Candidatures
+01-06-2014 16:36:14 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:14 Message : Création du répertoire étudiant : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401633360
+******************************************************************************************
+01-06-2014 16:36:14 Nom du répertoire : none
+01-06-2014 16:36:14 Adresse IP : ::1
+01-06-2014 16:36:14 Code formation : none
+01-06-2014 16:36:14 Type dossier : none
+01-06-2014 16:36:14 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:14 Message : Upload simple réussi
+#########################################################################
+01-06-2014 16:36:14 Adresse IP : ::1
+01-06-2014 16:36:14 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:14 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Dupont
+Prenom : Jean
+#########################################################################
+01-06-2014 16:36:14 Adresse IP : ::1
+01-06-2014 16:36:14 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:14 Message : Problème, la session a expirée, pas d'insertion dans la table faire
+******************************************************************************************
+01-06-2014 16:36:24 Nom du répertoire : Dupont-Jean-1401633360
+01-06-2014 16:36:24 Adresse IP : ::1
+01-06-2014 16:36:24 Code formation : 5BIG
+01-06-2014 16:36:24 Type dossier : Candidature
+01-06-2014 16:36:24 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:24 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:36:24 Nom du répertoire : Dupont-Jean-1401633360
+01-06-2014 16:36:24 Adresse IP : ::1
+01-06-2014 16:36:24 Code formation : 5BIG
+01-06-2014 16:36:24 Type dossier : Candidature
+01-06-2014 16:36:24 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:24 Message : Upload des documents dans tous les codes étapes OK
+#########################################################################
+01-06-2014 16:36:25 Adresse IP : ::1
+01-06-2014 16:36:25 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:25 Message : traiterMainFormulaire
+Email : 
+ Nom : 
+Prenom : 
+#########################################################################
+01-06-2014 16:36:25 Adresse IP : ::1
+01-06-2014 16:36:25 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:25 Message : Problème, la session a expirée, pas d'insertion dans la table faire
+******************************************************************************************
+01-06-2014 16:36:35 Nom du répertoire : Dupont-Jean-1401633360
+01-06-2014 16:36:35 Adresse IP : ::1
+01-06-2014 16:36:35 Code formation : 5BIG
+01-06-2014 16:36:35 Type dossier : Candidature
+01-06-2014 16:36:35 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:35 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:36:35 Nom du répertoire : Dupont-Jean-1401633360
+01-06-2014 16:36:35 Adresse IP : ::1
+01-06-2014 16:36:35 Code formation : 5BIG
+01-06-2014 16:36:35 Type dossier : Candidature
+01-06-2014 16:36:35 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:36:35 Message : Upload des documents dans tous les codes étapes OK
+#########################################################################
+01-06-2014 16:37:12 Adresse IP : ::1
+01-06-2014 16:37:12 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:37:12 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:37:14 Adresse IP : ::1
+01-06-2014 16:37:14 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:37:14 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:38:23 Adresse IP : ::1
+01-06-2014 16:38:23 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:38:23 Message : traiterChoixMainFormulaire POST['choisie'] : 2 POST['derniere'] : 0
+ Code formation : 5BIG
+ idEtudiant : 1401633503
+#########################################################################
+01-06-2014 16:38:23 Adresse IP : ::1
+01-06-2014 16:38:23 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:38:23 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:38:25 Adresse IP : ::1
+01-06-2014 16:38:25 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:38:25 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+******************************************************************************************
+01-06-2014 16:38:42 Nom du répertoire : Dupont-Jean-1401633503
+01-06-2014 16:38:42 Adresse IP : ::1
+01-06-2014 16:38:42 Code formation : 5BIG
+01-06-2014 16:38:42 Type dossier : Candidatures
+01-06-2014 16:38:42 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:38:42 Message : --------------- BEGIN --------------- : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401633503
+******************************************************************************************
+01-06-2014 16:38:42 Nom du répertoire : Dupont-Jean-1401633503
+01-06-2014 16:38:42 Adresse IP : ::1
+01-06-2014 16:38:42 Code formation : 5BIG
+01-06-2014 16:38:42 Type dossier : Candidatures
+01-06-2014 16:38:42 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:38:42 Message : Création du répertoire étudiant : dossiers/5BIG/BIG400/Candidatures/Dupont-Jean-1401633503
+******************************************************************************************
+01-06-2014 16:38:42 Nom du répertoire : none
+01-06-2014 16:38:42 Adresse IP : ::1
+01-06-2014 16:38:42 Code formation : none
+01-06-2014 16:38:42 Type dossier : none
+01-06-2014 16:38:42 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:38:42 Message : Upload simple réussi
+#########################################################################
+01-06-2014 16:38:42 Adresse IP : ::1
+01-06-2014 16:38:42 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:38:42 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Dupont
+Prenom : Jean
+#########################################################################
+01-06-2014 16:38:42 Adresse IP : ::1
+01-06-2014 16:38:42 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:38:42 Message : insert table faire réussi
+******************************************************************************************
+01-06-2014 16:38:53 Nom du répertoire : Dupont-Jean-1401633503
+01-06-2014 16:38:53 Adresse IP : ::1
+01-06-2014 16:38:53 Code formation : 5BIG
+01-06-2014 16:38:53 Type dossier : Candidature
+01-06-2014 16:38:53 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:38:53 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:38:53 Nom du répertoire : Dupont-Jean-1401633503
+01-06-2014 16:38:53 Adresse IP : ::1
+01-06-2014 16:38:53 Code formation : 5BIG
+01-06-2014 16:38:53 Type dossier : Candidature
+01-06-2014 16:38:53 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:38:53 Message : Upload des documents dans tous les codes étapes OK
+******************************************************************************************
+01-06-2014 16:38:53 Nom du répertoire : Dupont-Jean-1401633503
+01-06-2014 16:38:53 Adresse IP : ::1
+01-06-2014 16:38:53 Code formation : 5BIG
+01-06-2014 16:38:53 Type dossier : Candidature
+01-06-2014 16:38:53 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:38:53 Message : L'étudiant est bien arrivé sur la page récapitulative.
+******************************************************************************************
+01-06-2014 16:38:54 Nom du répertoire : Dupont-Jean-1401633503
+01-06-2014 16:38:54 Adresse IP : ::1
+01-06-2014 16:38:54 Code formation : 5BIG
+01-06-2014 16:38:54 Type dossier : Candidature
+01-06-2014 16:38:54 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:38:54 Message : L'étudiant est bien arrivé sur la page récapitulative.
+#########################################################################
+01-06-2014 16:45:23 Adresse IP : ::1
+01-06-2014 16:45:23 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:45:23 Message : traiterChoixMainFormulaire POST['choisie'] : 3 POST['derniere'] : 0
+ Code formation : 5BIG
+ idEtudiant : 1401633923
+#########################################################################
+01-06-2014 16:45:23 Adresse IP : ::1
+01-06-2014 16:45:23 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:45:23 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:45:25 Adresse IP : ::1
+01-06-2014 16:45:25 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:45:25 Message : <<< Case main >>>
+Code formation : 5BIG
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:45:52 Adresse IP : ::1
+01-06-2014 16:45:52 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:45:52 Message : traiterChoixMainFormulaire POST['choisie'] : 4 POST['derniere'] : 0
+ Code formation : 3SIN
+ idEtudiant : 1401633952
+#########################################################################
+01-06-2014 16:45:52 Adresse IP : ::1
+01-06-2014 16:45:52 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:45:52 Message : <<< Case main >>>
+Code formation : 3SIN
+ isCandidature : candidature
+#########################################################################
+01-06-2014 16:45:54 Adresse IP : ::1
+01-06-2014 16:45:54 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:45:54 Message : <<< Case main >>>
+Code formation : 3SIN
+ isCandidature : candidature
+******************************************************************************************
+01-06-2014 16:46:13 Nom du répertoire : Dupont-Jean-1401633952
+01-06-2014 16:46:13 Adresse IP : ::1
+01-06-2014 16:46:13 Code formation : 3SIN
+01-06-2014 16:46:13 Type dossier : Candidatures
+01-06-2014 16:46:13 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:46:13 Message : --------------- BEGIN --------------- : dossiers/3SIN/SIN303/Candidatures/Dupont-Jean-1401633952
+******************************************************************************************
+01-06-2014 16:46:13 Nom du répertoire : Dupont-Jean-1401633952
+01-06-2014 16:46:13 Adresse IP : ::1
+01-06-2014 16:46:13 Code formation : 3SIN
+01-06-2014 16:46:13 Type dossier : Candidatures
+01-06-2014 16:46:13 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:46:13 Message : Création du répertoire étudiant : dossiers/3SIN/SIN303/Candidatures/Dupont-Jean-1401633952
+******************************************************************************************
+01-06-2014 16:46:13 Nom du répertoire : none
+01-06-2014 16:46:13 Adresse IP : ::1
+01-06-2014 16:46:13 Code formation : none
+01-06-2014 16:46:13 Type dossier : none
+01-06-2014 16:46:13 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:46:13 Message : Upload simple réussi
+#########################################################################
+01-06-2014 16:46:13 Adresse IP : ::1
+01-06-2014 16:46:13 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:46:13 Message : traiterMainFormulaire
+Email : measkevin@gmail.com
+ Nom : Dupont
+Prenom : Jean
+******************************************************************************************
+01-06-2014 16:46:13 Nom du répertoire : none
+01-06-2014 16:46:13 Adresse IP : ::1
+01-06-2014 16:46:13 Code formation : none
+01-06-2014 16:46:13 Type dossier : none
+01-06-2014 16:46:13 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:46:13 Message : insert table faire réussi
+******************************************************************************************
+01-06-2014 16:46:22 Nom du répertoire : Dupont-Jean-1401633952
+01-06-2014 16:46:22 Adresse IP : ::1
+01-06-2014 16:46:22 Code formation : 3SIN
+01-06-2014 16:46:22 Type dossier : Candidature
+01-06-2014 16:46:22 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:46:22 Message : Création du dossier PDF OK
+******************************************************************************************
+01-06-2014 16:46:22 Nom du répertoire : Dupont-Jean-1401633952
+01-06-2014 16:46:22 Adresse IP : ::1
+01-06-2014 16:46:22 Code formation : 3SIN
+01-06-2014 16:46:22 Type dossier : Candidature
+01-06-2014 16:46:22 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:46:22 Message : Upload des documents dans tous les codes étapes OK
+******************************************************************************************
+01-06-2014 16:46:22 Nom du répertoire : Dupont-Jean-1401633952
+01-06-2014 16:46:22 Adresse IP : ::1
+01-06-2014 16:46:22 Code formation : 3SIN
+01-06-2014 16:46:22 Type dossier : Candidature
+01-06-2014 16:46:22 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:46:22 Message : L'étudiant est bien arrivé sur la page récapitulative.
+******************************************************************************************
+01-06-2014 16:46:23 Nom du répertoire : Dupont-Jean-1401633952
+01-06-2014 16:46:23 Adresse IP : ::1
+01-06-2014 16:46:23 Code formation : 3SIN
+01-06-2014 16:46:23 Type dossier : Candidature
+01-06-2014 16:46:23 Browser : Google Chrome 35.0.1916.114 on mac reports: 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+01-06-2014 16:46:23 Message : L'étudiant est bien arrivé sur la page récapitulative.
