@@ -118,6 +118,7 @@ class Dossier {
 	 * @var string Informations au format JSON
 	 */
     private $informations;
+    private $type;
 
 	/**
 	 * Contructeur
@@ -150,7 +151,7 @@ class Dossier {
 	 * @param $autresElements string Autres éléments
 	 * @param $informations string Informations au format JSON
 	 */
-	public function __construct($idEtudiant, $ine, $genre, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $villePreferee, $autresElements, $informations) {
+	public function __construct($idEtudiant, $ine, $genre, $codeFormation, $autre, $nom, $prenom, $adresse, $complement, $codePostal, $ville, $dateNaissance, $lieuNaissance, $fixe, $portable, $mail, $langues, $nationalite, $serieBac, $anneeBac, $etablissementBac, $departementBac, $paysBac, $activite, $titulaire, $villePreferee, $autresElements, $informations, $type) {
         $this->idEtudiant = $idEtudiant;
         $this->ine = $ine;
         $this->genre = $genre;
@@ -179,6 +180,7 @@ class Dossier {
         $this->villePreferee = $villePreferee;
         $this->autresElements = $autresElements;
         $this->informations = $informations;
+        $this->type = $type;
     }
 
 	/**
@@ -436,6 +438,22 @@ class Dossier {
 	{
 		return $this->informations;
 	}
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 
 	/**
 	 * @param string $langues
